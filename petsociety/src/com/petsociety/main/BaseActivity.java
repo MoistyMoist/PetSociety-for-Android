@@ -1,4 +1,4 @@
-package com.example.petsociety;
+package com.petsociety.main;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.example.petsociety.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 

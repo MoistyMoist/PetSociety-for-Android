@@ -1255,8 +1255,8 @@ containing a value of this type.
         public static final int action_settings1=0x7f04004f;
         public static final int action_settings2=0x7f040050;
         public static final int action_settings3=0x7f040051;
-        public static final int behind_width=0x7f040046;
-        public static final int button1=0x7f040047;
+        public static final int behind_width=0x7f040043;
+        public static final int button1=0x7f040044;
         public static final int contact=0x7f04004e;
         public static final int disableHome=0x7f040009;
         public static final int edit_query=0x7f04002f;
@@ -1265,14 +1265,14 @@ containing a value of this type.
         public static final int homeAsUp=0x7f040006;
         public static final int hybrid=0x7f040018;
         public static final int left=0x7f040010;
-        public static final int left_right=0x7f04003f;
+        public static final int left_right=0x7f04003c;
         public static final int licenses=0x7f04004d;
         public static final int listMode=0x7f040002;
-        public static final int map=0x7f04003b;
+        public static final int map=0x7f040045;
         public static final int margin=0x7f040012;
-        public static final int menu_frame=0x7f04003c;
-        public static final int menu_frame_two=0x7f04003d;
-        public static final int mode=0x7f04003e;
+        public static final int menu_frame=0x7f040046;
+        public static final int menu_frame_two=0x7f040047;
+        public static final int mode=0x7f04003b;
         public static final int none=0x7f040015;
         public static final int normal=0x7f040001;
         public static final int right=0x7f040011;
@@ -1286,12 +1286,12 @@ containing a value of this type.
         public static final int slidingmenumain=0x7f04004a;
         public static final int tabMode=0x7f040003;
         public static final int terrain=0x7f040017;
-        public static final int touch_above=0x7f040040;
-        public static final int touch_above_margin=0x7f040041;
-        public static final int touch_above_none=0x7f040042;
-        public static final int touch_behind=0x7f040043;
-        public static final int touch_behind_full=0x7f040044;
-        public static final int touch_behind_margin=0x7f040045;
+        public static final int touch_above=0x7f04003d;
+        public static final int touch_above_margin=0x7f04003e;
+        public static final int touch_above_none=0x7f04003f;
+        public static final int touch_behind=0x7f040040;
+        public static final int touch_behind_full=0x7f040041;
+        public static final int touch_behind_margin=0x7f040042;
         public static final int useLogo=0x7f040004;
         public static final int wrap_content=0x7f040000;
     }
@@ -1323,23 +1323,21 @@ containing a value of this type.
         public static final int abs__search_view=0x7f030013;
         public static final int abs__simple_dropdown_hint=0x7f030014;
         public static final int activity_main=0x7f030015;
-        public static final int basic_demo=0x7f030016;
+        public static final int basic_map=0x7f030016;
         public static final int list=0x7f030017;
         public static final int menu_frame=0x7f030018;
         public static final int menu_frame_two=0x7f030019;
-        public static final int properties=0x7f03001a;
-        public static final int row=0x7f03001b;
-        public static final int sherlock_spinner_dropdown_item=0x7f03001c;
-        public static final int sherlock_spinner_item=0x7f03001d;
-        public static final int slidingmenumain=0x7f03001e;
+        public static final int row=0x7f03001a;
+        public static final int sherlock_spinner_dropdown_item=0x7f03001b;
+        public static final int sherlock_spinner_item=0x7f03001c;
+        public static final int slidingmenumain=0x7f03001d;
     }
     public static final class menu {
         public static final int example_list=0x7f0b0000;
         public static final int main=0x7f0b0001;
     }
     public static final class string {
-        public static final int about=0x7f090033;
-        public static final int about_msg=0x7f090036;
+        public static final int about=0x7f090031;
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
          */
         public static final int abs__action_bar_home_description=0x7f090000;
@@ -1380,7 +1378,6 @@ containing a value of this type.
          */
         public static final int abs__shareactionprovider_share_with_application=0x7f090007;
         public static final int action_settings=0x7f090028;
-        public static final int apache_license=0x7f090037;
         public static final int app_name=0x7f090027;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
@@ -1476,19 +1473,16 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f090020;
-        public static final int contact=0x7f090035;
-        public static final int github=0x7f09002f;
-        public static final int github_label=0x7f090030;
+        public static final int contact=0x7f090033;
+        public static final int github=0x7f09002e;
+        public static final int github_label=0x7f09002f;
         public static final int hello_world=0x7f090029;
-        public static final int left=0x7f09002c;
-        public static final int left_and_right=0x7f09002e;
-        public static final int licenses=0x7f090034;
+        public static final int left=0x7f09002b;
+        public static final int left_and_right=0x7f09002d;
+        public static final int licenses=0x7f090032;
         public static final int my_location=0x7f09002a;
-        public static final int no_email=0x7f090038;
-        public static final int properties=0x7f09002b;
-        public static final int responsive_explanation=0x7f090032;
-        public static final int right=0x7f09002d;
-        public static final int what_is_this=0x7f090031;
+        public static final int right=0x7f09002c;
+        public static final int what_is_this=0x7f090030;
     }
     public static final class style {
         /** 
