@@ -24,24 +24,7 @@ public class LoginRequest {
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet httpPost = new HttpGet("https://petsociety.azurewebsites.net/api/values");
 		 
-		//httpPost.setHeader("content-type", "application/json");
-		JSONObject data = new JSONObject();
-		 
-//		data.put("message", dailyMilePost.getMessage());
-//		JSONObject workoutData = new JSONObject();
-//		data.put(&quot;workout&quot;, workoutData);
-//		workoutData.put(&quot;activity_type&quot;, dailyMilePost.getActivityType());
-//		workoutData.put(&quot;completed_at&quot;, dailyMilePost.getCompletedAt());
-//		JSONObject distanceData = new JSONObject();
-//		workoutData.put(&quot;distance&quot;, distanceData);
-//		distanceData.put(&quot;value&quot;, dailyMilePost.getDistanceValue());
-//		distanceData.put(&quot;units&quot;, dailyMilePost.getDistanceUnits());
-//		workoutData.put(&quot;duration&quot;, dailyMilePost.getDurationInSeconds());
-//		workoutData.put(&quot;title&quot;, dailyMilePost.getTitle());
-//		workoutData.put(&quot;felt&quot;, dailyMilePost.getFelt());
-//		 
-//		StringEntity entity = new StringEntity(data.toString());
-//		httpPost.setEntity(entity);
+		
 		 
 		HttpResponse response = httpClient.execute(httpPost); 
 		System.out.print(response.toString());
