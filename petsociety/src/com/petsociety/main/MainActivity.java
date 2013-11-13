@@ -1,7 +1,12 @@
 package com.petsociety.main;
+import java.io.IOException;
 
+import org.apache.http.client.ClientProtocolException;
+
+import com.petsociety.httprequests.*;
 import android.content.Intent;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -70,6 +75,9 @@ public class MainActivity extends BaseActivity
 		
         setContentView(R.layout.basic_map);
         //setUpMapIfNeeded();
+        
+        
+      
 
 	}
 	
@@ -108,6 +116,7 @@ public class MainActivity extends BaseActivity
         setUpMapIfNeeded();
         setUpLocationClientIfNeeded();
         mLocationClient.connect();
+
     }
     
     @Override
@@ -163,6 +172,5 @@ public class MainActivity extends BaseActivity
         // (the camera animates to the user's current position).
         return false;
     }
-    
-    
+
 }
