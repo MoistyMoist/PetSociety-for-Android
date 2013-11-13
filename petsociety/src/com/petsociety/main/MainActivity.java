@@ -1,7 +1,11 @@
 package com.petsociety.main;
 import java.io.IOException;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.petsociety.httprequests.*;
 import android.content.Intent;
@@ -9,6 +13,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -75,6 +80,33 @@ public class MainActivity extends BaseActivity
 		
         setContentView(R.layout.basic_map);
         //setUpMapIfNeeded();
+        
+        
+        
+        
+        
+        Thread thread = new Thread(new Runnable(){
+            @Override
+            public void run() {
+                try {
+                	LoginRequest req= new LoginRequest();
+                	req.test();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start(); 
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
       

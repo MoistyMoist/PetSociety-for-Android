@@ -11,6 +11,8 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
@@ -50,7 +52,7 @@ public class LoginRequest {
 		 HttpClient httpclient = new DefaultHttpClient();
 		 
 	        // Prepare a request object
-	        HttpGet httpget = new HttpGet("https://petsociety.azurewebsites.net/api/values"); 
+	        HttpGet httpget = new HttpGet("https://petsociety.azurewebsites.net/api/Login?token=token&INemail=super@mail.com&INpassword=password"); 
 	        System.out.print(httpget.getRequestLine());
 	        // Execute the request
 	        HttpResponse response;
@@ -63,7 +65,41 @@ public class LoginRequest {
 	            HttpEntity entity = response.getEntity();
 	            // If the response does not enclose an entity, there is no need
 	            // to worry about connection release
+	            if (entity != null) {
+	            	 
+	                // A Simple JSON Response Read
+	                InputStream instream = entity.getContent();
+	                String result= convertStreamToString(instream);
+	                Log.i("Praeda",result);
 	 
+	                // A Simple JSONObject Creation
+	                JSONObject json = null;
+					try {
+						json = new JSONObject(result);
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	                Log.i("Praeda","<jsonobject>\n"+json.toString()+"\n</jsonobject>");
+	 
+	                // A Simple JSONObject Parsing
+	                JSONArray nameArray=json.names();
+	                JSONArray valArray=json.toJSONArray(nameArray);
+	                for(int i=0;i<valArray.length();i++)
+	                {
+	                    Log.i("Praeda","<jsonname"+i+">\n"+nameArray.getString(i)+"\n</jsonname"+i+">\n"
+	                            +"<jsonvalue"+i+">\n"+valArray.getString(i)+"\n</jsonvalue"+i+">");
+	                }
+	 
+	                // A Simple JSONObject Value Pushing
+	                json.put("sample key", "sample value");
+	                Log.i("Praeda","<jsonobject>\n"+json.toString()+"\n</jsonobject>");
+	 
+	                // Closing the input stream will trigger connection release
+	                instream.close();
+	            }
+	 
+
 	           
 	 
 	 
@@ -73,7 +109,10 @@ public class LoginRequest {
 	        } catch (IOException e) {
 	            // TODO Auto-generated catch block
 	            e.printStackTrace();
-	        }
+	        } catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 	
 	private static String convertStreamToString(InputStream is) {
