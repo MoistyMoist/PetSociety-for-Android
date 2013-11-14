@@ -90,7 +90,7 @@ public class MainActivity extends BaseActivity
             public void run() {
                 try {
                 	LoginRequest req= new LoginRequest();
-                	req.test();
+                	req.Login("token", "email", "password");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
