@@ -1,5 +1,5 @@
 package com.petsociety.httprequests;
 
-public class RegisterRequest {
+public class RegisterUserRequest {
 
 }

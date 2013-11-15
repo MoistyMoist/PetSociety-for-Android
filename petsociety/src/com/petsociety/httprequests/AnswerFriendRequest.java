@@ -1,5 +1,5 @@
 package com.petsociety.httprequests;
 
-public class HeatAnalysisRequest {
+public class AnswerFriendRequest {
 
 }

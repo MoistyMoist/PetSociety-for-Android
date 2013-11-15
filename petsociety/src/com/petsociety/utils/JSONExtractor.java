@@ -50,7 +50,7 @@ public class JSONExtractor {
             // A Simple JSON Response Read
             InputStream instream = entity.getContent();
             String result= convertStreamToString(instream);
-            Log.i("Praeda",result);
+            Log.i("FULL LOGIN RESPONSE",result);
 
             // A Simple JSONObject Creation
             JSONObject json = null;
@@ -78,5 +78,15 @@ public class JSONExtractor {
             // Closing the input stream will trigger connection release
             instream.close();
         }
+	}
+	
+	//THIS METHODS EXTRACTS THE REGISTER USER REQUEST DATA
+	public void ExtractRegisterUserRequest(HttpResponse data) throws IllegalStateException, IOException, JSONException
+	{
+	}
+	
+	//THIS METHODS EXTRACTS THE UPDATE USER REQUEST DATA
+	public void ExtractUpdateUserRequest(HttpResponse data) throws IllegalStateException, IOException, JSONException
+	{
 	}
 }
