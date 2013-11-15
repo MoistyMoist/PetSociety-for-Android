@@ -1,5 +1,6 @@
 package com.petsociety.main;
 import java.io.IOException;
+import java.util.Queue;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -85,19 +86,22 @@ public class MainActivity extends BaseActivity
         
         
         
-        Thread thread = new Thread(new Runnable(){
-            @Override
-            public void run() {
-                try {
-                	LoginRequest req= new LoginRequest();
-                	req.Login("token", "email", "password");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        thread.start(); 
+//        Thread thread = new Thread(new Runnable(){
+//            @Override
+//            public void run() {
+//                try {
+//                	LoginRequest req= new LoginRequest();
+//                	req.Login("token", "email", "password");
+//                	AddLocationRequest r= new AddLocationRequest();
+//	    
+//	                
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//
+//        thread.start(); 
         
         
         
