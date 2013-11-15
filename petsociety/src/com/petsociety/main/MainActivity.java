@@ -1,6 +1,8 @@
 package com.petsociety.main;
 import java.io.IOException;
 import java.util.Queue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -104,6 +106,24 @@ public class MainActivity extends BaseActivity
 //        thread.start(); 
         
         
+        ExecutorService executor = Executors.newFixedThreadPool(1);
+        
+          AddLocationRequest worker = new AddLocationRequest();
+          LoginRequest worker2= new LoginRequest();
+         // executor.execute(worker);
+          executor.execute(worker2);
+          executor.execute(worker);
+        // This will make the executor accept no new threads
+        // and finish all existing threads in the queue
+//        executor.shutdown();
+//        // Wait until all threads are finish
+//        try {
+//			executor.awaitTermination(1000, null);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//        System.out.println("Finished all threads");
         
         
         

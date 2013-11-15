@@ -10,10 +10,11 @@ import org.json.JSONException;
 import com.petsociety.utils.JASONPaser;
 import android.util.Log;
 
-public class LoginRequest {
+public class LoginRequest implements Runnable{
 
-	public void Login(String INtoken, String INemail, String INpassword) throws ClientProtocolException, IOException
-	{
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
 		HttpClient httpclient = new DefaultHttpClient();
 		 
         // Prepare a request object
@@ -45,6 +46,8 @@ public class LoginRequest {
 			e.printStackTrace();
 		}
 	}
+
+	
 	
 	
 	

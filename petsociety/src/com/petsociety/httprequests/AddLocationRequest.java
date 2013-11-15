@@ -16,16 +16,16 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
 
-public class AddLocationRequest extends AsyncTask<String, String, String>{
+public class AddLocationRequest implements Runnable {
 
 	@Override
-	protected String doInBackground(String... arg0) {
+	public void run() {
 		// TODO Auto-generated method stub
 		
 		HttpClient httpclient = new DefaultHttpClient();
 		 
         // Prepare a request object
-        HttpGet httpget = new HttpGet("https://petsociety.azurewebsites.net/api/Login?token=token&INemail=super@mail.com&INpassword=password"); 
+        HttpGet httpget = new HttpGet("https://petsociety.azurewebsites.net/api/values"); 
         System.out.print(httpget.getRequestLine());
         // Execute the request
         HttpResponse response;
@@ -51,39 +51,9 @@ public class AddLocationRequest extends AsyncTask<String, String, String>{
         } catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		return null;
+		}		
 	}
 
-	@Override
-	protected void onCancelled() {
-		// TODO Auto-generated method stub
-		super.onCancelled();
-	}
-
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	@Override
-	protected void onCancelled(String result) {
-		// TODO Auto-generated method stub
-		super.onCancelled(result);
-	}
-
-	@Override
-	protected void onPostExecute(String result) {
-		// TODO Auto-generated method stub
-		super.onPostExecute(result);
-	}
-
-	@Override
-	protected void onPreExecute() {
-		// TODO Auto-generated method stub
-		super.onPreExecute();
-	}
-
-	@Override
-	protected void onProgressUpdate(String... values) {
-		// TODO Auto-generated method stub
-		super.onProgressUpdate(values);
-	}
+	
 
 }
