@@ -8,7 +8,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
-import com.petsociety.utils.JASONExtractor;
+import com.petsociety.utils.JSONExtractor;
+
 import android.util.Log;
 
 public class AddLocationRequest implements Runnable {
@@ -31,8 +32,8 @@ public class AddLocationRequest implements Runnable {
             Log.i("fuck",response.getStatusLine().toString());
  
             // Get hold of the response entity
-            JASONExtractor paser= new JASONExtractor();
-            paser.ConvertLoginRequest(response);
+            JSONExtractor paser= new JSONExtractor();
+            paser.ExtractLoginRequest(response);
  
 
            

@@ -7,8 +7,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
-
-import com.petsociety.utils.JASONExtractor;
+import com.petsociety.utils.JSONExtractor;
 import com.petsociety.utils.StaticObjects;
 
 import android.util.Log;
@@ -42,8 +41,8 @@ public class LoginRequest implements Runnable{
             // Examine the response status
             Log.i("fuck",response.getStatusLine().toString());
             // pass the result to the extractor
-            JASONExtractor paser= new JASONExtractor();
-            paser.ConvertLoginRequest(response);
+            JSONExtractor paser= new JSONExtractor();
+            paser.ExtractLoginRequest(response);
 
         } catch (ClientProtocolException e) {
             // TODO Auto-generated catch block
