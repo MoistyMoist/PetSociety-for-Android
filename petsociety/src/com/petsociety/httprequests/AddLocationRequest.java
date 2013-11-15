@@ -9,7 +9,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 
-import com.petsociety.utils.JASONPaser;
+import com.petsociety.utils.JASONExtractor;
 
 import android.annotation.TargetApi;
 import android.os.AsyncTask;
@@ -35,7 +35,7 @@ public class AddLocationRequest implements Runnable {
             Log.i("fuck",response.getStatusLine().toString());
  
             // Get hold of the response entity
-            JASONPaser paser= new JASONPaser();
+            JASONExtractor paser= new JASONExtractor();
             paser.ConvertLoginRequest(response);
  
 

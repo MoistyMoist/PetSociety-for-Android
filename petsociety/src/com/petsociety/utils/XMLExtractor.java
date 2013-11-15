@@ -1,5 +1,5 @@
 package com.petsociety.utils;
 
-public class XMLPaser {
+public class XMLExtractor {
 
 }
