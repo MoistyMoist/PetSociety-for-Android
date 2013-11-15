@@ -8,16 +8,12 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
-
 import com.petsociety.utils.JASONExtractor;
-
-import android.annotation.TargetApi;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.util.Log;
 
 public class AddLocationRequest implements Runnable {
 
+	
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub

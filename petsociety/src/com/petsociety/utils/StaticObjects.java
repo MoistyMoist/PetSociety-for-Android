@@ -3,7 +3,7 @@ import com.petsociety.models.*;;
 
 public class StaticObjects {
 	
-	final static String token="";
+	final static String token="token";
 	
 	//============================//
 	//	  Objects for Parameters  //
@@ -11,4 +11,15 @@ public class StaticObjects {
 	static User userToCreate;
 	static User userToLogin;
 	static Location locationToCreate;
+	
+	
+	
+	
+	
+	
+	
+	public String getToken()
+	{
+		return this.token;
+	}
 }

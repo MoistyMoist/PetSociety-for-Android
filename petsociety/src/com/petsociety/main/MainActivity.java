@@ -1,31 +1,13 @@
 package com.petsociety.main;
-import java.io.IOException;
-import java.util.Queue;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import com.petsociety.httprequests.*;
-import android.content.Intent;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
-
 import com.example.petsociety.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
@@ -86,30 +68,20 @@ public class MainActivity extends BaseActivity
         
         
         
+        //read the user setting from local database
+        
+        //retrieve the points on map from database
         
         
-//        Thread thread = new Thread(new Runnable(){
-//            @Override
-//            public void run() {
-//                try {
-//                	LoginRequest req= new LoginRequest();
-//                	req.Login("token", "email", "password");
-//                	AddLocationRequest r= new AddLocationRequest();
-//	    
-//	                
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//
-//        thread.start(); 
+        
+        
+         
         
         
         ExecutorService executor = Executors.newFixedThreadPool(1);
         
           AddLocationRequest worker = new AddLocationRequest();
-          LoginRequest worker2= new LoginRequest();
+          LoginRequest worker2= new LoginRequest("super@mail.com","password");
          // executor.execute(worker);
           executor.execute(worker2);
           executor.execute(worker);
