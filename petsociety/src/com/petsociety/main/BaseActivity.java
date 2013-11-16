@@ -1,9 +1,11 @@
 package com.petsociety.main;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
+import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -30,7 +32,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 		setBehindContentView(R.layout.menu_frame);
 		if (savedInstanceState == null) {
 			FragmentTransaction t = this.getSupportFragmentManager().beginTransaction();
-			mFrag = new SampleListFragment();
+			mFrag = new LeftListFragment();
 			t.replace(R.id.menu_frame, mFrag);
 			t.commit();
 		} else {
@@ -45,6 +47,12 @@ public class BaseActivity extends SlidingFragmentActivity {
 		sm.setFadeDegree(0.35f);
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 
+		LeftListFragment leftFrag = new LeftListFragment();
+		sm.setMenu(R.layout.menu_frame);
+		getSupportFragmentManager().beginTransaction()
+		.replace(R.id.menu_frame, leftFrag).commit();	
+		getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN); //getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 

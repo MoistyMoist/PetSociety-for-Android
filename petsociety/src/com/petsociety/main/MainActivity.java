@@ -3,6 +3,7 @@ package com.petsociety.main;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import com.petsociety.httprequests.*;
+import android.annotation.SuppressLint;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
@@ -47,21 +48,18 @@ public class MainActivity extends BaseActivity
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		//setSlidingActionBarEnabled(true);
-
 		setContentView(R.layout.activity_main);
-
+		//setSlidingActionBarEnabled(true);
+		
+		RightListFragment rightFrag = new RightListFragment();		
 		SlidingMenu sm = getSlidingMenu();
 		sm.setMode(SlidingMenu.LEFT_RIGHT);
+		
 		sm.setSecondaryMenu(R.layout.menu_frame_two);
-		getSupportFragmentManager()
-		.beginTransaction()
-		.replace(R.id.menu_frame_two, new SampleListFragment())
-		.commit();					
+		getSupportFragmentManager().beginTransaction()
+		.replace(R.id.menu_frame_two, rightFrag).commit();					
 		sm.setSecondaryShadowDrawable(R.drawable.shadowright);
 		sm.setShadowDrawable(R.drawable.shadow);
-		getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
-		//getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
 		
         setContentView(R.layout.basic_map);
         //setUpMapIfNeeded();
@@ -73,10 +71,8 @@ public class MainActivity extends BaseActivity
         //retrieve the points on map from database
         
         
-        
-        
          
-        
+        /*
         
         ExecutorService executor = Executors.newFixedThreadPool(1);
         
@@ -98,7 +94,7 @@ public class MainActivity extends BaseActivity
 //        System.out.println("Finished all threads");
         
         
-        
+        */
         
         
         
@@ -147,12 +143,15 @@ public class MainActivity extends BaseActivity
 
     }
     
-    @Override
+    @SuppressLint("NewApi")
+	@Override
     public void onPause() {
         super.onPause();
         if (mLocationClient != null) {
             mLocationClient.disconnect();
         }
+        //Toast.makeText(getApplicationContext(), "Sup", Toast.LENGTH_LONG).show();
+        //getSlidingMenu().toggle();
     }
     
     private void setUpLocationClientIfNeeded() {

@@ -1,4 +1,4 @@
-package com.petsociety.profile;
+package com.petsociety.account;
 
 import com.example.petsociety.R;
 

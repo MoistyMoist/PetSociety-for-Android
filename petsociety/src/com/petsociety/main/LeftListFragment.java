@@ -1,8 +1,15 @@
 package com.petsociety.main;
 
 import com.example.petsociety.R;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.petsociety.main.analysis.AnalysisActivity;
+import com.petsociety.main.lost.LostActivity;
+import com.petsociety.main.nearby.NearbyActivity;
+import com.petsociety.main.profile.ProfileActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -10,9 +17,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class SampleListFragment extends ListFragment {
+public class LeftListFragment extends ListFragment {
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.list, null);
@@ -35,6 +44,58 @@ public class SampleListFragment extends ListFragment {
 		setListAdapter(adapter);
 	}
 
+	public void onListItemClick(ListView lv, View v, int position, long id) {
+		Intent intent = new Intent();
+		intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		switch (position) {
+		case 0: //Search
+			//intent.setClass(getActivity(), MainActivity.class);
+			//startActivity(intent);
+			break;
+			
+		case 1: //Profile
+			intent.setClass(getActivity(), ProfileActivity.class);
+			startActivity(intent);
+			break;
+
+		case 2: //Events
+			intent.setClass(getActivity(), MainActivity.class);
+			startActivity(intent);
+			break;
+
+		case 3: //My Pets
+			intent.setClass(getActivity(), MainActivity.class);
+			startActivity(intent);
+			break;
+
+		case 4: //Lost and Found
+			intent.setClass(getActivity(), LostActivity.class);
+			startActivity(intent);
+			/*
+			FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+			transaction.replace(R.id.fragment_container, newFragment);
+			transaction.addToBackStack(null);
+			*/
+			break;
+
+		case 5: //Analysis
+			intent.setClass(getActivity(), AnalysisActivity.class);
+			startActivity(intent);
+			break;
+
+		case 6: //Settings
+			intent.setClass(getActivity(), SettingActivity.class);
+			startActivity(intent);
+			break;
+			
+		case 7: //Nearby
+			intent.setClass(getActivity(), NearbyActivity.class);
+			startActivity(intent);
+			break;
+		}
+		((SlidingFragmentActivity) getActivity()).getSlidingMenu().toggle();
+	};
+	
 	private class SampleItem {
 		public String tag;
 		public int iconRes;

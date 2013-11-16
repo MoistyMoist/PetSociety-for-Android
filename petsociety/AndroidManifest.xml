@@ -34,10 +34,6 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="com.petsociety.main.PropertiesActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
             android:name="com.petsociety.main.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
@@ -47,32 +43,39 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.petsociety.main.BasicMapDemoActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
             android:name="com.petsociety.splashscreen.SplashScreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_splash_screen"
             android:theme="@style/FullscreenTheme" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
-            android:name="com.petsociety.settings.SettingsActivity"
-            android:label="@string/title_activity_settings" >
-        </activity>
-        <activity
-            android:name="com.petsociety.profile.LoginActivity"
+            android:name="com.petsociety.account.LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
         <activity
-            android:name="com.petsociety.profile.RegisterActivity"
+            android:name="com.petsociety.account.RegisterActivity"
             android:label="@string/title_activity_register" >
+        </activity>
+        <activity
+            android:name="com.petsociety.main.profile.ProfileActivity"
+            android:label="@string/title_activity_profile" >
+        </activity>
+        <activity
+            android:name="com.petsociety.main.lost.LostActivity"
+            android:label="@string/title_activity_lost" >
+        </activity>
+        <activity
+            android:name="com.petsociety.main.analysis.AnalysisActivity"
+            android:label="@string/title_activity_analysis" >
+        </activity>
+        <activity
+            android:name="com.petsociety.main.nearby.NearbyActivity"
+            android:label="@string/title_activity_nearby" >
+        </activity>
+        <activity
+            android:name="com.petsociety.main.SettingActivity"
+            android:label="@string/title_activity_setting" >
         </activity>
     </application>
 
