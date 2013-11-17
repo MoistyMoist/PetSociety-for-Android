@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item android:id="@+id/github" android:icon="@drawable/ic_action_github" android:showAsAction="always" android:title="@string/github_label" android:titleCondensed="@string/github" android:visible="true"></item>
+    
+    <item
+        android:id="@+id/action_settings1"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Check In"/>
+    
+        <item
+        android:id="@+id/action_settings2"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Stray Animals"/>
+        
+            <item
+        android:id="@+id/action_settings3"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Feeds"/>
+
+</menu>

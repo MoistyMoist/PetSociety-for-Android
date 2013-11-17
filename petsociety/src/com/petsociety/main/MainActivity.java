@@ -4,11 +4,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import com.petsociety.httprequests.*;
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.actionbarsherlock.view.Menu;
 import com.example.petsociety.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
@@ -16,6 +19,7 @@ import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailed
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
@@ -24,7 +28,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.petsociety.main.BaseActivity;
 
-public class MainActivity extends BaseActivity 
+public class MainActivity extends MainBaseActivity 
 	implements 
 	ConnectionCallbacks,
 	OnConnectionFailedListener,
@@ -49,7 +53,7 @@ public class MainActivity extends BaseActivity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_main);
-		//setSlidingActionBarEnabled(true);
+		setSlidingActionBarEnabled(true);
 		
 		RightListFragment rightFrag = new RightListFragment();		
 		SlidingMenu sm = getSlidingMenu();
@@ -62,7 +66,6 @@ public class MainActivity extends BaseActivity
 		sm.setShadowDrawable(R.drawable.shadow);
 		
         setContentView(R.layout.basic_map);
-        //setUpMapIfNeeded();
         
         
         
@@ -104,8 +107,8 @@ public class MainActivity extends BaseActivity
       
 
 	}
-	
-    private void setUpMapIfNeeded() {
+
+	private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
@@ -116,6 +119,8 @@ public class MainActivity extends BaseActivity
                 //setUpMap();
                 mMap.setMyLocationEnabled(true);
                 mMap.setOnMyLocationButtonClickListener(this);
+                LatLng singapore = new LatLng(1.37, 103.84);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 11));
             }
         }
     }

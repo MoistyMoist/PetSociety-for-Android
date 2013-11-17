@@ -1227,7 +1227,7 @@ containing a value of this type.
         public static final int shadowright=0x7f02008f;
     }
     public static final class id {
-        public static final int about=0x7f050057;
+        public static final int about=0x7f05005a;
         public static final int abs__action_bar=0x7f050029;
         public static final int abs__action_bar_container=0x7f050028;
         public static final int abs__action_bar_subtitle=0x7f05001a;
@@ -1267,14 +1267,14 @@ containing a value of this type.
         public static final int abs__textButton=0x7f05001c;
         public static final int abs__title=0x7f050024;
         public static final int abs__up=0x7f05000b;
-        public static final int action_forgot_password=0x7f05005a;
+        public static final int action_forgot_password=0x7f05005d;
         public static final int action_settings=0x7f050055;
-        public static final int action_settings1=0x7f05005b;
-        public static final int action_settings2=0x7f05005c;
-        public static final int action_settings3=0x7f05005d;
+        public static final int action_settings1=0x7f050056;
+        public static final int action_settings2=0x7f050057;
+        public static final int action_settings3=0x7f050058;
         public static final int behind_width=0x7f050043;
         public static final int button1=0x7f050044;
-        public static final int contact=0x7f050059;
+        public static final int contact=0x7f05005c;
         public static final int disableHome=0x7f050009;
         public static final int dummy_button=0x7f05004e;
         public static final int edit_query=0x7f05002f;
@@ -1282,12 +1282,12 @@ containing a value of this type.
         public static final int fullscreen=0x7f050013;
         public static final int fullscreen_content=0x7f05004c;
         public static final int fullscreen_content_controls=0x7f05004d;
-        public static final int github=0x7f050056;
+        public static final int github=0x7f050059;
         public static final int homeAsUp=0x7f050006;
         public static final int hybrid=0x7f050018;
         public static final int left=0x7f050010;
         public static final int left_right=0x7f05003c;
-        public static final int licenses=0x7f050058;
+        public static final int licenses=0x7f05005b;
         public static final int listMode=0x7f050002;
         public static final int login=0x7f05004a;
         public static final int login_form=0x7f050047;
@@ -1369,14 +1369,15 @@ containing a value of this type.
     }
     public static final class menu {
         public static final int analysis=0x7f0d0000;
-        public static final int example_list=0x7f0d0001;
-        public static final int login=0x7f0d0002;
-        public static final int lost=0x7f0d0003;
-        public static final int main=0x7f0d0004;
-        public static final int nearby=0x7f0d0005;
-        public static final int profile=0x7f0d0006;
-        public static final int register=0x7f0d0007;
-        public static final int setting=0x7f0d0008;
+        public static final int base=0x7f0d0001;
+        public static final int example_list=0x7f0d0002;
+        public static final int login=0x7f0d0003;
+        public static final int lost=0x7f0d0004;
+        public static final int main_base=0x7f0d0005;
+        public static final int nearby=0x7f0d0006;
+        public static final int profile=0x7f0d0007;
+        public static final int register=0x7f0d0008;
+        public static final int setting=0x7f0d0009;
     }
     public static final class string {
         public static final int about=0x7f0a0031;

@@ -13,12 +13,12 @@ import com.example.petsociety.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
-public class BaseActivity extends SlidingFragmentActivity {
+public class MainBaseActivity extends SlidingFragmentActivity {
 
 	private int mTitleRes;
 	protected ListFragment mFrag;
 
-	public BaseActivity(int titleRes) {
+	public MainBaseActivity(int titleRes) {
 		mTitleRes = titleRes;
 	}
 
@@ -71,7 +71,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.base, menu);
+		getSupportMenuInflater().inflate(R.menu.main_base, menu);
 		return true;
 	}
 }
