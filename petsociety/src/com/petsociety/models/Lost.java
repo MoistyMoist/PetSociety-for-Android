@@ -11,6 +11,7 @@ public class Lost {
 	private String y;
 	private String found;
 	private String reward;
+	private String DateCreated;
 	
 	private Pet pet;
 	private User user;
@@ -81,6 +82,12 @@ public class Lost {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public String getDateCreated() {
+		return DateCreated;
+	}
+	public void setDateCreated(String dateCreated) {
+		DateCreated = dateCreated;
 	}
 
 	
