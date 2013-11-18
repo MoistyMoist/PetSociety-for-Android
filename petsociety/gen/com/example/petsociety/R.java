@@ -1351,33 +1351,35 @@ containing a value of this type.
         public static final int abs__simple_dropdown_hint=0x7f030014;
         public static final int activity_main=0x7f030015;
         public static final int activity_main_analysis=0x7f030016;
-        public static final int activity_main_lost=0x7f030017;
-        public static final int activity_main_nearby=0x7f030018;
-        public static final int activity_main_profile=0x7f030019;
-        public static final int activity_main_setting=0x7f03001a;
-        public static final int activity_profile_login=0x7f03001b;
-        public static final int activity_profile_register=0x7f03001c;
-        public static final int activity_splash_screen=0x7f03001d;
-        public static final int basic_map=0x7f03001e;
-        public static final int list=0x7f03001f;
-        public static final int menu_frame=0x7f030020;
-        public static final int menu_frame_two=0x7f030021;
-        public static final int row=0x7f030022;
-        public static final int sherlock_spinner_dropdown_item=0x7f030023;
-        public static final int sherlock_spinner_item=0x7f030024;
-        public static final int slidingmenumain=0x7f030025;
+        public static final int activity_main_event=0x7f030017;
+        public static final int activity_main_lost=0x7f030018;
+        public static final int activity_main_nearby=0x7f030019;
+        public static final int activity_main_profile=0x7f03001a;
+        public static final int activity_main_setting=0x7f03001b;
+        public static final int activity_profile_login=0x7f03001c;
+        public static final int activity_profile_register=0x7f03001d;
+        public static final int activity_splash_screen=0x7f03001e;
+        public static final int basic_map=0x7f03001f;
+        public static final int list=0x7f030020;
+        public static final int menu_frame=0x7f030021;
+        public static final int menu_frame_two=0x7f030022;
+        public static final int row=0x7f030023;
+        public static final int sherlock_spinner_dropdown_item=0x7f030024;
+        public static final int sherlock_spinner_item=0x7f030025;
+        public static final int slidingmenumain=0x7f030026;
     }
     public static final class menu {
         public static final int analysis=0x7f0d0000;
         public static final int base=0x7f0d0001;
-        public static final int example_list=0x7f0d0002;
-        public static final int login=0x7f0d0003;
-        public static final int lost=0x7f0d0004;
-        public static final int main_base=0x7f0d0005;
-        public static final int nearby=0x7f0d0006;
-        public static final int profile=0x7f0d0007;
-        public static final int register=0x7f0d0008;
-        public static final int setting=0x7f0d0009;
+        public static final int event=0x7f0d0002;
+        public static final int example_list=0x7f0d0003;
+        public static final int login=0x7f0d0004;
+        public static final int lost=0x7f0d0005;
+        public static final int main_base=0x7f0d0006;
+        public static final int nearby=0x7f0d0007;
+        public static final int profile=0x7f0d0008;
+        public static final int register=0x7f0d0009;
+        public static final int setting=0x7f0d000a;
     }
     public static final class string {
         public static final int about=0x7f0a0031;
@@ -1420,10 +1422,10 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abs__shareactionprovider_share_with_application=0x7f0a0007;
-        public static final int action_forgot_password=0x7f0a0042;
+        public static final int action_forgot_password=0x7f0a0043;
         public static final int action_settings=0x7f0a0028;
-        public static final int action_sign_in_register=0x7f0a0040;
-        public static final int action_sign_in_short=0x7f0a0041;
+        public static final int action_sign_in_register=0x7f0a0041;
+        public static final int action_sign_in_short=0x7f0a0042;
         public static final int app_name=0x7f0a0027;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
@@ -1522,52 +1524,53 @@ containing a value of this type.
         public static final int contact=0x7f0a0033;
         public static final int dummy_button=0x7f0a0035;
         public static final int dummy_content=0x7f0a0036;
-        public static final int error_field_required=0x7f0a0047;
-        public static final int error_incorrect_password=0x7f0a0046;
-        public static final int error_invalid_email=0x7f0a0044;
-        public static final int error_invalid_password=0x7f0a0045;
+        public static final int error_field_required=0x7f0a0048;
+        public static final int error_incorrect_password=0x7f0a0047;
+        public static final int error_invalid_email=0x7f0a0045;
+        public static final int error_invalid_password=0x7f0a0046;
         public static final int github=0x7f0a002e;
         public static final int github_label=0x7f0a002f;
         public static final int hello_world=0x7f0a0029;
         public static final int left=0x7f0a002b;
         public static final int left_and_right=0x7f0a002d;
         public static final int licenses=0x7f0a0032;
-        public static final int login_progress_signing_in=0x7f0a0043;
+        public static final int login_progress_signing_in=0x7f0a0044;
         public static final int my_location=0x7f0a002a;
-        public static final int pref_default_display_name=0x7f0a004d;
-        public static final int pref_description_social_recommendations=0x7f0a004b;
+        public static final int pref_default_display_name=0x7f0a004e;
+        public static final int pref_description_social_recommendations=0x7f0a004c;
         /**  Example settings for Data & Sync 
          */
-        public static final int pref_header_data_sync=0x7f0a004f;
+        public static final int pref_header_data_sync=0x7f0a0050;
         /**  Strings related to Settings 
  Example General settings 
          */
-        public static final int pref_header_general=0x7f0a0049;
+        public static final int pref_header_general=0x7f0a004a;
         /**  Example settings for Notifications 
          */
-        public static final int pref_header_notifications=0x7f0a0052;
-        public static final int pref_ringtone_silent=0x7f0a0055;
-        public static final int pref_title_add_friends_to_messages=0x7f0a004e;
-        public static final int pref_title_display_name=0x7f0a004c;
-        public static final int pref_title_new_message_notifications=0x7f0a0053;
-        public static final int pref_title_ringtone=0x7f0a0054;
-        public static final int pref_title_social_recommendations=0x7f0a004a;
-        public static final int pref_title_sync_frequency=0x7f0a0050;
-        public static final int pref_title_system_sync_settings=0x7f0a0051;
-        public static final int pref_title_vibrate=0x7f0a0056;
+        public static final int pref_header_notifications=0x7f0a0053;
+        public static final int pref_ringtone_silent=0x7f0a0056;
+        public static final int pref_title_add_friends_to_messages=0x7f0a004f;
+        public static final int pref_title_display_name=0x7f0a004d;
+        public static final int pref_title_new_message_notifications=0x7f0a0054;
+        public static final int pref_title_ringtone=0x7f0a0055;
+        public static final int pref_title_social_recommendations=0x7f0a004b;
+        public static final int pref_title_sync_frequency=0x7f0a0051;
+        public static final int pref_title_system_sync_settings=0x7f0a0052;
+        public static final int pref_title_vibrate=0x7f0a0057;
         /**  Strings related to login 
          */
-        public static final int prompt_email=0x7f0a003e;
-        public static final int prompt_password=0x7f0a003f;
+        public static final int prompt_email=0x7f0a003f;
+        public static final int prompt_password=0x7f0a0040;
         public static final int right=0x7f0a002c;
         public static final int title_activity_analysis=0x7f0a003a;
-        public static final int title_activity_login=0x7f0a003d;
+        public static final int title_activity_event=0x7f0a003d;
+        public static final int title_activity_login=0x7f0a003e;
         public static final int title_activity_lost=0x7f0a0039;
         public static final int title_activity_nearby=0x7f0a003b;
         public static final int title_activity_profile=0x7f0a0038;
         public static final int title_activity_register=0x7f0a0037;
         public static final int title_activity_setting=0x7f0a003c;
-        public static final int title_activity_settings=0x7f0a0048;
+        public static final int title_activity_settings=0x7f0a0049;
         public static final int title_activity_splash_screen=0x7f0a0034;
         public static final int what_is_this=0x7f0a0030;
     }
