@@ -9,7 +9,8 @@
     <string name="right">Right</string>
     <string name="left_and_right">Left and Right</string>
     <string name="github">GitHub</string>
-    <string name="github_label">GitHub Label</string>
+    <string name="ab_camera_label">Snapshot</string>
+    <string name="ab_right_label">Stray Animals</string>
     <string name="what_is_this">What is this?</string>
     <string name="about">About</string>
     <string name="licenses">Licenses</string>

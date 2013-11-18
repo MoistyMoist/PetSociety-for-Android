@@ -1,10 +1,14 @@
 package com.petsociety.main;
 
 
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
+import android.view.View;
 import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
@@ -21,7 +25,7 @@ public class MainBaseActivity extends SlidingFragmentActivity {
 	public MainBaseActivity(int titleRes) {
 		mTitleRes = titleRes;
 	}
-
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,9 +66,20 @@ public class MainBaseActivity extends SlidingFragmentActivity {
 		case android.R.id.home:
 			toggle();
 			return true;
-		case R.id.github:
+		case R.id.main_right:
 			getSlidingMenu().showSecondaryMenu(true);
 			return true;
+		
+		case R.id.main_camera:
+		    // create Intent to take a picture and return control to the calling application
+		    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+		    //fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
+		    //intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
+
+		    // start the image capture Intent
+		    //startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+		    startActivity(intent);
 		}
 		return super.onOptionsItemSelected(item);
 	}
