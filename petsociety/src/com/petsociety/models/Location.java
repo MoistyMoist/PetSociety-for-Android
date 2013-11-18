@@ -14,10 +14,12 @@ public class Location {
 	private String dateCreated;
 	private String timeCreated;
 	
+	
+	
 	private Pin pin;
 	private User user;
 	private List<Review> reviews;
-	
+	private Gallery gallery;
 	
 	public int getLocationID() {
 		return locationID;
@@ -90,6 +92,12 @@ public class Location {
 	}
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
+	}
+	public Gallery getGallery() {
+		return gallery;
+	}
+	public void setGallery(Gallery gallery) {
+		this.gallery = gallery;
 	}
 	
 	

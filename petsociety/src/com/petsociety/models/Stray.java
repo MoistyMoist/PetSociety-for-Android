@@ -13,6 +13,7 @@ public class Stray {
 	private String DateSeen;
 	private String type;
 	private String breed;
+	private String status;
 	
 	private Image image;
 	private Pin pin;
@@ -97,6 +98,12 @@ public class Stray {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 }

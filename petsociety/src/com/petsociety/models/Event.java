@@ -19,6 +19,7 @@ public class Event {
 	private Pin pin;
 	private User user;
 	private List<Attendee> attendees;
+	private Gallery gallery;
 	
 	
 	public int getEventID() {
@@ -104,6 +105,12 @@ public class Event {
 	}
 	public void setAttendees(List<Attendee> attendees) {
 		this.attendees = attendees;
+	}
+	public Gallery getGallery() {
+		return gallery;
+	}
+	public void setGallery(Gallery gallery) {
+		this.gallery = gallery;
 	}
 	
 	
