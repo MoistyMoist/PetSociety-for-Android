@@ -3,6 +3,9 @@ package com.petsociety.main;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
+import android.app.SearchManager;
+import android.app.SearchableInfo;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -13,6 +16,7 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.widget.SearchView;
 import com.example.petsociety.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
@@ -66,18 +70,17 @@ public class MainBaseActivity extends SlidingFragmentActivity {
 		case android.R.id.home:
 			toggle();
 			return true;
+			
 		case R.id.main_right:
 			getSlidingMenu().showSecondaryMenu(true);
 			return true;
 		
 		case R.id.main_camera:
-		    // create Intent to take a picture and return control to the calling application
 		    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
 		    //fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
 		    //intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 
-		    // start the image capture Intent
 		    //startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 		    startActivity(intent);
 		}
@@ -87,6 +90,7 @@ public class MainBaseActivity extends SlidingFragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getSupportMenuInflater().inflate(R.menu.main_base, menu);
+		
 		return true;
 	}
 }
