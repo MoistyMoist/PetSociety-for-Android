@@ -1,6 +1,7 @@
 package com.petsociety.main.analysis;
 
 import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.example.petsociety.R;
 import com.example.petsociety.R.layout;
 import com.example.petsociety.R.menu;
@@ -13,6 +14,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.petsociety.main.BaseActivity;
 import com.petsociety.main.MainBaseActivity;
+import com.petsociety.main.RightListFragment;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
@@ -21,6 +23,7 @@ import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import android.location.Location;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -28,7 +31,7 @@ import android.view.Menu;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class AnalysisActivity extends BaseActivity 
+public class AnalysisActivity extends MainBaseActivity 
 implements 
 ConnectionCallbacks,
 OnConnectionFailedListener,
@@ -57,9 +60,17 @@ OnMyLocationButtonClickListener{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		setContentView(R.layout.activity_main_analysis);
+		setSlidingActionBarEnabled(true);
 		
-		//setContentView(R.layout.basic_map);
+				
+		SlidingMenu sm = getSlidingMenu();
+		sm.setMode(SlidingMenu.LEFT);
+							
+		sm.setSecondaryShadowDrawable(R.drawable.shadowright);
+		sm.setShadowDrawable(R.drawable.shadow);
+		setContentView(R.layout.basic_map);
 	}
 
 	
@@ -114,8 +125,20 @@ OnMyLocationButtonClickListener{
 
 	@Override
 	public void onDisconnected() {
+		// TODO Auto-geneateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
-		
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
+		getSupportMenuInflater().inflate(R.menu.analysis, menu);
+		//getSupportMenuInflater().inflate(0, null);
+		return true;
 	}
 
 }
