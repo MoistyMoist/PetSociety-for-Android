@@ -22,43 +22,35 @@ public class LoginRequest implements Runnable{
 	{
 		this.email=INemail;
 		this.password=INpassword;
+		staticObjects= new StaticObjects();
 	}
-	
-	
-	
+
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		Log.i("email",this.email);
 		HttpClient httpclient = new DefaultHttpClient();
 		 
-        // Prepare a request object
-        HttpGet httpget = new HttpGet("https://petsociety.azurewebsites.net/api/Login?token="+staticObjects.getToken()+"&INemail="+this.email+"&INpassword="+this.password); 
-        System.out.print(httpget.getRequestLine());
-        // Execute the request
+        //PREPARE REQUEST OBJECT
+		HttpGet httpget = new HttpGet("https://petsociety.azurewebsites.net/api/Login?token="+staticObjects.getToken()+"&INemail="+this.email+"&INpassword="+this.password); 
+        //HttpGet httpget = new HttpGet("https://petsociety.azurewebsites.net/api/Login?token="+"token"+"&INemail="+"super@mail.com"+"&INpassword="+"password"); 
+        Log.i("LOGIN REQUEST :",httpget.getURI().toString());
+        //EXCUTE REQUEST
         HttpResponse response;
         try {
             response = httpclient.execute(httpget);
-            // Examine the response status
-            Log.i("fuck",response.getStatusLine().toString());
-            // pass the result to the extractor
+            //PRINT OUT THE RESPONSE
+            Log.i("LOGIN RESPONSE :",response.getStatusLine().toString());
+            //PASS THE RESPONSE TO THE EXTRACTOR
             JSONExtractor paser= new JSONExtractor();
             paser.ExtractLoginRequest(response);
 
         } catch (ClientProtocolException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
-	
-	
-	
-	
 }
 
