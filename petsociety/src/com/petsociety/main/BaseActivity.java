@@ -62,9 +62,6 @@ public class BaseActivity extends SlidingFragmentActivity {
 		case android.R.id.home:
 			toggle();
 			return true;
-		case R.id.github:
-			getSlidingMenu().showSecondaryMenu(true);
-			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}

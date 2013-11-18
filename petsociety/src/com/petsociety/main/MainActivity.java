@@ -96,12 +96,6 @@ public class MainActivity extends MainBaseActivity
         
         
         
-        
-        
-        
-        
-        
-        
       
 
 	}
