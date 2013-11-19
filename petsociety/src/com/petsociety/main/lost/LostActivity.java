@@ -5,12 +5,13 @@ import com.example.petsociety.R.layout;
 import com.example.petsociety.R.menu;
 import com.petsociety.main.BaseActivity;
 import com.petsociety.main.LeftListFragment;
+import com.petsociety.main.MainBaseActivity;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
-public class LostActivity extends BaseActivity {
+public class LostActivity extends MainBaseActivity {
 
 	public LostActivity() {
 		super(R.string.app_name);

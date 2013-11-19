@@ -94,9 +94,6 @@ public class MainBaseActivity extends SlidingFragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getSupportMenuInflater().inflate(R.menu.main_base, menu);
-		//getActionBar().setLogo(R.drawable.ic_drawer);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setHomeButtonEnabled(true);
 		return true;
 	}
 }

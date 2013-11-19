@@ -10,6 +10,7 @@ import com.petsociety.main.profile.ProfileActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -24,16 +25,20 @@ import android.widget.Toast;
 public class LeftListFragment extends ListFragment {
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		
 		return inflater.inflate(R.layout.list, null);
 	}
 
 	public void onActivityCreated(Bundle savedInstanceState) {
+		
 		super.onActivityCreated(savedInstanceState);
 		SampleAdapter adapter = new SampleAdapter(getActivity());
+		
 		//for (int i = 0; i < 20; i++) {
 		//	adapter.add(new SampleItem("Sample List"+i, android.R.drawable.ic_menu_search));
 		//}
 		adapter.add(new SampleItem("Search", android.R.drawable.ic_menu_search));
+		adapter.add(new SampleItem("Main",android.R.drawable.ic_menu_search));
 		adapter.add(new SampleItem("Profile", android.R.drawable.ic_menu_myplaces));
 		adapter.add(new SampleItem("Events", android.R.drawable.ic_menu_my_calendar));
 		adapter.add(new SampleItem("My Pets", android.R.drawable.ic_menu_compass));
@@ -42,6 +47,8 @@ public class LeftListFragment extends ListFragment {
 		adapter.add(new SampleItem("Settings", android.R.drawable.ic_menu_preferences));
 		adapter.add(new SampleItem("Nearby", android.R.drawable.ic_menu_directions));
 		setListAdapter(adapter);
+		
+		//getActivity().findViewById((int) getListView().getItemIdAtPosition(2)).setBackgroundColor(Color.RED);
 	}
 
 	public void onListItemClick(ListView lv, View v, int position, long id) {
@@ -119,9 +126,11 @@ public class LeftListFragment extends ListFragment {
 			icon.setImageResource(getItem(position).iconRes);
 			TextView title = (TextView) convertView.findViewById(R.id.row_title);
 			title.setText(getItem(position).tag);
-
+			title.setTextColor(999999);
 			return convertView;
 		}
 
 	}
+
+
 }
