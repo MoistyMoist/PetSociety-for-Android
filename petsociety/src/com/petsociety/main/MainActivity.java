@@ -5,6 +5,7 @@ import java.util.concurrent.Executors;
 import com.petsociety.httprequests.*;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
@@ -35,7 +36,7 @@ public class MainActivity extends MainBaseActivity
 	LocationListener, 
 	OnMyLocationButtonClickListener{
 
-	private GoogleMap mMap;
+	public GoogleMap mMap;
 	Button buttonMap;
     private LocationClient mLocationClient;
     private static final LocationRequest REQUEST = LocationRequest.create()
@@ -66,6 +67,7 @@ public class MainActivity extends MainBaseActivity
 		sm.setShadowDrawable(R.drawable.shadow);
 		
         setContentView(R.layout.basic_map);
+        
         
         
         
@@ -137,10 +139,20 @@ public class MainActivity extends MainBaseActivity
         setUpMapIfNeeded();
         setUpLocationClientIfNeeded();
         mLocationClient.connect();
-
     }
-    
-    @SuppressLint("NewApi")
+     
+    @Override
+	protected void onNewIntent(Intent intent) {
+		// TODO Auto-generated method stub
+		super.onNewIntent(intent);
+		
+		String abc = "a";
+		abc = intent.getStringExtra("var");
+		Toast.makeText(getApplicationContext(), abc, Toast.LENGTH_SHORT).show();
+		
+	}
+
+	@SuppressLint("NewApi")
 	@Override
     public void onPause() {
         super.onPause();

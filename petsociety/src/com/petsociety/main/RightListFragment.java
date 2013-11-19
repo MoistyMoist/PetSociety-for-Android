@@ -1,8 +1,14 @@
 package com.petsociety.main;
 
 import com.example.petsociety.R;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.petsociety.main.analysis.AnalysisActivity;
+import com.petsociety.main.lost.LostActivity;
+import com.petsociety.main.nearby.NearbyActivity;
+import com.petsociety.main.profile.ProfileActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -28,19 +34,28 @@ public class RightListFragment extends ListFragment {
 		//	adapter.add(new SampleItem("Sample List"+i, android.R.drawable.ic_menu_search));
 		//}
 		adapter.add(new SampleItem("Lost Pets", android.R.drawable.ic_menu_search));
+		adapter.add(new SampleItem("Found", android.R.drawable.ic_menu_search));
+		adapter.add(new SampleItem("Friends", android.R.drawable.ic_menu_search));
 		adapter.add(new SampleItem("Events", android.R.drawable.ic_menu_my_calendar));
 		adapter.add(new SampleItem("Places", android.R.drawable.ic_menu_mapmode));
 		setListAdapter(adapter);
 	}
 	
-	/*
-	@Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
-		// TODO Auto-generated method stub
-		super.onListItemClick(l, v, position, id);
-		Toast.makeText(abc, songItems[arg2],Toast.LENGTH_SHORT).show();
-	}
-*/
+	public void onListItemClick(ListView lv, View v, int position, long id) {
+		//Intent intent = new Intent();
+		//intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		switch (position) {
+		case 0: //Lost Pets			
+			Intent intent = new Intent(getActivity().getBaseContext(), MainActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.putExtra("var", "Lost Pet Marker");
+            getActivity().startActivity(intent);
+			
+			break;
+
+		}
+		((SlidingFragmentActivity) getActivity()).getSlidingMenu().toggle();
+	};
 
 
 	public class SampleItem {
