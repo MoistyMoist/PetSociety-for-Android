@@ -48,7 +48,7 @@ public class RightListFragment extends ListFragment {
 		case 0: //Lost Pets			
 			Intent intent = new Intent(getActivity().getBaseContext(), MainActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            intent.putExtra("var", "Lost Pet Marker");
+            intent.putExtra("var", "lostpet");
             getActivity().startActivity(intent);
 			
 			break;

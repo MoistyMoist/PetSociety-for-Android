@@ -1,5 +1,6 @@
 package com.petsociety.main;
 
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import com.petsociety.httprequests.*;
@@ -119,16 +120,6 @@ public class MainActivity extends MainBaseActivity
         }
     }
 
-    /**
-     * This is where we can add markers or lines, add listeners or move the camera. In this case, we
-     * just add a marker near Africa.
-     * <p>
-     * This should only be called once and when we are sure that {@link #mMap} is not null.
-     */
-    private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
-    }
-
     
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -148,9 +139,21 @@ public class MainActivity extends MainBaseActivity
 		
 		String abc = "a";
 		abc = intent.getStringExtra("var");
-		Toast.makeText(getApplicationContext(), abc, Toast.LENGTH_SHORT).show();
+		if (abc.equals("lostpet")){
+			addLostPetMarker();
+		}
 		
 	}
+    
+    public void addLostPetMarker(){
+    	Random generator = new Random(); 
+    	double d_lat = generator.nextInt(9) + 1; // 1~9
+    	double d_lng = generator.nextInt(9) + 1; // 1~9
+    	double lat = 1.30 + d_lat/100;
+    	double lng = 103.80 + d_lng/100;
+		Toast.makeText(getApplicationContext(), "L:"+lat+","+lng, Toast.LENGTH_SHORT).show();
+    	mMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).title("Lost Pet"));
+    }
 
 	@SuppressLint("NewApi")
 	@Override
@@ -159,8 +162,6 @@ public class MainActivity extends MainBaseActivity
         if (mLocationClient != null) {
             mLocationClient.disconnect();
         }
-        //Toast.makeText(getApplicationContext(), "Sup", Toast.LENGTH_LONG).show();
-        //getSlidingMenu().toggle();
     }
     
     private void setUpLocationClientIfNeeded() {
