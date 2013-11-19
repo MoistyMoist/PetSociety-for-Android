@@ -25,5 +25,6 @@
     <string name="title_activity_nearby">NearbyActivity</string>
     <string name="title_activity_setting">SettingActivity</string>
     <string name="title_activity_event">EventActivity</string>
+    <string name="title_activity_analysis_detail">AnalysisDetailActivity</string>
 
 </resources>

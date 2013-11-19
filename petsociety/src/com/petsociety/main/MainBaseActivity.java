@@ -33,6 +33,10 @@ public class MainBaseActivity extends SlidingFragmentActivity {
 		mTitleRes = titleRes;
 	}
 	
+	public MainBaseActivity() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

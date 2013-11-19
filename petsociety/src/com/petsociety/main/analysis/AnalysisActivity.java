@@ -28,7 +28,9 @@ import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
@@ -144,4 +146,11 @@ OnMyLocationButtonClickListener{
 		return true;
 	}
 
+	
+	public void nextPage(View view)
+	{
+		Intent intent= new Intent(this,AnalysisDetailActivity.class);
+		intent.setClass(getApplication(), AnalysisDetailActivity.class);
+		startActivity(intent);
+	}
 }
