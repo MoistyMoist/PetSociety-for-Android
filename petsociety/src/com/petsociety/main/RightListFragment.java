@@ -43,7 +43,7 @@ public class RightListFragment extends ListFragment {
 */
 
 
-	private class SampleItem {
+	public class SampleItem {
 		public String tag;
 		public int iconRes;
 		public SampleItem(String tag, int iconRes) {

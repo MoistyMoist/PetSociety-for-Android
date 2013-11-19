@@ -33,7 +33,6 @@ public class LeftListFragment extends ListFragment {
 		
 		super.onActivityCreated(savedInstanceState);
 		SampleAdapter adapter = new SampleAdapter(getActivity());
-		
 		//for (int i = 0; i < 20; i++) {
 		//	adapter.add(new SampleItem("Sample List"+i, android.R.drawable.ic_menu_search));
 		//}
@@ -47,7 +46,7 @@ public class LeftListFragment extends ListFragment {
 		adapter.add(new SampleItem("Settings", android.R.drawable.ic_menu_preferences));
 		adapter.add(new SampleItem("Nearby", android.R.drawable.ic_menu_directions));
 		setListAdapter(adapter);
-		
+	
 		//getActivity().findViewById((int) getListView().getItemIdAtPosition(2)).setBackgroundColor(Color.RED);
 	}
 
@@ -126,11 +125,9 @@ public class LeftListFragment extends ListFragment {
 			icon.setImageResource(getItem(position).iconRes);
 			TextView title = (TextView) convertView.findViewById(R.id.row_title);
 			title.setText(getItem(position).tag);
-			title.setTextColor(999999);
+			title.setTextColor(Color.BLUE);
 			return convertView;
 		}
 
 	}
-
-
 }
