@@ -54,6 +54,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 		getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN); //getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setIcon(R.drawable.ic_drawer);
 	}
 
 	@Override

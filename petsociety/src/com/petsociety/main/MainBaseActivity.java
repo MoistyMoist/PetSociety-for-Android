@@ -2,11 +2,13 @@ package com.petsociety.main;
 
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.SearchManager;
 import android.app.SearchableInfo;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentTransaction;
@@ -21,6 +23,7 @@ import com.example.petsociety.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
+@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class MainBaseActivity extends SlidingFragmentActivity {
 
 	private int mTitleRes;
@@ -87,10 +90,13 @@ public class MainBaseActivity extends SlidingFragmentActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	@SuppressLint("NewApi")
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getSupportMenuInflater().inflate(R.menu.main_base, menu);
-		
+		//getActionBar().setLogo(R.drawable.ic_drawer);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setHomeButtonEnabled(true);
 		return true;
 	}
 }

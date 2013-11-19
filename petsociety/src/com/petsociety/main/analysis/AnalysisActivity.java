@@ -25,12 +25,15 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import android.location.Location;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
+@SuppressLint("NewApi")
 public class AnalysisActivity extends MainBaseActivity 
 implements 
 ConnectionCallbacks,
@@ -70,7 +73,7 @@ OnMyLocationButtonClickListener{
 							
 		sm.setSecondaryShadowDrawable(R.drawable.shadowright);
 		sm.setShadowDrawable(R.drawable.shadow);
-		setContentView(R.layout.basic_map);
+		//setContentView(R.layout.basic_map);
 	}
 
 	
