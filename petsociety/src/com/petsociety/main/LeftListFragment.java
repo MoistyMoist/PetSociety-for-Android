@@ -58,23 +58,28 @@ public class LeftListFragment extends ListFragment {
 			//intent.setClass(getActivity(), MainActivity.class);
 			//startActivity(intent);
 			break;
+		
+		case 1: //Search
+			//intent.setClass(getActivity(), MainActivity.class);
+			//startActivity(intent);
+			break;
 			
-		case 1: //Profile
+		case 2: //Profile
 			intent.setClass(getActivity(), ProfileActivity.class);
 			startActivity(intent);
 			break;
 
-		case 2: //Events
+		case 3: //Events
 			intent.setClass(getActivity(), MainActivity.class);
 			startActivity(intent);
 			break;
 
-		case 3: //My Pets
+		case 4: //My Pets
 			intent.setClass(getActivity(), MainActivity.class);
 			startActivity(intent);
 			break;
 
-		case 4: //Lost and Found
+		case 5: //Lost and Found
 			intent.setClass(getActivity(), LostActivity.class);
 			startActivity(intent);
 			/*
@@ -84,17 +89,17 @@ public class LeftListFragment extends ListFragment {
 			*/
 			break;
 
-		case 5: //Analysis
+		case 6: //Analysis
 			intent.setClass(getActivity(), AnalysisActivity.class);
 			startActivity(intent);
 			break;
 
-		case 6: //Settings
+		case 7: //Settings
 			intent.setClass(getActivity(), SettingActivity.class);
 			startActivity(intent);
 			break;
 			
-		case 7: //Nearby
+		case 8: //Nearby
 			intent.setClass(getActivity(), NearbyActivity.class);
 			startActivity(intent);
 			break;
