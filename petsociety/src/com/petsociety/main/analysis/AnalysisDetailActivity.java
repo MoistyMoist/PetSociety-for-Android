@@ -18,6 +18,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.petsociety.main.LeftListFragment;
 import com.petsociety.main.MainBaseActivity;
+import com.petsociety.utils.StaticObjects;
 
 import android.content.Intent;
 import android.location.Location;
@@ -45,7 +46,7 @@ OnMyLocationButtonClickListener{
             .setFastestInterval(16)    // 16ms = 60fps
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 	
-	
+	private String dataType;
 	
 	
 	
@@ -59,23 +60,33 @@ OnMyLocationButtonClickListener{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		//SETS UP THE MAP
 		setContentView(R.layout.activity_main_analysis_detail);
-		setSlidingActionBarEnabled(true);
-		
-				
+		setSlidingActionBarEnabled(true);		
 		SlidingMenu sm = getSlidingMenu();
 		sm.setMode(SlidingMenu.LEFT);
-							
 		sm.setSecondaryShadowDrawable(R.drawable.shadowright);
 		sm.setShadowDrawable(R.drawable.shadow);
-		//setContentView(R.layout.basic_map);
-		
 		ViewGroup viewGroup=(ViewGroup)findViewById(R.id.analysis_nearby_map);
 		viewGroup.addView(View.inflate(this, R.layout.basic_map, null));
 		
+		//RETRIEVE AND CHECK THE INTEND TO SEE WAT DATA TYPE IS THIS ACTIVITY FOR
+		
+		
+		
+		//POPULATING THE LISTVIEW
+		StaticObjects data=new StaticObjects();
+		//CHECK IF PREVIOUS REQUEST WAS A SUCCESS
+		
+		//IF NOT PULL DATA FROM LOCAL DATABASE
+		
 	}
 
-	
+	//SEND A HTTPREQUEST AGAIN
+	public void refreshData()
+	{
+		
+	}
 	
 	
 	@SuppressWarnings("unused")
