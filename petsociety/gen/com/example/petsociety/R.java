@@ -1392,7 +1392,6 @@ containing a value of this type.
         public static final int setting=0x7f0d000a;
     }
     public static final class string {
-        public static final int Refresh=0x7f050036;
         public static final int ab_camera_label=0x7f050030;
         public static final int ab_right_label=0x7f050031;
         public static final int about=0x7f050033;
@@ -1574,6 +1573,7 @@ containing a value of this type.
          */
         public static final int prompt_email=0x7f050043;
         public static final int prompt_password=0x7f050044;
+        public static final int refresh=0x7f050036;
         public static final int right=0x7f05002d;
         public static final int title_activity_analysis=0x7f05003d;
         public static final int title_activity_analysis_detail=0x7f050041;

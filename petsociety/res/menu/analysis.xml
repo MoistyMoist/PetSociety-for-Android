@@ -5,6 +5,7 @@
         android:id="@+id/analysis_refresh" 
         android:icon="@drawable/ic_1_navigation_refresh" 
         android:showAsAction="always"  
-		android:title="@string/Refresh" 
+		android:title="@string/refresh" 
+		android:titleCondensed="@string/refresh"
         android:visible="true"></item>
 </menu>

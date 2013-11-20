@@ -15,7 +15,7 @@
     <string name="about">About</string>
     <string name="licenses">Licenses</string>
     <string name="contact">Contact</string>
-    <string name="Refresh">Refresh</string>
+    <string name="refresh">Refresh</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>

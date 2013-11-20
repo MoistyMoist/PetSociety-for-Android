@@ -482,7 +482,6 @@ int menu nearby 0x7f0d0007
 int menu profile 0x7f0d0008
 int menu register 0x7f0d0009
 int menu setting 0x7f0d000a
-int string Refresh 0x7f050036
 int string ab_camera_label 0x7f050030
 int string ab_right_label 0x7f050031
 int string about 0x7f050033
@@ -561,6 +560,7 @@ int string pref_title_system_sync_settings 0x7f050056
 int string pref_title_vibrate 0x7f05005b
 int string prompt_email 0x7f050043
 int string prompt_password 0x7f050044
+int string refresh 0x7f050036
 int string right 0x7f05002d
 int string title_activity_analysis 0x7f05003d
 int string title_activity_analysis_detail 0x7f050041
