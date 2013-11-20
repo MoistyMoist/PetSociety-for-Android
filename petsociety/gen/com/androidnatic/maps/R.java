@@ -8,8 +8,8 @@ package com.androidnatic.maps;
 
 public final class R {
 	public static final class drawable {
-		public static final int pencil_off = 0x7f020092;
-		public static final int pencil_on = 0x7f020093;
+		public static final int pencil_off = 0x7f020093;
+		public static final int pencil_on = 0x7f020094;
 	}
 	public static final class layout {
 		public static final int main = 0x7f030022;

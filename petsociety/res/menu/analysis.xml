@@ -1,11 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item 
-        android:id="@+id/main_camera" 
-        android:icon="@drawable/ic_main_camera" 
-        android:showAsAction="always" 
-        android:title="@string/ab_camera_label" 
-        android:titleCondensed="@string/github" 
+    
+<item 
+        android:id="@+id/analysis_refresh" 
+        android:icon="@drawable/ic_1_navigation_refresh" 
+        android:showAsAction="always"  
+		android:title="@string/Refresh" 
         android:visible="true"></item>
-
 </menu>
