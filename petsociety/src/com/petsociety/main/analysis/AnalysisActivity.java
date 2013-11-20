@@ -24,15 +24,20 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import android.location.Location;
 import android.nfc.Tag;
+import android.os.Build;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 @SuppressLint("NewApi")
@@ -76,6 +81,10 @@ OnMyLocationButtonClickListener{
 		sm.setSecondaryShadowDrawable(R.drawable.shadowright);
 		sm.setShadowDrawable(R.drawable.shadow);
 		//setContentView(R.layout.basic_map);
+		
+		//enables the actionbar dropdown list
+		com.actionbarsherlock.app.ActionBar actionBar = getSupportActionBar();
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 	}
 
 	
@@ -142,6 +151,17 @@ OnMyLocationButtonClickListener{
 	@Override
 	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
 		getSupportMenuInflater().inflate(R.menu.analysis, menu);
+		
+		SpinnerAdapter mSpinnerAdapter;
+		   if(Build.VERSION.SDK_INT <= 10) 
+		   {
+		      mSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.analysis_types,android.R.layout.simple_spinner_item);
+		   }
+		   else
+		   {
+		      mSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.analysis_types,android.R.layout.simple_spinner_dropdown_item);
+		   }
+		
 		//getSupportMenuInflater().inflate(0, null);
 		return true;
 	}
