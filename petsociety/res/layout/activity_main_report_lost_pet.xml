@@ -1,7 +1,8 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -9,23 +10,60 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ReportLostPetActivity" >
 
-    <EditText
-        android:id="@+id/editText_name"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="Name"/>
-    
-	<Spinner
-        android:id="@+id/spinner_type"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+    <LinearLayout 
+        android:id="@+id/linearLayout0"
+       	android:layout_width="match_parent"
+   	 	android:layout_height="wrap_content"
+        android:orientation="vertical">
+        
+	    <EditText
+	        android:id="@+id/editText_name"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:hint="Name" />
 	
-	<EditText
+	    <LinearLayout
+	        android:id="@+id/linearLayout1"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical"
+	        android:paddingBottom="5dp" >
+	
+	        <Spinner
+	            android:id="@+id/spinner_type"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content" />
+	    </LinearLayout>
+
+    <EditText
         android:id="@+id/editText_breed"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Breed"/>
+        android:hint="Breed" />
     
+    </LinearLayout>
     
-</LinearLayout>
+    <EditText
+        android:id="@+id/editText_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout0"
+        android:hint="Age"
+        android:inputType="phone" />
+    
+	<Button
+        android:id="@+id/button_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/editText_age"
+        android:layout_toRightOf="@+id/editText_age"
+        android:text="Select" />
+    
+    <Button
+        android:id="@+id/button_report"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Report" />
+
+</RelativeLayout>
