@@ -15,7 +15,7 @@ import android.view.Menu;
 public class LostActivity extends MainBaseActivity {
 
 	public LostActivity() {
-		super(R.string.app_name);
+		super(R.string.lost_pet);
 		// TODO Auto-generated constructor stub
 	}
 

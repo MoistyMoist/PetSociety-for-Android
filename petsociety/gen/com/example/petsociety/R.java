@@ -1273,56 +1273,59 @@ containing a value of this type.
         public static final int abs__textButton=0x7f05001c;
         public static final int abs__title=0x7f050024;
         public static final int abs__up=0x7f05000b;
-        public static final int action_forgot_password=0x7f05005e;
-        public static final int action_settings=0x7f05005a;
-        public static final int action_settings1=0x7f05005b;
-        public static final int action_settings2=0x7f05005c;
-        public static final int action_settings3=0x7f05005d;
+        public static final int action_forgot_password=0x7f050061;
+        public static final int action_settings=0x7f05005d;
+        public static final int action_settings1=0x7f05005e;
+        public static final int action_settings2=0x7f05005f;
+        public static final int action_settings3=0x7f050060;
         public static final int analysis_nearby_map=0x7f050046;
-        public static final int analysis_refresh=0x7f050059;
+        public static final int analysis_refresh=0x7f05005c;
         public static final int behind_width=0x7f050043;
         public static final int button1=0x7f050044;
         public static final int disableHome=0x7f050009;
-        public static final int dummy_button=0x7f050050;
+        public static final int dummy_button=0x7f050053;
+        public static final int editText_breed=0x7f050049;
+        public static final int editText_name=0x7f050047;
         public static final int edit_query=0x7f05002f;
-        public static final int email=0x7f05004a;
+        public static final int email=0x7f05004d;
         public static final int fullscreen=0x7f050013;
-        public static final int fullscreen_content=0x7f05004e;
-        public static final int fullscreen_content_controls=0x7f05004f;
+        public static final int fullscreen_content=0x7f050051;
+        public static final int fullscreen_content_controls=0x7f050052;
         public static final int homeAsUp=0x7f050006;
         public static final int hybrid=0x7f050018;
-        public static final int icon=0x7f050052;
+        public static final int icon=0x7f050055;
         public static final int left=0x7f050010;
         public static final int left_right=0x7f05003c;
         public static final int listMode=0x7f050002;
-        public static final int login=0x7f05004c;
-        public static final int login_form=0x7f050049;
-        public static final int login_status=0x7f050047;
-        public static final int login_status_message=0x7f050048;
-        public static final int main_camera=0x7f050060;
-        public static final int main_report=0x7f050061;
-        public static final int main_right=0x7f050062;
-        public static final int map=0x7f050051;
+        public static final int login=0x7f05004f;
+        public static final int login_form=0x7f05004c;
+        public static final int login_status=0x7f05004a;
+        public static final int login_status_message=0x7f05004b;
+        public static final int main_camera=0x7f050063;
+        public static final int main_report=0x7f050064;
+        public static final int main_right=0x7f050065;
+        public static final int map=0x7f050054;
         public static final int margin=0x7f050012;
-        public static final int menu_frame=0x7f050054;
-        public static final int menu_frame_two=0x7f050055;
+        public static final int menu_frame=0x7f050057;
+        public static final int menu_frame_two=0x7f050058;
         public static final int mode=0x7f05003b;
         public static final int none=0x7f050015;
         public static final int normal=0x7f050001;
-        public static final int password=0x7f05004b;
-        public static final int report_add=0x7f05005f;
+        public static final int password=0x7f05004e;
+        public static final int report_add=0x7f050062;
         public static final int right=0x7f050011;
-        public static final int row_icon=0x7f050056;
-        public static final int row_title=0x7f050057;
+        public static final int row_icon=0x7f050059;
+        public static final int row_title=0x7f05005a;
         public static final int satellite=0x7f050016;
-        public static final int secondLine=0x7f050053;
+        public static final int secondLine=0x7f050056;
         public static final int selected_view=0x7f050014;
         public static final int showCustom=0x7f050008;
         public static final int showHome=0x7f050005;
         public static final int showTitle=0x7f050007;
-        public static final int sign_in_button=0x7f05004d;
-        public static final int slidingmenumain=0x7f050058;
+        public static final int sign_in_button=0x7f050050;
+        public static final int slidingmenumain=0x7f05005b;
         public static final int spinner_menu=0x7f050045;
+        public static final int spinner_type=0x7f050048;
         public static final int tabMode=0x7f050003;
         public static final int terrain=0x7f050017;
         public static final int touch_above=0x7f05003d;
@@ -1444,7 +1447,7 @@ containing a value of this type.
         public static final int action_settings=0x7f0a0028;
         public static final int action_sign_in_register=0x7f0a0047;
         public static final int action_sign_in_short=0x7f0a0048;
-        /**  Application 
+        /**  Application String Variables 
          */
         public static final int app_name=0x7f0a0027;
         /**   Title for notification shown when GooglePlayServices needs to be
@@ -1601,7 +1604,7 @@ containing a value of this type.
         public static final int title_activity_setting=0x7f0a0040;
         public static final int title_activity_settings=0x7f0a004f;
         /**  Euru 
- Activites 
+ Activites Title Bar 
          */
         public static final int title_activity_splash_screen=0x7f0a003a;
         public static final int what_is_this=0x7f0a002f;
