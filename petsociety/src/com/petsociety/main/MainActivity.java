@@ -28,7 +28,6 @@ import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.petsociety.main.BaseActivity;
 
 public class MainActivity extends MainBaseActivity 
 	implements 

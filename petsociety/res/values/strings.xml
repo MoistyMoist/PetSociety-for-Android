@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+	
+    <!-- Application String Variables -->
     <string name="app_name">Pet Society SG</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
@@ -9,16 +10,31 @@
     <string name="right">Right</string>
     <string name="left_and_right">Left and Right</string>
     <string name="github">GitHub</string>
-    <string name="ab_camera_label">Snapshot</string>
-    <string name="ab_right_label">Stray Animals</string>
     <string name="what_is_this">What is this?</string>
     <string name="about">About</string>
     <string name="licenses">Licenses</string>
     <string name="contact">Contact</string>
+    <string name="ab_camera_label">Snapshot</string>
+    <string name="ab_right_label">Stray Animals</string>
+    
+    <!-- Choon Seng -->
+    <string name="lost_pet">Pet Society SG</string>
+    <string name="new_report_lost_pet">Report Lost Pet</string>
+    
+    <!-- Shahrikin -->
+    
+    
+    <!-- Kai Quan -->
     <string name="refresh">Refresh</string>
-    <string name="title_activity_splash_screen">SplashScreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    
+    <!-- Euru -->
+    
+    
+    
+    <!-- Activites Title Bar -->
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_lost">LostActivity</string>
@@ -27,5 +43,6 @@
     <string name="title_activity_setting">SettingActivity</string>
     <string name="title_activity_event">EventActivity</string>
     <string name="title_activity_analysis_detail">AnalysisDetailActivity</string>
+    <string name="title_activity_report_lost_pet">Report My Lost Pet </string>
 
 </resources>

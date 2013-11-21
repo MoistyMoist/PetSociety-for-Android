@@ -86,6 +86,10 @@
             android:name="com.petsociety.main.analysis.AnalysisDetailActivity"
             android:label="@string/title_activity_analysis_detail" >
         </activity>
+        <activity
+            android:name="com.petsociety.main.lost.ReportLostPetActivity"
+            android:label="@string/title_activity_report_lost_pet" >
+        </activity>
     </application>
 
 </manifest>

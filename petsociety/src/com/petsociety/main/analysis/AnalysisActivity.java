@@ -12,7 +12,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.petsociety.main.BaseActivity;
 import com.petsociety.main.MainBaseActivity;
 import com.petsociety.main.RightListFragment;
 import com.google.android.gms.common.ConnectionResult;
