@@ -35,10 +35,13 @@ public class LostActivity extends MainBaseActivity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		
-		Intent intent = new Intent();
-		intent.setClass(getBaseContext(), ReportLostPetActivity.class);
-		startActivity(intent);
+		switch (item.getItemId()) {
+		case R.id.report_lost_pet_add:
+			Intent intent = new Intent();
+			intent.setClass(getBaseContext(), ReportLostPetActivity.class);
+			startActivity(intent);
+			return true;
+		}
 		
 		return super.onOptionsItemSelected(item);
 	}

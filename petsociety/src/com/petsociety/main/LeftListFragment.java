@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,10 +21,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class LeftListFragment extends ListFragment {
-
+	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		
 		return inflater.inflate(R.layout.list, null);
@@ -32,6 +32,7 @@ public class LeftListFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		
 		super.onActivityCreated(savedInstanceState);
+		
 		SampleAdapter adapter = new SampleAdapter(getActivity());
 		//for (int i = 0; i < 20; i++) {
 		//	adapter.add(new SampleItem("Sample List"+i, android.R.drawable.ic_menu_search));
@@ -45,11 +46,14 @@ public class LeftListFragment extends ListFragment {
 		adapter.add(new SampleItem("Analysis", android.R.drawable.ic_menu_mapmode));
 		adapter.add(new SampleItem("Settings", android.R.drawable.ic_menu_preferences));
 		adapter.add(new SampleItem("Nearby", android.R.drawable.ic_menu_directions));
+		
 		setListAdapter(adapter);
 	
 		//getActivity().findViewById((int) getListView().getItemIdAtPosition(2)).setBackgroundColor(Color.RED);
 	}
-
+	
+	
+	
 	public void onListItemClick(ListView lv, View v, int position, long id) {
 		Intent intent = new Intent();
 		intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
