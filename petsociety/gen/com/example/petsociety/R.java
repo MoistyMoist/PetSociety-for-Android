@@ -1224,14 +1224,15 @@ containing a value of this type.
         public static final int ic_add=0x7f02008b;
         public static final int ic_drawer=0x7f02008c;
         public static final int ic_launcher=0x7f02008d;
-        public static final int ic_main_camera=0x7f02008e;
-        public static final int ic_main_pin=0x7f02008f;
-        public static final int ic_plusone_medium_off_client=0x7f020090;
-        public static final int ic_plusone_small_off_client=0x7f020091;
-        public static final int ic_plusone_standard_off_client=0x7f020092;
-        public static final int ic_plusone_tall_off_client=0x7f020093;
-        public static final int shadow=0x7f020094;
-        public static final int shadowright=0x7f020095;
+        public static final int ic_left_menu_title=0x7f02008e;
+        public static final int ic_main_camera=0x7f02008f;
+        public static final int ic_main_pin=0x7f020090;
+        public static final int ic_plusone_medium_off_client=0x7f020091;
+        public static final int ic_plusone_small_off_client=0x7f020092;
+        public static final int ic_plusone_standard_off_client=0x7f020093;
+        public static final int ic_plusone_tall_off_client=0x7f020094;
+        public static final int shadow=0x7f020095;
+        public static final int shadowright=0x7f020096;
     }
     public static final class id {
         public static final int abs__action_bar=0x7f050029;

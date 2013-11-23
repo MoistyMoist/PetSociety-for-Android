@@ -1,5 +1,6 @@
 package com.petsociety.main;
 
+import com.example.petsociety.EventActivity;
 import com.example.petsociety.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
@@ -34,18 +35,22 @@ public class LeftListFragment extends ListFragment {
 		super.onActivityCreated(savedInstanceState);
 		
 		SampleAdapter adapter = new SampleAdapter(getActivity());
-		//for (int i = 0; i < 20; i++) {
-		//	adapter.add(new SampleItem("Sample List"+i, android.R.drawable.ic_menu_search));
-		//}
+		//0-4
+		adapter.add(new SampleItem("1st Title", R.drawable.ic_left_menu_title)); //int 0 for title, custom set	
 		adapter.add(new SampleItem("Search", android.R.drawable.ic_menu_search));
-		adapter.add(new SampleItem("Main",android.R.drawable.ic_menu_search));
+		adapter.add(new SampleItem("PetSG Home",android.R.drawable.ic_menu_search));
 		adapter.add(new SampleItem("Profile", android.R.drawable.ic_menu_myplaces));
 		adapter.add(new SampleItem("Events", android.R.drawable.ic_menu_my_calendar));
-		adapter.add(new SampleItem("My Pets", android.R.drawable.ic_menu_compass));
-		adapter.add(new SampleItem("Lost and Found", android.R.drawable.ic_menu_search));
+		//5-9
+		adapter.add(new SampleItem("2nd Title", R.drawable.ic_left_menu_title)); //int 0 for title, custom set		
+		adapter.add(new SampleItem("Lost Pets", android.R.drawable.ic_menu_search));
+		adapter.add(new SampleItem("Strays Pets", android.R.drawable.ic_menu_search));
 		adapter.add(new SampleItem("Analysis", android.R.drawable.ic_menu_mapmode));
-		adapter.add(new SampleItem("Settings", android.R.drawable.ic_menu_preferences));
 		adapter.add(new SampleItem("Nearby", android.R.drawable.ic_menu_directions));
+		//10-12
+		adapter.add(new SampleItem("Settings", R.drawable.ic_left_menu_title)); //int 0 for title, custom set
+		adapter.add(new SampleItem("Account", android.R.drawable.ic_menu_preferences));
+		adapter.add(new SampleItem("Application", android.R.drawable.ic_menu_preferences));
 		
 		setListAdapter(adapter);
 	
@@ -53,58 +58,46 @@ public class LeftListFragment extends ListFragment {
 	}
 	
 	
-	
 	public void onListItemClick(ListView lv, View v, int position, long id) {
 		Intent intent = new Intent();
 		intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		switch (position) {
-		case 0: //Search
-			//intent.setClass(getActivity(), MainActivity.class);
-			//startActivity(intent);
-			break;
-		
 		case 1: //Search
-			//intent.setClass(getActivity(), MainActivity.class);
-			//startActivity(intent);
 			break;
 			
-		case 2: //Profile
+		case 2: //Home
+			intent.setClass(getActivity(), MainActivity.class);
+			startActivity(intent);
+			break;
+
+		case 3: //Profile
 			intent.setClass(getActivity(), ProfileActivity.class);
 			startActivity(intent);
 			break;
 
-		case 3: //Events
-			intent.setClass(getActivity(), MainActivity.class);
+		case 4: //Events
+			intent.setClass(getActivity(), EventActivity.class);
 			startActivity(intent);
 			break;
 
-		case 4: //My Pets
-			intent.setClass(getActivity(), MainActivity.class);
-			startActivity(intent);
-			break;
-
-		case 5: //Lost and Found
+		case 6: //Lost and Found
 			intent.setClass(getActivity(), LostActivity.class);
 			startActivity(intent);
-			/*
-			FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-			transaction.replace(R.id.fragment_container, newFragment);
-			transaction.addToBackStack(null);
-			*/
 			break;
 
-		case 6: //Analysis
+		//case7 Stray
+		case 8: //Analysis
 			intent.setClass(getActivity(), AnalysisActivity.class);
 			startActivity(intent);
 			break;
-
-		case 7: //Settings
-			intent.setClass(getActivity(), SettingActivity.class);
+			
+		case 9: //Nearby
+			intent.setClass(getActivity(), NearbyActivity.class);
 			startActivity(intent);
 			break;
 			
-		case 8: //Nearby
-			intent.setClass(getActivity(), NearbyActivity.class);
+		case 11: //Settings
+			intent.setClass(getActivity(), SettingActivity.class);
 			startActivity(intent);
 			break;
 		}
@@ -135,6 +128,15 @@ public class LeftListFragment extends ListFragment {
 			TextView title = (TextView) convertView.findViewById(R.id.row_title);
 			title.setText(getItem(position).tag);
 			title.setTextColor(Color.BLUE);
+			
+			if (getItem(position).iconRes == R.drawable.ic_left_menu_title) {
+				convertView.setBackgroundColor(Color.GRAY);  
+				title.setTextColor(Color.WHITE);
+			}
+			else{
+				convertView.setBackgroundColor(Color.WHITE);  
+			}
+			
 			return convertView;
 		}
 
