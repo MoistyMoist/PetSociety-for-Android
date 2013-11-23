@@ -16,6 +16,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +34,6 @@ public class MainBaseActivity extends SlidingFragmentActivity {
 
 	private int mTitleRes;
 	protected ListFragment l_Frag;
-	ListView lv_left;
 
 	public MainBaseActivity(int titleRes) {
 		mTitleRes = titleRes;

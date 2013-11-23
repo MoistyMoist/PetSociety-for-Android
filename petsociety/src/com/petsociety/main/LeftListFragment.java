@@ -19,10 +19,14 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 public class LeftListFragment extends ListFragment {
 	
@@ -55,11 +59,11 @@ public class LeftListFragment extends ListFragment {
 		
 		setListAdapter(adapter);
 		
-
 		//getActivity().findViewById((int) getListView().getItemIdAtPosition(2)).setBackgroundColor(Color.RED);
 	}
-	
+
 	public void onListItemClick(ListView lv, View v, int position, long id) {
+		
 		Intent intent = new Intent();
 		intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		switch (position) {
@@ -136,9 +140,10 @@ public class LeftListFragment extends ListFragment {
 				title.setTextColor(Color.WHITE);
 			}
 			else{
-				convertView.setBackgroundColor(Color.WHITE);  
+				//convertView.setBackgroundColor(Color.TRANSPARENT); 
+				convertView.setBackgroundColor(Color.WHITE); 
 			}
-					
+
 			return convertView;
 		}
 		
