@@ -1231,8 +1231,9 @@ containing a value of this type.
         public static final int ic_plusone_small_off_client=0x7f020092;
         public static final int ic_plusone_standard_off_client=0x7f020093;
         public static final int ic_plusone_tall_off_client=0x7f020094;
-        public static final int shadow=0x7f020095;
-        public static final int shadowright=0x7f020096;
+        public static final int ic_right_menu_title=0x7f020095;
+        public static final int shadow=0x7f020096;
+        public static final int shadowright=0x7f020097;
     }
     public static final class id {
         public static final int abs__action_bar=0x7f050029;

@@ -331,8 +331,9 @@ int drawable ic_plusone_medium_off_client 0x7f020091
 int drawable ic_plusone_small_off_client 0x7f020092
 int drawable ic_plusone_standard_off_client 0x7f020093
 int drawable ic_plusone_tall_off_client 0x7f020094
-int drawable shadow 0x7f020095
-int drawable shadowright 0x7f020096
+int drawable ic_right_menu_title 0x7f020095
+int drawable shadow 0x7f020096
+int drawable shadowright 0x7f020097
 int id abs__action_bar 0x7f050029
 int id abs__action_bar_container 0x7f050028
 int id abs__action_bar_subtitle 0x7f05001a

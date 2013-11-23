@@ -9,6 +9,7 @@ import com.petsociety.main.profile.ProfileActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -33,6 +34,7 @@ public class RightListFragment extends ListFragment {
 		//for (int i = 0; i < 20; i++) {
 		//	adapter.add(new SampleItem("Sample List"+i, android.R.drawable.ic_menu_search));
 		//}
+		adapter.add(new SampleItem("Pins", R.drawable.ic_right_menu_title)); //int 0 for title, custom set	
 		adapter.add(new SampleItem("Lost Pets", android.R.drawable.ic_menu_search));
 		adapter.add(new SampleItem("Found", android.R.drawable.ic_menu_search));
 		adapter.add(new SampleItem("Friends", android.R.drawable.ic_menu_search));
@@ -45,7 +47,7 @@ public class RightListFragment extends ListFragment {
 		//Intent intent = new Intent();
 		//intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		switch (position) {
-		case 0: //Lost Pets			
+		case 1: //Lost Pets			
 			Intent intent = new Intent(getActivity().getBaseContext(), MainActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             intent.putExtra("var", "lostpet");
@@ -81,6 +83,14 @@ public class RightListFragment extends ListFragment {
 			icon.setImageResource(getItem(position).iconRes);
 			TextView title = (TextView) convertView.findViewById(R.id.row_title);
 			title.setText(getItem(position).tag);
+			
+			if (getItem(position).iconRes == R.drawable.ic_right_menu_title) {
+				convertView.setBackgroundColor(Color.GRAY);  
+				title.setTextColor(Color.WHITE);
+			}
+			else{
+				convertView.setBackgroundColor(Color.WHITE);  
+			}
 
 			return convertView;
 		}

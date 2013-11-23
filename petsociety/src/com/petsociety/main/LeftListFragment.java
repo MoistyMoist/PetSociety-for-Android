@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -53,10 +54,10 @@ public class LeftListFragment extends ListFragment {
 		adapter.add(new SampleItem("Application", android.R.drawable.ic_menu_preferences));
 		
 		setListAdapter(adapter);
-	
+		
+
 		//getActivity().findViewById((int) getListView().getItemIdAtPosition(2)).setBackgroundColor(Color.RED);
 	}
-	
 	
 	public void onListItemClick(ListView lv, View v, int position, long id) {
 		Intent intent = new Intent();
@@ -67,6 +68,7 @@ public class LeftListFragment extends ListFragment {
 			
 		case 2: //Home
 			intent.setClass(getActivity(), MainActivity.class);
+			intent.putExtra("var", "home");
 			startActivity(intent);
 			break;
 
@@ -136,9 +138,11 @@ public class LeftListFragment extends ListFragment {
 			else{
 				convertView.setBackgroundColor(Color.WHITE);  
 			}
-			
+					
 			return convertView;
 		}
+		
+		
 
 	}
 }
