@@ -12,9 +12,9 @@
         android:weightSum="1.0">
     
         <com.petsociety.utils.LoaderImageView
-            android:id="@+id/icon"
+            android:id="@+id/profileImage"
             android:layout_width="65dp"
-            android:layout_height="match_parent"
+            android:layout_height="76dp"
             image="http://developer.android.com/images/dialog_buttons.png" />
         
         <LinearLayout
@@ -24,17 +24,19 @@
 	        android:orientation="vertical"
 	        android:weightSum="1.0">
 	        
-            <TextView 
+            <TextView
                 android:id="@+id/comment"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                 android:text="this accident was very bad dude..\n i was there\ndsa\ndsadas\n"/>
+                android:background="@drawable/shape"
+                android:text="this accident was very bad dude..\n i was there\ndsa\ndsadas" />
             
             <LinearLayout
 		        android:id="@+id/layout2"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:orientation="horizontal"
+		        android:layout_marginTop="10dp"
 		        android:weightSum="1.0">
 			    <TextView
 	                android:id="@+id/like"
