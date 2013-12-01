@@ -2,10 +2,6 @@ package com.petsociety.models;
 
 import java.util.List;
 
-import com.petsociety.models.*;
-
-
-@SuppressWarnings("unused")
 public class User {
 
 	private int userID;
