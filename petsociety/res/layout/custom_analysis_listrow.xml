@@ -1,0 +1,87 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="6dip" 
+    android:id="@+id/custom_product_list" >
+    
+    <LinearLayout
+        android:id="@+id/mainLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1.0">
+    
+        <com.petsociety.utils.LoaderImageView
+            android:id="@+id/icon"
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            image="http://developer.android.com/images/dialog_buttons.png" />
+        
+        <LinearLayout
+	        android:id="@+id/layout1"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical"
+	        android:weightSum="1.0">
+	        
+            <TextView 
+                android:id="@+id/comment"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                 android:text="this accident was very bad dude..\n i was there\ndsa\ndsadas\n"/>
+            
+            <LinearLayout
+		        android:id="@+id/layout2"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:orientation="horizontal"
+		        android:weightSum="1.0">
+			    <TextView
+	                android:id="@+id/like"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:clickable="true"
+	                android:textColor="#23337c"
+	                android:layout_weight="0.2"
+	                android:text="LIKE"/>
+			    
+			     <TextView 
+	                android:id="@+id/divider1"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="0.2"
+	                android:text="|"/>
+			     
+			  	 <TextView 
+	                android:id="@+id/dislike"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:clickable="true"
+	                android:textColor="#23337c"
+	                android:layout_weight="0.2"
+	                android:text="DISLIKE"/>
+			     
+			     <TextView 
+	                android:id="@+id/divider2"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="0.2"
+	                android:text="|"/>
+			     
+			     <TextView 
+	                android:id="@+id/date"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:clickable="true"
+	                android:textColor="#23337c"
+	                android:enabled="false"
+	                android:layout_weight="0.2"
+	                android:text="35 min ago"/>
+                
+            </LinearLayout>
+            "
+            
+        </LinearLayout>
+	
+    </LinearLayout>
+</RelativeLayout>
