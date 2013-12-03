@@ -4,6 +4,7 @@ import com.example.petsociety.EventActivity;
 import com.example.petsociety.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.petsociety.account.AccSettingActivity;
 import com.petsociety.main.analysis.AnalysisActivity;
 import com.petsociety.main.lost.LostActivity;
 import com.petsociety.main.nearby.NearbyActivity;
@@ -102,7 +103,12 @@ public class LeftListFragment extends ListFragment {
 			startActivity(intent);
 			break;
 			
-		case 11: //Settings
+		case 11: //Account Settings
+			intent.setClass(getActivity(), AccSettingActivity.class);
+			startActivity(intent);
+			break;
+			
+		case 12: //Settings
 			intent.setClass(getActivity(), SettingActivity.class);
 			startActivity(intent);
 			break;

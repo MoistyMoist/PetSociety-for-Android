@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory 
+        android:title="Location Access"
+        android:key="pref_key_location">
+		<CheckBoxPreference
+			android:title="Access to my location"
+			android:summary="Let this application track your location"
+			android:key="prefUserLocation"
+			android:defaultValue="true"/>
+	    
+    </PreferenceCategory>
+    
+	<PreferenceCategory 
+        android:title="Update Settings"
+        android:key="pref_key_storage_settings">
+		<SwitchPreference
+		    android:key="pref_key_notify"
+		    android:title="Notifications"
+		    android:summary="Turn notifications On or Off"
+		    android:defaultValue="true"/>
+        <ListPreference
+            android:key="prefSyncFrequency"
+            android:dependency="pref_key_notify"
+            android:entries="@array/syncFrequency"
+            android:entryValues="@array/syncFrequencyValues"
+            android:title="Sync Frequency"
+            android:summary="Set the sync frequency" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

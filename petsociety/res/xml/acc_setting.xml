@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<PreferenceCategory 
+        android:title="Privacy"
+        android:key="pref_key_privacy">
+		<CheckBoxPreference
+			android:title="Show Location"
+			android:summary="Allow others to see your location"
+			android:key="prefUserPrivacy"
+			android:defaultValue="true"/>
+	    
+    </PreferenceCategory>
+    
+	<PreferenceCategory 
+        android:title="Password"
+        android:key="pref_key_password">
+		<EditTextPreference
+			android:title="Change Password"
+			android:summary="Changes you account password"
+			android:key="prefUserPass"/>
+	    
+    </PreferenceCategory>
+    
+	<PreferenceCategory 
+        android:title="Personal"
+        android:key="pref_key_personal">
+		<EditTextPreference
+			android:title="Update Address"
+			android:summary="Changes your Address"
+			android:key="prefUserAddress"/>
+		<EditTextPreference
+			android:title="Update Contact"
+			android:summary="Changes your Contact"
+			android:key="prefUserContact"/>
+		<EditTextPreference
+			android:title="Update Biography"
+			android:summary="Changes your Biography"
+			android:key="prefUserBiography"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

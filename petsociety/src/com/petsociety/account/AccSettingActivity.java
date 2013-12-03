@@ -1,4 +1,4 @@
-package com.petsociety.main;
+package com.petsociety.account;
 
 import com.example.petsociety.R;
 import com.example.petsociety.R.layout;
@@ -11,14 +11,14 @@ import android.view.Menu;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class SettingActivity extends PreferenceActivity {
+public class AccSettingActivity extends PreferenceActivity {
 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main_setting);
-		addPreferencesFromResource(R.xml.app_setting);
+		setContentView(R.layout.activity_main_acc_setting);
+		addPreferencesFromResource(R.xml.acc_setting);
 	}
 
 
