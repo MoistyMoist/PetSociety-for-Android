@@ -2,25 +2,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1"
     android:orientation="vertical"
+    android:weightSum="1"
     tools:context=".NearbyActivity" >
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/locateButton"
+            android:hint="Search Location" >
+        </EditText>
+
+        <Button
+            android:id="@+id/locateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="search" >
+        </Button>
+    </RelativeLayout>
+
     <LinearLayout
-        android:id="@+id/nearby_activity_map"
+        android:id="@+id/nearby_map"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:layout_weight="0.7"/>
-    
-    <LinearLayout
-        android:layout_weight="0.3"
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent"
-        android:orientation="horizontal">
-    
-        
-        
-    </LinearLayout>
+        android:layout_below="@+id/layout1"
+        android:orientation="vertical" />
 
 </LinearLayout>
