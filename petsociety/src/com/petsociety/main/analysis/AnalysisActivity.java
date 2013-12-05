@@ -193,6 +193,12 @@ OnMyLocationButtonClickListener{
 	private class loadPoints extends AsyncTask<Runnable, Integer, Long> {
 	     
 		@Override
+		protected void onPostExecute(Long result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+		}
+
+		@Override
 		protected Long doInBackground(Runnable... arg0) {
 			
 			
