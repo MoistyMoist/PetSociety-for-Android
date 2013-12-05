@@ -28,6 +28,7 @@ import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class AnalysisDetailActivity extends MainBaseActivity 
@@ -48,6 +49,7 @@ OnMyLocationButtonClickListener{
 	
 	private String dataType;
 	
+	ListView list;
 	
 	
 	
@@ -75,10 +77,14 @@ OnMyLocationButtonClickListener{
 		
 		
 		//POPULATING THE LISTVIEW
-		StaticObjects data=new StaticObjects();
+		
+		
+		
 		//CHECK IF PREVIOUS REQUEST WAS A SUCCESS
 		
+		
 		//IF NOT PULL DATA FROM LOCAL DATABASE
+		
 		
 	}
 
@@ -155,10 +161,5 @@ OnMyLocationButtonClickListener{
 	}
 
 	
-	public void nextPage(View view)
-	{
-		Intent intent= new Intent(this,AnalysisDetailActivity.class);
-		intent.setClass(getApplication(), AnalysisDetailActivity.class);
-		startActivity(intent);
-	}
+
 }

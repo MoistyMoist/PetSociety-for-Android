@@ -1,5 +1,9 @@
 package com.petsociety.main.analysis;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.petsociety.R;
@@ -12,6 +16,11 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.petsociety.httprequests.RetrieveEventAnalysisRequest;
+import com.petsociety.httprequests.RetrieveLocationAnalysisRequest;
+import com.petsociety.httprequests.RetrieveLocationRequest;
+import com.petsociety.httprequests.RetrieveLostAnalysisRequest;
+import com.petsociety.httprequests.RetrieveStrayAnalysisRequest;
 import com.petsociety.main.MainBaseActivity;
 import com.petsociety.main.RightListFragment;
 import com.google.android.gms.common.ConnectionResult;
@@ -23,15 +32,20 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import android.location.Location;
 import android.nfc.Tag;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -57,7 +71,8 @@ OnMyLocationButtonClickListener{
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 	
 	
-	
+	Button filterBtn;
+	Button filterBtn2;
 	
 	
 	
@@ -79,13 +94,33 @@ OnMyLocationButtonClickListener{
 							
 		sm.setSecondaryShadowDrawable(R.drawable.shadowright);
 		sm.setShadowDrawable(R.drawable.shadow);
-		//setContentView(R.layout.basic_map);
-		
-		//enables the actionbar dropdown list
-		com.actionbarsherlock.app.ActionBar actionBar = getSupportActionBar();
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-	}
 
+
+		ViewGroup viewGroup=(ViewGroup)findViewById(R.id.analysis_map);
+		viewGroup.addView(View.inflate(this, R.layout.basic_map, null));
+		setUpMapIfNeeded();
+		
+		
+		//new loadPoints().doInBackground(null);
+		
+		 RetrieveLocationAnalysisRequest analysisLocation = new RetrieveLocationAnalysisRequest();
+	        RetrieveLostAnalysisRequest analysisLost= new RetrieveLostAnalysisRequest();
+	        RetrieveStrayAnalysisRequest analysisStray= new RetrieveStrayAnalysisRequest();
+	        RetrieveEventAnalysisRequest analysisEvent= new RetrieveEventAnalysisRequest();
+		new loadPoints().execute(analysisLost);
+		new loadPoints().execute(analysisEvent);
+		new loadPoints().execute(analysisEvent);
+		new loadPoints().execute(analysisEvent);
+		new loadPoints().execute(analysisEvent);
+		
+	}
+	@Override
+	public void onStart()
+	{
+		super.onStart();
+		
+		
+	}
 	
 	
 	
@@ -102,7 +137,7 @@ OnMyLocationButtonClickListener{
                 mMap.setMyLocationEnabled(true);
                 mMap.setOnMyLocationButtonClickListener(this);
                 LatLng singapore = new LatLng(1.37, 103.84);
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 11));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 7));
             }
         }
     }
@@ -142,29 +177,11 @@ OnMyLocationButtonClickListener{
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
-		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
 	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
 		getSupportMenuInflater().inflate(R.menu.analysis, menu);
-		
-		SpinnerAdapter mSpinnerAdapter;
-		   if(Build.VERSION.SDK_INT <= 10) 
-		   {
-		      mSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.analysis_types,android.R.layout.simple_spinner_item);
-		   }
-		   else
-		   {
-		      mSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.analysis_types,android.R.layout.simple_spinner_dropdown_item);
-		   }
-		
-		//getSupportMenuInflater().inflate(0, null);
 		return true;
 	}
-
 	
 	public void nextPage(View view)
 	{
@@ -172,4 +189,34 @@ OnMyLocationButtonClickListener{
 		intent.setClass(getApplication(), AnalysisDetailActivity.class);
 		startActivity(intent);
 	}
+	
+	private class loadPoints extends AsyncTask<Runnable, Integer, Long> {
+	     
+		@Override
+		protected Long doInBackground(Runnable... arg0) {
+			
+			
+			ExecutorService executor = Executors.newFixedThreadPool(10);
+	        RetrieveLocationAnalysisRequest analysisLocation = new RetrieveLocationAnalysisRequest();
+	        RetrieveLostAnalysisRequest analysisLost= new RetrieveLostAnalysisRequest();
+	        RetrieveStrayAnalysisRequest analysisStray= new RetrieveStrayAnalysisRequest();
+	        RetrieveEventAnalysisRequest analysisEvent= new RetrieveEventAnalysisRequest();
+	        
+	        executor.execute(analysisLocation);
+	        executor.execute(analysisLost);
+	        executor.execute(analysisStray);
+	        executor.execute(analysisEvent);
+	        
+			executor.shutdown();
+	        try {
+	        	executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+	       	  	Log.i(" RESPONSE :","ENDED REQUEST");
+	       	  	
+	        } catch (InterruptedException e) {
+	           
+	        }
+			return null;
+		}
+	 }
+	
 }
