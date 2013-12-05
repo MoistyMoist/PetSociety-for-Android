@@ -79,24 +79,7 @@ public class MainActivity extends MainBaseActivity
          
         
         
-        ExecutorService executor = Executors.newFixedThreadPool(1);
-        
-
-          LoginRequest worker= new LoginRequest("super@mail.com","password");
-          executor.execute(worker);
-
-        // This will make the executor accept no new threads
-        // and finish all existing threads in the queue
-        executor.shutdown();
-//        // Wait until all threads are finish
-//        try {
-//			executor.awaitTermination(1000, null);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-        System.out.println("Finished all threads");
-        
-        
+       
         
       
 

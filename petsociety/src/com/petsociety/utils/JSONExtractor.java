@@ -79,6 +79,14 @@ public class JSONExtractor {
         }
 	}
 	
+	//THIS METHOD ECTRACTS THE LOCATION REQUEST DATA
+	public void ExtractLocationRequest(HttpResponse data) throws IllegalStateException, IOException, JSONException
+	{
+		
+		
+	}
+	
+	
 	//THIS METHODS EXTRACTS THE REGISTER USER REQUEST DATA
 	public void ExtractRegisterUserRequest(HttpResponse data) throws IllegalStateException, IOException, JSONException
 	{

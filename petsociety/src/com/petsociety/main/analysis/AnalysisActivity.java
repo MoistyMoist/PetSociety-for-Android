@@ -16,11 +16,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.petsociety.httprequests.RetrieveEventAnalysisRequest;
-import com.petsociety.httprequests.RetrieveLocationAnalysisRequest;
-import com.petsociety.httprequests.RetrieveLocationRequest;
-import com.petsociety.httprequests.RetrieveLostAnalysisRequest;
-import com.petsociety.httprequests.RetrieveStrayAnalysisRequest;
+
 import com.petsociety.main.MainBaseActivity;
 import com.petsociety.main.RightListFragment;
 import com.google.android.gms.common.ConnectionResult;
@@ -84,35 +80,21 @@ OnMyLocationButtonClickListener{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.activity_main_analysis);
 		setSlidingActionBarEnabled(true);
-		
-				
 		SlidingMenu sm = getSlidingMenu();
-		sm.setMode(SlidingMenu.LEFT);
-							
+		sm.setMode(SlidingMenu.LEFT);	
 		sm.setSecondaryShadowDrawable(R.drawable.shadowright);
 		sm.setShadowDrawable(R.drawable.shadow);
-
-
 		ViewGroup viewGroup=(ViewGroup)findViewById(R.id.analysis_map);
 		viewGroup.addView(View.inflate(this, R.layout.basic_map, null));
 		setUpMapIfNeeded();
 		
+		//retrieve all the points (location, strays, lost, events
 		
-		//new loadPoints().doInBackground(null);
 		
-		 RetrieveLocationAnalysisRequest analysisLocation = new RetrieveLocationAnalysisRequest();
-	        RetrieveLostAnalysisRequest analysisLost= new RetrieveLostAnalysisRequest();
-	        RetrieveStrayAnalysisRequest analysisStray= new RetrieveStrayAnalysisRequest();
-	        RetrieveEventAnalysisRequest analysisEvent= new RetrieveEventAnalysisRequest();
-		new loadPoints().execute(analysisLost);
-		new loadPoints().execute(analysisEvent);
-		new loadPoints().execute(analysisEvent);
-		new loadPoints().execute(analysisEvent);
-		new loadPoints().execute(analysisEvent);
-		
+		//new BackgroundTask().execute(analysisLost,analysisLost,analysisLost,analysisLost);
+
 	}
 	@Override
 	public void onStart()
@@ -142,14 +124,17 @@ OnMyLocationButtonClickListener{
         }
     }
 	@SuppressWarnings("unused")
-	private void setUpMap() {
+	private void AddPin() {
         mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
     }
 	
+	private void RemovePins()
+	{
+		
+	}
+	
 	 public boolean onMyLocationButtonClick() {
-	        Toast.makeText(this, "Stalking...", Toast.LENGTH_SHORT).show();
-	        // Return false so that we don't consume the event and the default behavior still occurs
-	        // (the camera animates to the user's current position).
+	        Toast.makeText(this, "Tracking...", Toast.LENGTH_SHORT).show();
 	        return false;
 	    }
 
@@ -178,7 +163,6 @@ OnMyLocationButtonClickListener{
 
 	@Override
 	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getSupportMenuInflater().inflate(R.menu.analysis, menu);
 		return true;
 	}
@@ -190,39 +174,34 @@ OnMyLocationButtonClickListener{
 		startActivity(intent);
 	}
 	
-	private class loadPoints extends AsyncTask<Runnable, Integer, Long> {
+	private class BackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 	     
 		@Override
 		protected void onPostExecute(Long result) {
-			// TODO Auto-generated method stub
+			Toast.makeText(getBaseContext(), "Refreshed", Toast.LENGTH_LONG).show();
 			super.onPostExecute(result);
 		}
 
 		@Override
-		protected Long doInBackground(Runnable... arg0) {
+		protected void onPreExecute() {
+			Toast.makeText(getBaseContext(), "Refreshing..", Toast.LENGTH_LONG).show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Long doInBackground(Runnable... task) {
 			
+			for(int i=0; i<task.length;i++)
+			{
+				task[i].run();
+				
+				if (isCancelled()) break;
+			}
 			
-			ExecutorService executor = Executors.newFixedThreadPool(10);
-	        RetrieveLocationAnalysisRequest analysisLocation = new RetrieveLocationAnalysisRequest();
-	        RetrieveLostAnalysisRequest analysisLost= new RetrieveLostAnalysisRequest();
-	        RetrieveStrayAnalysisRequest analysisStray= new RetrieveStrayAnalysisRequest();
-	        RetrieveEventAnalysisRequest analysisEvent= new RetrieveEventAnalysisRequest();
-	        
-	        executor.execute(analysisLocation);
-	        executor.execute(analysisLost);
-	        executor.execute(analysisStray);
-	        executor.execute(analysisEvent);
-	        
-			executor.shutdown();
-	        try {
-	        	executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-	       	  	Log.i(" RESPONSE :","ENDED REQUEST");
-	       	  	
-	        } catch (InterruptedException e) {
-	           
-	        }
 			return null;
 		}
+
+		
 	 }
 	
 }
