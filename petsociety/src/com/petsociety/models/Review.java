@@ -1,5 +1,7 @@
 package com.petsociety.models;
 
+import java.sql.Date;
+
 public class Review {
 
 	private int reviewID;
@@ -7,15 +9,14 @@ public class Review {
 	private String title;
 	private String likes;
 	private String dislikes;
-	private String dateCreated;
-	private String timeCreated;
-	
+	private Date dateTimeCreated;
 	private int locationID;
+	private int userID;
+	private int strayID;
 	
-	private User user;
-	private Stray stray;
 	
-	
+	//link tables
+	private Location location;
 	public int getReviewID() {
 		return reviewID;
 	}
@@ -46,23 +47,35 @@ public class Review {
 	public void setDislikes(String dislikes) {
 		this.dislikes = dislikes;
 	}
-	public String getDateCreated() {
-		return dateCreated;
+	public Date getDateTimeCreated() {
+		return dateTimeCreated;
 	}
-	public void setDateCreated(String dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-	public String getTimeCreated() {
-		return timeCreated;
-	}
-	public void setTimeCreated(String timeCreated) {
-		this.timeCreated = timeCreated;
+	public void setDateTimeCreated(Date dateTimeCreated) {
+		this.dateTimeCreated = dateTimeCreated;
 	}
 	public int getLocationID() {
 		return locationID;
 	}
 	public void setLocationID(int locationID) {
 		this.locationID = locationID;
+	}
+	public int getUserID() {
+		return userID;
+	}
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
+	public int getStrayID() {
+		return strayID;
+	}
+	public void setStrayID(int strayID) {
+		this.strayID = strayID;
+	}
+	public Location getLocation() {
+		return location;
+	}
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 	public User getUser() {
 		return user;
@@ -76,5 +89,9 @@ public class Review {
 	public void setStray(Stray stray) {
 		this.stray = stray;
 	}
+	private User user;
+	private Stray stray;
+	
+	
 	
 }
