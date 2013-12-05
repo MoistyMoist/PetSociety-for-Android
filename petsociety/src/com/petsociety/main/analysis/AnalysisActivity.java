@@ -17,6 +17,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import com.petsociety.httprequests.RetrieveAllEventRequest;
 import com.petsociety.main.MainBaseActivity;
 import com.petsociety.main.RightListFragment;
 import com.google.android.gms.common.ConnectionResult;
@@ -91,18 +92,12 @@ OnMyLocationButtonClickListener{
 		setUpMapIfNeeded();
 		
 		//retrieve all the points (location, strays, lost, events
+		RetrieveAllEventRequest eventRequest= new RetrieveAllEventRequest();
 		
-		
-		//new BackgroundTask().execute(analysisLost,analysisLost,analysisLost,analysisLost);
+		new BackgroundTask().execute(eventRequest);
 
 	}
-	@Override
-	public void onStart()
-	{
-		super.onStart();
-		
-		
-	}
+	
 	
 	
 	

@@ -16,11 +16,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.petsociety.httprequests.RetrieveEventAnalysisRequest;
-import com.petsociety.httprequests.RetrieveLocationAnalysisRequest;
-import com.petsociety.httprequests.RetrieveLocationRequest;
-import com.petsociety.httprequests.RetrieveLostAnalysisRequest;
-import com.petsociety.httprequests.RetrieveStrayAnalysisRequest;
 import com.petsociety.main.MainBaseActivity;
 import com.petsociety.main.RightListFragment;
 import com.google.android.gms.common.ConnectionResult;
@@ -103,15 +98,15 @@ OnMyLocationButtonClickListener{
 		
 		//new loadPoints().doInBackground(null);
 		
-		 RetrieveLocationAnalysisRequest nearbyLocation = new RetrieveLocationAnalysisRequest();
-	        RetrieveLostAnalysisRequest nearbyLost= new RetrieveLostAnalysisRequest();
-	        RetrieveStrayAnalysisRequest nearbyStray= new RetrieveStrayAnalysisRequest();
-	        RetrieveEventAnalysisRequest nearbyEvent= new RetrieveEventAnalysisRequest();
-		new loadPoints().execute(nearbyLost);
-		new loadPoints().execute(nearbyEvent);
-		new loadPoints().execute(nearbyEvent);
-		new loadPoints().execute(nearbyEvent);
-		new loadPoints().execute(nearbyEvent);
+//		 RetrieveLocationAnalysisRequest nearbyLocation = new RetrieveLocationAnalysisRequest();
+//	        RetrieveLostAnalysisRequest nearbyLost= new RetrieveLostAnalysisRequest();
+//	        RetrieveStrayAnalysisRequest nearbyStray= new RetrieveStrayAnalysisRequest();
+//	        RetrieveEventAnalysisRequest nearbyEvent= new RetrieveEventAnalysisRequest();
+//		new loadPoints().execute(nearbyLost);
+//		new loadPoints().execute(nearbyEvent);
+//		new loadPoints().execute(nearbyEvent);
+//		new loadPoints().execute(nearbyEvent);
+//		new loadPoints().execute(nearbyEvent);
 		
 	}
 	@Override
@@ -202,25 +197,25 @@ OnMyLocationButtonClickListener{
 		protected Long doInBackground(Runnable... arg0) {
 			
 			
-			ExecutorService executor = Executors.newFixedThreadPool(10);
-	        RetrieveLocationAnalysisRequest nearbyLocation = new RetrieveLocationAnalysisRequest();
-	        RetrieveLostAnalysisRequest nearbyLost= new RetrieveLostAnalysisRequest();
-	        RetrieveStrayAnalysisRequest nearbyStray= new RetrieveStrayAnalysisRequest();
-	        RetrieveEventAnalysisRequest nearbyEvent= new RetrieveEventAnalysisRequest();
+//			ExecutorService executor = Executors.newFixedThreadPool(10);
+//	        RetrieveLocationAnalysisRequest nearbyLocation = new RetrieveLocationAnalysisRequest();
+//	        RetrieveLostAnalysisRequest nearbyLost= new RetrieveLostAnalysisRequest();
+//	        RetrieveStrayAnalysisRequest nearbyStray= new RetrieveStrayAnalysisRequest();
+//	        RetrieveEventAnalysisRequest nearbyEvent= new RetrieveEventAnalysisRequest();
+//	        
+//	        executor.execute(nearbyLocation);
+//	        executor.execute(nearbyLost);
+//	        executor.execute(nearbyStray);
+//	        executor.execute(nearbyEvent);
 	        
-	        executor.execute(nearbyLocation);
-	        executor.execute(nearbyLost);
-	        executor.execute(nearbyStray);
-	        executor.execute(nearbyEvent);
-	        
-			executor.shutdown();
-	        try {
-	        	executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-	       	  	Log.i(" RESPONSE :","ENDED REQUEST");
-	       	  	
-	        } catch (InterruptedException e) {
-	           
-	        }
+//			executor.shutdown();
+//	        try {
+//	        	executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+//	       	  	Log.i(" RESPONSE :","ENDED REQUEST");
+//	       	  	
+//	        } catch (InterruptedException e) {
+//	           
+//	        }
 			return null;
 		}
 	 }

@@ -15,6 +15,18 @@ import android.util.Log;
 
 public class JSONExtractor {
 
+	
+	//JSON NODE NAMES
+	private static final String TAG_MESSAGE ="Message";
+	private static final String TAG_DATA = "Data";
+	private static final String TAG_STATUS="Status";
+	private static final String TAG_ERRORS="Errors";
+	private static final String TAG_USER="USER";
+	
+	//EVENT NODE NAMES
+	
+		
+		
 	//THIS METHOD CONVERTS THE HTTP RESPONSE TO JSON.
 	//DO NOT EDIT OR REMOVE THIS METHOD
 	private static String convertStreamToString(InputStream is) 
@@ -80,7 +92,7 @@ public class JSONExtractor {
 	}
 	
 	//THIS METHOD ECTRACTS THE LOCATION REQUEST DATA
-	public void ExtractLocationRequest(HttpResponse data) throws IllegalStateException, IOException, JSONException
+	public void ExtractEventRequest(HttpResponse data) throws IllegalStateException, IOException, JSONException
 	{
 		
 		

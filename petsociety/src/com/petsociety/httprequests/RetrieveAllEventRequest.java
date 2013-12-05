@@ -1,6 +1,7 @@
 package com.petsociety.httprequests;
 
 import java.io.IOException;
+import java.sql.Date;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -16,19 +17,19 @@ import com.petsociety.utils.StaticObjects;
 
 public class RetrieveAllEventRequest implements Runnable{
 
-	private String startDate;
-	private String endDate;
+	private Date startDate;
+	private Date endDate;
 	private StaticObjects staticObjects;
 	
 	
 	public RetrieveAllEventRequest()
 	{
-		this.startDate="";
-		this.endDate="";
+		this.startDate=null;
+		this.endDate=null;
 		staticObjects= new StaticObjects();
 	}
 	
-	public RetrieveAllEventRequest(String INstartDate, String INendDate)
+	public RetrieveAllEventRequest(Date INstartDate, Date INendDate)
 	{
 		this.startDate=INstartDate;
 		this.endDate=INendDate;
@@ -42,13 +43,13 @@ public class RetrieveAllEventRequest implements Runnable{
 		HttpGet httpget = null;
 		
 		//PREPARE REQUEST OBJECT
-		if(this.startDate.equals("")||this.endDate.equals(""))
+		if(this.startDate==null||this.endDate==null)
 		{
-			httpget = new HttpGet(""); 
+			httpget = new HttpGet("http://petsociety.cloudapp.net/api/RetrieveEvent?INtoken="+staticObjects.getToken()); 
 		}
-		if(this.startDate!=""||this.endDate!="")
+		if(this.startDate!=null||this.endDate!=null)
 		{
-			httpget = new HttpGet("");  
+			httpget = new HttpGet("http://petsociety.cloudapp.net/api/RetrieveEvent?INtoken="+staticObjects.getToken()+"&INstartDateTime="+this.startDate+"&INendDateTime="+this.endDate);  
 		}
         Log.i("RETRIEVE ALL EVENTS :",httpget.getURI().toString());
         
@@ -63,7 +64,7 @@ public class RetrieveAllEventRequest implements Runnable{
             Log.i("RETRIEVE LOCATION RESPONSE :",response.getStatusLine().toString());
             //PASS THE RESPONSE TO THE EXTRACTOR
             JSONExtractor paser= new JSONExtractor();
-            paser.ExtractLocationRequest(response);
+            paser.ExtractEventRequest(response);
 
         } catch (ClientProtocolException e) {
             e.printStackTrace();

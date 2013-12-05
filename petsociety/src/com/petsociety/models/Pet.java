@@ -12,7 +12,6 @@ public class Pet {
 	
 	private Gallery gallery;
 	private User user;
-	private Pin pin;
 	private Image profileImage;
 	
 	
@@ -70,12 +69,7 @@ public class Pet {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public Pin getPin() {
-		return pin;
-	}
-	public void setPin(Pin pin) {
-		this.pin = pin;
-	}
+
 	public Image getProfileImage() {
 		return profileImage;
 	}

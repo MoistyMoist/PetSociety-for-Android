@@ -1,22 +1,24 @@
 package com.petsociety.models;
 
+import java.sql.Date;
 import java.util.List;
 
 public class Stray {
 
 	private int strayID;
-	private String x;
-	private String y;
+	private double x;
+	private double y;
 	private String biography;
 	private String title;
-	private String timeSeen;
-	private String DateSeen;
+	private Date dateTimeSeen;
 	private String type;
 	private String breed;
-	private String status;
+	private int status;
+	private String imageURl;
+	private int userID;
 	
-	private Image image;
-	private Pin pin;
+	
+	//link tables
 	private List<Review> reviews;
 	private User user;
 	
@@ -27,16 +29,16 @@ public class Stray {
 	public void setStrayID(int strayID) {
 		this.strayID = strayID;
 	}
-	public String getX() {
+	public double getX() {
 		return x;
 	}
-	public void setX(String x) {
+	public void setX(double x) {
 		this.x = x;
 	}
-	public String getY() {
+	public double getY() {
 		return y;
 	}
-	public void setY(String y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 	public String getBiography() {
@@ -51,17 +53,11 @@ public class Stray {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getTimeSeen() {
-		return timeSeen;
+	public Date getDateTimeSeen() {
+		return dateTimeSeen;
 	}
-	public void setTimeSeen(String timeSeen) {
-		this.timeSeen = timeSeen;
-	}
-	public String getDateSeen() {
-		return DateSeen;
-	}
-	public void setDateSeen(String dateSeen) {
-		DateSeen = dateSeen;
+	public void setDateTimeSeen(Date dateTimeSeen) {
+		this.dateTimeSeen = dateTimeSeen;
 	}
 	public String getType() {
 		return type;
@@ -75,17 +71,17 @@ public class Stray {
 	public void setBreed(String breed) {
 		this.breed = breed;
 	}
-	public Image getImage() {
-		return image;
+	public int getStatus() {
+		return status;
 	}
-	public void setImage(Image image) {
-		this.image = image;
+	public void setStatus(int status) {
+		this.status = status;
 	}
-	public Pin getPin() {
-		return pin;
+	public String getImageURl() {
+		return imageURl;
 	}
-	public void setPin(Pin pin) {
-		this.pin = pin;
+	public void setImageURl(String imageURl) {
+		this.imageURl = imageURl;
 	}
 	public List<Review> getReviews() {
 		return reviews;
@@ -99,11 +95,11 @@ public class Stray {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public String getStatus() {
-		return status;
+	public int getUserID() {
+		return userID;
 	}
-	public void setStatus(String status) {
-		this.status = status;
+	public void setUserID(int userID) {
+		this.userID = userID;
 	}
 	
 }

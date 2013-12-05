@@ -12,15 +12,19 @@ public class User {
 	private String address;
 	private String biography;
 	private String privicy;
-	private String sex;
+	private char sex;
 	private String contact;
 	private String credibility;
-	private String x;
-	private String y;
+	private double x;
+	private double y;
 	
-	private Image ProfileImage;
+	private String ProfileImageURL;
+	
+	
+	
+	//linked tables
+	
 	private Gallery gallery;
-	private Pin pin;
 	
 	private List<Attendee> attendees;
 	private List<Event> events;
@@ -29,6 +33,7 @@ public class User {
 	private List<Location> locations;
 	private List<Stray> strays;
 	private List<Friend_List> friend_list;
+	
 	
 	public int getUserID() {
 		return userID;
@@ -78,10 +83,10 @@ public class User {
 	public void setPrivicy(String privicy) {
 		this.privicy = privicy;
 	}
-	public String getSex() {
+	public char getSex() {
 		return sex;
 	}
-	public void setSex(String sex) {
+	public void setSex(char sex) {
 		this.sex = sex;
 	}
 	public String getContact() {
@@ -96,35 +101,29 @@ public class User {
 	public void setCredibility(String credibility) {
 		this.credibility = credibility;
 	}
-	public String getX() {
+	public double getX() {
 		return x;
 	}
-	public void setX(String x) {
+	public void setX(double x) {
 		this.x = x;
 	}
-	public String getY() {
+	public double getY() {
 		return y;
 	}
-	public void setY(String y) {
+	public void setY(double y) {
 		this.y = y;
 	}
-	public Image getProfileImage() {
-		return ProfileImage;
+	public String getProfileImageURL() {
+		return ProfileImageURL;
 	}
-	public void setProfileImage(Image profileImage) {
-		ProfileImage = profileImage;
+	public void setProfileImageURL(String profileImageURL) {
+		ProfileImageURL = profileImageURL;
 	}
 	public Gallery getGallery() {
 		return gallery;
 	}
 	public void setGallery(Gallery gallery) {
 		this.gallery = gallery;
-	}
-	public Pin getPin() {
-		return pin;
-	}
-	public void setPin(Pin pin) {
-		this.pin = pin;
 	}
 	public List<Attendee> getAttendees() {
 		return attendees;
@@ -168,4 +167,5 @@ public class User {
 	public void setFriend_list(List<Friend_List> friend_list) {
 		this.friend_list = friend_list;
 	}
+	
 }
