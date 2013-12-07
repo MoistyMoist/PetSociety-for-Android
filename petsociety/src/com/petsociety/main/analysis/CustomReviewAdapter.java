@@ -52,8 +52,8 @@ public class CustomReviewAdapter extends ArrayAdapter<Review>{
         
         // 4. Set the text for textView 
         comments.setText(reviewList.get(position).getDescription());
-        profileImage.setImageDrawable(reviewList.get(position).getUser().getProfileImage().getImageURL());
-        date.setText(reviewList.get(position).getDateCreated());
+        profileImage.setImageDrawable(reviewList.get(position).getUser().getProfileImageURL());
+        date.setText(reviewList.get(position).getDateTimeCreated().toString());
         if(reviewList.get(position).getLikes().isEmpty()||reviewList.get(position).getLikes()==null||reviewList.get(position).getLikes().equals(""))
         {
         	likes.setText("LIKE");

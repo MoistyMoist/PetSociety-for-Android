@@ -12,9 +12,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.btrading.models.Product;
-import com.btrading.models.User;
-import com.btrading.utils.StaticObjects;
 
 import android.util.Log;
 
@@ -96,63 +93,63 @@ public class JSONExtractor {
         }
 	}
 	
-	//THIS METHOD ECTRACTS THE LOCATION REQUEST DATA
-	public void ExtractEventRequest(HttpResponse data) throws IllegalStateException, IOException, JSONException
-	{
-HttpEntity entity = data.getEntity();
-        
-        if (entity != null) {
-            InputStream instream = entity.getContent();
-            String result= convertStreamToString(instream);
-            
-            JSONObject json = null;
-            json = new JSONObject(result);
-	
-            //check status if all green to extract
-			StaticObjects.setRequestStatus((Integer) json.get(TAG_STATUS));
-			StaticObjects.setRequestMessage(json.getString(TAG_MESSAGE));
-			JSONArray RawData= json.getJSONArray(TAG_DATA);
-			//JSONArray errors=json.getJSONArray(TAG_ERRORS);
-			
-			ArrayList<Product>products= new ArrayList<Product>();
-			if(StaticObjects.getRequestStatus()==0)
-			{
-				Log.i("product ",RawData.toString() );
-				for(int i=0;i<RawData.length();i++)
-				{
-					JSONObject c=RawData.getJSONObject(i);
-					
-					Product p= new Product();
-					p.setProductID(c.getInt(TAG_PRODUCT_ID));
-					p.setName(c.getString(TAG_PRODUCT_NAME));
-					p.setDescription(c.getString(TAG_PRODUCT_DESCRIPTION));
-					p.setImageURL(c.getString(TAG_PRODUCT_IMAGEURL));
-					p.setQty(c.getString(TAG_PRODUCT_QTY));
-					p.setQuality(c.getString(TAG_PRODUCT_QUALITY));
-					p.setX(c.getString(TAG_PRODUCT_XLOCATION));
-					p.setY(c.getString(TAG_PRODUCT_YLOCATION));
-					
-					User u= new User();
-//					JSONObject c2=(JSONObject) c.get(TAG_USER);
-					
-					u.setUserID(c.getInt(TAG_USER_ID));
-					
-					p.setUser(u);
-					products.add(p);
-					
-					//Log.i("product "+i,c.toString() );
-				}
-				StaticObjects.setAllProducts(products);
-			}
-			else
-			{
-				Log.i("ERROR", "status==1");
-				Log.i("Message",StaticObjects.getRequestMessage());
-			}
-            instream.close();
-        }
-		
-	}
+//	//THIS METHOD ECTRACTS THE LOCATION REQUEST DATA
+//	public void ExtractEventRequest(HttpResponse data) throws IllegalStateException, IOException, JSONException
+//	{
+//HttpEntity entity = data.getEntity();
+//        
+//        if (entity != null) {
+//            InputStream instream = entity.getContent();
+//            String result= convertStreamToString(instream);
+//            
+//            JSONObject json = null;
+//            json = new JSONObject(result);
+//	
+//            //check status if all green to extract
+//			StaticObjects.setResponseStatus((Integer) json.get(TAG_STATUS));
+//			StaticObjects.setResponseMessage(json.getString(TAG_MESSAGE));
+//			JSONArray RawData= json.getJSONArray(TAG_DATA);
+//			//JSONArray errors=json.getJSONArray(TAG_ERRORS);
+//			
+//			ArrayList<Product>products= new ArrayList<Product>();
+//			if(StaticObjects.getRequestStatus()==0)
+//			{
+//				Log.i("product ",RawData.toString() );
+//				for(int i=0;i<RawData.length();i++)
+//				{
+//					JSONObject c=RawData.getJSONObject(i);
+//					
+//					Product p= new Product();
+//					p.setProductID(c.getInt(TAG_PRODUCT_ID));
+//					p.setName(c.getString(TAG_PRODUCT_NAME));
+//					p.setDescription(c.getString(TAG_PRODUCT_DESCRIPTION));
+//					p.setImageURL(c.getString(TAG_PRODUCT_IMAGEURL));
+//					p.setQty(c.getString(TAG_PRODUCT_QTY));
+//					p.setQuality(c.getString(TAG_PRODUCT_QUALITY));
+//					p.setX(c.getString(TAG_PRODUCT_XLOCATION));
+//					p.setY(c.getString(TAG_PRODUCT_YLOCATION));
+//					
+//					User u= new User();
+////					JSONObject c2=(JSONObject) c.get(TAG_USER);
+//					
+//					u.setUserID(c.getInt(TAG_USER_ID));
+//					
+//					p.setUser(u);
+//					products.add(p);
+//					
+//					//Log.i("product "+i,c.toString() );
+//				}
+//				StaticObjects.setAllProducts(products);
+//			}
+//			else
+//			{
+//				Log.i("ERROR", "status==1");
+//				Log.i("Message",StaticObjects.getRequestMessage());
+//			}
+//            instream.close();
+//        }
+//		
+//	}
 	
 	
 	//THIS METHODS EXTRACTS THE REGISTER USER REQUEST DATA
