@@ -56,7 +56,8 @@
         </activity>
         <activity
             android:name="com.petsociety.account.RegisterActivity"
-            android:label="@string/title_activity_register" >
+            android:label="@string/title_activity_register" 
+            android:noHistory="true" >
         </activity>
         <activity
             android:name="com.petsociety.main.profile.ProfileActivity"

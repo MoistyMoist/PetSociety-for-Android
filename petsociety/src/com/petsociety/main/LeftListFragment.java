@@ -57,6 +57,7 @@ public class LeftListFragment extends ListFragment {
 		adapter.add(new SampleItem("Settings", R.drawable.ic_left_menu_title)); //int 0 for title, custom set
 		adapter.add(new SampleItem("Account", android.R.drawable.ic_menu_preferences));
 		adapter.add(new SampleItem("Application", android.R.drawable.ic_menu_preferences));
+		adapter.add(new SampleItem("Log Out", android.R.drawable.ic_menu_preferences));
 		
 		setListAdapter(adapter);
 		
