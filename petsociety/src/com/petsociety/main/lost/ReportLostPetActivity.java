@@ -28,7 +28,7 @@ public class ReportLostPetActivity extends Activity {
 		adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_dropdown_item, spinItems);
 		spin_type.setAdapter(adapter);
 		
-		report_lost = (Button) findViewById(R.id.button_report);
+		report_lost = (Button) findViewById(R.id.b_lost_report);
 		report_lost.setOnClickListener(new OnClickListener(){
 
 			@Override

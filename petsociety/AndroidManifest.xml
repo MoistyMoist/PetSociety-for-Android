@@ -99,6 +99,10 @@
             android:name="com.example.petsociety.NearbyDetailsActivity"
             android:label="@string/title_activity_nearby_details" >
         </activity>
+        <activity
+            android:name="com.petsociety.main.lost.LostProfileActivity"
+            android:label="@string/title_activity_lost_profile" >
+        </activity>
     </application>
 
 </manifest>

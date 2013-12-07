@@ -4,10 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ReportLostPetActivity" >
 
     <LinearLayout 
@@ -43,24 +39,29 @@
     
     </LinearLayout>
     
-    <EditText
-        android:id="@+id/editText_age"
-        android:layout_width="wrap_content"
+    <LinearLayout 
+		android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout0"
+        android:orientation="horizontal">
+    <EditText
+        android:id="@+id/et_lost_age"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
         android:hint="Age"
         android:inputType="phone" />
     
 	<Button
         android:id="@+id/button_age"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/editText_age"
-        android:layout_toRightOf="@+id/editText_age"
+        android:layout_weight="0.5"
         android:text="Select" />
-    
+    </LinearLayout>
+	
     <Button
-        android:id="@+id/button_report"
+        android:id="@+id/b_lost_report"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
