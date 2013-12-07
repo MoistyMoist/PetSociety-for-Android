@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.sql.Date;
 import java.util.ArrayList;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -36,6 +37,19 @@ public class JSONExtractor {
 	
 	//USER NODE NAMES
 	private static final String TAG_USER_USERID="UserID";
+	private static final String TAG_USER_PASSWORD="Password";
+	private static final String TAG_USER_BIOGRAPHY="Biograpyh";
+	private static final String TAG_USER_BIRTHDAY="Birthday";
+	private static final String TAG_USER_PROFILEIMAGEURL="ProfileImageURL";
+	private static final String TAG_USER_X="X";
+	private static final String TAG_USER_Y="Y";
+	private static final String TAG_USER_SEX="Sex";
+	private static final String TAG_USER_PRIVICY="Privicy";
+	private static final String TAG_USER_CONTACT="Contact";
+	private static final String TAG_USER_NAME="Name";
+	private static final String TAG_USER_EMAIL="Email";
+	private static final String TAG_USER_ADDRESS="Address";
+	private static final String TAG_USER_CREDIBILITY="Credibility";
 	
 	//EVENT NODE NAMES
 	private static final String TAG_EVENT_USERID="UserID";
@@ -52,15 +66,19 @@ public class JSONExtractor {
 	private static final String TAG_EVENT_PRIVACY="Privacy";
 	
 	//LOCATION NODE NAMES
+	private static final String TAG_LOCATION_LOCATIONID="LocationID";
 	
 	//LOST NODE NAMES
+	private static final String TAG_LOST_LOSTID="LostID";
 	
 	//STRAY NODE NAMES
+	private static final String TAG_STRAY_STRAYID="StrayID";
 	
 	//GALLERY NODE NAMES
+	private static final String TAG_GALLERY_GALLERYID="GalleryID";
 	
 	//IMAGE NODE NAMES
-	
+	private static final String TAG_IMAGE_IMAGEID="ImageID";
 	
 	
 	
@@ -157,25 +175,33 @@ public class JSONExtractor {
 					JSONObject c=RawData.getJSONObject(i);
 					
 					Event e= new Event();
+					e.setEventID(c.getInt(TAG_EVENT_EVENTID));
+					e.setName(c.getString(TAG_EVENT_NAME));
+					e.setDateTimeCreated((Date) c.get(TAG_EVENT_DATETIMECREATED));
 					
 					
 					User u= new User();
-//					JSONObject c2=(JSONObject) c.get(TAG_USER);
+					JSONObject c2=(JSONObject) c.get(TAG_USER);
+					u.setUserID(c2.getInt(TAG_USER_USERID));
+					u.setName(c2.getString(TAG_USER_NAME));
+					u.setProfileImageURL(c2.getString(TAG_USER_PROFILEIMAGEURL));
+					u.setBiography(c2.getString(TAG_USER_BIOGRAPHY));
+					u.setContact(c2.getString(TAG_USER_CONTACT));
+					u.setCredibility(c2.getString(TAG_USER_CREDIBILITY));
+					u.setEmail(c2.getString(TAG_USER_EMAIL));					
+					e.setUser(u);
 					
-					//u.setUserID(c.getInt(TAG_USER_ID));
+				//	ArrayList<>
 					
-					//p.setUser(u);
-					//products.add(p);
 					
-					//Log.i("product "+i,c.toString() );
+					events.add(e);
 				}
-				//StaticObjects.setAllProducts(products);
+				StaticObjects.setAnalysisEvent(events);
 			}
 			else
 			{
 				Log.i("ERROR", "status==1");
 				Log.i("Message",StaticObjects.getResponseMessage());
-				StaticObjects.setResponseStatus(1);
 			}
             instream.close();
         }
