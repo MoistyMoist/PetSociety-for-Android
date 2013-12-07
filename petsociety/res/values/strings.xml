@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	
+
     <!-- Application String Variables -->
     <string name="app_name">Pet Society SG</string>
     <string name="action_settings">Settings</string>
@@ -16,11 +16,11 @@
     <string name="contact">Contact</string>
     <string name="ab_camera_label">Snapshot</string>
     <string name="ab_right_label">Stray Animals</string>
-    
+
     <!-- Choon Seng -->
     <string name="lost_pet">Pet Society SG</string>
     <string name="new_report_lost_pet">Report My Lost Pet</string>
-	
+
     <string-array name="syncFrequency">
         <item name="1">1 Hour</item>
         <item name="2">2 Hours</item>
@@ -40,19 +40,18 @@
         <item name="4">Very New</item>
         <item name="5">Unwrap</item>
     </string-array>
-    
+
     <!-- Shahrikin -->
-    
-    
+
+
     <!-- Kai Quan -->
     <string name="refresh">Refresh</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    
+
     <!-- Euru -->
-    
-    
-    
+
+
     <!-- Activites Title Bar -->
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
@@ -64,5 +63,6 @@
     <string name="title_activity_event">EventActivity</string>
     <string name="title_activity_analysis_detail">AnalysisDetailActivity</string>
     <string name="title_activity_report_lost_pet">Report My Lost Pet </string>
+    <string name="title_activity_nearby_details">NearbyDetailsActivity</string>
 
 </resources>

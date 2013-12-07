@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.example.petsociety.NearbyDetailsActivity;
 import com.example.petsociety.R;
 import com.example.petsociety.R.layout;
 import com.example.petsociety.R.menu;
@@ -16,6 +17,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+
 import com.petsociety.main.MainBaseActivity;
 import com.petsociety.main.RightListFragment;
 import com.google.android.gms.common.ConnectionResult;
@@ -40,6 +43,7 @@ import android.content.res.Resources;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -65,10 +69,9 @@ OnMyLocationButtonClickListener{
             .setFastestInterval(16)    // 16ms = 60fps
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 	
-	
-	Button filterBtn;
-	Button filterBtn2;
-	
+
+	Button locateButton;
+	Intent intent;
 	
 	
 	public NearbyActivity() {
@@ -95,26 +98,21 @@ OnMyLocationButtonClickListener{
 		viewGroup.addView(View.inflate(this, R.layout.basic_map, null));
 		setUpMapIfNeeded();
 		
+		locateButton = (Button) findViewById(R.id.locateButton);
+		intent = new Intent(this, NearbyDetailsActivity.class);
 		
-		//new loadPoints().doInBackground(null);
-		
-//		 RetrieveLocationAnalysisRequest nearbyLocation = new RetrieveLocationAnalysisRequest();
-//	        RetrieveLostAnalysisRequest nearbyLost= new RetrieveLostAnalysisRequest();
-//	        RetrieveStrayAnalysisRequest nearbyStray= new RetrieveStrayAnalysisRequest();
-//	        RetrieveEventAnalysisRequest nearbyEvent= new RetrieveEventAnalysisRequest();
-//		new loadPoints().execute(nearbyLost);
-//		new loadPoints().execute(nearbyEvent);
-//		new loadPoints().execute(nearbyEvent);
-//		new loadPoints().execute(nearbyEvent);
-//		new loadPoints().execute(nearbyEvent);
-		
-	}
-	@Override
-	public void onStart()
-	{
-		super.onStart();
-		
-		
+		locateButton.setOnClickListener( new OnClickListener()
+		{
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				startActivity(intent);
+				
+			}
+			
+		});
+				
 	}
 	
 	
@@ -180,44 +178,10 @@ OnMyLocationButtonClickListener{
 	
 //	public void nextPage(View view)
 //	{
-//		Intent intent= new Intent(this,AnalysisDetailActivity.class);
-//		intent.setClass(getApplication(), AnalysisDetailActivity.class);
+//		Intent intent= new Intent(this,NearbyDetailsActivity.class);
+//		intent.setClass(getApplication(), NearbyDetailsActivity.class);
 //		startActivity(intent);
 //	}
 	
-	private class loadPoints extends AsyncTask<Runnable, Integer, Long> {
-	     
-		@Override
-		protected void onPostExecute(Long result) {
-			// TODO Auto-generated method stub
-			super.onPostExecute(result);
-		}
-
-		@Override
-		protected Long doInBackground(Runnable... arg0) {
-			
-			
-//			ExecutorService executor = Executors.newFixedThreadPool(10);
-//	        RetrieveLocationAnalysisRequest nearbyLocation = new RetrieveLocationAnalysisRequest();
-//	        RetrieveLostAnalysisRequest nearbyLost= new RetrieveLostAnalysisRequest();
-//	        RetrieveStrayAnalysisRequest nearbyStray= new RetrieveStrayAnalysisRequest();
-//	        RetrieveEventAnalysisRequest nearbyEvent= new RetrieveEventAnalysisRequest();
-//	        
-//	        executor.execute(nearbyLocation);
-//	        executor.execute(nearbyLost);
-//	        executor.execute(nearbyStray);
-//	        executor.execute(nearbyEvent);
-	        
-//			executor.shutdown();
-//	        try {
-//	        	executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-//	       	  	Log.i(" RESPONSE :","ENDED REQUEST");
-//	       	  	
-//	        } catch (InterruptedException e) {
-//	           
-//	        }
-			return null;
-		}
-	 }
 	
 }
