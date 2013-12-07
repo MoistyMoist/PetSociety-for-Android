@@ -10,6 +10,7 @@ import com.petsociety.main.profile.ProfileActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -87,9 +88,11 @@ public class RightListFragment extends ListFragment {
 			if (getItem(position).iconRes == R.drawable.ic_right_menu_title) {
 				convertView.setBackgroundColor(Color.GRAY);  
 				title.setTextColor(Color.WHITE);
+				title.setTypeface(null, Typeface.BOLD);
 			}
 			else{
 				convertView.setBackgroundColor(Color.WHITE);  
+				title.setTypeface(null, Typeface.NORMAL);
 			}
 
 			return convertView;

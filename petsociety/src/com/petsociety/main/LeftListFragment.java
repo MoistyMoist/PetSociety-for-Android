@@ -13,6 +13,7 @@ import com.petsociety.main.profile.ProfileActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
@@ -41,20 +42,21 @@ public class LeftListFragment extends ListFragment {
 		super.onActivityCreated(savedInstanceState);
 		
 		SampleAdapter adapter = new SampleAdapter(getActivity());
-		//0-4
-		adapter.add(new SampleItem("1st Title", R.drawable.ic_left_menu_title)); //int 0 for title, custom set	
+		//0-1
 		adapter.add(new SampleItem("Search", android.R.drawable.ic_menu_search));
 		adapter.add(new SampleItem("PetSG Home",android.R.drawable.ic_menu_search));
+		//2-4
+		adapter.add(new SampleItem("Account", R.drawable.ic_main_account,true)); //title
 		adapter.add(new SampleItem("Profile", android.R.drawable.ic_menu_myplaces));
 		adapter.add(new SampleItem("Events", android.R.drawable.ic_menu_my_calendar));
 		//5-9
-		adapter.add(new SampleItem("2nd Title", R.drawable.ic_left_menu_title)); //int 0 for title, custom set		
+		adapter.add(new SampleItem("Find Animals", R.drawable.ic_main_find_animals,true)); //title
 		adapter.add(new SampleItem("Lost Pets", android.R.drawable.ic_menu_search));
 		adapter.add(new SampleItem("Strays Pets", android.R.drawable.ic_menu_search));
 		adapter.add(new SampleItem("Analysis", android.R.drawable.ic_menu_mapmode));
 		adapter.add(new SampleItem("Nearby", android.R.drawable.ic_menu_directions));
 		//10-12
-		adapter.add(new SampleItem("Settings", R.drawable.ic_left_menu_title)); //int 0 for title, custom set
+		adapter.add(new SampleItem("Settings", R.drawable.ic_main_settings,true)); //title
 		adapter.add(new SampleItem("Account", android.R.drawable.ic_menu_preferences));
 		adapter.add(new SampleItem("Application", android.R.drawable.ic_menu_preferences));
 		adapter.add(new SampleItem("Log Out", android.R.drawable.ic_menu_preferences));
@@ -69,12 +71,12 @@ public class LeftListFragment extends ListFragment {
 		Intent intent = new Intent();
 		intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		switch (position) {
-		case 1: //Search
+		case 0: //Search
 			break;
 			
-		case 2: //Home
+		case 1: //Home
 			intent.setClass(getActivity(), MainActivity.class);
-			intent.putExtra("var", "home");
+			intent.putExtra("pin", "home");
 			startActivity(intent);
 			break;
 
@@ -120,9 +122,17 @@ public class LeftListFragment extends ListFragment {
 	private class SampleItem {
 		public String tag;
 		public int iconRes;
+		public boolean title;
 		public SampleItem(String tag, int iconRes) {
 			this.tag = tag; 
 			this.iconRes = iconRes;
+			this.title = false;
+		}
+		
+		public SampleItem(String tag, int iconRes, boolean title) {
+			this.tag = tag; 
+			this.iconRes = iconRes;
+			this.title = title;
 		}
 	}
 
@@ -142,13 +152,16 @@ public class LeftListFragment extends ListFragment {
 			title.setText(getItem(position).tag);
 			title.setTextColor(Color.BLUE);
 			
-			if (getItem(position).iconRes == R.drawable.ic_left_menu_title) {
+			if (getItem(position).title==true) {
 				convertView.setBackgroundColor(Color.GRAY);  
 				title.setTextColor(Color.WHITE);
+				//Typeface myTypeface = Typeface.createFromAsset(getActivity().getAssets(), "text/LuckiestGuy.ttf");
+				title.setTypeface(null, Typeface.BOLD);
 			}
 			else{
 				//convertView.setBackgroundColor(Color.TRANSPARENT); 
 				convertView.setBackgroundColor(Color.WHITE); 
+				title.setTypeface(null, Typeface.NORMAL);
 			}
 
 			return convertView;
