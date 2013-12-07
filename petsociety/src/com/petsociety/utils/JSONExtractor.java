@@ -5,19 +5,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import com.petsociety.models.Event;
 import com.petsociety.models.User;
-
-
 import android.util.Log;
 
+@SuppressWarnings("unused")
 public class JSONExtractor {
 
 	
@@ -27,9 +24,46 @@ public class JSONExtractor {
 	private static final String TAG_STATUS="Status";
 	private static final String TAG_ERRORS="Errors";
 	private static final String TAG_USER="USER";
+	private static final String TAG_GALLERies="GALLERies";
+	private static final String TAG_GALLERY="GALLERY";
+	private static final String TAG_ATTENDEEs="ATTENDEEs";
+	private static final String TAG_PETs="PETs";
+	private static final String TAG_LOSTs="LOSTs";
+	private static final String TAG_REVIEWs="REVIEWs";
+	private static final String TAG_FRIENDREQUEST="FRIEND_REQUEST";
+	private static final String TAG_STRAYs="STRAYs";
+	private static final String TAG_LOCATIONs="LOCATIONs";
+	
+	//USER NODE NAMES
+	private static final String TAG_USER_USERID="UserID";
 	
 	//EVENT NODE NAMES
 	private static final String TAG_EVENT_USERID="UserID";
+	private static final String TAG_EVENT_EVENTID="EventID";
+	private static final String TAG_EVENT_DESCRIPTION="Description";
+	private static final String TAG_EVENT_DATETIMECREATED="DateTimeCreated";
+	private static final String TAG_EVENT_ENDDATETIME="EndDateTime";
+	private static final String TAG_EVENT_STARTDATETIME="StartDateTime";
+	private static final String TAG_EVENT_NAME="Name";
+	private static final String TAG_EVENT_GALLERYID="GalleryID";
+	private static final String TAG_EVENT_X="X";
+	private static final String TAG_EVENT_Y="Y";
+	private static final String TAG_EVENT_STATUS="Status";
+	private static final String TAG_EVENT_PRIVACY="Privacy";
+	
+	//LOCATION NODE NAMES
+	
+	//LOST NODE NAMES
+	
+	//STRAY NODE NAMES
+	
+	//GALLERY NODE NAMES
+	
+	//IMAGE NODE NAMES
+	
+	
+	
+	
 		
 		
 	//THIS METHOD CONVERTS THE HTTP RESPONSE TO JSON.
@@ -117,7 +151,7 @@ public class JSONExtractor {
 			ArrayList<Event>events= new ArrayList<Event>();
 			if(StaticObjects.getResponseStatus()==0)
 			{
-				Log.i("product ",RawData.toString() );
+				Log.i("EVENT ",RawData.toString() );
 				for(int i=0;i<RawData.length();i++)
 				{
 					JSONObject c=RawData.getJSONObject(i);
@@ -149,13 +183,5 @@ public class JSONExtractor {
 	}
 	
 	
-	//THIS METHODS EXTRACTS THE REGISTER USER REQUEST DATA
-	public void ExtractRegisterUserRequest(HttpResponse data) throws IllegalStateException, IOException, JSONException
-	{
-	}
 	
-	//THIS METHODS EXTRACTS THE UPDATE USER REQUEST DATA
-	public void ExtractUpdateUserRequest(HttpResponse data) throws IllegalStateException, IOException, JSONException
-	{
-	}
 }
