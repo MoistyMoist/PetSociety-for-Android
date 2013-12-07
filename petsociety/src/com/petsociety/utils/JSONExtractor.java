@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.petsociety.models.Event;
+import com.petsociety.models.Location;
 import com.petsociety.models.User;
 import android.util.Log;
 
@@ -38,7 +39,7 @@ public class JSONExtractor {
 	//USER NODE NAMES
 	private static final String TAG_USER_USERID="UserID";
 	private static final String TAG_USER_PASSWORD="Password";
-	private static final String TAG_USER_BIOGRAPHY="Biograpyh";
+	private static final String TAG_USER_BIOGRAPHY="Biography";
 	private static final String TAG_USER_BIRTHDAY="Birthday";
 	private static final String TAG_USER_PROFILEIMAGEURL="ProfileImageURL";
 	private static final String TAG_USER_X="X";
@@ -50,6 +51,7 @@ public class JSONExtractor {
 	private static final String TAG_USER_EMAIL="Email";
 	private static final String TAG_USER_ADDRESS="Address";
 	private static final String TAG_USER_CREDIBILITY="Credibility";
+	private static final String TAG_USER_GALLERYID="GalleryID";
 	
 	//EVENT NODE NAMES
 	private static final String TAG_EVENT_USERID="UserID";
@@ -67,6 +69,16 @@ public class JSONExtractor {
 	
 	//LOCATION NODE NAMES
 	private static final String TAG_LOCATION_LOCATIONID="LocationID";
+	private static final String TAG_LOCATION_TITLE="Title";
+	private static final String TAG_LOCATION_DESCRIPTION="Description";
+	private static final String TAG_LOCATION_ADDRESS="Address";
+	private static final String TAG_LOCATION_TYPE="Type";
+	private static final String TAG_LOCATION_USERID="UserID";
+	private static final String TAG_LOCATION_DATETIMECREATED="DateTimeCreated";
+	private static final String TAG_LOCATION_GALLERYID="GalleryID";
+	private static final String TAG_LOCATION_X="X";
+	private static final String TAG_LOCATION_Y="Y";
+	
 	
 	//LOST NODE NAMES
 	private static final String TAG_LOST_LOSTID="LostID";
@@ -148,7 +160,7 @@ public class JSONExtractor {
 //        }
 	}
 	
-	//THIS METHOD ECTRACTS THE EVENT REQUEST DATA
+	//THIS METHOD EXTRACTS THE EVENT REQUEST DATA
 	public void ExtractEventRequest(HttpResponse data) throws IllegalStateException, IOException, JSONException
 	{
 		HttpEntity entity = data.getEntity();
@@ -177,7 +189,10 @@ public class JSONExtractor {
 					Event e= new Event();
 					e.setEventID(c.getInt(TAG_EVENT_EVENTID));
 					e.setName(c.getString(TAG_EVENT_NAME));
-					e.setDateTimeCreated((Date) c.get(TAG_EVENT_DATETIMECREATED));
+					e.setDescription(c.getString(TAG_EVENT_DESCRIPTION));
+					
+					String date=c.getString(TAG_EVENT_DATETIMECREATED);
+					//e.setDateTimeCreated(new Date(c.get(TAG_EVENT_DATETIMECREATED)));
 					
 					
 					User u= new User();
@@ -188,15 +203,20 @@ public class JSONExtractor {
 					u.setBiography(c2.getString(TAG_USER_BIOGRAPHY));
 					u.setContact(c2.getString(TAG_USER_CONTACT));
 					u.setCredibility(c2.getString(TAG_USER_CREDIBILITY));
-					u.setEmail(c2.getString(TAG_USER_EMAIL));					
+					u.setEmail(c2.getString(TAG_USER_EMAIL));			
+					u.setAddress(c2.getString(TAG_USER_ADDRESS));
+					u.setGalleryID(c2.getInt(TAG_USER_GALLERYID));
+					u.setPrivicy(c2.getString(TAG_USER_PRIVICY));
+					u.setSex(c2.getString(TAG_USER_SEX).charAt(0));
+					u.setX(c2.getDouble(TAG_USER_X));
+					u.setY(c2.getDouble(TAG_USER_Y));
 					e.setUser(u);
 					
-				//	ArrayList<>
-					
-					
+
 					events.add(e);
 				}
 				StaticObjects.setAnalysisEvent(events);
+				StaticObjects.setEvents(events);
 			}
 			else
 			{
@@ -207,7 +227,83 @@ public class JSONExtractor {
         }
 		
 	}
+
+	//THIS METHOD EXTRACTS THE LOCATION REQUEST DATA
+	public void ExtractLocationRequest(HttpResponse data) throws IllegalStateException, IOException, JSONException
+	{
+		HttpEntity entity = data.getEntity();
+        
+        if (entity != null) {
+            InputStream instream = entity.getContent();
+            String result= convertStreamToString(instream);
+            
+            JSONObject json = null;
+            json = new JSONObject(result);
 	
+            //check status if all green to extract
+			StaticObjects.setResponseStatus((Integer) json.get(TAG_STATUS));
+			StaticObjects.setResponseMessage(json.getString(TAG_MESSAGE));
+			JSONArray RawData= json.getJSONArray(TAG_DATA);
+			//JSONArray errors=json.getJSONArray(TAG_ERRORS);
+			
+			ArrayList<Location>locations= new ArrayList<Location>();
+			if(StaticObjects.getResponseStatus()==0)
+			{
+				Log.i("LOCATION ",RawData.toString() );
+				for(int i=0;i<RawData.length();i++)
+				{
+					JSONObject c=RawData.getJSONObject(i);
+					
+					Location e= new Location();
+					e.setLocationID(c.getInt(TAG_LOCATION_LOCATIONID));
+					e.setTitle(c.getString(TAG_LOCATION_TITLE));
+					e.setDescription(c.getString(TAG_LOCATION_DESCRIPTION));
+					e.setGalleryID(c.getInt(TAG_LOCATION_GALLERYID));
+					e.setAddress(c.getString(TAG_LOCATION_ADDRESS));
+					e.setType(c.getString(TAG_LOCATION_TYPE));
+					e.setX(c.getInt(TAG_LOCATION_X));
+					e.setY(c.getDouble(TAG_LOCATION_Y));
+					String date=c.getString(TAG_EVENT_DATETIMECREATED);
+					//e.setDateTimeCreated(new Date(c.get(TAG_EVENT_DATETIMECREATED)));
+					
+					
+					User u= new User();
+					JSONObject c2=(JSONObject) c.get(TAG_USER);
+					u.setUserID(c2.getInt(TAG_USER_USERID));
+					u.setName(c2.getString(TAG_USER_NAME));
+					u.setProfileImageURL(c2.getString(TAG_USER_PROFILEIMAGEURL));
+					u.setBiography(c2.getString(TAG_USER_BIOGRAPHY));
+					u.setContact(c2.getString(TAG_USER_CONTACT));
+					u.setCredibility(c2.getString(TAG_USER_CREDIBILITY));
+					u.setEmail(c2.getString(TAG_USER_EMAIL));			
+					u.setAddress(c2.getString(TAG_USER_ADDRESS));
+					u.setGalleryID(c2.getInt(TAG_USER_GALLERYID));
+					u.setPrivicy(c2.getString(TAG_USER_PRIVICY));
+					u.setSex(c2.getString(TAG_USER_SEX).charAt(0));
+					u.setX(c2.getDouble(TAG_USER_X));
+					u.setY(c2.getDouble(TAG_USER_Y));
+					e.setUser(u);
+					
+
+					locations.add(e);
+				}
+				StaticObjects.setAnslysisLocation(locations);
+				StaticObjects.setLocations(locations);
+			}
+			else
+			{
+				Log.i("ERROR", "status==1");
+				Log.i("Message",StaticObjects.getResponseMessage());
+			}
+            instream.close();
+        }
+	}
+
+	//THIS METHOD EXTRACTS THE STRAY DATA
+	public void ExtractStrayRequest(HttpResponse data) throws IllegalStateException, IOException, JSONException
+	{
+		
+	}
 	
 	
 }

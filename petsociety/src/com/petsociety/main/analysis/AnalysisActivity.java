@@ -18,6 +18,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import com.petsociety.httprequests.RetrieveAllEventRequest;
+import com.petsociety.httprequests.RetrieveAllLocationRequest;
+import com.petsociety.httprequests.RetrieveAllStrayRequest;
 import com.petsociety.main.MainBaseActivity;
 import com.petsociety.main.RightListFragment;
 import com.google.android.gms.common.ConnectionResult;
@@ -37,9 +39,12 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +71,7 @@ OnMyLocationButtonClickListener{
             .setInterval(5000)         // 5 seconds
             .setFastestInterval(16)    // 16ms = 60fps
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-	
+	Context context;
 	
 	Button filterBtn;
 	Button filterBtn2;
@@ -80,6 +85,7 @@ OnMyLocationButtonClickListener{
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		context=this;
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_analysis);
 		setSlidingActionBarEnabled(true);
@@ -93,9 +99,10 @@ OnMyLocationButtonClickListener{
 		
 		//retrieve all the points (location, strays, lost, events
 		RetrieveAllEventRequest eventRequest= new RetrieveAllEventRequest();
+		RetrieveAllLocationRequest locationRequest= new RetrieveAllLocationRequest();
+		RetrieveAllStrayRequest strayRequest= new RetrieveAllStrayRequest();
 		
-		new BackgroundTask().execute(eventRequest);
-
+		new BackgroundTask().execute(eventRequest,locationRequest,strayRequest);
 	}
 	
 	
@@ -164,22 +171,25 @@ OnMyLocationButtonClickListener{
 	
 	public void nextPage(View view)
 	{
-		Intent intent= new Intent(this,AnalysisDetailActivity.class);
-		intent.setClass(getApplication(), AnalysisDetailActivity.class);
-		startActivity(intent);
+		showDialog(0);
+//		Intent intent= new Intent(this,AnalysisDetailActivity.class);
+//		intent.setClass(getApplication(), AnalysisDetailActivity.class);
+//		startActivity(intent);
 	}
 	
+	
+
 	private class BackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 	     
 		@Override
 		protected void onPostExecute(Long result) {
-			Toast.makeText(getBaseContext(), "Refreshed", Toast.LENGTH_LONG).show();
+			Toast.makeText(context, "Refreshed", Toast.LENGTH_LONG).show();
 			super.onPostExecute(result);
 		}
 
 		@Override
 		protected void onPreExecute() {
-			Toast.makeText(getBaseContext(), "Refreshing..", Toast.LENGTH_LONG).show();
+			Toast.makeText(context, "Refreshing..", Toast.LENGTH_LONG).show();
 			super.onPreExecute();
 		}
 
@@ -192,11 +202,19 @@ OnMyLocationButtonClickListener{
 				
 				if (isCancelled()) break;
 			}
-			
-			return null;
+			return (long) 1;
 		}
-
-		
 	 }
 	
+	
+
+	@Override
+	@Deprecated
+	protected Dialog onCreateDialog(int id) {
+		// TODO Auto-generated method stub
+		Dialog retDialog = null;
+		retDialog.setContentView(R.layout.custom_analysis_location_option);
+		
+		return retDialog;
+	}
 }

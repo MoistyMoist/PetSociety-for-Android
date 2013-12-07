@@ -1,6 +1,7 @@
 package com.petsociety.httprequests;
 
 import java.io.IOException;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -13,12 +14,14 @@ import android.util.Log;
 import com.petsociety.utils.JSONExtractor;
 import com.petsociety.utils.StaticObjects;
 
-public class RetrieveAllEventRequest implements Runnable{
+public class RetrieveEventByIDRequest implements Runnable{
 
 	private StaticObjects staticObjects;
+	private int eventID;
 	
-	public RetrieveAllEventRequest()
+	public RetrieveEventByIDRequest(int eventID)
 	{
+		this.eventID=eventID;
 		staticObjects= new StaticObjects();
 	}
 	
@@ -29,9 +32,9 @@ public class RetrieveAllEventRequest implements Runnable{
 		HttpGet httpget = null;
 		
 		//PREPARE REQUEST OBJECT
-		httpget = new HttpGet("http://petsociety.cloudapp.net/api/RetrieveEvent?INtoken="+staticObjects.getToken()); 
+		httpget = new HttpGet("http://petsociety.cloudapp.net/api/RetrieveEvent?INtoken="+staticObjects.getToken()+"&INeventID="+this.eventID); 
 
-        Log.i("RETRIEVE ALL EVENTS :",httpget.getURI().toString());
+        Log.i("RETRIEVE EVENTS BY ID :",httpget.getURI().toString());
         
         
         
@@ -55,3 +58,4 @@ public class RetrieveAllEventRequest implements Runnable{
 		}
 	}
 }
+

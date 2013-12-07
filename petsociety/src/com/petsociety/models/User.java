@@ -17,7 +17,7 @@ public class User {
 	private String credibility;
 	private double x;
 	private double y;
-	
+	private int galleryID;
 	private String ProfileImageURL;
 	
 	
@@ -166,6 +166,12 @@ public class User {
 	}
 	public void setFriend_list(List<Friend_List> friend_list) {
 		this.friend_list = friend_list;
+	}
+	public int getGalleryID() {
+		return galleryID;
+	}
+	public void setGalleryID(int galleryID) {
+		this.galleryID = galleryID;
 	}
 	
 }

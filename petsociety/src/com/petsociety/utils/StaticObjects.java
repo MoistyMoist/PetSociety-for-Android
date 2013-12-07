@@ -39,6 +39,19 @@ public class StaticObjects {
 	static Lost analysisSelectedLost;
 	
 	
+	//EVENT OBJECTS (EURU)
+	static List<Event> events;
+	static Event selectedEvent;
+	
+	//LOCATION OBJECTS (SHAHRIKIN)
+	static List<Location> locations;
+	static Location selectedLocation;
+	static List<Stray> strays;
+	static Stray selectedStray;
+	
+	//LOST OBJECTS (CHOON SENG)
+	static List<Lost> losts;
+	static Lost selectedLost;
 	
 	
 	
@@ -151,5 +164,83 @@ public class StaticObjects {
 	}
 	public static void setAnalysisSelectedLost(Lost analysisSelectedLost) {
 		StaticObjects.analysisSelectedLost = analysisSelectedLost;
+	}
+	public static String[] getPET_LIST() {
+		return PET_LIST;
+	}
+	public static void setPET_LIST(String[] pET_LIST) {
+		PET_LIST = pET_LIST;
+	}
+	public static String[] getLOCATION_TYPE() {
+		return LOCATION_TYPE;
+	}
+	public static void setLOCATION_TYPE(String[] lOCATION_TYPE) {
+		LOCATION_TYPE = lOCATION_TYPE;
+	}
+	public static int getUSER_PRIVICY_HIDDEN() {
+		return USER_PRIVICY_HIDDEN;
+	}
+	public static void setUSER_PRIVICY_HIDDEN(int uSER_PRIVICY_HIDDEN) {
+		USER_PRIVICY_HIDDEN = uSER_PRIVICY_HIDDEN;
+	}
+	public static int getUSER_PRIVICY_NOTHIDDEN() {
+		return USER_PRIVICY_NOTHIDDEN;
+	}
+	public static void setUSER_PRIVICY_NOTHIDDEN(int uSER_PRIVICY_NOTHIDDEN) {
+		USER_PRIVICY_NOTHIDDEN = uSER_PRIVICY_NOTHIDDEN;
+	}
+	public static List<User> getMapUser() {
+		return mapUser;
+	}
+	public static void setMapUser(List<User> mapUser) {
+		StaticObjects.mapUser = mapUser;
+	}
+	public static List<Event> getEvents() {
+		return events;
+	}
+	public static void setEvents(List<Event> events) {
+		StaticObjects.events = events;
+	}
+	public static Event getSelectedEvent() {
+		return selectedEvent;
+	}
+	public static void setSelectedEvent(Event selectedEvent) {
+		StaticObjects.selectedEvent = selectedEvent;
+	}
+	public static List<Location> getLocations() {
+		return locations;
+	}
+	public static void setLocations(List<Location> locations) {
+		StaticObjects.locations = locations;
+	}
+	public static Location getSelectedLocation() {
+		return selectedLocation;
+	}
+	public static void setSelectedLocation(Location selectedLocation) {
+		StaticObjects.selectedLocation = selectedLocation;
+	}
+	public static List<Stray> getStrays() {
+		return strays;
+	}
+	public static void setStrays(List<Stray> strays) {
+		StaticObjects.strays = strays;
+	}
+	public static Stray getSelectedStray() {
+		return selectedStray;
+	}
+	public static void setSelectedStray(Stray selectedStray) {
+		StaticObjects.selectedStray = selectedStray;
+	}
+	public static List<Lost> getLosts() {
+		return losts;
+	}
+	public static void setLosts(List<Lost> losts) {
+		StaticObjects.losts = losts;
+	}
+	public static Lost getSelectedLost() {
+		return selectedLost;
+	}
+	public static void setSelectedLost(Lost selectedLost) {
+		StaticObjects.selectedLost = selectedLost;
 	}
 }
