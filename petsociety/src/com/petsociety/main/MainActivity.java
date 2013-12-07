@@ -1,5 +1,6 @@
 package com.petsociety.main;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -49,6 +50,9 @@ public class MainActivity extends MainBaseActivity
 	public GoogleMap mMap;
 	Button buttonMap;
     private LocationClient mLocationClient;
+    ArrayList<Marker>mLostPet = new ArrayList<Marker>();
+    ArrayList<Marker>mFound = new ArrayList<Marker>();
+    
     private static final LocationRequest REQUEST = LocationRequest.create()
             .setInterval(5000)         // 5 seconds
             .setFastestInterval(16)    // 16ms = 60fps
@@ -214,14 +218,10 @@ public class MainActivity extends MainBaseActivity
 		String pinSelect = "none";
 		pinSelect = intent.getStringExtra("pin");
 		if (pinSelect.equals("lostpet")){
-			for (int i=0; i<3; i++){
-			addLostPetMarker();
-			}
+			toggleLostPet();
 		}
 		else if (pinSelect.equals("found")){
-			for (int i=0; i<3; i++){
-			addFoundMarker();
-			}
+			toggleFound();
 		}
 		
 	}
@@ -231,10 +231,11 @@ public class MainActivity extends MainBaseActivity
     	double lat = pos[0];
     	double lng = pos[1];	
 		//Toast.makeText(getApplicationContext(), "L:"+lat+","+lng, Toast.LENGTH_SHORT).show();
-    	mMap.addMarker(new MarkerOptions()
-    		.position(new LatLng(lat, lng))
-    		.title("Lost Pet")
-    		.snippet("Last Seen: Today 9:48am"));
+    	MarkerOptions mOption = new MarkerOptions()
+			.position(new LatLng(lat, lng))
+			.title("Lost Pet")
+			.snippet("Last Seen: Today 9:48am");
+    	mLostPet.add(mMap.addMarker(mOption));
     }
     
     public void addFoundMarker(){
@@ -242,11 +243,32 @@ public class MainActivity extends MainBaseActivity
     	double lat = pos[0];
     	double lng = pos[1];
 		//Toast.makeText(getApplicationContext(), "L:"+lat+","+lng, Toast.LENGTH_SHORT).show();
-    	mMap.addMarker(new MarkerOptions()
-    		.position(new LatLng(lat, lng))
-    		.title("Found")
-    		.snippet("Last Seen: Today 9:48am")
-    		.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+    	MarkerOptions mOption = new MarkerOptions()
+			.position(new LatLng(lat, lng))
+			.title("Found")
+			.snippet("Last Seen: Today 9:48am")
+			.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+    	mFound.add(mMap.addMarker(mOption));
+    }
+    
+    public void toggleLostPet(){
+    	boolean setVisible = true;
+    	if (mLostPet.get(0).isVisible()==true){
+    		setVisible = false;
+    	}
+		for (int i=0; i<mLostPet.size(); i++){
+			mLostPet.get(i).setVisible(setVisible);
+		}
+    }
+    
+    public void toggleFound(){
+    	boolean setVisible = true;
+    	if (mFound.get(0).isVisible()==true){
+    		setVisible = false;
+    	}
+		for (int i=0; i<mFound.size(); i++){
+			mFound.get(i).setVisible(setVisible);
+		}
     }
     
 	public double[] randomMarkerPos(){
