@@ -13,11 +13,20 @@ public class StaticObjects {
 	static int ResponseStatus;
 	static String ResponseMessage;
 	
+	//GLOBAL DEFINATIONS (privicy, status , etc)
+	static String[] PET_LIST={"Dog","Cat","Bird","Diosaure"};
+	static String[] LOCATION_TYPE={"PetShop", "Accidents", "Diseases","Others"};
+	
+	static int USER_PRIVICY_HIDDEN=1;
+	static int USER_PRIVICY_NOTHIDDEN=0;
+	
+	
 	//GLOBAL MAP OBJECTS (STUFF FOR THE MAIN MAP)
 	static List<Event> mapEvent;
 	static List<Location> mapLocation;
 	static List<Stray> mapStray;
 	static List<Lost> mapLost;
+	static List<User> mapUser;
 	
 	//ANALYSIS OBJECTS (KAI QUAN)
 	static List<Event> analysisEvent;
