@@ -44,17 +44,17 @@ public class RightListFragment extends ListFragment {
 	}
 	
 	public void onListItemClick(ListView lv, View v, int position, long id) {
-		//Intent intent = new Intent();
-		//intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		Intent intent = new Intent(getActivity().getBaseContext(), MainActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		switch (position) {
-		case 1: //Lost Pets			
-			Intent intent = new Intent(getActivity().getBaseContext(), MainActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            intent.putExtra("var", "lostpet");
+		case 1: //Lost Pets					
+            intent.putExtra("pin", "lostpet");
             getActivity().startActivity(intent);
-			
 			break;
-
+		case 2: //Found			
+            intent.putExtra("pin", "found");
+            getActivity().startActivity(intent);
+			break;
 		}
 		((SlidingFragmentActivity) getActivity()).getSlidingMenu().toggle();
 	};

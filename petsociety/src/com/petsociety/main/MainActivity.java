@@ -25,6 +25,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -98,6 +99,11 @@ public class MainActivity extends MainBaseActivity
                 mMap.setOnMyLocationButtonClickListener(this);
                 LatLng singapore = new LatLng(1.37, 103.84);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 11));
+                
+    			for (int i=0; i<3; i++){
+    				addLostPetMarker();
+    				addFoundMarker();
+    			}
             }
         }
     }
@@ -119,22 +125,54 @@ public class MainActivity extends MainBaseActivity
 		// TODO Auto-generated method stub
 		super.onNewIntent(intent);
 		
-		String abc = "a";
-		abc = intent.getStringExtra("var");
-		if (abc.equals("lostpet")){
+		String pinSelect = "none";
+		pinSelect = intent.getStringExtra("pin");
+		if (pinSelect.equals("lostpet")){
+			for (int i=0; i<3; i++){
 			addLostPetMarker();
+			}
+		}
+		else if (pinSelect.equals("found")){
+			for (int i=0; i<3; i++){
+			addFoundMarker();
+			}
 		}
 		
 	}
     
     public void addLostPetMarker(){
+    	double[] pos = randomMarkerPos();
+    	double lat = pos[0];
+    	double lng = pos[1];	
+		//Toast.makeText(getApplicationContext(), "L:"+lat+","+lng, Toast.LENGTH_SHORT).show();
+    	mMap.addMarker(new MarkerOptions()
+    		.position(new LatLng(lat, lng))
+    		.title("Lost Pet")
+    		.snippet("Last Seen: Today 9:48am"));
+    }
+    
+    public void addFoundMarker(){
+    	double[] pos = randomMarkerPos();
+    	double lat = pos[0];
+    	double lng = pos[1];
+		//Toast.makeText(getApplicationContext(), "L:"+lat+","+lng, Toast.LENGTH_SHORT).show();
+    	mMap.addMarker(new MarkerOptions()
+    		.position(new LatLng(lat, lng))
+    		.title("Found")
+    		.snippet("Last Seen: Today 9:48am")
+    		.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+    }
+    
+	public double[] randomMarkerPos(){
+    	double[] pos = new double[2];
     	Random generator = new Random(); 
     	double d_lat = generator.nextInt(9) + 1; // 1~9
     	double d_lng = generator.nextInt(9) + 1; // 1~9
     	double lat = 1.30 + d_lat/100;
     	double lng = 103.80 + d_lng/100;
-		Toast.makeText(getApplicationContext(), "L:"+lat+","+lng, Toast.LENGTH_SHORT).show();
-    	mMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).title("Lost Pet"));
+    	pos[0] = lat;
+    	pos[1] = lng;
+    	return pos;
     }
 
 	@SuppressLint("NewApi")
