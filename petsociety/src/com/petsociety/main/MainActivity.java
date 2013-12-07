@@ -7,10 +7,15 @@ import com.petsociety.httprequests.*;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
@@ -23,10 +28,13 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
@@ -35,7 +43,8 @@ public class MainActivity extends MainBaseActivity
 	ConnectionCallbacks,
 	OnConnectionFailedListener,
 	LocationListener, 
-	OnMyLocationButtonClickListener{
+	OnMyLocationButtonClickListener,
+	OnInfoWindowClickListener{
 
 	public GoogleMap mMap;
 	Button buttonMap;
@@ -95,6 +104,10 @@ public class MainActivity extends MainBaseActivity
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
                 //setUpMap();
+            	
+            	mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
+            	mMap.setOnInfoWindowClickListener(this);
+            	
                 mMap.setMyLocationEnabled(true);
                 mMap.setOnMyLocationButtonClickListener(this);
                 LatLng singapore = new LatLng(1.37, 103.84);
@@ -111,6 +124,79 @@ public class MainActivity extends MainBaseActivity
     
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+	
+    /** Demonstrates customizing the info window and/or its contents. */
+    class CustomInfoWindowAdapter implements InfoWindowAdapter {
+
+        // These a both viewgroups containing an ImageView with id "badge" and two TextViews with id "title" and "snippet".
+        //private final View mWindow;
+        private final View mContents;
+
+        CustomInfoWindowAdapter() {
+            //mWindow = getLayoutInflater().inflate(R.layout.custom_info_window, null);
+            mContents = getLayoutInflater().inflate(R.layout.custom_info_contents, null);
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+            render(marker, mContents);
+            return mContents;
+        }
+        
+		@Override
+		public View getInfoWindow(Marker arg0) {
+			return null;
+            //render(marker, mWindow);
+            //return mWindow;
+		}
+
+        private void render(Marker marker, View view) {
+            int badge = R.drawable.badge_lostdog;
+            /*
+            if (marker.equals(mBrisbane)) {
+                badge = R.drawable.badge_qld;
+            } else if (marker.equals(mAdelaide)) {
+                badge = R.drawable.badge_sa;
+            } else if (marker.equals(mSydney)) {
+                badge = R.drawable.badge_nsw;
+            } else if (marker.equals(mMelbourne)) {
+                badge = R.drawable.badge_victoria;
+            } else if (marker.equals(mPerth)) {
+                badge = R.drawable.badge_wa;
+            } */
+            
+            ((ImageView) view.findViewById(R.id.badge)).setImageResource(badge);
+
+            String title = marker.getTitle();
+            TextView titleUi = ((TextView) view.findViewById(R.id.title));
+            if (title.equals("Lost Pet")) {
+                // Spannable string allows us to edit the formatting of the text.
+                SpannableString titleText = new SpannableString(title);
+                titleText.setSpan(new ForegroundColorSpan(Color.RED), 0, titleText.length(), 0);
+                titleUi.setText(titleText);
+            } else if (title.equals("Found")) {
+                // Spannable string allows us to edit the formatting of the text.
+                SpannableString titleText = new SpannableString(title);
+                titleText.setSpan(new ForegroundColorSpan(Color.GREEN), 0, titleText.length(), 0);
+                titleUi.setText(titleText);
+            } else {
+                titleUi.setText("");
+            }
+
+            String snippet = marker.getSnippet();
+            TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
+            if (snippet != null && snippet.length() > 12) {
+                SpannableString snippetText = new SpannableString(snippet);
+                //snippetText.setSpan(new ForegroundColorSpan(Color.MAGENTA), 0, 10, 0);
+                snippetText.setSpan(new ForegroundColorSpan(Color.BLUE), 11, snippet.length(), 0);
+                snippetUi.setText(snippetText);
+            } else {
+                snippetUi.setText("");
+            }
+        }
+		
+    }
+	
 
     @Override
     protected void onResume() {
@@ -229,5 +315,11 @@ public class MainActivity extends MainBaseActivity
         // (the camera animates to the user's current position).
         return false;
     }
+
+	@Override
+	public void onInfoWindowClick(Marker arg0) {
+		// TODO Auto-generated method stub
+		Toast.makeText(this, "Opening profile...", Toast.LENGTH_SHORT).show();
+	}
 
 }
