@@ -8,9 +8,32 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ShopReviewActivity" >
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/ll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:orientation="horizontal"
+        android:weightSum="1" >
+
+        <EditText
+            android:layout_width="238dp"
+            android:layout_height="wrap_content"
+            android:hint="leave a review" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world"
+        android:layout_below="@+id/ll" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/ll"
+        android:text="send" />
 
 </RelativeLayout>

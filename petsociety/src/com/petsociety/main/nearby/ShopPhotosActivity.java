@@ -17,13 +17,7 @@ public class ShopPhotosActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_shop_photos);
 		
-		TextView  tv=new TextView(this);
-        tv.setTextSize(25);
-        tv.setGravity(Gravity.CENTER_VERTICAL);
-        tv.setText("This Is Tab2 Activity");
-        
-        setContentView(tv);
-    
+		
 	}
 
 	@Override
