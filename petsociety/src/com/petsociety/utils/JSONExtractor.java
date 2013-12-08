@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import com.petsociety.models.Event;
 import com.petsociety.models.Location;
 import com.petsociety.models.Lost;
+import com.petsociety.models.Pet;
 import com.petsociety.models.Stray;
 import com.petsociety.models.User;
 import android.util.Log;
@@ -107,6 +108,8 @@ public class JSONExtractor {
 	private static final String TAG_LOST_REWARD="Reward";
 	private static final String TAG_LOST_DATETIMECREATED="DateTimeCreated";
 	
+	//PET NODE NAMES
+	private static final String TAG_PET_PETID="PetID";
 	
 	//GALLERY NODE NAMES
 	private static final String TAG_GALLERY_GALLERYID="GalleryID";
@@ -415,42 +418,31 @@ public class JSONExtractor {
 			ArrayList<Lost>lost= new ArrayList<Lost>();
 			if(StaticObjects.getResponseStatus()==0)
 			{
-				Log.i("product ",RawData.toString() );
+				Log.i("lost ",RawData.toString() );
 				for(int i=0;i<RawData.length();i++)
 				{
 					JSONObject c=RawData.getJSONObject(i);
 					
-					/*
+					
 					Lost l= new Lost();
 					l.setLostID(c.getInt(TAG_LOST_DATETIMESEEN));
-					l.set
+					String dateLastSeen = c.getString(TAG_LOST_DATETIMESEEN);
+					//l.setDateTimeSeen();
+					l.setAddress(c.getString(TAG_LOST_ADDRESS));
+					l.setDescription(c.getString(TAG_LOST_DESCRIPTION));
+					l.setX(c.getDouble(TAG_LOST_X));
+					l.setY(c.getDouble(TAG_LOST_Y));
+					l.setFound(c.getString(TAG_LOST_FOUND).charAt(0));
+					l.setReward(c.getString(TAG_LOST_REWARD));
+					String dateLastCreated = c.getString(TAG_LOST_DATETIMECREATED);
+					//l.setDateTimeCreated();
 					
-					l.setDateTimeSeen(TAG_LOST_DATETIMESEEN);
-					l.setAddress(address);
-					p.setProductID(c.getInt(TAG_PRODUCT_ID));
-					p.setName(c.getString(TAG_PRODUCT_NAME));
-					p.setDescription(c.getString(TAG_PRODUCT_DESCRIPTION));
-					p.setImageURL(c.getString(TAG_PRODUCT_IMAGEURL));
-					p.setQty(c.getString(TAG_PRODUCT_QTY));
-					p.setQuality(c.getString(TAG_PRODUCT_QUALITY));
-					p.setX(c.getString(TAG_PRODUCT_XLOCATION));
-					p.setY(c.getString(TAG_PRODUCT_YLOCATION));
-					
-					User u= new User();
-//					JSONObject c2=(JSONObject) c.get(TAG_USER);
-					
-					u.setUserID(c.getInt(TAG_USER_ID));
-//					u.setContact(c2.getString(TAG_USER_CONTACT));
-//					u.setDob(c2.getString(TAG_USER_DOB));
-//					u.setEmail(c2.getString(TAG_USER_EMAIL));
-//					u.setImageURL(c2.getString(TAG_USER_IMAGEURL));
-//					u.setNickname(c2.getString(TAG_USER_NICKNAME));
-//					u.setPassword(c2.getString(TAG_USER_PASSWORD));
-//					u.setSex(c2.getString(TAG_USER_SEX));
-//					u.setStatus(c2.getString(TAG_USER_STATUS));
-//					
-					p.setUser(u);
-					products.add(p); */
+					Pet p= new Pet();
+					JSONObject c2=(JSONObject) c.get(TAG_PETs);
+					p.setPetID(c.getInt(TAG_PET_PETID));
+				
+					l.setPet(p);
+					lost.add(l); 
 					
 					//Log.i("product "+i,c.toString() );
 				}
