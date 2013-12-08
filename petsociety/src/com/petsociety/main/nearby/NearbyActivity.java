@@ -230,8 +230,12 @@ OnMyLocationButtonClickListener{
 				.title("Pet Shop")
 				.snippet("Cat & Dog Pet Shop");
 	    	shopMarkers.add(mMap.addMarker(mOption));
+	    	
+	    	
+	    	
 	    }
 	    
+	 
 	    public void addVetMarkers(){
 	    	double[] pos = randomMarkerPos();
 	    	double lat = pos[0];

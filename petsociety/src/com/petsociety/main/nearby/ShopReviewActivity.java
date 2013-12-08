@@ -6,7 +6,9 @@ import com.example.petsociety.R.menu;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.Gravity;
 import android.view.Menu;
+import android.widget.TextView;
 
 public class ShopReviewActivity extends Activity {
 
@@ -14,7 +16,15 @@ public class ShopReviewActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_shop_review);
-	}
+		
+		TextView  tv=new TextView(this);
+        tv.setTextSize(25);
+        tv.setGravity(Gravity.CENTER_VERTICAL);
+        tv.setText("This Is Tab3 Activity");
+        
+        setContentView(tv);
+    }
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
