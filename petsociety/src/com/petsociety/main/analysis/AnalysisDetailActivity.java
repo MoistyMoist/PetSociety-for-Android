@@ -1,6 +1,8 @@
 package com.petsociety.main.analysis;
 
 import com.actionbarsherlock.view.MenuItem;
+import com.androidnatic.maps.HeatMapOverlay;
+import com.androidnatic.maps.SimpleMapView;
 import com.example.petsociety.R;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -20,8 +22,10 @@ import com.petsociety.main.LeftListFragment;
 import com.petsociety.main.MainBaseActivity;
 import com.petsociety.utils.StaticObjects;
 
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
@@ -47,10 +51,12 @@ OnMyLocationButtonClickListener{
             .setFastestInterval(16)    // 16ms = 60fps
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 	
-	private String dataType;
+
 	
+   
+	Context context;
 	ListView list;
-	
+	CustomReviewAdapter adapter;
 	
 	
 	public AnalysisDetailActivity() {
@@ -72,12 +78,14 @@ OnMyLocationButtonClickListener{
 		ViewGroup viewGroup=(ViewGroup)findViewById(R.id.analysis_nearby_map);
 		viewGroup.addView(View.inflate(this, R.layout.basic_map, null));
 		
-		//RETRIEVE AND CHECK THE INTEND TO SEE WAT DATA TYPE IS THIS ACTIVITY FOR
+		context=this;
 		
 		
 		
 		//POPULATING THE LISTVIEW
-		
+		//adapter= new CustomReviewAdapter();
+		//list=(List)findViewByID(R.id.);
+		//list.setAdapter(adapter);
 		
 		
 		//CHECK IF PREVIOUS REQUEST WAS A SUCCESS
@@ -88,11 +96,6 @@ OnMyLocationButtonClickListener{
 		
 	}
 
-	//SEND A HTTPREQUEST AGAIN
-	public void refreshData()
-	{
-		
-	}
 	
 	
 	@SuppressWarnings("unused")
@@ -124,6 +127,59 @@ OnMyLocationButtonClickListener{
 	        return false;
 	    }
 
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
+		getSupportMenuInflater().inflate(R.menu.analysis, menu);
+		//getSupportMenuInflater().inflate(0, null);
+		return true;
+	}
+	
+	private void ClearMap()
+	{
+		mMap.clear();
+	}
+	private void PlotMap()
+	{
+		 mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+	}
+	
+	private class BackgroundTask extends AsyncTask<Runnable, Integer, Long> {
+	     
+		@Override
+		protected void onPostExecute(Long result) {
+			Toast.makeText(context, "Refreshed", Toast.LENGTH_LONG).show();
+			
+			super.onPostExecute(result);
+		}
+
+		@Override
+		protected void onPreExecute() {
+			Toast.makeText(context, "Refreshing..", Toast.LENGTH_LONG).show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Long doInBackground(Runnable... task) {
+			
+			for(int i=0; i<task.length;i++)
+			{
+				task[i].run();
+				
+				if (isCancelled()) break;
+			}
+			return (long) 1;
+		}
+	 }
+
+
+
 	@Override
 	public void onLocationChanged(Location arg0) {
 		// TODO Auto-generated method stub
@@ -144,22 +200,9 @@ OnMyLocationButtonClickListener{
 
 	@Override
 	public void onDisconnected() {
-		// TODO Auto-geneateOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
-		return super.onOptionsItemSelected(item);
+		
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.analysis, menu);
-		//getSupportMenuInflater().inflate(0, null);
-		return true;
-	}
-
 	
 
 }

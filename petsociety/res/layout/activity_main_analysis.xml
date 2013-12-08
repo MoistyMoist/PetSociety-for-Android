@@ -6,19 +6,20 @@
  	android:layout_height="fill_parent"
  	android:orientation="vertical"
     tools:context=".AnalysisActivity" >
-
+ 
     <LinearLayout
         android:id="@+id/layout1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="1.0">
-        <Spinner 
+        android:weightSum="1.0" >
+
+         <!-- <Spinner 
             android:id="@+id/analysisType"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/grey_button"/>"
-	    <!--<Button
+            android:background="@drawable/grey_button"/>  -->
+	  <Button
 	        android:id="@+id/filterBtn"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -34,16 +35,21 @@
 	        android:layout_weight="0.09"
 	        android:background="@drawable/grey_button"
 	        android:src="@drawable/ic_1_navigation_expand" />
- -->
+ 
     </LinearLayout>
       <LinearLayout
         android:id="@+id/analysis_map"
         android:layout_below="@+id/layout1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical"/>
+        android:orientation="vertical"/> 
 
-    
+    <!-- <com.androidnatic.maps.SimpleMapView
+				 android:id="@+id/mapviewww"	
+                 android:layout_width="fill_parent"
+                 android:layout_height="fill_parent"
+                 android:clickable="true"
+                 android:apiKey="0UIQ5rC7w0MBuwP-HOeOlXfUzGC8g09KgjZnyqw"/>-->
     
 
 </RelativeLayout>

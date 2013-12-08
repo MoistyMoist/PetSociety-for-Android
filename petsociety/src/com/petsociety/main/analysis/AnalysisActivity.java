@@ -1,14 +1,11 @@
 package com.petsociety.main.analysis;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.List;
 
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
+
+import com.androidnatic.maps.HeatMapOverlay;
 import com.example.petsociety.R;
-import com.example.petsociety.R.layout;
-import com.example.petsociety.R.menu;
+import com.example.petsociety.TestanaylsisActivity;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -21,8 +18,9 @@ import com.petsociety.httprequests.RetrieveAllEventRequest;
 import com.petsociety.httprequests.RetrieveAllLocationRequest;
 import com.petsociety.httprequests.RetrieveAllLostRequest;
 import com.petsociety.httprequests.RetrieveAllStrayRequest;
+import com.petsociety.httprequests.RetrieveReviewByLocationRequest;
 import com.petsociety.main.MainBaseActivity;
-import com.petsociety.main.RightListFragment;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
@@ -31,7 +29,6 @@ import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import android.location.Location;
-import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -56,7 +53,7 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
-@SuppressLint("NewApi")
+@SuppressLint({ "NewApi", "CutPasteId" })
 public class AnalysisActivity extends MainBaseActivity 
 implements 
 ConnectionCallbacks,
@@ -73,10 +70,16 @@ OnMyLocationButtonClickListener{
             .setFastestInterval(16)    // 16ms = 60fps
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 	Context context;
+	//List<HeatPoint> points;
 	
 	Button filterBtn;
 	Button filterBtn2;
+	
+	//private HeatMapOverlay overlay;
 	String[]analysisTypes={"Locations","Events","Lost","Strays"};
+	ArrayAdapter<CharSequence> analysisTypeAdapter;
+	
+	private HeatMapOverlay overlay;
 	
 	
 	public AnalysisActivity() {
@@ -110,6 +113,15 @@ OnMyLocationButtonClickListener{
 		RetrieveAllLostRequest lostRequest= new RetrieveAllLostRequest();
 		
 		new BackgroundTask().execute(eventRequest,locationRequest,strayRequest,lostRequest);
+		
+		
+		
+//		final SimpleMapView mapview = (SimpleMapView)findViewById(R.id.mapviewww);
+//		this.overlay = new HeatMapOverlay(20000, mapview);
+//		mapview.getOverlays().add(overlay);
+		
+		
+		
 	}
 	
 	
@@ -177,11 +189,24 @@ OnMyLocationButtonClickListener{
 	
 	public void nextPage(View view)
 	{
-		showDialog(0);
-//		Intent intent= new Intent(this,AnalysisDetailActivity.class);
-//		intent.setClass(getApplication(), AnalysisDetailActivity.class);
-//		startActivity(intent);
+		//showDialog(0);
+
+		
+		RetrieveReviewByLocationRequest retrieveReview = new RetrieveReviewByLocationRequest(1); 
+		new BackgroundTask().execute(retrieveReview);
+		
+		Intent intent= new Intent(this,TestanaylsisActivity.class);
+		intent.setClass(getApplication(), TestanaylsisActivity.class);
+		startActivity(intent);
 	}
+	
+	
+	
+	private void PlotPoint()
+	{
+		//overlay.update(points);
+	}
+	
 	
 	
 
