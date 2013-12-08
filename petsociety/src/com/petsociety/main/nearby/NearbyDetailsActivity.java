@@ -4,7 +4,7 @@ import com.example.petsociety.R;
 import com.example.petsociety.R.layout;
 import com.example.petsociety.R.menu;
 
-import com.petsociety.main.lost.LostActivity.SampleAdapter;
+
 
 import android.os.Bundle;
 import android.app.Activity;

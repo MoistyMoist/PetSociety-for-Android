@@ -21,13 +21,21 @@
             android:hint="leave a review" />
 
     </LinearLayout>
+    
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll"
+        android:text="User Reviews"
+        android:textStyle="bold" />
 
     <ListView
         android:id="@+id/list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/hello_world"
-        android:layout_below="@+id/ll" />
+        android:layout_below="@+id/tv" />
 
     <Button
         android:layout_width="wrap_content"

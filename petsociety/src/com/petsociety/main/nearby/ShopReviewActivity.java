@@ -19,7 +19,7 @@ public class ShopReviewActivity extends Activity {
 	ListView myList;
 	Context myContext;
 	
-	String[] items = {"The Shop Has All that i Want!", "Quite Big", "Not Bad", "The Dog food lack variety but cat food is awesome!"};
+	String[] items = {" \n", "The Shop Has All that i Want!", "Quite Big", "Not Bad", "The Dog food lack variety but cat food is awesome!"};
 	
 
 	@Override
