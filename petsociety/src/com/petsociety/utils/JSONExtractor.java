@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import com.petsociety.models.Event;
 import com.petsociety.models.Location;
+import com.petsociety.models.Stray;
 import com.petsociety.models.User;
 import android.util.Log;
 
@@ -79,12 +80,24 @@ public class JSONExtractor {
 	private static final String TAG_LOCATION_X="X";
 	private static final String TAG_LOCATION_Y="Y";
 	
+	//STRAY NODE NAMES
+	private static final String TAG_STRAY_STRAYID="StrayID";
+	private static final String TAG_STRAY_USERID="UserID";
+	private static final String TAG_STRAY_TITLE="Title";
+	private static final String TAG_STRAY_BIOGRAPHY="Biography";
+	private static final String TAG_STRAY_DATETIMESEEN="DateTimeSeen";
+	private static final String TAG_STRAY_TYPE="Type";
+	private static final String TAG_STRAY_BREED="Breed";
+	private static final String TAG_STRAY_STATUS="Status";
+	private static final String TAG_STRAY_IMAGEURL="ImageURL";
+	private static final String TAG_STRAY_X="X";
+	private static final String TAG_STRAY_Y="Y";
 	
 	//LOST NODE NAMES
 	private static final String TAG_LOST_LOSTID="LostID";
+	private static final String TAG_LOST_USERID="UserID";
 	
-	//STRAY NODE NAMES
-	private static final String TAG_STRAY_STRAYID="StrayID";
+	
 	
 	//GALLERY NODE NAMES
 	private static final String TAG_GALLERY_GALLERYID="GalleryID";
@@ -302,8 +315,79 @@ public class JSONExtractor {
 	//THIS METHOD EXTRACTS THE STRAY DATA
 	public void ExtractStrayRequest(HttpResponse data) throws IllegalStateException, IOException, JSONException
 	{
-		
+		HttpEntity entity = data.getEntity();
+        
+        if (entity != null) {
+            InputStream instream = entity.getContent();
+            String result= convertStreamToString(instream);
+            
+            JSONObject json = null;
+            json = new JSONObject(result);
+	
+            //check status if all green to extract
+			StaticObjects.setResponseStatus((Integer) json.get(TAG_STATUS));
+			StaticObjects.setResponseMessage(json.getString(TAG_MESSAGE));
+			JSONArray RawData= json.getJSONArray(TAG_DATA);
+			//JSONArray errors=json.getJSONArray(TAG_ERRORS);
+			
+			ArrayList<Stray>strays= new ArrayList<Stray>();
+			if(StaticObjects.getResponseStatus()==0)
+			{
+				Log.i("STRAY ",RawData.toString() );
+				for(int i=0;i<RawData.length();i++)
+				{
+					JSONObject c=RawData.getJSONObject(i);
+					
+					Stray e= new Stray();
+					e.setStrayID(c.getInt(TAG_STRAY_STRAYID));
+					e.setTitle(c.getString(TAG_STRAY_TITLE));
+					e.setBiography(c.getString(TAG_STRAY_BIOGRAPHY));
+					e.setImageURl(c.getString(TAG_STRAY_IMAGEURL));
+					e.setBreed(c.getString(TAG_STRAY_BREED));
+					e.setType(c.getString(TAG_STRAY_TYPE));
+					e.setStatus(c.getInt(TAG_STRAY_STATUS));
+					e.setX(c.getInt(TAG_STRAY_X));
+					e.setY(c.getDouble(TAG_STRAY_Y));
+					e.setUserID(c.getInt(TAG_STRAY_USERID));
+					String date=c.getString(TAG_EVENT_DATETIMECREATED);
+					//e.setDateTimeCreated(new Date(c.get(TAG_EVENT_DATETIMECREATED)));
+					
+					
+					User u= new User();
+					JSONObject c2=(JSONObject) c.get(TAG_USER);
+					u.setUserID(c2.getInt(TAG_USER_USERID));
+					u.setName(c2.getString(TAG_USER_NAME));
+					u.setProfileImageURL(c2.getString(TAG_USER_PROFILEIMAGEURL));
+					u.setBiography(c2.getString(TAG_USER_BIOGRAPHY));
+					u.setContact(c2.getString(TAG_USER_CONTACT));
+					u.setCredibility(c2.getString(TAG_USER_CREDIBILITY));
+					u.setEmail(c2.getString(TAG_USER_EMAIL));			
+					u.setAddress(c2.getString(TAG_USER_ADDRESS));
+					u.setGalleryID(c2.getInt(TAG_USER_GALLERYID));
+					u.setPrivicy(c2.getString(TAG_USER_PRIVICY));
+					u.setSex(c2.getString(TAG_USER_SEX).charAt(0));
+					u.setX(c2.getDouble(TAG_USER_X));
+					u.setY(c2.getDouble(TAG_USER_Y));
+					e.setUser(u);
+					
+
+					strays.add(e);
+				}
+				StaticObjects.setAnalysisStray(strays);
+				StaticObjects.setStrays(strays);
+			}
+			else
+			{
+				Log.i("ERROR", "status==1");
+				Log.i("Message",StaticObjects.getResponseMessage());
+			}
+            instream.close();
+        }
 	}
 	
-	
+	//THIS METHOD EXTRACTS THE LOST DATA
+	public void ExtractLostRequest(HttpResponse data) throws IllegalStateException, IOException, JSONException
+	{
+		
+	}
 }
