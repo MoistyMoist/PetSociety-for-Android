@@ -11,8 +11,10 @@ import org.apache.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import com.petsociety.models.Event;
 import com.petsociety.models.Location;
+import com.petsociety.models.Lost;
 import com.petsociety.models.Stray;
 import com.petsociety.models.User;
 import android.util.Log;
@@ -96,7 +98,14 @@ public class JSONExtractor {
 	//LOST NODE NAMES
 	private static final String TAG_LOST_LOSTID="LostID";
 	private static final String TAG_LOST_USERID="UserID";
-	
+	private static final String TAG_LOST_DATETIMESEEN="DateTimeSeen";
+	private static final String TAG_LOST_ADDRESS="Address";
+	private static final String TAG_LOST_DESCRIPTION="Description";
+	private static final String TAG_LOST_X="X";
+	private static final String TAG_LOST_Y="Y";
+	private static final String TAG_LOST_FOUND="Found";
+	private static final String TAG_LOST_REWARD="Reward";
+	private static final String TAG_LOST_DATETIMECREATED="DateTimeCreated";
 	
 	
 	//GALLERY NODE NAMES
@@ -388,7 +397,72 @@ public class JSONExtractor {
 	//THIS METHOD EXTRACTS THE LOST DATA
 	public void ExtractLostRequest(HttpResponse data) throws IllegalStateException, IOException, JSONException
 	{
-		
+		HttpEntity entity = data.getEntity();
+        
+        if (entity != null) {
+            InputStream instream = entity.getContent();
+            String result= convertStreamToString(instream);
+            
+            JSONObject json = null;
+            json = new JSONObject(result);
+	
+            //check status if all green to extract
+            StaticObjects.setResponseStatus((Integer) json.get(TAG_STATUS));
+			StaticObjects.setResponseMessage(json.getString(TAG_MESSAGE));
+			JSONArray RawData= json.getJSONArray(TAG_DATA);
+			//JSONArray errors=json.getJSONArray(TAG_ERRORS);
+			
+			ArrayList<Lost>lost= new ArrayList<Lost>();
+			if(StaticObjects.getResponseStatus()==0)
+			{
+				Log.i("product ",RawData.toString() );
+				for(int i=0;i<RawData.length();i++)
+				{
+					JSONObject c=RawData.getJSONObject(i);
+					
+					/*
+					Lost l= new Lost();
+					l.setLostID(c.getInt(TAG_LOST_DATETIMESEEN));
+					l.set
+					
+					l.setDateTimeSeen(TAG_LOST_DATETIMESEEN);
+					l.setAddress(address);
+					p.setProductID(c.getInt(TAG_PRODUCT_ID));
+					p.setName(c.getString(TAG_PRODUCT_NAME));
+					p.setDescription(c.getString(TAG_PRODUCT_DESCRIPTION));
+					p.setImageURL(c.getString(TAG_PRODUCT_IMAGEURL));
+					p.setQty(c.getString(TAG_PRODUCT_QTY));
+					p.setQuality(c.getString(TAG_PRODUCT_QUALITY));
+					p.setX(c.getString(TAG_PRODUCT_XLOCATION));
+					p.setY(c.getString(TAG_PRODUCT_YLOCATION));
+					
+					User u= new User();
+//					JSONObject c2=(JSONObject) c.get(TAG_USER);
+					
+					u.setUserID(c.getInt(TAG_USER_ID));
+//					u.setContact(c2.getString(TAG_USER_CONTACT));
+//					u.setDob(c2.getString(TAG_USER_DOB));
+//					u.setEmail(c2.getString(TAG_USER_EMAIL));
+//					u.setImageURL(c2.getString(TAG_USER_IMAGEURL));
+//					u.setNickname(c2.getString(TAG_USER_NICKNAME));
+//					u.setPassword(c2.getString(TAG_USER_PASSWORD));
+//					u.setSex(c2.getString(TAG_USER_SEX));
+//					u.setStatus(c2.getString(TAG_USER_STATUS));
+//					
+					p.setUser(u);
+					products.add(p); */
+					
+					//Log.i("product "+i,c.toString() );
+				}
+				StaticObjects.setMapLost(lost);
+			}
+			else
+			{
+				Log.i("ERROR", "status==1");
+				Log.i("Message",StaticObjects.getResponseMessage());
+			}
+            instream.close();
+        }
 	}
 	
 	//THiS METHOD EXTRACTS THE REVIEW DATA
