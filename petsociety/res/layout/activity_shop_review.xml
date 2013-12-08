@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll"
         android:text="User Reviews"
+        android:textSize="20dp"
         android:textStyle="bold" />
 
     <ListView
