@@ -19,6 +19,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import com.petsociety.httprequests.RetrieveAllEventRequest;
 import com.petsociety.httprequests.RetrieveAllLocationRequest;
+import com.petsociety.httprequests.RetrieveAllLostRequest;
 import com.petsociety.httprequests.RetrieveAllStrayRequest;
 import com.petsociety.main.MainBaseActivity;
 import com.petsociety.main.RightListFragment;
@@ -101,14 +102,14 @@ OnMyLocationButtonClickListener{
 		RetrieveAllEventRequest eventRequest= new RetrieveAllEventRequest();
 		RetrieveAllLocationRequest locationRequest= new RetrieveAllLocationRequest();
 		RetrieveAllStrayRequest strayRequest= new RetrieveAllStrayRequest();
+		RetrieveAllLostRequest lostRequest= new RetrieveAllLostRequest();
 		
-		new BackgroundTask().execute(eventRequest,locationRequest,strayRequest);
+		new BackgroundTask().execute(eventRequest,locationRequest,strayRequest,lostRequest);
 	}
 	
 	
 	
 	
-	@SuppressWarnings("unused")
 	private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {

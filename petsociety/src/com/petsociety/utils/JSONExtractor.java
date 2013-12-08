@@ -390,4 +390,10 @@ public class JSONExtractor {
 	{
 		
 	}
+	
+	//THiS METHOD EXTRACTS THE REVIEW DATA
+	public void ExtractReviewRequest(HttpResponse data) throws IllegalStateException, IOException, JSONException
+	{
+		
+	}
 }

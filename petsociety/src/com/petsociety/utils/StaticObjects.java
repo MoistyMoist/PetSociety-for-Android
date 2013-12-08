@@ -13,13 +13,14 @@ public class StaticObjects {
 	static int ResponseStatus;
 	static String ResponseMessage;
 	
-	//GLOBAL DEFINATIONS (privicy, status , etc)
+	//GLOBAL DEFINATIONS (privacy, status , etc)
 	static String[] PET_LIST={"Dog","Cat","Bird","Diosaure"};
 	static String[] LOCATION_TYPE={"PetShop", "Accidents", "Diseases","Others"};
 	
 	static int USER_PRIVICY_HIDDEN=1;
 	static int USER_PRIVICY_NOTHIDDEN=0;
-	
+	static char LOST_FOUND_YES='Y';
+	static char LOST_FOUND_NO='N';
 	
 	//GLOBAL MAP OBJECTS (STUFF FOR THE MAIN MAP)
 	static List<Event> mapEvent;
@@ -73,7 +74,7 @@ public class StaticObjects {
 	
 	public String getToken()
 	{
-		return this.token;
+		return StaticObjects.token;
 	}
 	public static User getCurrentUser() {
 		return currentUser;
@@ -242,5 +243,17 @@ public class StaticObjects {
 	}
 	public static void setSelectedLost(Lost selectedLost) {
 		StaticObjects.selectedLost = selectedLost;
+	}
+	public static char getLOST_FOUND_YES() {
+		return LOST_FOUND_YES;
+	}
+	public static void setLOST_FOUND_YES(char lOST_FOUND_YES) {
+		LOST_FOUND_YES = lOST_FOUND_YES;
+	}
+	public static char getLOST_FOUND_NO() {
+		return LOST_FOUND_NO;
+	}
+	public static void setLOST_FOUND_NO(char lOST_FOUND_NO) {
+		LOST_FOUND_NO = lOST_FOUND_NO;
 	}
 }
