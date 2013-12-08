@@ -76,7 +76,7 @@ OnMyLocationButtonClickListener{
 	
 	Button filterBtn;
 	Button filterBtn2;
-	
+	String[]analysisTypes={"Locations","Events","Lost","Strays"};
 	
 	
 	public AnalysisActivity() {
@@ -97,6 +97,11 @@ OnMyLocationButtonClickListener{
 		ViewGroup viewGroup=(ViewGroup)findViewById(R.id.analysis_map);
 		viewGroup.addView(View.inflate(this, R.layout.basic_map, null));
 		setUpMapIfNeeded();
+		
+		//linking the ui objects
+		
+		
+		
 		
 		//retrieve all the points (location, strays, lost, events
 		RetrieveAllEventRequest eventRequest= new RetrieveAllEventRequest();
