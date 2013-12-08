@@ -65,5 +65,8 @@
     <string name="title_activity_report_lost_pet">Report My Lost Pet </string>
     <string name="title_activity_nearby_details">NearbyDetailsActivity</string>
     <string name="title_activity_lost_profile">LostProfileActivity</string>
+    <string name="title_activity_shop_info">ShopInfoActivity</string>
+    <string name="title_activity_shop_review">ShopReviewActivity</string>
+    <string name="title_activity_shop_photos">ShopPhotosActivity</string>
 
 </resources>

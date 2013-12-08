@@ -103,6 +103,18 @@
             android:name="com.petsociety.main.lost.LostProfileActivity"
             android:label="@string/title_activity_lost_profile" >
         </activity>
+        <activity
+            android:name="com.petsociety.main.nearby.ShopInfoActivity"
+            android:label="@string/title_activity_shop_info" >
+        </activity>
+        <activity
+            android:name="com.petsociety.main.nearby.ShopReviewActivity"
+            android:label="@string/title_activity_shop_review" >
+        </activity>
+        <activity
+            android:name="com.petsociety.main.nearby.ShopPhotosActivity"
+            android:label="@string/title_activity_shop_photos" >
+        </activity>
     </application>
 
 </manifest>
