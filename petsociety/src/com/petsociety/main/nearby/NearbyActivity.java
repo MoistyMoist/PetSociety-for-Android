@@ -1,5 +1,7 @@
 package com.petsociety.main.nearby;
 
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -14,7 +16,9 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
@@ -68,6 +72,8 @@ OnMyLocationButtonClickListener{
             .setFastestInterval(16)    // 16ms = 60fps
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 	
+    ArrayList<Marker>shopMarkers = new ArrayList<Marker>();
+    ArrayList<Marker>vetMarkers = new ArrayList<Marker>();
 
 	Button locateButton;
 	Intent intent;
@@ -123,6 +129,7 @@ OnMyLocationButtonClickListener{
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
+           
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
                 //setUpMap();
@@ -130,9 +137,14 @@ OnMyLocationButtonClickListener{
                 mMap.setOnMyLocationButtonClickListener(this);
                 LatLng singapore = new LatLng(1.37, 103.84);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 7));
+                
+                for (int i=0; i<3; i++){
+    				addShopMarkers();
+    				addVetMarkers();
             }
-        }
-    }
+            }
+        }}
+    
 	@SuppressWarnings("unused")
 	private void setUpMap() {
         mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
@@ -175,12 +187,68 @@ OnMyLocationButtonClickListener{
 		return true;
 	}
 	
-//	public void nextPage(View view)
-//	{
-//		Intent intent= new Intent(this,NearbyDetailsActivity.class);
-//		intent.setClass(getApplication(), NearbyDetailsActivity.class);
-//		startActivity(intent);
-//	}
+	
+	 public void toggleShopMarkers(){
+	    	boolean setVisible = true;
+	    	if (shopMarkers.get(0).isVisible()==true){
+	    		setVisible = false;
+	    	}
+			for (int i=0; i<shopMarkers.size(); i++){
+				shopMarkers.get(i).setVisible(setVisible);
+			}
+	    }
+	    
+	    public void toggleVetMarkets(){
+	    	boolean setVisible = true;
+	    	if (vetMarkers.get(0).isVisible()==true){
+	    		setVisible = false;
+	    	}
+			for (int i=0; i<vetMarkers.size(); i++){
+				vetMarkers.get(i).setVisible(setVisible);
+			}
+	    }
+	
+	public double[] randomMarkerPos(){
+    	double[] pos = new double[2];
+    	Random generator = new Random(); 
+    	double d_lat = generator.nextInt(9) + 1; // 1~9
+    	double d_lng = generator.nextInt(9) + 1; // 1~9
+    	double lat = 1.30 + d_lat/100;
+    	double lng = 103.80 + d_lng/100;
+    	pos[0] = lat;
+    	pos[1] = lng;
+    	return pos;
+    }
+	
+	 public void addShopMarkers(){
+	    	double[] pos = randomMarkerPos();
+	    	double lat = pos[0];
+	    	double lng = pos[1];	
+			//Toast.makeText(getApplicationContext(), "L:"+lat+","+lng, Toast.LENGTH_SHORT).show();
+	    	MarkerOptions mOption = new MarkerOptions()
+				.position(new LatLng(lat, lng))
+				.title("Pet Shop")
+				.snippet("Cat & Dog Pet Shop");
+	    	shopMarkers.add(mMap.addMarker(mOption));
+	    	
+	    	
+	    	
+	    }
+	    
+	 
+	    public void addVetMarkers(){
+	    	double[] pos = randomMarkerPos();
+	    	double lat = pos[0];
+	    	double lng = pos[1];
+			//Toast.makeText(getApplicationContext(), "L:"+lat+","+lng, Toast.LENGTH_SHORT).show();
+	    	MarkerOptions mOption = new MarkerOptions()
+				.position(new LatLng(lat, lng))
+				.title("Vet")
+				.snippet("We are a Vet!")
+				.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+	    	vetMarkers.add(mMap.addMarker(mOption));
+	    }
+	    
 	
 	
 }

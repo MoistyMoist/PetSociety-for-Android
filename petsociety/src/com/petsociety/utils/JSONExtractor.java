@@ -11,8 +11,11 @@ import org.apache.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import com.petsociety.models.Event;
 import com.petsociety.models.Location;
+import com.petsociety.models.Lost;
+import com.petsociety.models.Pet;
 import com.petsociety.models.Stray;
 import com.petsociety.models.User;
 import android.util.Log;
@@ -96,8 +99,17 @@ public class JSONExtractor {
 	//LOST NODE NAMES
 	private static final String TAG_LOST_LOSTID="LostID";
 	private static final String TAG_LOST_USERID="UserID";
+	private static final String TAG_LOST_DATETIMESEEN="DateTimeSeen";
+	private static final String TAG_LOST_ADDRESS="Address";
+	private static final String TAG_LOST_DESCRIPTION="Description";
+	private static final String TAG_LOST_X="X";
+	private static final String TAG_LOST_Y="Y";
+	private static final String TAG_LOST_FOUND="Found";
+	private static final String TAG_LOST_REWARD="Reward";
+	private static final String TAG_LOST_DATETIMECREATED="DateTimeCreated";
 	
-	
+	//PET NODE NAMES
+	private static final String TAG_PET_PETID="PetID";
 	
 	//GALLERY NODE NAMES
 	private static final String TAG_GALLERY_GALLERYID="GalleryID";
@@ -388,7 +400,61 @@ public class JSONExtractor {
 	//THIS METHOD EXTRACTS THE LOST DATA
 	public void ExtractLostRequest(HttpResponse data) throws IllegalStateException, IOException, JSONException
 	{
-		
+		HttpEntity entity = data.getEntity();
+        
+        if (entity != null) {
+            InputStream instream = entity.getContent();
+            String result= convertStreamToString(instream);
+            
+            JSONObject json = null;
+            json = new JSONObject(result);
+	
+            //check status if all green to extract
+            StaticObjects.setResponseStatus((Integer) json.get(TAG_STATUS));
+			StaticObjects.setResponseMessage(json.getString(TAG_MESSAGE));
+			JSONArray RawData= json.getJSONArray(TAG_DATA);
+			//JSONArray errors=json.getJSONArray(TAG_ERRORS);
+			
+			ArrayList<Lost>lost= new ArrayList<Lost>();
+			if(StaticObjects.getResponseStatus()==0)
+			{
+				Log.i("lost ",RawData.toString() );
+				for(int i=0;i<RawData.length();i++)
+				{
+					JSONObject c=RawData.getJSONObject(i);
+					
+					
+					Lost l= new Lost();
+					l.setLostID(c.getInt(TAG_LOST_DATETIMESEEN));
+					String dateLastSeen = c.getString(TAG_LOST_DATETIMESEEN);
+					//l.setDateTimeSeen();
+					l.setAddress(c.getString(TAG_LOST_ADDRESS));
+					l.setDescription(c.getString(TAG_LOST_DESCRIPTION));
+					l.setX(c.getDouble(TAG_LOST_X));
+					l.setY(c.getDouble(TAG_LOST_Y));
+					l.setFound(c.getString(TAG_LOST_FOUND).charAt(0));
+					l.setReward(c.getString(TAG_LOST_REWARD));
+					String dateLastCreated = c.getString(TAG_LOST_DATETIMECREATED);
+					//l.setDateTimeCreated();
+					
+					Pet p= new Pet();
+					JSONObject c2=(JSONObject) c.get(TAG_PETs);
+					p.setPetID(c.getInt(TAG_PET_PETID));
+				
+					l.setPet(p);
+					lost.add(l); 
+					
+					//Log.i("product "+i,c.toString() );
+				}
+				StaticObjects.setMapLost(lost);
+			}
+			else
+			{
+				Log.i("ERROR", "status==1");
+				Log.i("Message",StaticObjects.getResponseMessage());
+			}
+            instream.close();
+        }
 	}
 	
 	//THiS METHOD EXTRACTS THE REVIEW DATA
