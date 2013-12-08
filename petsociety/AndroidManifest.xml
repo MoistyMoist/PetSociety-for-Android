@@ -96,7 +96,7 @@
             android:label="@string/title_activity_report_lost_pet" >
         </activity>
         <activity
-            android:name="com.example.petsociety.NearbyDetailsActivity"
+            android:name="com.petsociety.main.nearby.NearbyDetailsActivity"
             android:label="@string/title_activity_nearby_details" >
         </activity>
         <activity

@@ -6,7 +6,6 @@ import java.util.concurrent.TimeUnit;
 
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.example.petsociety.NearbyDetailsActivity;
 import com.example.petsociety.R;
 import com.example.petsociety.R.layout;
 import com.example.petsociety.R.menu;
