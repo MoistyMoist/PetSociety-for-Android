@@ -237,18 +237,9 @@ OnMyLocationButtonClickListener{
 		protected void onPostExecute(Long result) {
 			
 			super.onPostExecute(result);
-			while(StaticObjects.getLocations().size()==0)
-				{
-				try {
-					super.wait(100);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				Log.i("still empty ","zzzzzzz" );
-				}
 			
-			Toast.makeText(context, StaticObjects.getLocations().get(0).getDescription(), Toast.LENGTH_SHORT).show();
+			
+			//Toast.makeText(context, StaticObjects.getLocations().get(0).getDescription(), Toast.LENGTH_SHORT).show();
 		}
 
 		@Override

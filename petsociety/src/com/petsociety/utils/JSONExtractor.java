@@ -264,7 +264,9 @@ public class JSONExtractor {
             
             JSONObject json = null;
             json = new JSONObject(result);
-	
+            
+            StaticObjects staticObject= new StaticObjects();
+            
             //check status if all green to extract
 			StaticObjects.setResponseStatus((Integer) json.get(TAG_STATUS));
 			StaticObjects.setResponseMessage(json.getString(TAG_MESSAGE));
@@ -302,7 +304,8 @@ public class JSONExtractor {
 					u.setCredibility(c2.getString(TAG_USER_CREDIBILITY));
 					u.setEmail(c2.getString(TAG_USER_EMAIL));			
 					u.setAddress(c2.getString(TAG_USER_ADDRESS));
-					u.setGalleryID(c2.getInt(TAG_USER_GALLERYID));
+	
+					//u.setGalleryID(c2.getInt(TAG_USER_GALLERYID));
 					u.setPrivicy(c2.getString(TAG_USER_PRIVICY));
 					u.setSex(c2.getString(TAG_USER_SEX).charAt(0));
 					u.setX(c2.getDouble(TAG_USER_X));
@@ -311,9 +314,13 @@ public class JSONExtractor {
 					
 
 					locations.add(e);
+					Log.i("LOCATIONwwww ",e.getDescription() );
 				}
-				StaticObjects.setAnslysisLocation(locations);
-				StaticObjects.setLocations(locations);
+
+				StaticObjects staticObjects= new StaticObjects();
+				staticObjects.setAnslysisLocation(locations);
+				staticObjects.setLocations(locations);
+				Log.i("LOCATIONdsa ",StaticObjects.getLocations().get(0).getDescription() );
 			}
 			else
 			{
