@@ -22,6 +22,7 @@ import com.petsociety.httprequests.RetrieveAllLostRequest;
 import com.petsociety.httprequests.RetrieveAllStrayRequest;
 import com.petsociety.httprequests.RetrieveReviewByLocationRequest;
 import com.petsociety.main.MainBaseActivity;
+import com.petsociety.utils.StaticObjects;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
@@ -104,22 +105,9 @@ OnMyLocationButtonClickListener{
 		viewGroup.addView(View.inflate(this, R.layout.basic_map, null));
 		setUpMapIfNeeded();
 		
-		//linking the ui objects
-		CircleOptions circleOptions = new CircleOptions()
-	    .center(new LatLng(1.37, 103.84))
-	    .radius(1000) // In meters
-	    .fillColor(0x1AFF0000)//90% transparent red
-	    .strokeColor(Color.TRANSPARENT);//dont show the border to the circle
-	// Get back the mutable Circle
-		mMap.addCircle(circleOptions);
 		
-		circleOptions = new CircleOptions()
-	    .center(new LatLng(1.37, 103.85))
-	    .radius(1000) // In meters
-	    .fillColor(0x1AFF0000)//90% transparent red
-	    .strokeColor(Color.TRANSPARENT);//dont show the border to the circle
-	// Get back the mutable Circle
-		mMap.addCircle(circleOptions);
+		
+	
 		
 		
 		//retrieve all the points (location, strays, lost, events
@@ -128,7 +116,7 @@ OnMyLocationButtonClickListener{
 		RetrieveAllStrayRequest strayRequest= new RetrieveAllStrayRequest();
 		RetrieveAllLostRequest lostRequest= new RetrieveAllLostRequest();
 		
-		new BackgroundTask().execute(eventRequest,locationRequest,strayRequest,lostRequest);
+		new BackgroundTask().execute(locationRequest,lostRequest,eventRequest,locationRequest,strayRequest);
 		
 		
 		
@@ -155,7 +143,7 @@ OnMyLocationButtonClickListener{
                 mMap.setMyLocationEnabled(true);
                 mMap.setOnMyLocationButtonClickListener(this);
                 LatLng singapore = new LatLng(1.37, 103.84);
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 9));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 11));
             }
         }
     }
@@ -220,7 +208,24 @@ OnMyLocationButtonClickListener{
 	
 	private void PlotPoint()
 	{
-		//overlay.update(points);
+		//linking the ui objects
+		CircleOptions circleOptions = new CircleOptions()
+	    .center(new LatLng(StaticObjects.getAnalysisEvent().get(0).getX(), StaticObjects.getAnalysisEvent().get(0).getY()))
+	    .radius(1000) // In meters
+	    .fillColor(0x1AFF0000)//90% transparent red
+	    .strokeColor(Color.TRANSPARENT);//dont show the border to the circle
+		// Get back the mutable Circle
+		mMap.addCircle(circleOptions);
+		
+		
+		circleOptions = new CircleOptions()
+	    .center(new LatLng(1.37, 103.84))
+	    .radius(900) // In meters
+	    .fillColor(0x2AFF00FF)//90% transparent red
+	    .strokeColor(Color.TRANSPARENT);//dont show the border to the circle
+		// Get back the mutable Circle
+		mMap.addCircle(circleOptions);
+		
 	}
 	
 	
@@ -230,13 +235,25 @@ OnMyLocationButtonClickListener{
 	     
 		@Override
 		protected void onPostExecute(Long result) {
-			Toast.makeText(context, "Refreshed", Toast.LENGTH_LONG).show();
+			
 			super.onPostExecute(result);
+			while(StaticObjects.getLocations().size()==0)
+				{
+				try {
+					super.wait(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				Log.i("still empty ","zzzzzzz" );
+				}
+			
+			Toast.makeText(context, StaticObjects.getLocations().get(0).getDescription(), Toast.LENGTH_SHORT).show();
 		}
 
 		@Override
 		protected void onPreExecute() {
-			Toast.makeText(context, "Refreshing..", Toast.LENGTH_LONG).show();
+			Toast.makeText(context, "Refreshing..", Toast.LENGTH_SHORT).show();
 			super.onPreExecute();
 		}
 
@@ -249,7 +266,7 @@ OnMyLocationButtonClickListener{
 				
 				if (isCancelled()) break;
 			}
-			return (long) 1;
+			return null;
 		}
 	 }
 	
