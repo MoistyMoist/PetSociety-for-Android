@@ -239,7 +239,7 @@ OnMyLocationButtonClickListener{
 			super.onPostExecute(result);
 			
 			
-			//Toast.makeText(context, StaticObjects.getLocations().get(0).getDescription(), Toast.LENGTH_SHORT).show();
+			Toast.makeText(context, StaticObjects.getLocations().get(0).getDescription(), Toast.LENGTH_SHORT).show();
 		}
 
 		@Override
