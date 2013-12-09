@@ -2,10 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".TestanaylsisActivity" >
 
    <com.androidnatic.maps.SimpleMapView
@@ -15,6 +11,6 @@
                  android:layout_height="match_parent"
                  android:clickable="true"
                  android:layout_weight="1"
-                 android:apiKey="0UIQ5rC7w0MBuwP-HOeOlXfUzGC8g09KgjZnyqw"/>
+                 android:apiKey="AIzaSyAH2XULc7EYmrT69Ztm-9SaVK1wKSp5x08"/>
 
 </RelativeLayout>

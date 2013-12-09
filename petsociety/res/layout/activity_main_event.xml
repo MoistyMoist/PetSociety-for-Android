@@ -125,5 +125,14 @@
       android:layout_toRightOf="@+id/textView4"
       android:text="Decline" />
 
+  <Button
+      android:id="@+id/button4"
+      style="?android:attr/buttonStyleSmall"
+      android:layout_width="100dp"
+      android:layout_height="100dp"
+      android:layout_below="@+id/map"
+      android:layout_toRightOf="@+id/textView2"
+      android:text="Button" />
+
     </RelativeLayout>
 </ScrollView>

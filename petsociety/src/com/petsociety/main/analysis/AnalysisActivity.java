@@ -11,6 +11,8 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -41,6 +43,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -102,8 +105,21 @@ OnMyLocationButtonClickListener{
 		setUpMapIfNeeded();
 		
 		//linking the ui objects
+		CircleOptions circleOptions = new CircleOptions()
+	    .center(new LatLng(1.37, 103.84))
+	    .radius(1000) // In meters
+	    .fillColor(0x1AFF0000)//90% transparent red
+	    .strokeColor(Color.TRANSPARENT);//dont show the border to the circle
+	// Get back the mutable Circle
+		mMap.addCircle(circleOptions);
 		
-		
+		circleOptions = new CircleOptions()
+	    .center(new LatLng(1.37, 103.85))
+	    .radius(1000) // In meters
+	    .fillColor(0x1AFF0000)//90% transparent red
+	    .strokeColor(Color.TRANSPARENT);//dont show the border to the circle
+	// Get back the mutable Circle
+		mMap.addCircle(circleOptions);
 		
 		
 		//retrieve all the points (location, strays, lost, events
@@ -139,7 +155,7 @@ OnMyLocationButtonClickListener{
                 mMap.setMyLocationEnabled(true);
                 mMap.setOnMyLocationButtonClickListener(this);
                 LatLng singapore = new LatLng(1.37, 103.84);
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 7));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 9));
             }
         }
     }
@@ -192,8 +208,8 @@ OnMyLocationButtonClickListener{
 		//showDialog(0);
 
 		
-		RetrieveReviewByLocationRequest retrieveReview = new RetrieveReviewByLocationRequest(1); 
-		new BackgroundTask().execute(retrieveReview);
+		//RetrieveReviewByLocationRequest retrieveReview = new RetrieveReviewByLocationRequest(1); 
+		//new BackgroundTask().execute(retrieveReview);
 		
 		Intent intent= new Intent(this,TestanaylsisActivity.class);
 		intent.setClass(getApplication(), TestanaylsisActivity.class);
