@@ -408,8 +408,8 @@ OnMyLocationButtonClickListener{
 					if(which==2)
 					{
 						//event
-//						EventDialogFragment frag= new EventDialogFragment();
-//						frag.show(getFragmentManager(), null);
+						EventDateTimeDialogFragment frag= new EventDateTimeDialogFragment();
+						frag.show(getFragmentManager(), null);
 					}	
 				}});
 	    return builder.create();
@@ -430,6 +430,18 @@ OnMyLocationButtonClickListener{
 	
 	@SuppressLint("ValidFragment")
 	private class StrayDialogFragment extends DialogFragment
+	{
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+	        // Set the dialog title
+	        builder.setTitle("Select Location Type");
+			return builder.create();
+		}
+	}
+
+	@SuppressLint("ValidFragment")
+	private class EventDateTimeDialogFragment extends DialogFragment
 	{
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
