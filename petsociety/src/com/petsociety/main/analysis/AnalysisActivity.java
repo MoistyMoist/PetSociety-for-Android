@@ -446,9 +446,42 @@ OnMyLocationButtonClickListener{
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-	        // Set the dialog title
-	        builder.setTitle("Select Location Type");
-			return builder.create();
+
+	        // Get the layout inflater
+	        LayoutInflater inflater = getActivity().getLayoutInflater();
+
+	        // Inflate and set the layout for the dialog
+	        // Pass null as the parent view because its going in the dialog layout
+	        builder.setView(inflater.inflate(R.layout.custom_analysis_datepicker_option, null));
+
+	        // Set title of dialog
+	        builder.setMessage("Set Date")
+	                // Set Ok button
+	                .setPositiveButton("Set",
+	                        new DialogInterface.OnClickListener() {
+	                            public void onClick(DialogInterface dialog, int id) {
+	                                // User ok the dialog
+	                            }
+	                        })
+	                // Set Cancel button
+	                .setNegativeButton("Cancel",
+	                        new DialogInterface.OnClickListener() {
+	                            public void onClick(DialogInterface dialog, int id) {
+	                                // User cancelled the dialog
+	                            }
+	                        })
+	                // Set Neutral button (reset Time / Date)
+	                .setNeutralButton("Reset",
+	                        new DialogInterface.OnClickListener() {
+	                            @Override
+	                            public void onClick(DialogInterface dialog, int id) {
+	                                // User reset the dialog
+	                                // reset();
+	                            }
+	                        });
+
+	        // Create the AlertDialog object and return it
+	        return builder.create();
 		}
 	}
 }
