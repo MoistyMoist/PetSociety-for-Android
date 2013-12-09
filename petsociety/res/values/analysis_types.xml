@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-	 <string-array name="analysis_types">
-        <item>Difficult</item>
-        <item>Very Difficult</item>
-        <item>Super Difficult</item>
-        <item>This time sure fail</item>
-    </string-array>    
-</resources>

@@ -16,6 +16,7 @@ public class StaticObjects {
 	//GLOBAL DEFINATIONS (privacy, status , etc)
 	static String[] PET_LIST={"Dog","Cat","Bird","Diosaure"};
 	static String[] LOCATION_TYPE={"PetShop", "Accidents", "Diseases","Others"};
+	static String[] ANALYSIS_TYPE={"Everything","Locations","Strays","Lost Reports","Events"};
 	
 	static int USER_PRIVICY_HIDDEN=1;
 	static int USER_PRIVICY_NOTHIDDEN=0;
@@ -255,5 +256,11 @@ public class StaticObjects {
 	}
 	public static void setLOST_FOUND_NO(char lOST_FOUND_NO) {
 		LOST_FOUND_NO = lOST_FOUND_NO;
+	}
+	public static String[] getANALYSIS_TYPE() {
+		return ANALYSIS_TYPE;
+	}
+	public static void setANALYSIS_TYPE(String[] aNALYSIS_TYPE) {
+		ANALYSIS_TYPE = aNALYSIS_TYPE;
 	}
 }

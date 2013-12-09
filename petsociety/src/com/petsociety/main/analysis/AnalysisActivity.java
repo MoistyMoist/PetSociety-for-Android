@@ -1,5 +1,9 @@
 package com.petsociety.main.analysis;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -20,6 +24,9 @@ import com.petsociety.httprequests.RetrieveAllEventRequest;
 import com.petsociety.httprequests.RetrieveAllLocationRequest;
 import com.petsociety.httprequests.RetrieveAllLostRequest;
 import com.petsociety.httprequests.RetrieveAllStrayRequest;
+import com.petsociety.httprequests.RetrieveCurrentEventRequest;
+import com.petsociety.httprequests.RetrieveEventByDateRequest;
+import com.petsociety.httprequests.RetrieveLocationByTypeRequest;
 import com.petsociety.httprequests.RetrieveReviewByLocationRequest;
 import com.petsociety.main.MainBaseActivity;
 import com.petsociety.utils.StaticObjects;
@@ -40,8 +47,10 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -74,13 +83,12 @@ OnMyLocationButtonClickListener{
             .setFastestInterval(16)    // 16ms = 60fps
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 	Context context;
-	//List<HeatPoint> points;
+	
 	
 	Button filterBtn;
 	Button filterBtn2;
 	
-	//private HeatMapOverlay overlay;
-	String[]analysisTypes={"Locations","Events","Lost","Strays"};
+	ArrayList<Integer> selectedLocationType;
 	ArrayAdapter<CharSequence> analysisTypeAdapter;
 	
 	private HeatMapOverlay overlay;
@@ -104,10 +112,6 @@ OnMyLocationButtonClickListener{
 		ViewGroup viewGroup=(ViewGroup)findViewById(R.id.analysis_map);
 		viewGroup.addView(View.inflate(this, R.layout.basic_map, null));
 		setUpMapIfNeeded();
-		
-		
-		
-	
 		
 		
 		//retrieve all the points (location, strays, lost, events
@@ -152,10 +156,6 @@ OnMyLocationButtonClickListener{
         mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
     }
 	
-	private void RemovePins()
-	{
-		
-	}
 	
 	 public boolean onMyLocationButtonClick() {
 	        Toast.makeText(this, "Tracking...", Toast.LENGTH_SHORT).show();
@@ -193,15 +193,18 @@ OnMyLocationButtonClickListener{
 	
 	public void nextPage(View view)
 	{
-		//showDialog(0);
-
+		//LocationDialogFragment frag= new LocationDialogFragment();
+		//frag.show(getFragmentManager(), null);
+		AnalysisList option= new AnalysisList();
+		option.show(getFragmentManager(), null);
+		
 		
 		//RetrieveReviewByLocationRequest retrieveReview = new RetrieveReviewByLocationRequest(1); 
 		//new BackgroundTask().execute(retrieveReview);
-		
-		Intent intent= new Intent(this,TestanaylsisActivity.class);
-		intent.setClass(getApplication(), TestanaylsisActivity.class);
-		startActivity(intent);
+//		
+//		Intent intent= new Intent(this,TestanaylsisActivity.class);
+//		intent.setClass(getApplication(), TestanaylsisActivity.class);
+//		startActivity(intent);
 	}
 	
 	
@@ -210,9 +213,9 @@ OnMyLocationButtonClickListener{
 	{
 		//linking the ui objects
 		CircleOptions circleOptions = new CircleOptions()
-	    .center(new LatLng(StaticObjects.getAnalysisEvent().get(0).getX(), StaticObjects.getAnalysisEvent().get(0).getY()))
-	    .radius(1000) // In meters
-	    .fillColor(0x1AFF0000)//90% transparent red
+	    .center(new LatLng(1.37, 103.84))
+	    .radius(100) // In meters
+	    .fillColor(0x2AFF00FF)//90% transparent red
 	    .strokeColor(Color.TRANSPARENT);//dont show the border to the circle
 		// Get back the mutable Circle
 		mMap.addCircle(circleOptions);
@@ -237,9 +240,27 @@ OnMyLocationButtonClickListener{
 		protected void onPostExecute(Long result) {
 			
 			super.onPostExecute(result);
-			
-			
-			Toast.makeText(context, StaticObjects.getLocations().get(0).getDescription(), Toast.LENGTH_SHORT).show();
+			mMap.clear();
+			if(StaticObjects.getAnalysisEvent()!=null)
+			{
+				PlotPoint();
+			}
+			if(StaticObjects.getAnalysisStray()!=null)
+			{
+				PlotPoint();
+			}
+			if(StaticObjects.getAndlysisLost()!=null)
+			{
+				PlotPoint();
+			}
+			if(StaticObjects.getAnslysisLocation()!=null)
+			{
+				PlotPoint();
+			}
+			else
+			{
+				Toast.makeText(context,"No Record Exists", Toast.LENGTH_SHORT).show();
+			}
 		}
 
 		@Override
@@ -261,15 +282,161 @@ OnMyLocationButtonClickListener{
 		}
 	 }
 	
-	
+	@SuppressLint("ValidFragment")
+	private class LocationDialogFragment extends DialogFragment {
+		@Override
+	    public Dialog onCreateDialog(Bundle savedInstanceState) {
+	    	selectedLocationType = new ArrayList<Integer>();  // Where we track the selected items
+	        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+	        // Set the dialog title
+	        builder.setTitle("Select Location Type");
+	        // Specify the list array, the items to be selected by default (null for none),
+	        // and the listener through which to receive callbacks when items are selected
+	        builder.setMultiChoiceItems(StaticObjects.getLOCATION_TYPE(), null,
+	                          new DialogInterface.OnMultiChoiceClickListener() {
+	                   @Override
+	                   public void onClick(DialogInterface dialog, int which,
+	                           boolean isChecked) {
+	                       if (isChecked) {
+	                           // If the user checked the item, add it to the selected items
+	                    	   selectedLocationType.add(which);
+	                       } else if (selectedLocationType.contains(which)) {
+	                           // Else, if the item is already in the array, remove it 
+	                    	   selectedLocationType.remove(Integer.valueOf(which));
+	                       }
+	                   }
+	               })
+	               .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	                   @Override
+	                   public void onClick(DialogInterface dialog, int id) {
+	                      
+	                	   StaticObjects.setAnalysisEvent(null);
+	                	   StaticObjects.setAnalysisStray(null);
+	                	   StaticObjects.setAndlysisLost(null);
+	                	   StaticObjects.setAnslysisLocation(null);
+	                	   
+	                	   RetrieveLocationByTypeRequest request;
+	                      for(int i=0;i<selectedLocationType.size();i++)
+	                      {
+	                    	  request= new RetrieveLocationByTypeRequest(StaticObjects.getLOCATION_TYPE()[selectedLocationType.get(i)]);
+	                    	  new BackgroundTask().execute(request,request);
+	                      }
+	                   }
+	               })
+	               .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+	                   @Override
+	                   public void onClick(DialogInterface dialog, int id) {
+	                      
+	                   }
+	               });
 
-	@Override
-	@Deprecated
-	protected Dialog onCreateDialog(int id) {
-		// TODO Auto-generated method stub
-		Dialog retDialog = null;
-		retDialog.setContentView(R.layout.custom_analysis_location_option);
-		
-		return retDialog;
+	        return builder.create();
+	    }
+	}
+
+	@SuppressLint("ValidFragment")
+	private class AnalysisList extends DialogFragment {
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		public Dialog onCreateDialog(Bundle savedInstanceState){
+			
+			ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(context,android.R.layout.simple_spinner_dropdown_item,StaticObjects.getANALYSIS_TYPE());
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		    builder.setTitle("Select Option");builder.setAdapter(spinnerArrayAdapter, new OnClickListener(){
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					if(which==0)
+					{
+						RetrieveAllEventRequest eventRequest= new RetrieveAllEventRequest();
+						RetrieveAllLocationRequest locationRequest= new RetrieveAllLocationRequest();
+						RetrieveAllStrayRequest strayRequest= new RetrieveAllStrayRequest();
+						RetrieveAllLostRequest lostRequest= new RetrieveAllLostRequest();
+						
+						new BackgroundTask().execute(locationRequest,lostRequest,eventRequest,locationRequest,strayRequest);
+					}
+					if(which==1)
+					{
+						LocationDialogFragment frag= new LocationDialogFragment();
+						frag.show(getFragmentManager(), null);
+					}
+					if(which==2)
+					{
+						//stray
+						StrayDialogFragment frag= new StrayDialogFragment();
+						frag.show(getFragmentManager(), null);
+					}
+					if(which==3)
+					{
+						//lost
+						LostDialogFragment frag= new LostDialogFragment();
+						frag.show(getFragmentManager(), null);
+					}
+					if(which==4)
+					{
+						//event
+						EventDialogFragment frag= new EventDialogFragment();
+						frag.show(getFragmentManager(), null);
+					}
+					
+				}});
+	    return builder.create();
+		}
+	}
+
+	@SuppressLint("ValidFragment")
+	private class EventDialogFragment extends DialogFragment
+	{
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			String[] eventList={"All Events","Upcoming Events","By Date"};
+			ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(context,android.R.layout.simple_spinner_dropdown_item,eventList);
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		    builder.setTitle("Select Option");builder.setAdapter(spinnerArrayAdapter, new OnClickListener(){
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					if(which==0)
+					{
+						RetrieveAllEventRequest eventRequest= new RetrieveAllEventRequest();
+						new BackgroundTask().execute(eventRequest,eventRequest);
+					}
+					if(which==1)
+					{
+						RetrieveCurrentEventRequest eventRequest= new RetrieveCurrentEventRequest();
+						new BackgroundTask().execute(eventRequest,eventRequest);
+					}
+					if(which==2)
+					{
+						//event
+//						EventDialogFragment frag= new EventDialogFragment();
+//						frag.show(getFragmentManager(), null);
+					}	
+				}});
+	    return builder.create();
+		}
+	}
+	
+	@SuppressLint("ValidFragment")
+	private class LostDialogFragment extends DialogFragment
+	{
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+	        // Set the dialog title
+	        builder.setTitle("Select Location Type");
+			return builder.create();
+		}
+	}
+	
+	@SuppressLint("ValidFragment")
+	private class StrayDialogFragment extends DialogFragment
+	{
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+	        // Set the dialog title
+	        builder.setTitle("Select Location Type");
+			return builder.create();
+		}
 	}
 }
