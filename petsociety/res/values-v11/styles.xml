@@ -21,7 +21,7 @@
     <style name="FullscreenActionBarStyle" parent="android:Widget.Holo.ActionBar">
         <item name="android:background">@color/black_overlay</item>
         <item name="android:showDividers">beginning</item>
-    	<item name="android:divider">#808080</item>
+    	<item name="android:divider">#FF3B5998</item>
     </style>
 
 </resources>
