@@ -91,7 +91,7 @@
       android:layout_below="@+id/textView2"
       android:layout_centerHorizontal="true"
       android:layout_marginTop="14dp"
-      android:src="@drawable/petdog" />
+      android:src="@drawable/event1" />
 
   <Button
       android:id="@+id/button1"
