@@ -33,6 +33,7 @@ public class User {
 	private List<Location> locations;
 	private List<Stray> strays;
 	private List<Friend_List> friend_list;
+	private List<Friend_Request> friend_request;
 	
 	
 	public int getUserID() {
@@ -172,6 +173,12 @@ public class User {
 	}
 	public void setGalleryID(int galleryID) {
 		this.galleryID = galleryID;
+	}
+	public List<Friend_Request> getFriend_request() {
+		return friend_request;
+	}
+	public void setFriend_request(List<Friend_Request> friend_request) {
+		this.friend_request = friend_request;
 	}
 	
 }
