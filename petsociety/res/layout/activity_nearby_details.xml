@@ -64,6 +64,7 @@
                 android:src="@drawable/call" />
 
             <ImageButton
+                android:id="@+id/nearbyDetailsMail"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentTop="true"

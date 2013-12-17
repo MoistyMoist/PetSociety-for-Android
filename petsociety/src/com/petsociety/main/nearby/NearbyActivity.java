@@ -62,6 +62,8 @@ ConnectionCallbacks,
 OnConnectionFailedListener,
 LocationListener, 
 OnMyLocationButtonClickListener{
+	
+	
 
 	
 	private GoogleMap mMap;
@@ -138,7 +140,9 @@ OnMyLocationButtonClickListener{
                 mMap.setMyLocationEnabled(true);
                 mMap.setOnMyLocationButtonClickListener(this);
                 LatLng singapore = new LatLng(1.37, 103.84);
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 7));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 12.0f));
+                mMap.getMyLocation();
+               
                 
                 for (int i=0; i<3; i++){
     				addShopMarkers();

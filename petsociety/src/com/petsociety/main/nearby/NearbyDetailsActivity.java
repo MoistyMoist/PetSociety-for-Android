@@ -14,6 +14,8 @@ import android.app.LocalActivityManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,7 +30,8 @@ import android.widget.Toast;
 	
 public class NearbyDetailsActivity extends ActivityGroup {
 	
-	ImageButton call;
+	ImageButton call, email;
+	Context context;
 	
 
 	@Override	
@@ -61,6 +64,10 @@ public class NearbyDetailsActivity extends ActivityGroup {
          tabHost.addTab(tab3);
          
          call = (ImageButton) findViewById(R.id.nearbyDetailsCall);
+         email = (ImageButton) findViewById(R.id.nearbyDetailsMail);
+         
+         registerForContextMenu(email);
+         
          
          call.setOnClickListener(new OnClickListener(){
 
@@ -78,11 +85,24 @@ public class NearbyDetailsActivity extends ActivityGroup {
 				}
 				
 			}});
-		
-     
+    
 		
 	}
 
+	
+
+@Override    
+public void onCreateContextMenu(ContextMenu menu, View v,
+    		   ContextMenuInfo menuInfo) {
+    		  super.onCreateContextMenu(menu, v, menuInfo);
+    		  menu.setHeaderTitle("Context Menu");
+    		  menu.add(0, v.getId(), 0, "Action 1");
+    		  menu.add(0, v.getId(), 0, "Action 2");
+    		  menu.add(0, v.getId(), 0, "Action 3");
+    		 }
+	
+	
+	
 
 
 	@Override
