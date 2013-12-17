@@ -20,6 +20,7 @@
     <!-- My Location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -76,6 +77,10 @@
             android:name="com.petsociety.main.nearby.NearbyActivity"
             android:label="@string/title_activity_nearby" >
         </activity>
+         <activity
+            android:name="com.petsociety.main.nearby.NearbyDetailsActivity"
+            android:label="@string/title_activity_nearby_details" >
+        </activity>
         <activity
             android:name="com.petsociety.main.SettingActivity"
             android:label="@string/title_activity_setting" >
@@ -85,7 +90,7 @@
             android:label="@string/title_activity_setting" >
         </activity>
         <activity
-            android:name="com.example.petsociety.TestanaylsisActivity"
+            android:name="com.petsociety.main.analysis.TestanaylsisActivity"
             android:label="@string/title_activity_testanaylsis" >
         </activity>
         <activity
@@ -100,10 +105,7 @@
             android:name="com.petsociety.main.lost.ReportLostPetActivity"
             android:label="@string/title_activity_report_lost_pet" >
         </activity>
-        <activity
-            android:name="com.petsociety.main.nearby.NearbyDetailsActivity"
-            android:label="@string/title_activity_nearby_details" >
-        </activity>
+      
         <activity
             android:name="com.petsociety.main.lost.LostProfileActivity"
             android:label="@string/title_activity_lost_profile" >
@@ -115,6 +117,10 @@
         <activity
             android:name="com.petsociety.main.nearby.ShopPhotosActivity"
             android:label="@string/title_activity_shop_photos" >
+        </activity>
+         <activity
+            android:name="com.petsociety.main.nearby.ShopInfoActivity"
+            android:label="@string/title_activity_shop_info" >
         </activity>
     </application>
 

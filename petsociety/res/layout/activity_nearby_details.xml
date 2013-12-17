@@ -55,7 +55,7 @@
             android:orientation="horizontal" >
 
             <ImageButton
-                android:id="@+id/imageButton1"
+                android:id="@+id/nearbyDetailsCall"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentLeft="true"
@@ -68,7 +68,7 @@
                 android:layout_height="50dp"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="22dp"
-                android:layout_toRightOf="@+id/imageButton1"
+                android:layout_toRightOf="@+id/nearbyDetailsCall"
                 android:src="@drawable/mail" />
         </RelativeLayout>
     </LinearLayout>

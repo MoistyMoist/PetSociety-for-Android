@@ -1,7 +1,11 @@
-package com.example.petsociety;
+package com.petsociety.main.analysis;
 
 import com.androidnatic.maps.HeatMapOverlay;
 import com.androidnatic.maps.SimpleMapView;
+import com.example.petsociety.R;
+import com.example.petsociety.R.id;
+import com.example.petsociety.R.layout;
+import com.example.petsociety.R.menu;
 import com.google.android.maps.MapActivity;
 
 import android.os.Bundle;

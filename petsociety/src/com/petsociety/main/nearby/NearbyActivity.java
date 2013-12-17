@@ -104,14 +104,16 @@ OnMyLocationButtonClickListener{
 		setUpMapIfNeeded();
 		
 		locateButton = (Button) findViewById(R.id.locateButton);
-		intent = new Intent(this, NearbyDetailsActivity.class);
+		intent = new Intent();
 		
+		//intent.setClass(getApplication(), NearbyDetailsActivity.class);
 		locateButton.setOnClickListener( new OnClickListener()
 		{
 
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
+				 Intent intent = new Intent(NearbyActivity.this, NearbyDetailsActivity.class);
 				startActivity(intent);
 				
 			}

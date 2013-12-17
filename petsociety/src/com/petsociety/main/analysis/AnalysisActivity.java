@@ -9,7 +9,6 @@ import java.util.List;
 
 import com.androidnatic.maps.HeatMapOverlay;
 import com.example.petsociety.R;
-import com.example.petsociety.TestanaylsisActivity;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
