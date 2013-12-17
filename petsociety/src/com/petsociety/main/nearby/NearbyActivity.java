@@ -31,7 +31,9 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationManager;
 import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -141,7 +143,6 @@ OnMyLocationButtonClickListener{
                 mMap.setOnMyLocationButtonClickListener(this);
                 LatLng singapore = new LatLng(1.37, 103.84);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 12.0f));
-                mMap.getMyLocation();
                
                 
                 for (int i=0; i<3; i++){
