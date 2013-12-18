@@ -63,8 +63,8 @@ public class LostActivity extends MainBaseActivity {
 				intent.setClass(getBaseContext(), LostProfileActivity.class);
 				startActivity(intent);
 			}});
-		
-		/*if(StaticObjects.getMapLost()==null||StaticObjects.getMapLost().size()==0)
+		/*
+		if(StaticObjects.getMapLost()==null||StaticObjects.getMapLost().size()==0)
 		{
 		    new Thread(new Runnable() {
 				  @Override
@@ -118,7 +118,7 @@ public class LostActivity extends MainBaseActivity {
 			Log.i("PRODUCT", "weird PRODUCT");
 			adapter = new LostListAdapter(getBaseContext());
 			lv_lost.setAdapter(adapter);
-		}*/
+		} */
 		
 	}
 	
