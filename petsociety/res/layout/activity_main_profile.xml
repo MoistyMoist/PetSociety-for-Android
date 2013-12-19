@@ -15,7 +15,7 @@
         android:layout_height="200dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="44dp"
+        android:layout_marginRight="60dp"
         android:src="@drawable/euru" />
 
     <TextView
