@@ -11,7 +11,6 @@ import org.apache.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import com.petsociety.models.Event;
 import com.petsociety.models.Location;
 import com.petsociety.models.Lost;
@@ -469,4 +468,32 @@ public class JSONExtractor {
 	{
 		
 	}
+	
+	//THIS METHODS EXTRACTS THE IMAGE URL AFTER UPLOADING THE BASE64 DATA
+		public void ExtractUploadImage(HttpResponse data) throws IllegalStateException, IOException, JSONException
+		{
+			HttpEntity entity = data.getEntity();
+	        
+	        if (entity != null) {
+	            InputStream instream = entity.getContent();
+	            String result= convertStreamToString(instream);
+	            String string = result;
+	            String[] parts = string.split("</Data>");
+	            String part1 = parts[0]; // 004
+	           // Log.i("JSON", part1.length()+"");
+	            String url=part1.replace("<ImageModel xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://schemas.datacontract.org/2004/07/BarterTradingWebServices.Model\"><Data>", "");
+	            
+	            Log.i("JSON", url);
+//	            if(StaticObjects.getSelectedProduct()!=null)
+//	            {
+//	            	StaticObjects.getSelectedProduct().setImageURL(url);
+//	            	StaticObjects.getSelectedProduct().setImageURL(url.replace(" ", "%2520"));
+//	            }
+//	            if(StaticObjects.getProductToCreate()!=null)
+//	            {
+//	            	StaticObjects.getProductToCreate().setImageURL(url.replace(" ", "%2520"));
+//	            }
+	            instream.close();
+	        }
+		}
 }
