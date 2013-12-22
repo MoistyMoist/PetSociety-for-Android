@@ -28,6 +28,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LostActivity extends MainBaseActivity {
 
@@ -46,13 +47,13 @@ public class LostActivity extends MainBaseActivity {
 		setContentView(R.layout.activity_main_lost);
 		
 		lv_lost = (ListView) findViewById(R.id.lv_lost_pets);
-		
+		/*
 		LostListAdapter adapter = new LostListAdapter(this);
 		for (int i=0; i<4; i++){
 			adapter.add(new LostItem("Snowy"+i, i+1, "Ang Mo Kio Ave 8", "17/08/2013 At 5.30pm"));
 		} 
 		lv_lost.setAdapter(adapter);
-		
+		*/
 		lv_lost.setOnItemClickListener(new OnItemClickListener(){
 
 			@Override
@@ -63,62 +64,63 @@ public class LostActivity extends MainBaseActivity {
 				intent.setClass(getBaseContext(), LostProfileActivity.class);
 				startActivity(intent);
 			}});
-		/*
+		
 		if(StaticObjects.getMapLost()==null||StaticObjects.getMapLost().size()==0)
-		{
-		    new Thread(new Runnable() {
-				  @Override
-				  public void run()
-				  {
-					  	ExecutorService executor = Executors.newFixedThreadPool(1);
-				        RetrieveAllLostRequest retrieveAllProductRequest = new RetrieveAllLostRequest();
-				          
-				        executor.execute(retrieveAllProductRequest);
-						executor.shutdown();
-				        try {
-				        	executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-				       	  	Log.i(" RESPONSE :","ENDED REQUEST");
-				       	  	
-				        } catch (InterruptedException e) {
-				           
-				        }
+        {
+            new Thread(new Runnable() {
+                          @Override
+                          public void run()
+                          {
+                                          ExecutorService executor = Executors.newFixedThreadPool(1);
+                                RetrieveAllLostRequest retrieveAllProductRequest = new RetrieveAllLostRequest();
+                                  
+                                executor.execute(retrieveAllProductRequest);
+                                        executor.shutdown();
+                                try {
+                                        executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+                                                 Log.i(" RESPONSE :","ENDED REQUEST");
+                                                 
+                                } catch (InterruptedException e) {
+                                   
+                                }
 
-				    runOnUiThread(new Runnable() {
-				      @Override
-				      public void run()
-				      {
-				        staticObjects= new StaticObjects();
-				        if(StaticObjects.getMapLost().size()==0||StaticObjects.getMapLost()==null)
-				        {
-				        	Log.i("PRODUCT", "NO PRODUCT");
-				        }
-				        else
-				        {
-				        	adapter = new LostListAdapter(getBaseContext());
-				        	List<Lost> lostList = StaticObjects.getMapLost();
-				        	for (int i=0; i<lostList.size(); i++){
-				        		Lost lostItem = lostList.get(i);
-				        		String lostPetName = lostItem.getPet().getName();
-				        		int lostPetAge = Integer.parseInt(lostItem.getPet().getAge());
-				        		String lostPetLocation = lostItem.getAddress();
-				        		String lostPetDate = lostItem.getDateTimeSeen().toString();
-				    			adapter.add(new LostItem(lostPetName, lostPetAge, lostPetLocation, lostPetDate));
-				    		}
-				        	
-				        	lv_lost.setAdapter(adapter);
-				        }
-				        
-				      }
-				    });
-				  }
-				}).start();
-		}
-		else
-		{
-			Log.i("PRODUCT", "weird PRODUCT");
-			adapter = new LostListAdapter(getBaseContext());
-			lv_lost.setAdapter(adapter);
-		} */
+                            runOnUiThread(new Runnable() {
+                              @Override
+                              public void run()
+                              {
+                                staticObjects= new StaticObjects();
+                                if(StaticObjects.getMapLost().size()==0||StaticObjects.getMapLost()==null)
+                                {
+                                        Log.i("PRODUCT", "NO PRODUCT");
+                                }
+                                else
+                                {
+                                        adapter = new LostListAdapter(getBaseContext());
+                                        List<Lost> lostList = StaticObjects.getMapLost();
+                                        for (int i=0; i<lostList.size(); i++){
+                                                Lost lostItem = lostList.get(i);
+                                                String lostPetName = lostItem.getPet().getName();
+                                                int lostPetAge = Integer.parseInt(lostItem.getPet().getAge());
+                                                String lostPetLocation = lostItem.getAddress();
+                                                //String lostPetDate = lostItem.getDateTimeSeen().toString();
+                                                adapter.add(new LostItem(lostPetName, lostPetAge, lostPetLocation, "99/99/99"));
+                                                //adapter.add(new LostItem(lostPetName, lostPetAge, lostPetLocation, lostPetDate));
+                                            }
+                                        
+                                        lv_lost.setAdapter(adapter);
+                                }
+                                
+                              }
+                            });
+                          }
+                        }).start();
+        }
+        else
+        {
+                Log.i("PRODUCT", "weird PRODUCT");
+                adapter = new LostListAdapter(getBaseContext());
+                lv_lost.setAdapter(adapter);
+        } 
 		
 	}
 	

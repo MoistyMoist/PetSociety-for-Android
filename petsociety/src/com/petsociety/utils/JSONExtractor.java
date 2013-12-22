@@ -109,6 +109,16 @@ public class JSONExtractor {
 	
 	//PET NODE NAMES
 	private static final String TAG_PET_PETID="PetID";
+	private static final String TAG_PET_NAME="Name";
+	private static final String TAG_PET_BREED="Breed";
+	private static final String TAG_PET_SEX="Sex";
+	private static final String TAG_PET_TYPE="Type";
+	private static final String TAG_PET_BIOGRAPHY="Biography";
+	private static final String TAG_PET_AGE="Age";
+	private static final String TAG_PET_USERID="UserID";
+	private static final String TAG_PET_GALLERYID="GalleryID";
+	private static final String TAG_PET_PROFILEIMAGEURL="ProfileImageURL";
+	private static final String TAG_PET_DATETIMECREATED="DateTimeCreated";
 	
 	//GALLERY NODE NAMES
 	private static final String TAG_GALLERY_GALLERYID="GalleryID";
@@ -429,7 +439,6 @@ public class JSONExtractor {
 				{
 					JSONObject c=RawData.getJSONObject(i);
 					
-					
 					Lost l= new Lost();
 					l.setLostID(c.getInt(TAG_LOST_DATETIMESEEN));
 					String dateLastSeen = c.getString(TAG_LOST_DATETIMESEEN);
@@ -444,13 +453,27 @@ public class JSONExtractor {
 					//l.setDateTimeCreated();
 					
 					Pet p= new Pet();
-					JSONObject c2=(JSONObject) c.get(TAG_PETs);
-					p.setPetID(c.getInt(TAG_PET_PETID));
-				
-					l.setPet(p);
+					//JSONObject c2=(JSONObject) c.get(TAG_PETs);
+					JSONObject c2=(JSONObject) c.get("PET");
+					Log.i("pet "+i,c2.toString() );
+					
+					p.setPetID(c2.getInt(TAG_PET_PETID));
+					p.setName(c2.getString(TAG_PET_NAME));
+					p.setBreed(c2.getString(TAG_PET_BREED));
+					p.setSex(c2.getString(TAG_PET_SEX).charAt(0));
+					p.setType(c2.getString(TAG_PET_TYPE));
+					p.setBiography(c2.getString(TAG_PET_BIOGRAPHY));
+					p.setAge(c2.getString(TAG_PET_AGE));
+					p.setUserID(c2.getInt(TAG_PET_USERID));
+					//p.setGalleryID(c2.getInt(TAG_PET_GALLERYID));
+					p.setProfileImageURL(c2.getString(TAG_PET_PROFILEIMAGEURL));
+					String petDateLastCreated = c2.getString(TAG_PET_DATETIMECREATED);
+					//p.setDateTimeCreated(petDateLastCreated);		
+					
+					l.setPet(p); 
 					lost.add(l); 
 					
-					//Log.i("product "+i,c.toString() );
+					//Log.i("pet "+i,c.toString() );
 				}
 				StaticObjects.setMapLost(lost);
 			}

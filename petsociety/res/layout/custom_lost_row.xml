@@ -4,49 +4,72 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal" >
     
-    <ImageView
+    <RelativeLayout
+		android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2">
+        
+        <ImageView
         android:id="@+id/row_icon"
-        android:layout_width="50dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginRight="5dp"
-        android:padding="5dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="Lost Dog"
         android:src="@drawable/badge_lostdog" />
+        
+    </RelativeLayout>
+    
+
 
     <LinearLayout 
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="0.6"
+        android:paddingLeft="10dp"
         android:orientation="vertical">
 
    	<TextView
    	    android:id="@+id/row_lost_name"
-   	    android:layout_width="fill_parent"
+   	    android:layout_width="wrap_content"
    	    android:layout_height="wrap_content"
-   	    android:gravity="center_vertical"
    	    android:text="Name"
    	    android:textAppearance="@android:style/TextAppearance.Medium" />
-    
-	<TextView
-	    android:id="@+id/row_lost_age"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:gravity="center_vertical"
-	    android:text="Age" />
         
 	<TextView
         android:id="@+id/row_lost_location"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:text="Last Seen:" />
             
 	<TextView
 	    android:id="@+id/row_lost_date"
-	    android:layout_width="fill_parent"
+	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:gravity="center_vertical"
 	    android:text="Date" />
     
     </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:orientation="vertical">
+	
+		<TextView
+		    android:id="@+id/row_lost_age"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center_horizontal"
+		    android:text="Age"
+		    android:textAppearance="@android:style/TextAppearance.Large"
+		    android:textColor="@color/black_overlay" />
+		
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:gravity="center_vertical"
+		    android:text="Years Old" />
+		
+	</LinearLayout>
 
 </LinearLayout>
