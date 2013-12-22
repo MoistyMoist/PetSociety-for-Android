@@ -434,13 +434,14 @@ public class JSONExtractor {
 			ArrayList<Lost>lost= new ArrayList<Lost>();
 			if(StaticObjects.getResponseStatus()==0)
 			{
-				Log.i("lost ",RawData.toString() );
+				//Log.i("raw ",RawData.toString() ); 
+					
 				for(int i=0;i<RawData.length();i++)
 				{
-					JSONObject c=RawData.getJSONObject(i);
 					
+					JSONObject c=RawData.getJSONObject(i); //Log.i("c ",c.toString() );
 					Lost l= new Lost();
-					l.setLostID(c.getInt(TAG_LOST_DATETIMESEEN));
+					l.setLostID(c.getInt(TAG_LOST_LOSTID));
 					String dateLastSeen = c.getString(TAG_LOST_DATETIMESEEN);
 					//l.setDateTimeSeen();
 					l.setAddress(c.getString(TAG_LOST_ADDRESS));
@@ -452,10 +453,11 @@ public class JSONExtractor {
 					String dateLastCreated = c.getString(TAG_LOST_DATETIMECREATED);
 					//l.setDateTimeCreated();
 					
+					
 					Pet p= new Pet();
 					//JSONObject c2=(JSONObject) c.get(TAG_PETs);
 					JSONObject c2=(JSONObject) c.get("PET");
-					Log.i("pet "+i,c2.toString() );
+					//Log.i("pet "+i,c2.toString() );
 					
 					p.setPetID(c2.getInt(TAG_PET_PETID));
 					p.setName(c2.getString(TAG_PET_NAME));
@@ -474,7 +476,7 @@ public class JSONExtractor {
 					lost.add(l); 
 					
 					//Log.i("pet "+i,c.toString() );
-				}
+				} 
 				StaticObjects.setMapLost(lost);
 			}
 			else
