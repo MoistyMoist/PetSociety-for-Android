@@ -66,23 +66,10 @@
   <fragment
       android:id="@+id/map"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="200dp"
       android:layout_alignParentLeft="true"
       android:layout_alignParentTop="true"
       class="com.google.android.gms.maps.SupportMapFragment" />
-
-  <TextView
-      android:id="@+id/textView2"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/map"
-      android:layout_centerHorizontal="true"
-      android:layout_marginTop="69dp"
-      android:text="Pets&apos; Day Out "
-      android:textAppearance="?android:attr/textAppearanceMedium"
-      android:textColor="#00AAAA"
-      android:textSize="26sp"
-      android:textStyle="bold" />
 
   <ImageView
       android:id="@+id/imageView1"
@@ -105,17 +92,6 @@
       android:text="Going" />
 
   <Button
-      android:id="@+id/button2"
-      style="?android:attr/buttonStyleSmall"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignBaseline="@+id/button1"
-      android:layout_alignBottom="@+id/button1"
-      android:layout_marginTop="30dp"
-      android:layout_toRightOf="@+id/textView5"
-      android:text="Maybe" />
-
-  <Button
       android:id="@+id/button3"
       style="?android:attr/buttonStyleSmall"
       android:layout_width="wrap_content"
@@ -125,14 +101,27 @@
       android:layout_toRightOf="@+id/textView4"
       android:text="Decline" />
 
-  <Button
-      android:id="@+id/button4"
-      style="?android:attr/buttonStyleSmall"
-      android:layout_width="100dp"
-      android:layout_height="100dp"
+  <TextView
+      android:id="@+id/textView2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignLeft="@+id/textView3"
       android:layout_below="@+id/map"
-      android:layout_toRightOf="@+id/textView2"
-      android:text="Button" />
+      android:layout_marginTop="24dp"
+      android:text="Pets&apos; Day Out "
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:textColor="#00AAAA"
+      android:textSize="26sp"
+      android:textStyle="bold" />
+
+  <Button
+      android:id="@+id/button2"
+      style="?android:attr/buttonStyleSmall"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_centerHorizontal="true"
+      android:text="Maybe" />
 
     </RelativeLayout>
 </ScrollView>
