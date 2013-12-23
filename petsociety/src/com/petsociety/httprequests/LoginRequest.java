@@ -31,9 +31,9 @@ public class LoginRequest implements Runnable{
 		HttpClient httpclient = new DefaultHttpClient();
 		 
         //PREPARE REQUEST OBJECT
-		HttpGet httpget = new HttpGet("https://petsociety.azurewebsites.net/api/Login?token="+staticObjects.getToken()+"&INemail="+this.email+"&INpassword="+this.password); 
-        //HttpGet httpget = new HttpGet("https://petsociety.azurewebsites.net/api/Login?token="+"token"+"&INemail="+"super@mail.com"+"&INpassword="+"password"); 
-        Log.i("LOGIN REQUEST :",httpget.getURI().toString());
+		HttpGet httpget = new HttpGet("http://petsociety.cloudapp.net/api/Login?token="+staticObjects.getToken()+"&INemail="+email+"&INpassword="+password); 
+		
+		Log.i("LOGIN REQUEST :",httpget.getURI().toString());
         //EXCUTE REQUEST
         HttpResponse response;
         try {

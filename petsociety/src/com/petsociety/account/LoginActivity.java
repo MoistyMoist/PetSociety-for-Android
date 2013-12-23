@@ -7,9 +7,13 @@ import java.util.concurrent.TimeUnit;
 import com.example.petsociety.R;
 import com.petsociety.httprequests.LoginRequest;
 import com.petsociety.main.MainActivity;
+import com.petsociety.models.User;
 import com.petsociety.utils.StaticObjects;
 
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
@@ -18,12 +22,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 
-	//StaticObjects staticObjects;
-	Button b_login, b_reg;
 	StaticObjects staticObjects;
+	Button b_login, b_reg;
+	EditText et_username, et_pass;
+	Boolean validUser = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,21 +40,22 @@ public class LoginActivity extends Activity {
 		setContentView(R.layout.activity_main_login);
 		
 		b_login = (Button) findViewById(R.id.b_login_login);
+		b_reg = (Button) findViewById(R.id.b_login_register);
+		et_username = (EditText) findViewById(R.id.et_login_username);
+		et_pass = (EditText) findViewById(R.id.et_login_pass);
+		
 		b_login.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				//if (checkUser()){
-					Intent intent = new Intent();
-					intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-					intent.setClass(getBaseContext(), MainActivity.class);
-					startActivity(intent);
-				//}
+				b_login.setEnabled(false);
+				checkUser();
+				new CheckLogin().execute("email");
 			}
 					
 		});
-		b_reg = (Button) findViewById(R.id.b_login_register);
+		
 		b_reg.setOnClickListener(new OnClickListener(){
 
 			@Override
@@ -64,15 +72,15 @@ public class LoginActivity extends Activity {
 		staticObjects = new StaticObjects();
 	}
 	
-	public boolean checkUser(){
-		boolean validUser = false;
+	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
+	public void checkUser(){
 		
-		if (b_login.getText().equals("") || b_login.getText()==null){
-			//to be removed once application completed
+		if (et_username.getText().toString().equals("") || et_username.getText().toString().isEmpty()){
 			validUser = true;
 		}
 		
-		/*
+		else {
+		
 		if(StaticObjects.getCurrentUser()==null)
 		{
 		    new Thread(new Runnable() {
@@ -80,46 +88,43 @@ public class LoginActivity extends Activity {
 				  public void run()
 				  {
 					  	ExecutorService executor = Executors.newFixedThreadPool(1);
-				        RetrieveAllProductRequest retrieveAllProductRequest = new RetrieveAllProductRequest();
+				        LoginRequest retrieveUserRequest = new LoginRequest(et_username.getText().toString(),et_pass.getText().toString());
 				          
-				        executor.execute(retrieveAllProductRequest);
+				        executor.execute(retrieveUserRequest);
 						executor.shutdown();
 				        try {
 				        	executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
 				       	  	Log.i(" RESPONSE :","ENDED REQUEST");
 				       	  	
-				        } catch (InterruptedException e) {
-				           
-				        }
+				        } catch (InterruptedException e) {}
 
-				    runOnUiThread(new Runnable() {
-				      @Override
-				      public void run()
-				      {
-				        staticObjects= new StaticObjects();
-				        if(StaticObjects.getAllProducts().size()==0||StaticObjects.getAllProducts()==null)
-				        {
-				        	Log.i("PRODUCT", "NO PRODUCT");
-				        }
-				        else
-				        {
-				        	//adapter = new ProductListAdapter(context, StaticObjects.getAllProducts());
-						   // listview.setAdapter(adapter);
-				        }
-				        
-				      }
-				    });
+	                	  runOnUiThread(new Runnable() {
+	                          @Override
+	                          public void run()
+	                          {
+	                        	  staticObjects= new StaticObjects();
+	                        	  if(StaticObjects.getCurrentUser()==null)
+	                        	  {
+	                                    Log.i("USER", "NO USER");
+	                        	  }
+	                        	  else
+	                        	  {
+	                        		  User user = StaticObjects.getCurrentUser();
+	                        		  if(et_pass.getText().toString().equals(user.getPassword())){
+	                        			  validUser=true;        
+	                        		  }	
+	                        		  //Toast.makeText(getApplicationContext(), user.getPassword()+","+validUser, Toast.LENGTH_SHORT).show();
+	                        	  }
+	                          }
+	                        });
 				  }
 				}).start();
 		}
 		else
 		{
-			Log.i("PRODUCT", "weird PRODUCT");
-			//adapter = new ProductListAdapter(context, StaticObjects.getAllProducts());
-		   // listview.setAdapter(adapter);
+			Log.i("USER", "weird USER");
 		}
-		*/
-		return validUser;
+		}
 	}
 
 	@Override
@@ -128,5 +133,44 @@ public class LoginActivity extends Activity {
 		getMenuInflater().inflate(R.menu.login, menu);
 		return true;
 	}
+	
+	private class CheckLogin extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+                for(int i=0;i<2;i++) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+                return "Okay";
+        }        
+
+		@Override
+        protected void onPostExecute(String result) {   
+			//Toast.makeText(getApplicationContext(), "validUser"+validUser, Toast.LENGTH_SHORT).show();
+			b_login.setEnabled(true);
+            if (validUser){
+				Intent intent = new Intent();
+				intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				intent.setClass(getBaseContext(), MainActivity.class);
+				startActivity(intent);
+            }
+            else {
+            	Toast.makeText(getApplicationContext(), "Please try again", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+        }
+    }
 
 }
