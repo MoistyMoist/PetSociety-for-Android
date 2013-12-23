@@ -75,7 +75,7 @@
         android:layout_below="@+id/textView4"
         android:cropToPadding="true"
         android:layout_marginLeft="20dp"
-        android:src="@drawable/profilepet1" />
+        android:src="@drawable/puppy" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -83,7 +83,7 @@
         android:layout_height="70dp"
         android:layout_alignLeft="@+id/textView1"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/profilepet2" />
+        android:src="@drawable/cat" />
     
         </RelativeLayout>
 
