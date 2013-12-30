@@ -236,22 +236,22 @@ public class JSONExtractor {
 					//e.setDateTimeCreated(new Date(c.get(TAG_EVENT_DATETIMECREATED)));
 					
 					
-					User u= new User();
-					JSONObject c2=(JSONObject) c.get(TAG_USER);
-					u.setUserID(c2.getInt(TAG_USER_USERID));
-					u.setName(c2.getString(TAG_USER_NAME));
-					u.setProfileImageURL(c2.getString(TAG_USER_PROFILEIMAGEURL));
-					u.setBiography(c2.getString(TAG_USER_BIOGRAPHY));
-					u.setContact(c2.getString(TAG_USER_CONTACT));
-					u.setCredibility(c2.getString(TAG_USER_CREDIBILITY));
-					u.setEmail(c2.getString(TAG_USER_EMAIL));			
-					u.setAddress(c2.getString(TAG_USER_ADDRESS));
-					u.setGalleryID(c2.getInt(TAG_USER_GALLERYID));
-					u.setPrivicy(c2.getString(TAG_USER_PRIVICY));
-					u.setSex(c2.getString(TAG_USER_SEX).charAt(0));
-					u.setX(c2.getDouble(TAG_USER_X));
-					u.setY(c2.getDouble(TAG_USER_Y));
-					e.setUser(u);
+//					User u= new User();
+//					JSONObject c2=(JSONObject) c.get(TAG_USER);
+//					u.setUserID(c2.getInt(TAG_USER_USERID));
+//					u.setName(c2.getString(TAG_USER_NAME));
+//					u.setProfileImageURL(c2.getString(TAG_USER_PROFILEIMAGEURL));
+//					u.setBiography(c2.getString(TAG_USER_BIOGRAPHY));
+//					u.setContact(c2.getString(TAG_USER_CONTACT));
+//					u.setCredibility(c2.getString(TAG_USER_CREDIBILITY));
+//					u.setEmail(c2.getString(TAG_USER_EMAIL));			
+//					u.setAddress(c2.getString(TAG_USER_ADDRESS));
+//					u.setGalleryID(c2.getInt(TAG_USER_GALLERYID));
+//					u.setPrivicy(c2.getString(TAG_USER_PRIVICY));
+//					u.setSex(c2.getString(TAG_USER_SEX).charAt(0));
+//					u.setX(c2.getDouble(TAG_USER_X));
+//					u.setY(c2.getDouble(TAG_USER_Y));
+//					e.setUser(u);
 					
 
 					events.add(e);
@@ -301,7 +301,7 @@ public class JSONExtractor {
 					e.setLocationID(c.getInt(TAG_LOCATION_LOCATIONID));
 					e.setTitle(c.getString(TAG_LOCATION_TITLE));
 					e.setDescription(c.getString(TAG_LOCATION_DESCRIPTION));
-					e.setGalleryID(c.getInt(TAG_LOCATION_GALLERYID));
+					//e.setGalleryID(c.getInt(TAG_LOCATION_GALLERYID));
 					e.setAddress(c.getString(TAG_LOCATION_ADDRESS));
 					e.setType(c.getString(TAG_LOCATION_TYPE));
 					e.setX(c.getInt(TAG_LOCATION_X));
@@ -310,23 +310,23 @@ public class JSONExtractor {
 					//e.setDateTimeCreated(new Date(c.get(TAG_EVENT_DATETIMECREATED)));
 					
 					
-					User u= new User();
-					JSONObject c2=(JSONObject) c.get(TAG_USER);
-					u.setUserID(c2.getInt(TAG_USER_USERID));
-					u.setName(c2.getString(TAG_USER_NAME));
-					u.setProfileImageURL(c2.getString(TAG_USER_PROFILEIMAGEURL));
-					u.setBiography(c2.getString(TAG_USER_BIOGRAPHY));
-					u.setContact(c2.getString(TAG_USER_CONTACT));
-					u.setCredibility(c2.getString(TAG_USER_CREDIBILITY));
-					u.setEmail(c2.getString(TAG_USER_EMAIL));			
-					u.setAddress(c2.getString(TAG_USER_ADDRESS));
-	
-					//u.setGalleryID(c2.getInt(TAG_USER_GALLERYID));
-					u.setPrivicy(c2.getString(TAG_USER_PRIVICY));
-					u.setSex(c2.getString(TAG_USER_SEX).charAt(0));
-					u.setX(c2.getDouble(TAG_USER_X));
-					u.setY(c2.getDouble(TAG_USER_Y));
-					e.setUser(u);
+//					User u= new User();
+//					JSONObject c2=(JSONObject) c.get(TAG_USER);
+//					u.setUserID(c2.getInt(TAG_USER_USERID));
+//					u.setName(c2.getString(TAG_USER_NAME));
+//					u.setProfileImageURL(c2.getString(TAG_USER_PROFILEIMAGEURL));
+//					u.setBiography(c2.getString(TAG_USER_BIOGRAPHY));
+//					u.setContact(c2.getString(TAG_USER_CONTACT));
+//					u.setCredibility(c2.getString(TAG_USER_CREDIBILITY));
+//					u.setEmail(c2.getString(TAG_USER_EMAIL));			
+//					u.setAddress(c2.getString(TAG_USER_ADDRESS));
+//	
+//					//u.setGalleryID(c2.getInt(TAG_USER_GALLERYID));
+//					u.setPrivicy(c2.getString(TAG_USER_PRIVICY));
+//					u.setSex(c2.getString(TAG_USER_SEX).charAt(0));
+//					u.setX(c2.getDouble(TAG_USER_X));
+//					u.setY(c2.getDouble(TAG_USER_Y));
+//					e.setUser(u);
 					
 
 					locations.add(e);
@@ -388,22 +388,22 @@ public class JSONExtractor {
 					//e.setDateTimeCreated(new Date(c.get(TAG_EVENT_DATETIMECREATED)));
 					
 					
-					User u= new User();
-					JSONObject c2=(JSONObject) c.get(TAG_USER);
-					u.setUserID(c2.getInt(TAG_USER_USERID));
-					u.setName(c2.getString(TAG_USER_NAME));
-					u.setProfileImageURL(c2.getString(TAG_USER_PROFILEIMAGEURL));
-					u.setBiography(c2.getString(TAG_USER_BIOGRAPHY));
-					u.setContact(c2.getString(TAG_USER_CONTACT));
-					u.setCredibility(c2.getString(TAG_USER_CREDIBILITY));
-					u.setEmail(c2.getString(TAG_USER_EMAIL));			
-					u.setAddress(c2.getString(TAG_USER_ADDRESS));
-					u.setGalleryID(c2.getInt(TAG_USER_GALLERYID));
-					u.setPrivicy(c2.getString(TAG_USER_PRIVICY));
-					u.setSex(c2.getString(TAG_USER_SEX).charAt(0));
-					u.setX(c2.getDouble(TAG_USER_X));
-					u.setY(c2.getDouble(TAG_USER_Y));
-					e.setUser(u);
+//					User u= new User();
+//					JSONObject c2=(JSONObject) c.get(TAG_USER);
+//					u.setUserID(c2.getInt(TAG_USER_USERID));
+//					u.setName(c2.getString(TAG_USER_NAME));
+//					u.setProfileImageURL(c2.getString(TAG_USER_PROFILEIMAGEURL));
+//					u.setBiography(c2.getString(TAG_USER_BIOGRAPHY));
+//					u.setContact(c2.getString(TAG_USER_CONTACT));
+//					u.setCredibility(c2.getString(TAG_USER_CREDIBILITY));
+//					u.setEmail(c2.getString(TAG_USER_EMAIL));			
+//					u.setAddress(c2.getString(TAG_USER_ADDRESS));
+//					u.setGalleryID(c2.getInt(TAG_USER_GALLERYID));
+//					u.setPrivicy(c2.getString(TAG_USER_PRIVICY));
+//					u.setSex(c2.getString(TAG_USER_SEX).charAt(0));
+//					u.setX(c2.getDouble(TAG_USER_X));
+//					u.setY(c2.getDouble(TAG_USER_Y));
+//					e.setUser(u);
 					
 
 					strays.add(e);
