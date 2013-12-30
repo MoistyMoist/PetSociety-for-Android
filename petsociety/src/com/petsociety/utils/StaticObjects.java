@@ -14,7 +14,7 @@ public class StaticObjects {
 	static String ResponseMessage;
 	
 	//GLOBAL DEFINATIONS (privacy, status , etc)
-	static String[] PET_LIST={"Dog","Cat","Bird","Diosaure"};
+	static String[] PET_LIST={"Dog","Cat","Bird","Fish","Rabbit","Hamster","Turtle"};
 	static String[] LOCATION_TYPE={"PetShop", "Accidents", "Diseases","Others"};
 	static String[] ANALYSIS_TYPE={"Everything","Locations","Strays","Lost Reports","Events"};
 	

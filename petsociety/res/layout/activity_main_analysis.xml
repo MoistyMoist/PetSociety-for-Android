@@ -23,19 +23,9 @@
 	        android:id="@+id/filterBtn"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:background="@drawable/grey_button"
 	        android:onClick="nextPage"
-	        android:text="Analyize : Everything"
-	        android:layout_weight="0.9" />
-	
-	    <ImageButton
-	        android:id="@+id/filterBtn2"
-	        android:layout_width="wrap_content"
-	        android:layout_height="match_parent"
-	        android:layout_weight="0.09"
-	        android:background="@drawable/grey_button"
-	        android:src="@drawable/ic_1_navigation_expand" />
-  
+	        android:text="Options"
+	        android:layout_weight="1" />
     </LinearLayout>
 
       <LinearLayout

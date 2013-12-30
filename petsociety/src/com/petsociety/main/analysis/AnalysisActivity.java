@@ -1,5 +1,7 @@
 package com.petsociety.main.analysis;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,8 +16,11 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
+import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -26,7 +31,9 @@ import com.petsociety.httprequests.RetrieveAllStrayRequest;
 import com.petsociety.httprequests.RetrieveCurrentEventRequest;
 import com.petsociety.httprequests.RetrieveEventByDateRequest;
 import com.petsociety.httprequests.RetrieveLocationByTypeRequest;
+import com.petsociety.httprequests.RetrieveLostByTypeRequest;
 import com.petsociety.httprequests.RetrieveReviewByLocationRequest;
+import com.petsociety.httprequests.RetrieveStrayByTypeRequest;
 import com.petsociety.main.MainBaseActivity;
 import com.petsociety.utils.StaticObjects;
 
@@ -52,7 +59,13 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RadialGradient;
+import android.graphics.Shader.TileMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -92,6 +105,18 @@ OnMyLocationButtonClickListener{
 	
 	private HeatMapOverlay overlay;
 	
+	private Canvas locationCanvas;
+	private Canvas strayCanvas;
+	private Canvas lostCanvas;
+	private Canvas eventCanvas;
+	
+	private boolean locationCanvasShown;
+	private boolean strayCanvasShown;
+	private boolean lostCanvasShown;
+	private boolean eventCanvasShown;
+	
+	
+	
 	
 	public AnalysisActivity() {
 		super(R.string.title_activity_analysis);
@@ -119,7 +144,7 @@ OnMyLocationButtonClickListener{
 		RetrieveAllStrayRequest strayRequest= new RetrieveAllStrayRequest();
 		RetrieveAllLostRequest lostRequest= new RetrieveAllLostRequest();
 		
-		new BackgroundTask().execute(locationRequest,lostRequest,eventRequest,locationRequest,strayRequest);
+		//new BackgroundTask().execute(locationRequest,lostRequest,eventRequest,locationRequest,strayRequest);
 		
 		
 		
@@ -156,7 +181,7 @@ OnMyLocationButtonClickListener{
     }
 	
 	
-	 public boolean onMyLocationButtonClick() {
+	public boolean onMyLocationButtonClick() {
 	        Toast.makeText(this, "Tracking...", Toast.LENGTH_SHORT).show();
 	        return false;
 	    }
@@ -220,17 +245,46 @@ OnMyLocationButtonClickListener{
 		mMap.addCircle(circleOptions);
 		
 		
-		circleOptions = new CircleOptions()
-	    .center(new LatLng(1.37, 103.84))
-	    .radius(900) // In meters
-	    .fillColor(0x2AFF00FF)//90% transparent red
-	    .strokeColor(Color.TRANSPARENT);//dont show the border to the circle
-		// Get back the mutable Circle
-		mMap.addCircle(circleOptions);
 		
 	}
 	
-	
+	private void DrawLocationHeatMaps() throws FileNotFoundException
+	{
+		LatLng latLng = new LatLng(1.37, 103.84);
+		
+		int radiusM = 100;// your radius in meter
+		// draw circle
+	    int d = 500; // diameter 
+	    Bitmap bm = Bitmap.createBitmap(d, d, Config.ARGB_8888);
+	    Canvas c = new Canvas(bm);
+	    Paint p = new Paint();
+	    //p.setColor(0x44ff0000);
+	    //c.drawCircle(d/2, d/2, d/2, p);
+	    
+	    
+	    p.setShader(new RadialGradient(250,250, 100, Color.argb(150, 252, 5, 5), Color.argb(0, 0, 0, 0), TileMode.MIRROR));
+        c.drawCircle(d/2, d/2, d/2, p);
+	    
+	    
+	    // generate BitmapDescriptor from circle Bitmap
+	    BitmapDescriptor bmD = BitmapDescriptorFactory.fromBitmap(bm);
+
+	    MarkerOptions marker= new MarkerOptions()
+		.icon(bmD)
+		.position(latLng);
+		
+		mMap.addMarker(marker);
+			    
+	}
+	private void DrawEventHeatMaps()
+	{
+		Canvas grid = new Canvas(Bitmap.createBitmap(10,10, Bitmap.Config.ARGB_8888));
+        grid. drawColor(Color.WHITE);
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        grid.drawCircle(10/2, 10/2 , 10/2, paint);
+        
+	}
 	
 
 	private class BackgroundTask extends AsyncTask<Runnable, Integer, Long> {
@@ -242,22 +296,34 @@ OnMyLocationButtonClickListener{
 			mMap.clear();
 			if(StaticObjects.getAnalysisEvent()!=null)
 			{
-				PlotPoint();
+				//PlotPoint();
+				try {
+					DrawLocationHeatMaps();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			if(StaticObjects.getAnalysisStray()!=null)
 			{
-				PlotPoint();
+				//PlotPoint();
 			}
 			if(StaticObjects.getAndlysisLost()!=null)
 			{
-				PlotPoint();
+				//PlotPoint();
 			}
 			if(StaticObjects.getAnslysisLocation()!=null)
 			{
-				PlotPoint();
+				//PlotPoint();
 			}
 			else
 			{
+				try {
+					DrawLocationHeatMaps();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				Toast.makeText(context,"No Record Exists", Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -338,6 +404,9 @@ OnMyLocationButtonClickListener{
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		public Dialog onCreateDialog(Bundle savedInstanceState){
 			
+			//String [] data= StaticObjects.getANALYSIS_TYPE();
+			//data[data.length]="Clear Map";
+			
 			ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(context,android.R.layout.simple_spinner_dropdown_item,StaticObjects.getANALYSIS_TYPE());
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		    builder.setTitle("Select Option");builder.setAdapter(spinnerArrayAdapter, new OnClickListener(){
@@ -398,6 +467,12 @@ OnMyLocationButtonClickListener{
 					{
 						RetrieveAllEventRequest eventRequest= new RetrieveAllEventRequest();
 						new BackgroundTask().execute(eventRequest,eventRequest);
+						try {
+							DrawLocationHeatMaps();
+						} catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 					if(which==1)
 					{
@@ -422,7 +497,44 @@ OnMyLocationButtonClickListener{
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 	        // Set the dialog title
-	        builder.setTitle("Select Location Type");
+	        builder.setTitle("Select Pet Type");
+	        builder.setMultiChoiceItems(StaticObjects.getPET_LIST(), null,
+                    new DialogInterface.OnMultiChoiceClickListener() {
+             @Override
+             public void onClick(DialogInterface dialog, int which,
+                     boolean isChecked) {
+                 if (isChecked) {
+                     // If the user checked the item, add it to the selected items
+              	   selectedLocationType.add(which);
+                 } else if (selectedLocationType.contains(which)) {
+                     // Else, if the item is already in the array, remove it 
+              	   selectedLocationType.remove(Integer.valueOf(which));
+                 }
+             }
+         })
+         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+             @Override
+             public void onClick(DialogInterface dialog, int id) {
+                
+          	   StaticObjects.setAnalysisEvent(null);
+          	   StaticObjects.setAnalysisStray(null);
+          	   StaticObjects.setAndlysisLost(null);
+          	   StaticObjects.setAnslysisLocation(null);
+          	   
+          	   RetrieveLostByTypeRequest request;
+                for(int i=0;i<selectedLocationType.size();i++)
+                {
+              	  request= new RetrieveLostByTypeRequest(StaticObjects.getPET_LIST()[selectedLocationType.get(i)]);
+              	  new BackgroundTask().execute(request,request);
+                }
+             }
+         })
+         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+             @Override
+             public void onClick(DialogInterface dialog, int id) {
+                
+             }
+         });
 			return builder.create();
 		}
 	}
@@ -434,7 +546,44 @@ OnMyLocationButtonClickListener{
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 	        // Set the dialog title
-	        builder.setTitle("Select Location Type");
+	        builder.setTitle("Select Stray Type");
+	        builder.setMultiChoiceItems(StaticObjects.getPET_LIST(), null,
+                    new DialogInterface.OnMultiChoiceClickListener() {
+             @Override
+             public void onClick(DialogInterface dialog, int which,
+                     boolean isChecked) {
+                 if (isChecked) {
+                     // If the user checked the item, add it to the selected items
+              	   selectedLocationType.add(which);
+                 } else if (selectedLocationType.contains(which)) {
+                     // Else, if the item is already in the array, remove it 
+              	   selectedLocationType.remove(Integer.valueOf(which));
+                 }
+             }
+         })
+         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+             @Override
+             public void onClick(DialogInterface dialog, int id) {
+                
+          	   StaticObjects.setAnalysisEvent(null);
+          	   StaticObjects.setAnalysisStray(null);
+          	   StaticObjects.setAndlysisLost(null);
+          	   StaticObjects.setAnslysisLocation(null);
+          	   
+          	   RetrieveStrayByTypeRequest request;
+                for(int i=0;i<selectedLocationType.size();i++)
+                {
+              	  request= new RetrieveStrayByTypeRequest(StaticObjects.getPET_LIST()[selectedLocationType.get(i)]);
+              	  new BackgroundTask().execute(request,request);
+                }
+             }
+         })
+         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+             @Override
+             public void onClick(DialogInterface dialog, int id) {
+                
+             }
+         });
 			return builder.create();
 		}
 	}
