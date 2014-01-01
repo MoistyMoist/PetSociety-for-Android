@@ -287,12 +287,13 @@ public class JSONExtractor {
             //check status if all green to extract
 			StaticObjects.setResponseStatus((Integer) json.get(TAG_STATUS));
 			StaticObjects.setResponseMessage(json.getString(TAG_MESSAGE));
-			JSONArray RawData= json.getJSONArray(TAG_DATA);
+			
 			//JSONArray errors=json.getJSONArray(TAG_ERRORS);
 			
 			ArrayList<Location>locations= new ArrayList<Location>();
 			if(StaticObjects.getResponseStatus()==0)
 			{
+				JSONArray RawData= json.getJSONArray(TAG_DATA);
 				Log.i("LOCATION ",RawData.toString() );
 				for(int i=0;i<RawData.length();i++)
 				{
@@ -363,12 +364,13 @@ public class JSONExtractor {
             //check status if all green to extract
 			StaticObjects.setResponseStatus((Integer) json.get(TAG_STATUS));
 			StaticObjects.setResponseMessage(json.getString(TAG_MESSAGE));
-			JSONArray RawData= json.getJSONArray(TAG_DATA);
+			
 			//JSONArray errors=json.getJSONArray(TAG_ERRORS);
 			
 			ArrayList<Stray>strays= new ArrayList<Stray>();
 			if(StaticObjects.getResponseStatus()==0)
 			{
+				JSONArray RawData= json.getJSONArray(TAG_DATA);
 				Log.i("STRAY ",RawData.toString() );
 				for(int i=0;i<RawData.length();i++)
 				{
@@ -436,14 +438,14 @@ public class JSONExtractor {
             //check status if all green to extract
             StaticObjects.setResponseStatus((Integer) json.get(TAG_STATUS));
 			StaticObjects.setResponseMessage(json.getString(TAG_MESSAGE));
-			JSONArray RawData= json.getJSONArray(TAG_DATA);
+			
 			//JSONArray errors=json.getJSONArray(TAG_ERRORS);
 			
 			ArrayList<Lost>lost= new ArrayList<Lost>();
 			if(StaticObjects.getResponseStatus()==0)
 			{
 				//Log.i("raw ",RawData.toString() ); 
-					
+				JSONArray RawData= json.getJSONArray(TAG_DATA);
 				for(int i=0;i<RawData.length();i++)
 				{
 					

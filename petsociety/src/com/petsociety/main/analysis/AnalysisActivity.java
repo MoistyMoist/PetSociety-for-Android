@@ -1,33 +1,16 @@
 package com.petsociety.main.analysis;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-
-import com.androidnatic.maps.HeatMapOverlay;
 import com.example.petsociety.R;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
-import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.Circle;
-import com.google.android.gms.maps.model.CircleOptions;
-import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 import com.petsociety.httprequests.RetrieveAllEventRequest;
 import com.petsociety.httprequests.RetrieveAllLocationRequest;
 import com.petsociety.httprequests.RetrieveAllLostRequest;
@@ -46,43 +29,25 @@ import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallback
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
-import com.google.android.maps.GeoPoint;
-import com.google.android.maps.Projection;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import android.location.Location;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Point;
-import android.graphics.RadialGradient;
-import android.graphics.Shader.TileMode;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 @SuppressLint({ "NewApi", "CutPasteId" })
@@ -107,6 +72,8 @@ OnMyLocationButtonClickListener{
 	Button filterBtn2;
 	
 	ArrayList<Integer> selectedLocationType;
+	ArrayList<Integer> selectedLostType;
+	ArrayList<Integer> selectedStrayType;
 	ArrayAdapter<CharSequence> analysisTypeAdapter;
 	
 	private HeatView overlay;
@@ -146,12 +113,7 @@ OnMyLocationButtonClickListener{
 		
 		//new BackgroundTask().execute(locationRequest,lostRequest,eventRequest,locationRequest,strayRequest);
 		
-		
-		
-//		final SimpleMapView mapview = (SimpleMapView)findViewById(R.id.mapviewww);
-//		this.overlay = new HeatMapOverlay(20000, mapview);
-//		mapview.getOverlays().add(overlay);
-		
+
 		mMap.setOnCameraChangeListener(new OnCameraChangeListener(){
 			@Override
 			public void onCameraChange(CameraPosition arg0) {
@@ -174,9 +136,6 @@ OnMyLocationButtonClickListener{
 				}
 			}});
 	}
-	
-	
-	
 	
 	private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
@@ -516,8 +475,10 @@ OnMyLocationButtonClickListener{
 	@SuppressLint("ValidFragment")
 	private class LostDialogFragment extends DialogFragment
 	{
+
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			selectedLostType= new ArrayList<Integer>();
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 	        // Set the dialog title
 	        builder.setTitle("Select Pet Type");
@@ -527,11 +488,9 @@ OnMyLocationButtonClickListener{
              public void onClick(DialogInterface dialog, int which,
                      boolean isChecked) {
                  if (isChecked) {
-                     // If the user checked the item, add it to the selected items
-              	   selectedLocationType.add(which);
-                 } else if (selectedLocationType.contains(which)) {
-                     // Else, if the item is already in the array, remove it 
-              	   selectedLocationType.remove(Integer.valueOf(which));
+                	selectedLostType.add(which);
+                 } else if (selectedLostType.contains(which)) {
+                	 selectedLostType.remove(Integer.valueOf(which));
                  }
              }
          })
@@ -545,9 +504,9 @@ OnMyLocationButtonClickListener{
           	   StaticObjects.setAnslysisLocation(null);
           	   
           	   RetrieveLostByTypeRequest request;
-                for(int i=0;i<selectedLocationType.size();i++)
+                for(int i=0;i<selectedLostType.size();i++)
                 {
-              	  request= new RetrieveLostByTypeRequest(StaticObjects.getPET_LIST()[selectedLocationType.get(i)]);
+              	  request= new RetrieveLostByTypeRequest(StaticObjects.getPET_LIST()[selectedLostType.get(i)]);
               	  new BackgroundTask().execute(request,request);
                 }
              }
@@ -567,6 +526,7 @@ OnMyLocationButtonClickListener{
 	{
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			selectedStrayType= new ArrayList<Integer>();
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 	        // Set the dialog title
 	        builder.setTitle("Select Stray Type");
@@ -577,10 +537,10 @@ OnMyLocationButtonClickListener{
                      boolean isChecked) {
                  if (isChecked) {
                      // If the user checked the item, add it to the selected items
-              	   selectedLocationType.add(which);
-                 } else if (selectedLocationType.contains(which)) {
+                	 selectedStrayType.add(which);
+                 } else if (selectedStrayType.contains(which)) {
                      // Else, if the item is already in the array, remove it 
-              	   selectedLocationType.remove(Integer.valueOf(which));
+                	 selectedStrayType.remove(Integer.valueOf(which));
                  }
              }
          })
@@ -594,9 +554,9 @@ OnMyLocationButtonClickListener{
           	   StaticObjects.setAnslysisLocation(null);
           	   
           	   RetrieveStrayByTypeRequest request;
-                for(int i=0;i<selectedLocationType.size();i++)
+                for(int i=0;i<selectedStrayType.size();i++)
                 {
-              	  request= new RetrieveStrayByTypeRequest(StaticObjects.getPET_LIST()[selectedLocationType.get(i)]);
+              	  request= new RetrieveStrayByTypeRequest(StaticObjects.getPET_LIST()[selectedStrayType.get(i)]);
               	  new BackgroundTask().execute(request,request);
                 }
              }
