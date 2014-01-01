@@ -226,12 +226,13 @@ public class JSONExtractor {
 				for(int i=0;i<RawData.length();i++)
 				{
 					JSONObject c=RawData.getJSONObject(i);
-					
+					Log.i("FULL", "status==0");
 					Event e= new Event();
 					e.setEventID(c.getInt(TAG_EVENT_EVENTID));
 					e.setName(c.getString(TAG_EVENT_NAME));
 					e.setDescription(c.getString(TAG_EVENT_DESCRIPTION));
-					
+					e.setX(c.getDouble(TAG_EVENT_X));
+					e.setY(c.getDouble(TAG_EVENT_Y));
 					String date=c.getString(TAG_EVENT_DATETIMECREATED);
 					//e.setDateTimeCreated(new Date(c.get(TAG_EVENT_DATETIMECREATED)));
 					

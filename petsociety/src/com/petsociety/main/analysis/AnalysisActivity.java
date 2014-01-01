@@ -13,11 +13,15 @@ import com.androidnatic.maps.HeatMapOverlay;
 import com.example.petsociety.R;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.GroundOverlayOptions;
@@ -42,6 +46,8 @@ import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallback
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.Projection;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import android.location.Location;
@@ -64,6 +70,7 @@ import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.RadialGradient;
 import android.graphics.Shader.TileMode;
 import android.util.Log;
@@ -96,27 +103,19 @@ OnMyLocationButtonClickListener{
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 	Context context;
 	
-	
 	Button filterBtn;
 	Button filterBtn2;
 	
 	ArrayList<Integer> selectedLocationType;
 	ArrayAdapter<CharSequence> analysisTypeAdapter;
 	
-	private HeatMapOverlay overlay;
-	
-	private Canvas locationCanvas;
-	private Canvas strayCanvas;
-	private Canvas lostCanvas;
-	private Canvas eventCanvas;
+	private HeatView overlay;
 	
 	private boolean locationCanvasShown;
 	private boolean strayCanvasShown;
 	private boolean lostCanvasShown;
 	private boolean eventCanvasShown;
-	
-	
-	
+
 	
 	public AnalysisActivity() {
 		super(R.string.title_activity_analysis);
@@ -133,6 +132,7 @@ OnMyLocationButtonClickListener{
 		sm.setMode(SlidingMenu.LEFT);	
 		sm.setSecondaryShadowDrawable(R.drawable.shadowright);
 		sm.setShadowDrawable(R.drawable.shadow);
+		overlay=(HeatView)findViewById(R.id.heatmap);
 		ViewGroup viewGroup=(ViewGroup)findViewById(R.id.analysis_map);
 		viewGroup.addView(View.inflate(this, R.layout.basic_map, null));
 		setUpMapIfNeeded();
@@ -152,8 +152,27 @@ OnMyLocationButtonClickListener{
 //		this.overlay = new HeatMapOverlay(20000, mapview);
 //		mapview.getOverlays().add(overlay);
 		
-		
-		
+		mMap.setOnCameraChangeListener(new OnCameraChangeListener(){
+			@Override
+			public void onCameraChange(CameraPosition arg0) {
+				// TODO Auto-generated method stub
+				if(locationCanvasShown)
+				{
+					DrawLocationHeatMaps();
+				}
+				if(strayCanvasShown)
+				{
+					DrawStrayHeatMaps();
+				}
+				if(lostCanvasShown)
+				{
+					DrawLostHeatMaps();
+				}
+				if(eventCanvasShown)
+				{
+					DrawEventHeatMaps();
+				}
+			}});
 	}
 	
 	
@@ -175,11 +194,6 @@ OnMyLocationButtonClickListener{
             }
         }
     }
-	@SuppressWarnings("unused")
-	private void AddPin() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
-    }
-	
 	
 	public boolean onMyLocationButtonClick() {
 	        Toast.makeText(this, "Tracking...", Toast.LENGTH_SHORT).show();
@@ -231,61 +245,88 @@ OnMyLocationButtonClickListener{
 //		startActivity(intent);
 	}
 	
-	
-	
-	private void PlotPoint()
+	private void DrawLostHeatMaps()
 	{
-		//linking the ui objects
-		CircleOptions circleOptions = new CircleOptions()
-	    .center(new LatLng(1.37, 103.84))
-	    .radius(100) // In meters
-	    .fillColor(0x2AFF00FF)//90% transparent red
-	    .strokeColor(Color.TRANSPARENT);//dont show the border to the circle
-		// Get back the mutable Circle
-		mMap.addCircle(circleOptions);
-		
-		
-		
-	}
-	
-	private void DrawLocationHeatMaps() throws FileNotFoundException
-	{
-		LatLng latLng = new LatLng(1.37, 103.84);
-		
-		int radiusM = 100;// your radius in meter
-		// draw circle
-	    int d = 500; // diameter 
-	    Bitmap bm = Bitmap.createBitmap(d, d, Config.ARGB_8888);
-	    Canvas c = new Canvas(bm);
-	    Paint p = new Paint();
-	    //p.setColor(0x44ff0000);
-	    //c.drawCircle(d/2, d/2, d/2, p);
-	    
-	    
-	    p.setShader(new RadialGradient(250,250, 100, Color.argb(150, 252, 5, 5), Color.argb(0, 0, 0, 0), TileMode.MIRROR));
-        c.drawCircle(d/2, d/2, d/2, p);
-	    
-	    
-	    // generate BitmapDescriptor from circle Bitmap
-	    BitmapDescriptor bmD = BitmapDescriptorFactory.fromBitmap(bm);
+		strayCanvasShown=true;
+		overlay.clearMap();
 
-	    MarkerOptions marker= new MarkerOptions()
-		.icon(bmD)
-		.position(latLng);
+		for(int i=0;i<StaticObjects.getAndlysisLost().size();i++)
+		{
+			float[][] points = new float[1][2];
+			LatLng latLng = new LatLng(StaticObjects.getAndlysisLost().get(i).getX(), StaticObjects.getAndlysisLost().get(i).getY());
+			com.google.android.gms.maps.Projection projection = mMap.getProjection();
+
+
+			Point p1 = new Point();
+			p1=projection.toScreenLocation(latLng);
 		
-		mMap.addMarker(marker);
-			    
+			points[0][0]=p1.x;
+			points[0][1]=p1.y;
+			overlay.addPoint(points);
+		}
 	}
+	
+	private void DrawStrayHeatMaps()
+	{
+		strayCanvasShown=true;
+		overlay.clearMap();
+
+		for(int i=0;i<StaticObjects.getAnalysisStray().size();i++)
+		{
+			float[][] points = new float[1][2];
+			LatLng latLng = new LatLng(StaticObjects.getAnalysisStray().get(i).getX(), StaticObjects.getAnalysisStray().get(i).getY());
+			com.google.android.gms.maps.Projection projection = mMap.getProjection();
+
+
+			Point p1 = new Point();
+			p1=projection.toScreenLocation(latLng);
+		
+			points[0][0]=p1.x;
+			points[0][1]=p1.y;
+			overlay.addPoint(points);
+		}
+	}
+	
+	private void DrawLocationHeatMaps()
+	{
+		locationCanvasShown=true;
+		overlay.clearMap();
+		for(int i=0;i<StaticObjects.getAnslysisLocation().size();i++)
+		{
+			float[][] points = new float[1][2];
+			LatLng latLng = new LatLng(StaticObjects.getAnslysisLocation().get(i).getX(), StaticObjects.getAnslysisLocation().get(i).getY());
+			com.google.android.gms.maps.Projection projection = mMap.getProjection();
+
+
+			Point p1 = new Point();
+			p1=projection.toScreenLocation(latLng);
+
+			points[0][0]=p1.x;
+			points[0][1]=p1.y;
+			overlay.addPoint(points);
+		}
+	}
+	
 	private void DrawEventHeatMaps()
 	{
-		Canvas grid = new Canvas(Bitmap.createBitmap(10,10, Bitmap.Config.ARGB_8888));
-        grid. drawColor(Color.WHITE);
-        Paint paint = new Paint();
-        paint.setStyle(Paint.Style.FILL_AND_STROKE);
-        grid.drawCircle(10/2, 10/2 , 10/2, paint);
-        
+		eventCanvasShown=true;
+		overlay.clearMap();
+
+		for(int i=0;i<StaticObjects.getAnalysisEvent().size();i++)
+		{
+			float[][] points = new float[1][2];
+			LatLng latLng = new LatLng(StaticObjects.getAnalysisEvent().get(i).getX(), StaticObjects.getAnalysisEvent().get(i).getY());
+			com.google.android.gms.maps.Projection projection = mMap.getProjection();
+
+
+			Point p1 = new Point();
+			p1=projection.toScreenLocation(latLng);
+		
+			points[0][0]=p1.x;
+			points[0][1]=p1.y;
+			overlay.addPoint(points);
+		}
 	}
-	
 
 	private class BackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 	     
@@ -296,34 +337,22 @@ OnMyLocationButtonClickListener{
 			mMap.clear();
 			if(StaticObjects.getAnalysisEvent()!=null)
 			{
-				//PlotPoint();
-				try {
-					DrawLocationHeatMaps();
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				DrawEventHeatMaps();
 			}
 			if(StaticObjects.getAnalysisStray()!=null)
 			{
-				//PlotPoint();
+				DrawStrayHeatMaps();
 			}
 			if(StaticObjects.getAndlysisLost()!=null)
 			{
-				//PlotPoint();
+				DrawLostHeatMaps();
 			}
 			if(StaticObjects.getAnslysisLocation()!=null)
 			{
-				//PlotPoint();
+				DrawLocationHeatMaps();
 			}
 			else
 			{
-				try {
-					DrawLocationHeatMaps();
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				Toast.makeText(context,"No Record Exists", Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -467,12 +496,6 @@ OnMyLocationButtonClickListener{
 					{
 						RetrieveAllEventRequest eventRequest= new RetrieveAllEventRequest();
 						new BackgroundTask().execute(eventRequest,eventRequest);
-						try {
-							DrawLocationHeatMaps();
-						} catch (FileNotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
 					}
 					if(which==1)
 					{

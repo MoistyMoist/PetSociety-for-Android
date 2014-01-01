@@ -34,13 +34,10 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"/>
-
-    <!-- <com.androidnatic.maps.SimpleMapView
-				 android:id="@+id/mapviewww"	
-                 android:layout_width="fill_parent"
-                 android:layout_height="fill_parent"
-                 android:clickable="true"
-                 android:apiKey="0UIQ5rC7w0MBuwP-HOeOlXfUzGC8g09KgjZnyqw"/>-->
-    
-
+	<com.petsociety.main.analysis.HeatView
+	    android:id="@+id/heatmap"
+	    android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/layout1"/>
+  
 </RelativeLayout>
