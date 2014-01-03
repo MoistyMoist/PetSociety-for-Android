@@ -31,6 +31,7 @@ public class LoginActivity extends Activity {
 	Button b_login, b_reg;
 	EditText et_username, et_pass;
 	Boolean validUser = false;
+	String message = "No message";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -106,14 +107,11 @@ public class LoginActivity extends Activity {
 	                        	  if(StaticObjects.getCurrentUser()==null)
 	                        	  {
 	                                    Log.i("USER", "NO USER");
+	                                    message = "No user with that email.";
 	                        	  }
 	                        	  else
 	                        	  {
-	                        		  User user = StaticObjects.getCurrentUser();
-	                        		  if(et_pass.getText().toString().equals(user.getPassword())){
-	                        			  validUser=true;        
-	                        		  }	
-	                        		  //Toast.makeText(getApplicationContext(), user.getPassword()+","+validUser, Toast.LENGTH_SHORT).show();
+	                        		  checkingUser();
 	                        	  }
 	                          }
 	                        });
@@ -123,8 +121,19 @@ public class LoginActivity extends Activity {
 		else
 		{
 			Log.i("USER", "weird USER");
+			checkingUser();
 		}
 		}
+	}
+	
+	public void checkingUser(){
+		User user = StaticObjects.getCurrentUser();
+		if(et_pass.getText().toString().equals(user.getPassword())){
+			validUser=true;        
+		}	
+	  	else{
+	  		message = "Wrong Password.";
+	  	}
 	}
 
 	@Override
@@ -160,7 +169,7 @@ public class LoginActivity extends Activity {
 				startActivity(intent);
             }
             else {
-            	Toast.makeText(getApplicationContext(), "Please try again", Toast.LENGTH_SHORT).show();
+            	Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
             }
         }
 
