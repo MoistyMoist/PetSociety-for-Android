@@ -31,7 +31,7 @@ public class LoginActivity extends Activity {
 	Button b_login, b_reg;
 	EditText et_username, et_pass;
 	Boolean validUser = false;
-	String message = "No message";
+	String message = "Timeout.";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -134,13 +134,6 @@ public class LoginActivity extends Activity {
 	  	else{
 	  		message = "Wrong Password.";
 	  	}
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.login, menu);
-		return true;
 	}
 	
 	private class CheckLogin extends AsyncTask<String, Void, String> {
