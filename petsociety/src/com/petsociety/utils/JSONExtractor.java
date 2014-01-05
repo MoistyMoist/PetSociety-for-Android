@@ -177,7 +177,7 @@ public class JSONExtractor {
 			Log.i("raw", RawData.toString());
             
 			User u= new User();
-			JSONObject c2=RawData.getJSONObject(0);
+			JSONObject c2=RawData.getJSONObject(0); 
 			
 			u.setUserID(c2.getInt(TAG_USER_USERID));
 			u.setPassword(c2.getString(TAG_USER_PASSWORD));
@@ -306,7 +306,7 @@ public class JSONExtractor {
 					//e.setGalleryID(c.getInt(TAG_LOCATION_GALLERYID));
 					e.setAddress(c.getString(TAG_LOCATION_ADDRESS));
 					e.setType(c.getString(TAG_LOCATION_TYPE));
-					e.setX(c.getInt(TAG_LOCATION_X));
+					e.setX(c.getDouble(TAG_LOCATION_X));
 					e.setY(c.getDouble(TAG_LOCATION_Y));
 					String date=c.getString(TAG_EVENT_DATETIMECREATED);
 					//e.setDateTimeCreated(new Date(c.get(TAG_EVENT_DATETIMECREATED)));
@@ -384,34 +384,28 @@ public class JSONExtractor {
 					e.setBreed(c.getString(TAG_STRAY_BREED));
 					e.setType(c.getString(TAG_STRAY_TYPE));
 					e.setStatus(c.getInt(TAG_STRAY_STATUS));
-					e.setX(c.getInt(TAG_STRAY_X));
+					e.setX(c.getDouble(TAG_STRAY_X));
 					e.setY(c.getDouble(TAG_STRAY_Y));
 					e.setUserID(c.getInt(TAG_STRAY_USERID));
-					String date=c.getString(TAG_EVENT_DATETIMECREATED);
+					//String date=c.getString(TAG_EVENT_DATETIMECREATED);
 					//e.setDateTimeCreated(new Date(c.get(TAG_EVENT_DATETIMECREATED)));
 					
-					
-//					User u= new User();
-//					JSONObject c2=(JSONObject) c.get(TAG_USER);
-//					u.setUserID(c2.getInt(TAG_USER_USERID));
-//					u.setName(c2.getString(TAG_USER_NAME));
-//					u.setProfileImageURL(c2.getString(TAG_USER_PROFILEIMAGEURL));
-//					u.setBiography(c2.getString(TAG_USER_BIOGRAPHY));
-//					u.setContact(c2.getString(TAG_USER_CONTACT));
-//					u.setCredibility(c2.getString(TAG_USER_CREDIBILITY));
-//					u.setEmail(c2.getString(TAG_USER_EMAIL));			
-//					u.setAddress(c2.getString(TAG_USER_ADDRESS));
-//					u.setGalleryID(c2.getInt(TAG_USER_GALLERYID));
-//					u.setPrivicy(c2.getString(TAG_USER_PRIVICY));
-//					u.setSex(c2.getString(TAG_USER_SEX).charAt(0));
-//					u.setX(c2.getDouble(TAG_USER_X));
-//					u.setY(c2.getDouble(TAG_USER_Y));
-//					e.setUser(u);
 					
 
 					strays.add(e);
 				}
-				StaticObjects.setAnalysisStray(strays);
+				if(StaticObjects.getAnalysisStray()!=null)
+				{
+					Log.i("ERROR3", "status==3");
+					for(int i=0;i<strays.size();i++)
+						StaticObjects.getAnalysisStray().add(strays.get(i));
+				}
+				else
+				{
+					Log.i("ERROR3", "status==4");
+					StaticObjects.setAnalysisStray(strays);
+				}
+				
 				StaticObjects.setStrays(strays);
 			}
 			else
@@ -444,8 +438,9 @@ public class JSONExtractor {
 			ArrayList<Lost>lost= new ArrayList<Lost>();
 			if(StaticObjects.getResponseStatus()==0)
 			{
-				//Log.i("raw ",RawData.toString() ); 
+				
 				JSONArray RawData= json.getJSONArray(TAG_DATA);
+				Log.i("LOST ",RawData.toString() );
 				for(int i=0;i<RawData.length();i++)
 				{
 					
@@ -466,27 +461,36 @@ public class JSONExtractor {
 					
 					Pet p= new Pet();
 					//JSONObject c2=(JSONObject) c.get(TAG_PETs);
-					JSONObject c2=(JSONObject) c.get("PET");
+					//JSONObject c2=(JSONObject) c.get("PET");
 					//Log.i("pet "+i,c2.toString() );
 					
-					p.setPetID(c2.getInt(TAG_PET_PETID));
-					p.setName(c2.getString(TAG_PET_NAME));
-					p.setBreed(c2.getString(TAG_PET_BREED));
-					p.setSex(c2.getString(TAG_PET_SEX).charAt(0));
-					p.setType(c2.getString(TAG_PET_TYPE));
-					p.setBiography(c2.getString(TAG_PET_BIOGRAPHY));
-					p.setAge(c2.getString(TAG_PET_AGE));
-					p.setUserID(c2.getInt(TAG_PET_USERID));
-					//p.setGalleryID(c2.getInt(TAG_PET_GALLERYID));
-					p.setProfileImageURL(c2.getString(TAG_PET_PROFILEIMAGEURL));
-					String petDateLastCreated = c2.getString(TAG_PET_DATETIMECREATED);
-					//p.setDateTimeCreated(petDateLastCreated);		
+//					p.setPetID(c2.getInt(TAG_PET_PETID));
+//					p.setName(c2.getString(TAG_PET_NAME));
+//					p.setBreed(c2.getString(TAG_PET_BREED));
+//					p.setSex(c2.getString(TAG_PET_SEX).charAt(0));
+//					p.setType(c2.getString(TAG_PET_TYPE));
+//					p.setBiography(c2.getString(TAG_PET_BIOGRAPHY));
+//					p.setAge(c2.getString(TAG_PET_AGE));
+//					p.setUserID(c2.getInt(TAG_PET_USERID));
+//					//p.setGalleryID(c2.getInt(TAG_PET_GALLERYID));
+//					p.setProfileImageURL(c2.getString(TAG_PET_PROFILEIMAGEURL));
+//					String petDateLastCreated = c2.getString(TAG_PET_DATETIMECREATED);
+//					//p.setDateTimeCreated(petDateLastCreated);		
 					
 					l.setPet(p); 
 					lost.add(l); 
 					
 					//Log.i("pet "+i,c.toString() );
 				} 
+				if(StaticObjects.getAndlysisLost()!=null)
+				{
+					for(int i=0;i<lost.size();i++)
+						StaticObjects.getAndlysisLost().add(lost.get(i));
+				}
+				else
+				{
+					StaticObjects.setAndlysisLost(lost);
+				}
 				StaticObjects.setMapLost(lost);
 			}
 			else

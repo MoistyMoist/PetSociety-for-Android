@@ -16,7 +16,7 @@ public class StaticObjects {
 	//GLOBAL DEFINATIONS (privacy, status , etc)
 	static String[] PET_LIST={"Dog","Cat","Bird","Fish","Rabbit","Hamster","Turtle"};
 	static String[] LOCATION_TYPE={"PetShop", "Accidents", "Diseases","Others"};
-	static String[] ANALYSIS_TYPE={"Everything","Locations","Strays","Lost Reports","Events"};
+	static String[] ANALYSIS_TYPE={"Clear","Locations","Strays","Lost Reports","Events"};
 	
 	static int USER_PRIVICY_HIDDEN=1;
 	static int USER_PRIVICY_NOTHIDDEN=0;

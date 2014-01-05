@@ -47,7 +47,7 @@ public class RetrieveLostByTypeRequest implements Runnable{
             Log.i("RETRIEVE LOST RESPONSE :",response.getStatusLine().toString());
             //PASS THE RESPONSE TO THE EXTRACTOR
             JSONExtractor paser= new JSONExtractor();
-            paser.ExtractEventRequest(response);
+            paser.ExtractLostRequest(response);
 
         } catch (ClientProtocolException e) {
             e.printStackTrace();

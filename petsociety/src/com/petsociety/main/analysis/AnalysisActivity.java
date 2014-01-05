@@ -206,7 +206,10 @@ OnMyLocationButtonClickListener{
 	
 	private void DrawLostHeatMaps()
 	{
-		strayCanvasShown=true;
+		strayCanvasShown=false;
+		lostCanvasShown=true;
+		locationCanvasShown=false;
+		eventCanvasShown=false;
 		overlay.clearMap();
 
 		for(int i=0;i<StaticObjects.getAndlysisLost().size();i++)
@@ -228,6 +231,9 @@ OnMyLocationButtonClickListener{
 	private void DrawStrayHeatMaps()
 	{
 		strayCanvasShown=true;
+		lostCanvasShown=false;
+		locationCanvasShown=false;
+		eventCanvasShown=false;
 		overlay.clearMap();
 
 		for(int i=0;i<StaticObjects.getAnalysisStray().size();i++)
@@ -248,7 +254,10 @@ OnMyLocationButtonClickListener{
 	
 	private void DrawLocationHeatMaps()
 	{
+		strayCanvasShown=false;
+		lostCanvasShown=false;
 		locationCanvasShown=true;
+		eventCanvasShown=false;
 		overlay.clearMap();
 		for(int i=0;i<StaticObjects.getAnslysisLocation().size();i++)
 		{
@@ -268,6 +277,9 @@ OnMyLocationButtonClickListener{
 	
 	private void DrawEventHeatMaps()
 	{
+		strayCanvasShown=false;
+		lostCanvasShown=false;
+		locationCanvasShown=false;
 		eventCanvasShown=true;
 		overlay.clearMap();
 
@@ -287,6 +299,33 @@ OnMyLocationButtonClickListener{
 		}
 	}
 
+	private void ClearHeatMap()
+	{
+		StaticObjects.setAnalysisEvent(null);
+   	   StaticObjects.setAnalysisStray(null);
+   	   StaticObjects.setAndlysisLost(null);
+   	   StaticObjects.setAnslysisLocation(null);
+		strayCanvasShown=false;
+		lostCanvasShown=false;
+		locationCanvasShown=false;
+		eventCanvasShown=false;
+		overlay.clearMap();
+
+		float[][] points = new float[1][2];
+		LatLng latLng = new LatLng(0,0);
+		com.google.android.gms.maps.Projection projection = mMap.getProjection();
+
+
+		Point p1 = new Point();
+		p1=projection.toScreenLocation(latLng);
+	
+		points[0][0]=p1.x;
+		points[0][1]=p1.y;
+		overlay.addPoint(points);
+			
+		
+	}
+	
 	private class BackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 	     
 		@Override
@@ -309,10 +348,6 @@ OnMyLocationButtonClickListener{
 			if(StaticObjects.getAnslysisLocation()!=null)
 			{
 				DrawLocationHeatMaps();
-			}
-			else
-			{
-				Toast.makeText(context,"No Record Exists", Toast.LENGTH_SHORT).show();
 			}
 		}
 
@@ -403,12 +438,13 @@ OnMyLocationButtonClickListener{
 				public void onClick(DialogInterface dialog, int which) {
 					if(which==0)
 					{
-						RetrieveAllEventRequest eventRequest= new RetrieveAllEventRequest();
-						RetrieveAllLocationRequest locationRequest= new RetrieveAllLocationRequest();
-						RetrieveAllStrayRequest strayRequest= new RetrieveAllStrayRequest();
-						RetrieveAllLostRequest lostRequest= new RetrieveAllLostRequest();
-						
-						new BackgroundTask().execute(locationRequest,lostRequest,eventRequest,locationRequest,strayRequest);
+//						RetrieveAllEventRequest eventRequest= new RetrieveAllEventRequest();
+//						RetrieveAllLocationRequest locationRequest= new RetrieveAllLocationRequest();
+//						RetrieveAllStrayRequest strayRequest= new RetrieveAllStrayRequest();
+//						RetrieveAllLostRequest lostRequest= new RetrieveAllLostRequest();
+//						
+//						new BackgroundTask().execute(locationRequest,lostRequest,eventRequest,locationRequest,strayRequest);
+						ClearHeatMap();
 					}
 					if(which==1)
 					{
@@ -424,8 +460,13 @@ OnMyLocationButtonClickListener{
 					if(which==3)
 					{
 						//lost
-						LostDialogFragment frag= new LostDialogFragment();
-						frag.show(getFragmentManager(), null);
+							StaticObjects.setAnalysisEvent(null);
+			          	   StaticObjects.setAnalysisStray(null);
+			          	   StaticObjects.setAndlysisLost(null);
+			          	   StaticObjects.setAnslysisLocation(null);
+			          	   
+			          	   RetrieveLostByTypeRequest request= new RetrieveLostByTypeRequest("Dog");
+			              	new BackgroundTask().execute(request,request);
 					}
 					if(which==4)
 					{
@@ -453,11 +494,19 @@ OnMyLocationButtonClickListener{
 				public void onClick(DialogInterface dialog, int which) {
 					if(which==0)
 					{
+						StaticObjects.setAnalysisEvent(null);
+			          	   StaticObjects.setAnalysisStray(null);
+			          	   StaticObjects.setAndlysisLost(null);
+			          	   StaticObjects.setAnslysisLocation(null);
 						RetrieveAllEventRequest eventRequest= new RetrieveAllEventRequest();
 						new BackgroundTask().execute(eventRequest,eventRequest);
 					}
 					if(which==1)
 					{
+						StaticObjects.setAnalysisEvent(null);
+			          	   StaticObjects.setAnalysisStray(null);
+			          	   StaticObjects.setAndlysisLost(null);
+			          	   StaticObjects.setAnslysisLocation(null);
 						RetrieveCurrentEventRequest eventRequest= new RetrieveCurrentEventRequest();
 						new BackgroundTask().execute(eventRequest,eventRequest);
 					}
@@ -588,7 +637,7 @@ OnMyLocationButtonClickListener{
 	        // Set title of dialog
 	        builder.setMessage("Set Date")
 	                // Set Ok button
-	                .setPositiveButton("Set",
+	                .setPositiveButton("Ok",
 	                        new DialogInterface.OnClickListener() {
 	                            public void onClick(DialogInterface dialog, int id) {
 	                                // User ok the dialog
