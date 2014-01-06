@@ -71,6 +71,16 @@
     <string name="title_activity_shop_info">ShopInfoActivity</string>
     <string name="title_activity_shop_review">ShopReviewActivity</string>
     <string name="title_activity_shop_photos">ShopPhotosActivity</string>
+    
+    
+
+    <string-array name="countries_array">
+        <item>Seng Kang Pet Store</item>
+        <item>Nanyang Poly Animal Care</item>
+       
+        ...
+    </string-array>
+
 
 
 </resources>

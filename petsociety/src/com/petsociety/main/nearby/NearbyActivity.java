@@ -13,6 +13,7 @@ import com.example.petsociety.R.layout;
 import com.example.petsociety.R.menu;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -22,8 +23,10 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
+import com.petsociety.httprequests.RetrieveLocationByTypeRequest;
 import com.petsociety.main.MainBaseActivity;
 import com.petsociety.main.RightListFragment;
+import com.petsociety.utils.StaticObjects;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
@@ -52,9 +55,12 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 @SuppressLint("NewApi")
@@ -64,10 +70,8 @@ ConnectionCallbacks,
 OnConnectionFailedListener,
 LocationListener, 
 OnMyLocationButtonClickListener{
-	
-	
 
-	
+	private final LatLng LOCATION_NYP = new LatLng(1.379348, 103.849876); 
 	private GoogleMap mMap;
 	Button buttonMap;
     private LocationClient mLocationClient;
@@ -78,7 +82,9 @@ OnMyLocationButtonClickListener{
 	
     ArrayList<Marker>shopMarkers = new ArrayList<Marker>();
     ArrayList<Marker>vetMarkers = new ArrayList<Marker>();
-
+    
+    
+    AutoCompleteTextView textView;
 	Button locateButton;
 	Intent intent;
 	
@@ -108,8 +114,22 @@ OnMyLocationButtonClickListener{
 		setUpMapIfNeeded();
 		
 		locateButton = (Button) findViewById(R.id.locateButton);
+	//	etNearbySearchLocation = (EditText) findViewById(R.id.etNearbySearchLocation);
 		intent = new Intent();
 		
+		
+		
+		 textView = (AutoCompleteTextView) findViewById(R.id.autocomplete_country);
+		// Get the string array
+		String[] countries = getResources().getStringArray(R.array.countries_array);
+		// Create the adapter and set it to the AutoCompleteTextView 
+		ArrayAdapter<String> adapter = 
+		        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countries);
+		textView.setAdapter(adapter);
+		
+
+		
+
 		//intent.setClass(getApplication(), NearbyDetailsActivity.class);
 		locateButton.setOnClickListener( new OnClickListener()
 		{
@@ -117,8 +137,35 @@ OnMyLocationButtonClickListener{
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				 Intent intent = new Intent(NearbyActivity.this, NearbyDetailsActivity.class);
-				startActivity(intent);
+//				 Intent intent = new Intent(NearbyActivity.this, NearbyDetailsActivity.class);
+//				startActivity(intent);
+				
+//				mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+//				CameraUpdate update = CameraUpdateFactory.newLatLngZoom(LOCATION_NYP, 16);
+//				mMap.getMaxZoomLevel();
+//				mMap.animateCamera(update);
+//				MarkerOptions mOption = new MarkerOptions()
+//				.position(LOCATION_NYP)
+//				.title("Nanyang Polytechnic")
+//				.snippet("A school located in ang mo kio")
+//				.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+//				vetMarkers.add(mMap.addMarker(mOption));
+				
+				String input = textView.getText().toString();
+				String type = "Pet Store";
+				RetrieveLocationByTypeRequest retrieveLocationByTypeRequest = new RetrieveLocationByTypeRequest(type);
+				StaticObjects.getSelectedLocation().getTitle();
+				StaticObjects.getSelectedLocation().getX();
+				StaticObjects.getSelectedLocation().getY();
+				
+				if(StaticObjects.getSelectedLocation().getType().toString() =="Pet Store" )
+				{
+					
+				}
+				
+				
+				
+				
 				
 			}
 			
