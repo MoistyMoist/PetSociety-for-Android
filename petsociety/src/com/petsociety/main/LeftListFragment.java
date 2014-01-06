@@ -5,10 +5,12 @@ import com.example.petsociety.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.petsociety.account.AccSettingActivity;
+import com.petsociety.account.LoginActivity;
 import com.petsociety.main.analysis.AnalysisActivity;
 import com.petsociety.main.lost.LostActivity;
 import com.petsociety.main.nearby.NearbyActivity;
 import com.petsociety.main.profile.ProfileActivity;
+import com.petsociety.utils.StaticObjects;
 
 import android.content.Context;
 import android.content.Intent;
@@ -55,7 +57,7 @@ public class LeftListFragment extends ListFragment {
 		adapter.add(new SampleItem("Strays Pets", android.R.drawable.ic_menu_search));
 		adapter.add(new SampleItem("Analysis", android.R.drawable.ic_menu_mapmode));
 		adapter.add(new SampleItem("Nearby", android.R.drawable.ic_menu_directions));
-		//10-12
+		//10-13
 		adapter.add(new SampleItem("Settings", R.drawable.ic_main_settings,true)); //title
 		adapter.add(new SampleItem("Account", android.R.drawable.ic_menu_preferences));
 		adapter.add(new SampleItem("Application", android.R.drawable.ic_menu_preferences));
@@ -115,6 +117,15 @@ public class LeftListFragment extends ListFragment {
 			intent.setClass(getActivity(), SettingActivity.class);
 			startActivity(intent);
 			break;
+		case 13: //Logout
+			StaticObjects.setStaticEmpty();
+			Intent logIntent = new Intent();
+			logIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			logIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+			logIntent.setClass(getActivity(), LoginActivity.class);
+			startActivity(logIntent);
+			break;
+			
 		}
 		((SlidingFragmentActivity) getActivity()).getSlidingMenu().toggle();
 	};

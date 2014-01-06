@@ -263,4 +263,39 @@ public class StaticObjects {
 	public static void setANALYSIS_TYPE(String[] aNALYSIS_TYPE) {
 		ANALYSIS_TYPE = aNALYSIS_TYPE;
 	}
+	//For logout, set all null
+	public static void setStaticEmpty() {
+		// TODO Auto-generated method stub
+		currentUser = null;
+		  mapEvent=null;
+		  mapLocation=null;
+		  mapStray=null;
+		  mapLost=null;
+		  mapUser=null;
+		
+		//ANALYSIS OBJECTS (KAI QUAN)
+		  analysisEvent=null;
+		  anslysisLocation=null;
+		  analysisStray=null;
+		  andlysisLost=null;
+		  analysisSelectedLocation=null;
+		  analysisSelectedEvent=null;
+		  analysisSelectedStray=null;
+		  analysisSelectedLost=null;
+		
+		
+		//EVENT OBJECTS (EURU)
+		  events=null;
+		  selectedEvent=null;
+		
+		//LOCATION OBJECTS (SHAHRIKIN)
+		  locations=null;
+		  selectedLocation=null;
+		  strays=null;
+		  selectedStray=null;
+		
+		//LOST OBJECTS (CHOON SENG)
+		  losts=null;
+		  selectedLost=null;
+	}
 }
