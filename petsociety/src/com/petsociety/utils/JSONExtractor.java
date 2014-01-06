@@ -441,6 +441,7 @@ public class JSONExtractor {
 				
 				JSONArray RawData= json.getJSONArray(TAG_DATA);
 				Log.i("LOST ",RawData.toString() );
+				
 				for(int i=0;i<RawData.length();i++)
 				{
 					
@@ -482,6 +483,9 @@ public class JSONExtractor {
 					
 					//Log.i("pet "+i,c.toString() );
 				} 
+				
+				StaticObjects.setLosts(lost);
+				
 				if(StaticObjects.getAndlysisLost()!=null)
 				{
 					for(int i=0;i<lost.size();i++)

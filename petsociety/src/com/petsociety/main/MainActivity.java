@@ -1,18 +1,26 @@
 package com.petsociety.main;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import com.petsociety.httprequests.*;
+import com.petsociety.models.Lost;
+import com.petsociety.utils.StaticObjects;
+
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -52,6 +60,9 @@ public class MainActivity extends MainBaseActivity
     private LocationClient mLocationClient;
     ArrayList<Marker>mLostPet = new ArrayList<Marker>();
     ArrayList<Marker>mFound = new ArrayList<Marker>();
+	StaticObjects staticObjects;
+	ProgressDialog progress;
+	Context context = this;
     
     private static final LocationRequest REQUEST = LocationRequest.create()
             .setInterval(5000)         // 5 seconds
@@ -82,18 +93,7 @@ public class MainActivity extends MainBaseActivity
 		
         setContentView(R.layout.basic_map);
         
-        
-        
-        
-        //read the user setting from local database
-        
-        //retrieve the points on map from database
-        
-        
-         
-        
-        
-       
+        getLostList();
         
       
 
@@ -116,14 +116,59 @@ public class MainActivity extends MainBaseActivity
                 mMap.setOnMyLocationButtonClickListener(this);
                 LatLng singapore = new LatLng(1.37, 103.84);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 11));
-                
-    			for (int i=0; i<3; i++){
-    				addLostPetMarker();
-    				addFoundMarker();
-    			}
             }
         }
     }
+	
+	public void getLostList(){
+		
+		if(StaticObjects.getLosts()==null||StaticObjects.getLosts().size()==0)
+		{
+			progress = ProgressDialog.show(this, "Getting your wishes","please wait...", true);
+			RetrieveAllLostRequest retrieveAllLostRequest = new RetrieveAllLostRequest();
+			 //UploadImageRequest upload= new UploadImageRequest();
+			 new BackgroundTask().execute( retrieveAllLostRequest,null);
+		}
+		else
+		{
+			//lost has be retrieved
+		}
+	}
+	
+	private class BackgroundTask extends AsyncTask<Runnable, Integer, Long> {
+	    
+		@Override
+		protected void onPostExecute(Long result) {
+			
+			super.onPostExecute(result);
+			if(progress!=null)
+				progress.dismiss();
+	        staticObjects= new StaticObjects();
+			if(StaticObjects.getLosts()==null||StaticObjects.getLosts().size()==0){}
+			else{
+				addLostPetMarker(StaticObjects.getLosts());
+			}			
+		}
+
+		@Override
+		protected void onPreExecute() {
+			Toast.makeText(context, "Refreshing..", Toast.LENGTH_SHORT).show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Long doInBackground(Runnable... task) {
+			
+			for(int i=0; i<task.length;i++)
+			{
+				if(task[i]!=null)
+					task[i].run();
+				if (isCancelled()) break;
+			}
+			return null;
+		}
+	 }
+
 
     
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -226,16 +271,19 @@ public class MainActivity extends MainBaseActivity
 		
 	}
     
-    public void addLostPetMarker(){
-    	double[] pos = randomMarkerPos();
-    	double lat = pos[0];
-    	double lng = pos[1];	
+    public void addLostPetMarker(List<Lost> list){
+    	
+    	for (int i=0; i<list.size(); i++){
+    	//double[] pos = randomMarkerPos();
+    	double lat = list.get(i).getX();//pos[0];
+    	double lng = list.get(i).getY();//pos[1]; 
 		//Toast.makeText(getApplicationContext(), "L:"+lat+","+lng, Toast.LENGTH_SHORT).show();
     	MarkerOptions mOption = new MarkerOptions()
 			.position(new LatLng(lat, lng))
 			.title("Lost Pet")
-			.snippet("Last Seen: Today 9:48am");
+			.snippet("Last Seen: Today 9:48am"); 
     	mLostPet.add(mMap.addMarker(mOption));
+    	}
     }
     
     public void addFoundMarker(){
