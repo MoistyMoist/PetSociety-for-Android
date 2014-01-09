@@ -23,6 +23,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
+import com.petsociety.httprequests.RetrieveAllLostRequest;
 import com.petsociety.httprequests.RetrieveLocationByTypeRequest;
 import com.petsociety.main.MainBaseActivity;
 import com.petsociety.main.RightListFragment;
@@ -46,6 +47,8 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.util.Log;
@@ -87,7 +90,10 @@ OnMyLocationButtonClickListener{
     AutoCompleteTextView textView;
 	Button locateButton;
 	Intent intent;
-	//lets try
+	//lets try weird, hmm..my guess was because u made a copy of the project when improting thats why there is 2 copys.... ohhhh ok
+	StaticObjects staticObjects;
+	ProgressDialog progress;
+	Context context = this; //this migth be the cause too not sure
 	
 	public NearbyActivity() {
 		super(R.string.title_activity_nearby);
@@ -128,7 +134,7 @@ OnMyLocationButtonClickListener{
 		textView.setAdapter(adapter);
 		
 
-		
+		getNearbyList(); //so this method ok ar?yes
 
 		//intent.setClass(getApplication(), NearbyDetailsActivity.class);
 		locateButton.setOnClickListener( new OnClickListener()
@@ -161,7 +167,7 @@ OnMyLocationButtonClickListener{
 				if(StaticObjects.getSelectedLocation().getType().toString() =="Pet Store" )
 				{
 					
-				}
+				}// i tried clicking search button but nthing happen?.. that null pointer isee
 				
 				
 				
@@ -173,6 +179,61 @@ OnMyLocationButtonClickListener{
 				
 	}
 	
+	
+public void getNearbyList(){
+		
+		if(StaticObjects.getLosts()==null||StaticObjects.getLosts().size()==0)
+		{
+			progress = ProgressDialog.show(this, "Getting your wishes","please wait...", true);
+			RetrieveLocationByTypeRequest retrieveLocationByTypeRequest = new RetrieveLocationByTypeRequest("Pet Store"); //for this part, the constructor takes in type, issit ok if i hardcode  a tuy can
+		//ok mind close the whole app, and go to nearby again, i didnth catch the url there
+			//are u at neaby?yes i dont see any url being called
+			 //UploadImageRequest upload= new UploadImageRequest();
+			 new BackgroundTask().execute( retrieveLocationByTypeRequest,null);
+		}
+		else
+		{
+			//lost has be retrieved
+		}
+	}
+	
+	private class BackgroundTask extends AsyncTask<Runnable, Integer, Long> {
+	    
+		@Override
+		protected void onPostExecute(Long result) {
+			
+			super.onPostExecute(result);
+			if(progress!=null)
+				progress.dismiss();
+	        staticObjects= new StaticObjects();
+			if(StaticObjects.getLocations()==null||StaticObjects.getLocations().size()==0){}
+			else{
+				//addLostPetMarker(StaticObjects.getLosts());
+				// how should i do it. cuz im searching for location. by the Name. i need to filter by type first cuz location has different types < retrieve by the api url
+				//ok, can run this see if any logcat message comes outo;kok
+				//nearby any erro? no only null pointer.. wait that was for this
+				
+			}			
+		}
+
+		@Override
+		protected void onPreExecute() {
+			Toast.makeText(getBaseContext(), "Refreshing..", Toast.LENGTH_SHORT).show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Long doInBackground(Runnable... task) {
+			
+			for(int i=0; i<task.length;i++)
+			{
+				if(task[i]!=null)
+					task[i].run();
+				if (isCancelled()) break;
+			}
+			return null;
+		}
+	 }
 	
 	
 	@SuppressWarnings("unused")

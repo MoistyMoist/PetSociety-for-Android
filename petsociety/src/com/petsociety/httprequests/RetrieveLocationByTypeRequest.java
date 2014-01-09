@@ -32,7 +32,7 @@ public class RetrieveLocationByTypeRequest implements Runnable{
 		HttpGet httpget = null;
 		
 		//PREPARE REQUEST OBJECT
-		httpget = new HttpGet("http://petsociety.cloudapp.net/api/RetrieveLocation?INtoken="+staticObjects.getToken()+"&INtype="+this.type); 
+		httpget = new HttpGet("http://petsociety.cloudapp.net/api/RetrieveLocation?INtoken="+staticObjects.getToken()+"&INtype="+type); 
 
         Log.i("RETRIEVE LOCATION :",httpget.getURI().toString());
         
