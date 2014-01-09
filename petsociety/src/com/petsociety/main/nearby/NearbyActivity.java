@@ -87,7 +87,7 @@ OnMyLocationButtonClickListener{
     AutoCompleteTextView textView;
 	Button locateButton;
 	Intent intent;
-	
+	//lets try
 	
 	public NearbyActivity() {
 		super(R.string.title_activity_nearby);
