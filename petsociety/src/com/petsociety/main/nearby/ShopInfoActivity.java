@@ -1,12 +1,17 @@
 package com.petsociety.main.nearby;
 
+import java.util.ArrayList;
+import java.util.Deque;
+
 import com.example.petsociety.R;
 import com.example.petsociety.R.layout;
 import com.example.petsociety.R.menu;
+import com.petsociety.utils.StaticObjects;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.Menu;
 import android.widget.ArrayAdapter;
@@ -20,8 +25,10 @@ public class ShopInfoActivity extends Activity {
 	
 	Context myContext;
 	
-	String[] items = {"Address: \n\n Lot 1 Shopper's Mall \n Choa Chu Kang Ave 4 \n", "Website : \n\n www.petstore.com \n", "Descriptions : \n\n We sell all kinds of Dog and cat Food do check us out! \n"
-			, "Ratings :\n \n \n"};
+	
+	ArrayList<String> locationTypeArrayList = new ArrayList<String>();
+
+
 	
 
 	@Override
@@ -29,6 +36,11 @@ public class ShopInfoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_shop_info);
 		
+	//	String title = Intent.getIntent(getLocalClassName().getClass(NearbyActivity)/)
+		
+		
+		String[] items = {"Address", "Website : \n\n www.petstore.com \n", "Descriptions : \n\n We sell all kinds of Dog and cat Food do check us out! \n"
+				, "Ratings :\n \n \n"};
 		
     
         myContext = this;

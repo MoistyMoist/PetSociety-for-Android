@@ -9,6 +9,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -28,6 +29,7 @@ import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import android.location.Location;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.ProgressDialog;
@@ -113,9 +115,7 @@ public class NearbyActivity extends MainBaseActivity implements
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				// Intent intent = new Intent(NearbyActivity.this,
-				// NearbyDetailsActivity.class);
-				// startActivity(intent);
+				
 
 				for (int i = 0; i < StaticObjects.getLocations().size(); i++) {
 
@@ -138,7 +138,19 @@ public class NearbyActivity extends MainBaseActivity implements
 							.icon(BitmapDescriptorFactory
 									.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
 					vetMarkers.add(mMap.addMarker(mOption));
+					 
+					mMap.setOnMarkerClickListener(new OnMarkerClickListener(){
+
+						@Override
+						public boolean onMarkerClick(Marker arg0) {
+							// TODO Auto-generated method stub
+							Intent intent = new Intent(NearbyActivity.this,
+									 NearbyDetailsActivity.class);
+									 startActivity(intent);
+							return true;
+						}
 					
+					});
 					
 					}
 					
@@ -198,9 +210,12 @@ public class NearbyActivity extends MainBaseActivity implements
 			for (int i = 0; i < StaticObjects.getLocations().size(); i++) {
 				locationTypeArrayList.add(StaticObjects.getLocations().get(i)
 						.getType());
+				
+				
 			}
 
 			// textView1.setTag(staticObjects.getLocations().lastIndexOf(getTitle()));
+			
 
 		}
 
