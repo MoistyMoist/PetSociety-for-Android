@@ -2,18 +2,10 @@ package com.petsociety.main.nearby;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.example.petsociety.R;
-import com.example.petsociety.R.layout;
-import com.example.petsociety.R.menu;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -26,7 +18,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.petsociety.httprequests.RetrieveAllLostRequest;
 import com.petsociety.httprequests.RetrieveLocationByTypeRequest;
 import com.petsociety.main.MainBaseActivity;
-import com.petsociety.main.RightListFragment;
 import com.petsociety.utils.StaticObjects;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
@@ -35,38 +26,22 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationManager;
-import android.nfc.Tag;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.annotation.SuppressLint;
-import android.app.ActionBar;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
-@SuppressLint("NewApi")
+
 public class NearbyActivity extends MainBaseActivity 
 implements 
 ConnectionCallbacks,
@@ -93,7 +68,7 @@ OnMyLocationButtonClickListener{
 	//lets try weird, hmm..my guess was because u made a copy of the project when improting thats why there is 2 copys.... ohhhh ok
 	StaticObjects staticObjects;
 	ProgressDialog progress;
-	Context context = this; //this migth be the cause too not sure
+	Context context = this; 
 	
 	public NearbyActivity() {
 		super(R.string.title_activity_nearby);
@@ -106,14 +81,12 @@ OnMyLocationButtonClickListener{
 
 		setContentView(R.layout.activity_main_nearby);
 		setSlidingActionBarEnabled(true);
-		
 				
 		SlidingMenu sm = getSlidingMenu();
 		sm.setMode(SlidingMenu.LEFT);
 							
 		sm.setSecondaryShadowDrawable(R.drawable.shadowright);
 		sm.setShadowDrawable(R.drawable.shadow);
-
 
 		ViewGroup viewGroup=(ViewGroup)findViewById(R.id.nearby_map);
 		viewGroup.addView(View.inflate(this, R.layout.basic_map, null));
@@ -123,19 +96,14 @@ OnMyLocationButtonClickListener{
 	//	etNearbySearchLocation = (EditText) findViewById(R.id.etNearbySearchLocation);
 		intent = new Intent();
 		
-		
-		
-		 textView = (AutoCompleteTextView) findViewById(R.id.autocomplete_country);
+		textView = (AutoCompleteTextView) findViewById(R.id.autocomplete_country);
 		// Get the string array
 		String[] countries = getResources().getStringArray(R.array.countries_array);
 		// Create the adapter and set it to the AutoCompleteTextView 
-		ArrayAdapter<String> adapter = 
-		        new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countries);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countries);
 		textView.setAdapter(adapter);
 		
-
-		getNearbyList(); //so this method ok ar?yes
-
+		/*
 		//intent.setClass(getApplication(), NearbyDetailsActivity.class);
 		locateButton.setOnClickListener( new OnClickListener()
 		{
@@ -169,27 +137,26 @@ OnMyLocationButtonClickListener{
 					
 				}// i tried clicking search button but nthing happen?.. that null pointer isee
 				
-				
-				
-				
-				
 			}
 			
-		});
+		}); */
+		
+		getNearbyList(); //so this method ok ar?yes
 				
 	}
 	
 	
 public void getNearbyList(){
 		
-		if(StaticObjects.getLosts()==null||StaticObjects.getLosts().size()==0)
+		if(StaticObjects.getLocations()==null ||StaticObjects.getLocations().size()==0)
 		{
+			//progress = ProgressDialog.show(this, "Getting your wishes","please wait...", true);
+			//RetrieveLocationByTypeRequest retrieveLocationByTypeRequest = new RetrieveLocationByTypeRequest("Pet Store"); 
+			//new BackgroundTask().execute( retrieveLocationByTypeRequest,null);
 			progress = ProgressDialog.show(this, "Getting your wishes","please wait...", true);
-			RetrieveLocationByTypeRequest retrieveLocationByTypeRequest = new RetrieveLocationByTypeRequest("Pet Store"); //for this part, the constructor takes in type, issit ok if i hardcode  a tuy can
-		//ok mind close the whole app, and go to nearby again, i didnth catch the url there
-			//are u at neaby?yes i dont see any url being called
+			RetrieveAllLostRequest retrieveLocationByTypeRequest = new RetrieveAllLostRequest();
 			 //UploadImageRequest upload= new UploadImageRequest();
-			 new BackgroundTask().execute( retrieveLocationByTypeRequest,null);
+			 new NBackgroundTask().execute( retrieveLocationByTypeRequest,null);
 		}
 		else
 		{
@@ -197,7 +164,7 @@ public void getNearbyList(){
 		}
 	}
 	
-	private class BackgroundTask extends AsyncTask<Runnable, Integer, Long> {
+	private class NBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 	    
 		@Override
 		protected void onPostExecute(Long result) {
@@ -206,13 +173,9 @@ public void getNearbyList(){
 			if(progress!=null)
 				progress.dismiss();
 	        staticObjects= new StaticObjects();
-			if(StaticObjects.getLocations()==null||StaticObjects.getLocations().size()==0){}
+	        if(StaticObjects.getLosts()==null||StaticObjects.getLosts().size()==0){}
 			else{
 				//addLostPetMarker(StaticObjects.getLosts());
-				// how should i do it. cuz im searching for location. by the Name. i need to filter by type first cuz location has different types < retrieve by the api url
-				//ok, can run this see if any logcat message comes outo;kok
-				//nearby any erro? no only null pointer.. wait that was for this
-				
 			}			
 		}
 
@@ -227,16 +190,16 @@ public void getNearbyList(){
 			
 			for(int i=0; i<task.length;i++)
 			{
+				Log.i("ABCDEF", task[i].toString());
 				if(task[i]!=null)
 					task[i].run();
 				if (isCancelled()) break;
-			}
+			} 
 			return null;
 		}
 	 }
 	
 	
-	@SuppressWarnings("unused")
 	private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
@@ -260,7 +223,7 @@ public void getNearbyList(){
             }
         }}
     
-	@SuppressWarnings("unused")
+	
 	private void setUpMap() {
         mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
     }

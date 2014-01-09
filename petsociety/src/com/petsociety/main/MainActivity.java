@@ -124,7 +124,7 @@ public class MainActivity extends MainBaseActivity
 		
 		if(StaticObjects.getLosts()==null||StaticObjects.getLosts().size()==0)
 		{
-			progress = ProgressDialog.show(this, "Getting your wishes","please wait...", true);
+			progress = ProgressDialog.show(this, "Setting up map","please wait...", true);
 			RetrieveAllLostRequest retrieveAllLostRequest = new RetrieveAllLostRequest();
 			 //UploadImageRequest upload= new UploadImageRequest();
 			 new BackgroundTask().execute( retrieveAllLostRequest,null);
