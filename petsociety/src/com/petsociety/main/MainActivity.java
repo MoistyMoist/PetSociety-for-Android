@@ -152,7 +152,7 @@ public class MainActivity extends MainBaseActivity
 
 		@Override
 		protected void onPreExecute() {
-			Toast.makeText(context, "Refreshing..", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(context, "Refreshing..", Toast.LENGTH_SHORT).show();
 			super.onPreExecute();
 		}
 

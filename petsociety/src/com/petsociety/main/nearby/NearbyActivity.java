@@ -152,11 +152,11 @@ public void getNearbyList(){
 		{
 			//progress = ProgressDialog.show(this, "Getting your wishes","please wait...", true);
 			//RetrieveLocationByTypeRequest retrieveLocationByTypeRequest = new RetrieveLocationByTypeRequest("Pet Store"); 
-			//new BackgroundTask().execute( retrieveLocationByTypeRequest,null);
-			progress = ProgressDialog.show(this, "Getting your wishes","please wait...", true);
-			RetrieveAllLostRequest retrieveLocationByTypeRequest = new RetrieveAllLostRequest();
-			 //UploadImageRequest upload= new UploadImageRequest();
-			 new NBackgroundTask().execute( retrieveLocationByTypeRequest,null);
+			
+			progress = ProgressDialog.show(this, "Setting up map","please wait...", true);
+			RetrieveAllLostRequest retrieveAllLostRequest = new RetrieveAllLostRequest();
+			//UploadImageRequest upload= new UploadImageRequest();
+			new BackgroundTask().execute( retrieveAllLostRequest,null);
 		}
 		else
 		{
@@ -164,7 +164,7 @@ public void getNearbyList(){
 		}
 	}
 	
-	private class NBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
+	private class BackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 	    
 		@Override
 		protected void onPostExecute(Long result) {
@@ -172,16 +172,12 @@ public void getNearbyList(){
 			super.onPostExecute(result);
 			if(progress!=null)
 				progress.dismiss();
-	        staticObjects= new StaticObjects();
-	        if(StaticObjects.getLosts()==null||StaticObjects.getLosts().size()==0){}
-			else{
-				//addLostPetMarker(StaticObjects.getLosts());
-			}			
+	        staticObjects= new StaticObjects();		
 		}
 
 		@Override
 		protected void onPreExecute() {
-			Toast.makeText(getBaseContext(), "Refreshing..", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(getBaseContext(), "Refreshing..", Toast.LENGTH_SHORT).show();
 			super.onPreExecute();
 		}
 
@@ -190,11 +186,10 @@ public void getNearbyList(){
 			
 			for(int i=0; i<task.length;i++)
 			{
-				Log.i("ABCDEF", task[i].toString());
 				if(task[i]!=null)
 					task[i].run();
 				if (isCancelled()) break;
-			} 
+			}
 			return null;
 		}
 	 }
