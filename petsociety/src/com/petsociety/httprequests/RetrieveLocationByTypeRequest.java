@@ -36,8 +36,14 @@ public class RetrieveLocationByTypeRequest implements Runnable{
 
         Log.i("RETRIEVE LOCATION :",httpget.getURI().toString());
         
-        
-        
+        //yeap its the variabble type. i dun get it
+        //basically u have a String to search which is "Pet Store"
+        //the url u are sending now is xxx/api/RetrieveLocation?INtoken=token()&INtype=Pet Store
+        //but url standards do not allow spacing in url
+        ///so the url u so send now is xxx/api/RetrieveLocation?INtoken=token()&INtype=Pet%20Store
+        //so u mean i must do this? yeaps either that way or
+        //u can put this before the url > type = type.replace(" ", "%20"); i think this works too <
+        //okay shud i try again?
         
         //EXCUTE REQUEST
         HttpResponse response;

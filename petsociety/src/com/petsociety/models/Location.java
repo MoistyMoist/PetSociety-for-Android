@@ -20,7 +20,7 @@ public class Location {
 	private List<Review> reviews;
 	private Gallery gallery;
 	
-	
+
 	public int getLocationID() {
 		return locationID;
 	}
