@@ -115,7 +115,6 @@ public class NearbyActivity extends MainBaseActivity implements
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				
 
 				for (int i = 0; i < StaticObjects.getLocations().size(); i++) {
 
@@ -123,48 +122,58 @@ public class NearbyActivity extends MainBaseActivity implements
 							.get(i).getX(), staticObjects.getLocations().get(i)
 							.getY());
 
-					if (staticObjects.getLocations().get(i).getTitle().equals(textView
-							.getText().toString()) )
-					{
+					if (staticObjects.getLocations().get(i).getTitle()
+							.equals(textView.getText().toString())) {
 						mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-					CameraUpdate update = CameraUpdateFactory.newLatLngZoom(
-							LOCATION, 16);
-					mMap.getMaxZoomLevel();
-					mMap.animateCamera(update);
-					MarkerOptions mOption = new MarkerOptions()
-							.position(LOCATION)
-							.title(staticObjects.getLocations().get(i).getTitle())
-							.snippet(staticObjects.getLocations().get(i).getDescription())
-							.icon(BitmapDescriptorFactory
-									.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-					vetMarkers.add(mMap.addMarker(mOption));
-					 
-					mMap.setOnMarkerClickListener(new OnMarkerClickListener(){
+						CameraUpdate update = CameraUpdateFactory
+								.newLatLngZoom(LOCATION, 16);
+						mMap.getMaxZoomLevel();
+						mMap.animateCamera(update);
+						MarkerOptions mOption = new MarkerOptions()
+								.position(LOCATION)
+								.title(StaticObjects.getLocations().get(i)
+										.getTitle().toString())
+								.snippet(
+										StaticObjects.getLocations().get(i)
+												.getDescription().toString())
+								.icon(BitmapDescriptorFactory
+										.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+						vetMarkers.add(mMap.addMarker(mOption));
 
-						@Override
-						public boolean onMarkerClick(Marker arg0) {
-							// TODO Auto-generated method stub
-							Intent intent = new Intent(NearbyActivity.this,
-									 NearbyDetailsActivity.class);
-									 startActivity(intent);
-							return true;
-						}
-					
-					});
-					
+						// i run it again i
+						final Intent intent = new Intent(NearbyActivity.this,
+								NearbyDetailsActivity.class);
+
+						intent.putExtra("title", staticObjects.getLocations()
+								.get(i).getTitle());
+
+						mMap.setOnMarkerClickListener(new OnMarkerClickListener() {
+
+							@Override
+							public boolean onMarkerClick(Marker arg0) {
+								// TODO Auto-generated method stub
+
+								startActivity(intent);
+
+								return true;
+							}
+
+						});
+
 					}
-					
-					else
-					{textView1.setText("No input");}
+
+					else {
+						textView1.setText("No input");
+					}
 
 				}
-			
+
 			}
-			
 
 		});
 
-		getNearbyList(); // so this method ok ar?yes
+		getNearbyList();
+		System.out.print("******************************");// so this method ok ar?yes
 
 	}
 
@@ -172,8 +181,7 @@ public class NearbyActivity extends MainBaseActivity implements
 
 		progress = ProgressDialog.show(this, "Getting all location",
 				"please wait...", true);
-		RetrieveAllLocationRequest retrieveAllLocationByTypeRequest = new RetrieveAllLocationRequest(); 
-		
+		RetrieveAllLocationRequest retrieveAllLocationByTypeRequest = new RetrieveAllLocationRequest();
 
 		new AllLocationBackgroundTask().execute(
 				retrieveAllLocationByTypeRequest, null);
@@ -193,9 +201,7 @@ public class NearbyActivity extends MainBaseActivity implements
 
 			new BackgroundTask().execute(retrieveLocationByTypeRequest, null);
 		}
-		{
-			// lost has be retrieved
-		}
+
 	}
 
 	private class AllLocationBackgroundTask extends
@@ -209,13 +215,11 @@ public class NearbyActivity extends MainBaseActivity implements
 				progress.dismiss();
 			for (int i = 0; i < StaticObjects.getLocations().size(); i++) {
 				locationTypeArrayList.add(StaticObjects.getLocations().get(i)
-						.getType());
-				
-				
+						.getAddress());
+
 			}
 
 			// textView1.setTag(staticObjects.getLocations().lastIndexOf(getTitle()));
-			
 
 		}
 
