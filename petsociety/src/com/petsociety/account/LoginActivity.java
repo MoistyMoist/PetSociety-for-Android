@@ -87,7 +87,8 @@ public class LoginActivity extends Activity {
 	
 	public void checkingUser(){
 		User user = StaticObjects.getCurrentUser();
-		if(et_pass.getText().toString().equals(user.getPassword())){
+		if (user==null){message = "Wrong Username/Password.";}
+		else if(et_pass.getText().toString().equals(user.getPassword())){
 			validUser=true;        
 		}	
 	  	else{

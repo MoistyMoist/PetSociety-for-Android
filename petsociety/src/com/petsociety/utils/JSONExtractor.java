@@ -166,11 +166,15 @@ public class JSONExtractor {
             String result= convertStreamToString(instream);
             
             JSONObject json = null;
-            json = new JSONObject(result);
-	
+            json = new JSONObject(result);  Log.i("json",json.toString());
+            
             //check status if all green to extract
 			StaticObjects.setResponseStatus((Integer) json.get(TAG_STATUS));
 			StaticObjects.setResponseMessage(json.getString(TAG_MESSAGE));
+			
+			if(json.isNull(TAG_DATA)){}
+			else{
+			
 			JSONArray RawData= json.getJSONArray(TAG_DATA);
 			//JSONArray errors=json.getJSONArray(TAG_ERRORS);
 			
@@ -197,6 +201,7 @@ public class JSONExtractor {
 			StaticObjects.setCurrentUser(u);
 			
             //CLOSE THE STREAM AND THE CONNECTION
+            }
             instream.close();
         }
 	}
