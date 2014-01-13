@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,20 +17,22 @@
         android:contentDescription="Logo"
         android:src="@drawable/ic_launcher" />
     
-    <EditText 
+    <EditText
         android:id="@+id/et_login_username"
-		android:layout_width="fill_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_login_logo"
-        android:hint="Username"/>
+        android:hint="Username"
+        android:singleLine="true" />
     
-	<EditText 
-        android:id="@+id/et_login_pass"
-		android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/et_login_username"
-        android:inputType="textPassword"
-        android:hint="Password"/>
+	<EditText
+	    android:id="@+id/et_login_pass"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/et_login_username"
+	    android:hint="Password"
+	    android:inputType="textPassword"
+	    android:singleLine="true" />
 	
 	<Button 
         android:id="@+id/b_login_login"
@@ -56,4 +58,4 @@
         android:text="Forgot Password?"/>  
 	</RelativeLayout>  
 
-</RelativeLayout>
+</ScrollView>

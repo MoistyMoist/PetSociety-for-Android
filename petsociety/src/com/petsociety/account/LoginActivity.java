@@ -1,9 +1,5 @@
 package com.petsociety.account;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-
 import com.example.petsociety.R;
 import com.petsociety.httprequests.LoginRequest;
 import com.petsociety.main.MainActivity;
@@ -11,11 +7,10 @@ import com.petsociety.models.User;
 import com.petsociety.utils.StaticObjects;
 
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -27,11 +22,14 @@ import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 
+	public static final String PREFS_LOGIN = "LOGIN";
+	
 	StaticObjects staticObjects;
 	Button b_login, b_reg;
 	EditText et_username, et_pass;
 	Boolean validUser = false;
-	String message = "Timeout.";
+	String message = "Please check your internet connection.";
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,20 +43,21 @@ public class LoginActivity extends Activity {
 		et_username = (EditText) findViewById(R.id.et_login_username);
 		et_pass = (EditText) findViewById(R.id.et_login_pass);
 		
+		SharedPreferences settings = getSharedPreferences(PREFS_LOGIN, 0);
+	    String username = settings.getString("username", "");
+	    et_username.setText(username);
+		
 		b_login.setOnClickListener(new OnClickListener(){
-
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				b_login.setEnabled(false);
-				checkUser();
-				new CheckLogin().execute("email");
-			}
-					
+		        LoginRequest retrieveUserRequest = new LoginRequest(et_username.getText().toString(),et_pass.getText().toString());
+				new GetUserLogin().execute( retrieveUserRequest,null);
+			}		
 		});
 		
 		b_reg.setOnClickListener(new OnClickListener(){
-
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
@@ -67,64 +66,24 @@ public class LoginActivity extends Activity {
 				intent.setClass(getBaseContext(), RegisterActivity.class);
 				startActivity(intent);
 			}
-			
 		});
 		
 		staticObjects = new StaticObjects();
 	}
 	
-	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
-	public void checkUser(){
-		
-		if (et_username.getText().toString().equals("") || et_username.getText().toString().isEmpty()){
-			validUser = true;
-		}
-		
-		else {
-		
-		if(StaticObjects.getCurrentUser()==null)
-		{
-		    new Thread(new Runnable() {
-				  @Override
-				  public void run()
-				  {
-					  	ExecutorService executor = Executors.newFixedThreadPool(1);
-				        LoginRequest retrieveUserRequest = new LoginRequest(et_username.getText().toString(),et_pass.getText().toString());
-				          
-				        executor.execute(retrieveUserRequest);
-						executor.shutdown();
-				        try {
-				        	executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-				       	  	Log.i(" RESPONSE :","ENDED REQUEST");
-				       	  	
-				        } catch (InterruptedException e) {}
+    @Override
+    protected void onStop(){
+       super.onStop();
 
-	                	  runOnUiThread(new Runnable() {
-	                          @Override
-	                          public void run()
-	                          {
-	                        	  staticObjects= new StaticObjects();
-	                        	  if(StaticObjects.getCurrentUser()==null)
-	                        	  {
-	                                    Log.i("USER", "NO USER");
-	                                    message = "No user with that email.";
-	                        	  }
-	                        	  else
-	                        	  {
-	                        		  checkingUser();
-	                        	  }
-	                          }
-	                        });
-				  }
-				}).start();
-		}
-		else
-		{
-			Log.i("USER", "weird USER");
-			checkingUser();
-		}
-		}
-	}
+      // We need an Editor object to make preference changes.
+      // All objects are from android.context.Context
+      SharedPreferences settings = getSharedPreferences(PREFS_LOGIN, 0);
+      SharedPreferences.Editor editor = settings.edit();
+      editor.putString("username", et_username.getText().toString());
+
+      // Commit the edits!
+      editor.commit();
+    }
 	
 	public void checkingUser(){
 		User user = StaticObjects.getCurrentUser();
@@ -135,6 +94,31 @@ public class LoginActivity extends Activity {
 	  		message = "Wrong Password.";
 	  	}
 	}
+	
+	private class GetUserLogin extends AsyncTask<Runnable, Integer, Long> {
+	    
+		@Override
+		protected void onPostExecute(Long result) {
+			//super.onPostExecute(result);		
+			new CheckLogin().execute("email");
+		}
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Long doInBackground(Runnable... task) {
+			for(int i=0; i<task.length;i++)
+			{
+				if(task[i]!=null)
+					task[i].run();
+				if (isCancelled()) break;
+			}
+			return null;
+		}
+	 }
 	
 	private class CheckLogin extends AsyncTask<String, Void, String> {
 
@@ -153,7 +137,7 @@ public class LoginActivity extends Activity {
 
 		@Override
         protected void onPostExecute(String result) {   
-			//Toast.makeText(getApplicationContext(), "validUser"+validUser, Toast.LENGTH_SHORT).show();
+			checkingUser();
 			b_login.setEnabled(true);
             if (validUser){
 				Intent intent = new Intent();
