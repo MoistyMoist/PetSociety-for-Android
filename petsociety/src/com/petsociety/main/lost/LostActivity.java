@@ -37,6 +37,9 @@ public class LostActivity extends MainBaseActivity {
 	ProgressDialog progress;
 	Context context = this;
 	
+	List<Lost> lostList;
+	List<Pet> petList;
+	
 	public LostActivity() {
 		super(R.string.lost_pet);
 		// TODO Auto-generated constructor stub
@@ -60,8 +63,12 @@ public class LostActivity extends MainBaseActivity {
 				startActivity(intent);
 			}});
 		
-  	  	RetrieveAllLostRequest retrieveAllProductRequest = new RetrieveAllLostRequest();
-		new GetLostList().execute( retrieveAllProductRequest,null);
+		petList = StaticObjects.getPets();
+		lostList = StaticObjects.getMapLost();
+		fillLostAdapter();
+		
+  	  	//RetrieveAllLostRequest retrieveAllProductRequest = new RetrieveAllLostRequest();
+		//new GetLostList().execute( retrieveAllProductRequest,null);
 		
 	}
 	
@@ -76,8 +83,7 @@ private class GetLostList extends AsyncTask<Runnable, Integer, Long> {
 	        staticObjects= new StaticObjects();
 			if(StaticObjects.getLosts()==null||StaticObjects.getLosts().size()==0){}
 			else{
-				List<Lost> lostList = StaticObjects.getMapLost();
-				fillLostAdapter(lostList);
+				
 			}			
 		}
 
@@ -107,13 +113,23 @@ private class GetLostList extends AsyncTask<Runnable, Integer, Long> {
 		return true;
 	}
 	
-	private void fillLostAdapter(List<Lost> lostList){
+	private void fillLostAdapter(){
     	adapter = new LostListAdapter(getBaseContext());
         for (int i=0; i<lostList.size(); i++){
-                Lost lostItem = lostList.get(i);
-                String lostPetName = lostItem.getPet().getName();
-                int lostPetAge = Integer.parseInt(lostItem.getPet().getAge());
-                String lostPetLocation = lostItem.getAddress();
+        	
+        	String lostPetName = "";
+        	int lostPetAge = 0;
+    		for (int p=0; p<petList.size(); p++){
+    			if (lostList.get(i).getPetID()==petList.get(p).getPetID()){
+    				lostPetName = petList.get(p).getName();
+    				lostPetAge = Integer.parseInt(petList.get(p).getAge());
+    			}
+    		}
+        	
+                //Lost lostItem = lostList.get(i);
+                //String lostPetName = lostItem.getPet().getName();
+                //int lostPetAge = Integer.parseInt(lostItem.getPet().getAge());
+                String lostPetLocation = lostList.get(i).getAddress();
                 //String lostPetDate = lostItem.getDateTimeSeen().toString();
                 adapter.add(new LostItem(lostPetName, lostPetAge, lostPetLocation, "99/99/99"));
                 //adapter.add(new LostItem(lostPetName, lostPetAge, lostPetLocation, lostPetDate));

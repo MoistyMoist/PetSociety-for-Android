@@ -32,7 +32,7 @@ public class RetrieveAllPetRequest implements Runnable{
 		//PREPARE REQUEST OBJECT
 		httpget = new HttpGet("http://petsociety.cloudapp.net/api/RetrievePet?INtoken="+staticObjects.getToken()); 
 
-        Log.i("RETRIEVE ALL LOST :",httpget.getURI().toString());
+        Log.i("RETRIEVE PET LOST :",httpget.getURI().toString());
         
         
         
@@ -42,7 +42,7 @@ public class RetrieveAllPetRequest implements Runnable{
         try {
             response = httpclient.execute(httpget);
             //PRINT OUT THE RESPONSE
-            Log.i("RETRIEVE LOST RESPONSE :",response.getStatusLine().toString());
+            Log.i("RETRIEVE PET RESPONSE :",response.getStatusLine().toString());
             //PASS THE RESPONSE TO THE EXTRACTOR
             JSONExtractor paser= new JSONExtractor();
             paser.ExtractPetRequest(response);

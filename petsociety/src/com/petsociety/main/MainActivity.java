@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import com.petsociety.httprequests.*;
 import com.petsociety.models.Lost;
+import com.petsociety.models.Pet;
 import com.petsociety.utils.StaticObjects;
 
 import android.annotation.SuppressLint;
@@ -61,6 +62,8 @@ public class MainActivity extends MainBaseActivity
     private LocationClient mLocationClient;
     ArrayList<Marker>mLostPet = new ArrayList<Marker>();
     ArrayList<Marker>mFound = new ArrayList<Marker>();
+    List<Lost> lostList;
+    List<Pet> petList;
 	StaticObjects staticObjects;
 	ProgressDialog progress;
 	Context context = this;
@@ -124,17 +127,19 @@ public class MainActivity extends MainBaseActivity
 	public void getLostList(){
 		
 			progress = ProgressDialog.show(this, "Setting up map","please wait...", true);
+			
+			RetrieveAllPetRequest retrieveAllPetRequest = new RetrieveAllPetRequest();
+			new PetListBackgroundTask().execute( retrieveAllPetRequest,null);
+			
 			RetrieveAllLostRequest retrieveAllLostRequest = new RetrieveAllLostRequest();
-			 //UploadImageRequest upload= new UploadImageRequest();
-			 new BackgroundTask().execute( retrieveAllLostRequest,null);
+			//UploadImageRequest upload= new UploadImageRequest();
+			new LostListBackgroundTask().execute( retrieveAllLostRequest,null);
 			 
-			 RetrieveAllPetRequest retrieveAllPetRequest = new RetrieveAllPetRequest();
-			 //UploadImageRequest upload= new UploadImageRequest();
-			 new BackgroundTask().execute( retrieveAllPetRequest,null);
+
 
 	}
 	
-	private class BackgroundTask extends AsyncTask<Runnable, Integer, Long> {
+	private class LostListBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 	    
 		@Override
 		protected void onPostExecute(Long result) {
@@ -143,10 +148,43 @@ public class MainActivity extends MainBaseActivity
 			if(progress!=null)
 				progress.dismiss();
 	        staticObjects= new StaticObjects();
+	        lostList = StaticObjects.getLosts();
 			if(StaticObjects.getLosts()==null||StaticObjects.getLosts().size()==0){}
 			else{
-				addLostPetMarker(StaticObjects.getLosts());
+				addLostPetMarker();
 			}			
+		}
+
+		@Override
+		protected void onPreExecute() {
+			//Toast.makeText(context, "Refreshing..", Toast.LENGTH_SHORT).show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Long doInBackground(Runnable... task) {
+			
+			for(int i=0; i<task.length;i++)
+			{
+				if(task[i]!=null)
+					task[i].run();
+				if (isCancelled()) break;
+			}
+			return null;
+		}
+	 }
+	
+private class PetListBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
+	    
+		@Override
+		protected void onPostExecute(Long result) {
+			
+			super.onPostExecute(result);
+			if(progress!=null)
+				progress.dismiss();
+	        staticObjects= new StaticObjects();
+	        petList = StaticObjects.getPets();
+		
 		}
 
 		@Override
@@ -217,19 +255,17 @@ public class MainActivity extends MainBaseActivity
 
             String title = marker.getTitle();
             TextView titleUi = ((TextView) view.findViewById(R.id.title));
-            if (title.equals("Lost Pet")) {
+           
+            SpannableString titleText = new SpannableString(title);
+            titleText.setSpan(new ForegroundColorSpan(Color.RED), 0, titleText.length(), 0);
+            titleUi.setText(titleText);
+            
+            if (title.equals("Found")) {
                 // Spannable string allows us to edit the formatting of the text.
-                SpannableString titleText = new SpannableString(title);
-                titleText.setSpan(new ForegroundColorSpan(Color.RED), 0, titleText.length(), 0);
-                titleUi.setText(titleText);
-            } else if (title.equals("Found")) {
-                // Spannable string allows us to edit the formatting of the text.
-                SpannableString titleText = new SpannableString(title);
+                titleText = new SpannableString(title);
                 titleText.setSpan(new ForegroundColorSpan(Color.GREEN), 0, titleText.length(), 0);
                 titleUi.setText(titleText);
-            } else {
-                titleUi.setText("");
-            }
+            } 
 
             String snippet = marker.getSnippet();
             TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
@@ -270,17 +306,24 @@ public class MainActivity extends MainBaseActivity
 		
 	}
     
-    public void addLostPetMarker(List<Lost> list){
+    public void addLostPetMarker(){
     	
-    	for (int i=0; i<list.size(); i++){
-    	//double[] pos = randomMarkerPos();
-    	double lat = list.get(i).getX();//pos[0];
-    	double lng = list.get(i).getY();//pos[1]; 
-		//Toast.makeText(getApplicationContext(), "L:"+lat+","+lng, Toast.LENGTH_SHORT).show();
+    	for (int i=0; i<lostList.size(); i++){
+    	
+    		String lostPetName = "";
+    		for (int p=0; p<petList.size(); p++){
+    			if (lostList.get(i).getPetID()==petList.get(p).getPetID()){
+    				lostPetName = petList.get(p).getName();
+    			}
+    		}
+    		
+    	double lat = lostList.get(i).getX();
+    	double lng = lostList.get(i).getY();
+    	//Toast.makeText(getApplicationContext(), "L:"+lat+","+lng, Toast.LENGTH_SHORT).show();
     	MarkerOptions mOption = new MarkerOptions()
 			.position(new LatLng(lat, lng))
-			.title("Lost Pet")
-			.snippet("Reward: "+list.get(i).getReward()); 
+			.title("[Lost Pet] "+lostPetName)
+			.snippet("Reward: "+lostList.get(i).getReward()); 
     	mLostPet.add(mMap.addMarker(mOption));
     	}
     }

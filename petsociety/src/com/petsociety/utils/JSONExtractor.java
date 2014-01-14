@@ -452,6 +452,7 @@ public class JSONExtractor {
 					
 					JSONObject c=RawData.getJSONObject(i); //Log.i("c ",c.toString() );
 					Lost l= new Lost();
+					l.setPetID(c.getInt(TAG_PET_PETID));
 					l.setLostID(c.getInt(TAG_LOST_LOSTID));
 					String dateLastSeen = c.getString(TAG_LOST_DATETIMESEEN);
 					//l.setDateTimeSeen();
@@ -568,20 +569,20 @@ public class JSONExtractor {
 				{
 					
 					JSONArray RawData= json.getJSONArray(TAG_DATA);
-					Log.i("LOST ",RawData.toString() );
+					Log.i("PET ",RawData.toString() );
 					
 					for(int i=0;i<RawData.length();i++)
 					{
 						
-						JSONObject c=RawData.getJSONObject(i); Log.i("c ",c.toString() );
+						JSONObject c2=RawData.getJSONObject(i); Log.i("c ",c2.toString() );
 						
 						
 						Pet p= new Pet();
 						//JSONObject c2=(JSONObject) c.get(TAG_PETs);
-						JSONObject c2=(JSONObject) c.get("PET");
-						
+						//JSONObject c2=(JSONObject) c.get("PET");
+												
 						p.setPetID(c2.getInt(TAG_PET_PETID));
-						p.setName(c2.getString(TAG_PET_NAME));
+						p.setName(c2.getString(TAG_PET_NAME)); Log.i("###PETNAME### ",c2.getString(TAG_PET_NAME) );
 						p.setBreed(c2.getString(TAG_PET_BREED));
 						p.setSex(c2.getString(TAG_PET_SEX).charAt(0));
 						p.setType(c2.getString(TAG_PET_TYPE));
