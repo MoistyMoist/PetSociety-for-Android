@@ -73,6 +73,7 @@
     <string-array name="countries_array">
         <item>Seng Kang Pet Store</item>
         <item>Nanyang Poly Animal Care</item>
+        <item>Choa Chu Kang pet care</item>
         ...</string-array>
 
     <string name="title_activity_shop_map">ShopMapActivity</string>

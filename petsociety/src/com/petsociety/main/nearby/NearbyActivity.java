@@ -3,12 +3,14 @@ package com.petsociety.main.nearby;
 import java.util.ArrayList;
 import java.util.Random;
 
+
 import com.example.petsociety.R;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -116,12 +118,17 @@ public class NearbyActivity extends MainBaseActivity implements
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 
+				
+
+				
 				for (int i = 0; i < StaticObjects.getLocations().size(); i++) {
 
 					LatLng LOCATION = new LatLng(staticObjects.getLocations()
 							.get(i).getX(), staticObjects.getLocations().get(i)
 							.getY());
-
+					final String title =StaticObjects.getLocations().get(i).getTitle().toString();
+					final String desc = StaticObjects.getLocations().get(i).getDescription().toString();
+					
 					if (staticObjects.getLocations().get(i).getTitle()
 							.equals(textView.getText().toString())) {
 						mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
@@ -131,34 +138,33 @@ public class NearbyActivity extends MainBaseActivity implements
 						mMap.animateCamera(update);
 						MarkerOptions mOption = new MarkerOptions()
 								.position(LOCATION)
-								.title(StaticObjects.getLocations().get(i)
-										.getTitle().toString())
-								.snippet(
-										StaticObjects.getLocations().get(i)
-												.getDescription().toString())
+								.title(title)
+								.snippet(desc)
 								.icon(BitmapDescriptorFactory
 										.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
 						vetMarkers.add(mMap.addMarker(mOption));
-
-						// i run it again i
-						final Intent intent = new Intent(NearbyActivity.this,
-								NearbyDetailsActivity.class);
-
-						intent.putExtra("title", staticObjects.getLocations()
-								.get(i).getTitle());
-
-						mMap.setOnMarkerClickListener(new OnMarkerClickListener() {
+						mMap.setOnMapClickListener(new OnMapClickListener (){
 
 							@Override
-							public boolean onMarkerClick(Marker arg0) {
+							public void onMapClick(LatLng arg0) {
 								// TODO Auto-generated method stub
+								textView1.setText("Hello world");
+								
+								final Intent intent = new Intent(NearbyActivity.this,
+										NearbyDetailsActivity.class);
 
-								startActivity(intent);
+								 intent.putExtra("nearbyTitle", title);
+								
+							
+								
+								startActivity(intent);  
 
-								return true;
-							}
-
-						});
+								// to retrieve object in second Activity
+								
+								
+							//startActivity(intent);
+								
+							}});
 
 					}
 
@@ -172,8 +178,8 @@ public class NearbyActivity extends MainBaseActivity implements
 
 		});
 
-		getNearbyList();
-		System.out.print("******************************");// so this method ok ar?yes
+		getAllNearbyListType();
+		System.out.print("******************************");
 
 	}
 
@@ -195,8 +201,7 @@ public class NearbyActivity extends MainBaseActivity implements
 			progress = ProgressDialog.show(this, "Getting your wishes",
 					"please wait...", true);
 			RetrieveLocationByTypeRequest retrieveLocationByTypeRequest = new RetrieveLocationByTypeRequest(
-					"Pet%20Store"); // here what ever pass into <<< will be the
-									// url did i answer the quetion?
+					"Pet%20Store"); 
 			// nono
 
 			new BackgroundTask().execute(retrieveLocationByTypeRequest, null);
@@ -215,7 +220,7 @@ public class NearbyActivity extends MainBaseActivity implements
 				progress.dismiss();
 			for (int i = 0; i < StaticObjects.getLocations().size(); i++) {
 				locationTypeArrayList.add(StaticObjects.getLocations().get(i)
-						.getAddress());
+						.getType());
 
 			}
 

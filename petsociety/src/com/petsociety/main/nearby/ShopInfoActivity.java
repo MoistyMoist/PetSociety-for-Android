@@ -46,24 +46,27 @@ public class ShopInfoActivity extends NearbyActivity {
 		ArrayList<String> locationTypeArrayList = new ArrayList<String>();
 
 		
-		tvShopName =(TextView)findViewById(R.id.tvShopName); 
+		
 		tv1 =(TextView)findViewById(R.id.tv); 
 		
-	
-		getNearbyList();
-		
+//	
+//		 Intent intentAdd= getIntent();
+//	 	    Bundle title = intentAdd.getExtras();
+//	 	    tv1.setText(title.get("address").toString());
+//	         
+		tv1.setText("address");
 		
 				
 		
-		//String[] items = {address.toString(), "porn.com", "shahrikins porn site"};
-//		  myContext = this;
-//			lvShopDetails = (ListView) findViewById(R.id.lvShopDetails);
-//			
-//			
-//			
-//			adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_list_item_1, items);
-//			lvShopDetails.setAdapter(adapter);
-//		
+		String[] items = {address.toString(), "porn.com", "shahrikins porn site"};
+		  myContext = this;
+		//	lvShopDetails = (ListView) findViewById(R.id.lvShopDetails);
+			
+			
+			
+			adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_list_item_1, items);
+			lvShopDetails.setAdapter(adapter);
+		
 		
 		
 		/*items = {address.getString("address"), "Website : \n\n www.petstore.com \n", desc.getString("desc")
@@ -76,65 +79,8 @@ public class ShopInfoActivity extends NearbyActivity {
 
 	
 
-	public void getNearbyList() {
-
-		if (StaticObjects.getLocations() == null
-				|| StaticObjects.getLocations().size() == 0) {
-			progress = ProgressDialog.show(this, "Getting your wishes",
-					"please wait...", true);
-			RetrieveLocationByTypeRequest retrieveLocationByTypeRequest = new RetrieveLocationByTypeRequest(
-					"Pet%20Store");
-			new BackgroundTask().execute(retrieveLocationByTypeRequest, null);
-		}
-		
-			}
-
-	private class BackgroundTask extends
-			AsyncTask<Runnable, Integer, Long> {
-
-		@Override
-		protected void onPostExecute(Long result) {
-
-			super.onPostExecute(result);
-			if (progress != null)
-				progress.dismiss();
-			for (int i = 0; i < StaticObjects.getLocations().size(); i++) {
-				locationTypeArrayList.add(StaticObjects.getLocations().get(i)
-						.getType());
-				
-				if(StaticObjects.getLocations().get(i).getTitle().toString().equals(tvShopName.getText()))
-				{
-				String add = StaticObjects.getLocations().get(i).getDescription();
-				tv1.setText(add);
-				}
-
-			}
-
-			
-
-		}
-
-		@Override
-		protected void onPreExecute() {
-			// Toast.makeText(getBaseContext(), "Refreshing..",
-			// Toast.LENGTH_SHORT).show();
-			super.onPreExecute();
-		}
-
-		@Override
-		protected Long doInBackground(Runnable... task) {
-
-			for (int i = 0; i < task.length; i++) {
-				if (task[i] != null)
-					task[i].run();
-				if (isCancelled())
-					break;
-			}
-			return null;
-		}
-	}
 	
-	
+
 	}
 
 
