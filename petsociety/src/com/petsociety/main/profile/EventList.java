@@ -7,8 +7,11 @@ import com.example.petsociety.R.menu;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.widget.ListView;
 
 public class EventList extends Activity {
+
+	ListView lv_events;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

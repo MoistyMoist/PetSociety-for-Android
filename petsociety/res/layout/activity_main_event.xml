@@ -87,8 +87,8 @@
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
       android:layout_alignLeft="@+id/textView5"
-      android:layout_marginTop="30dp"
-      android:layout_below="@+id/textView5"
+      android:layout_marginTop="20dp"
+      android:layout_below="@+id/button5"
       android:text="Going" />
 
   <Button
@@ -122,6 +122,34 @@
       android:layout_alignParentBottom="true"
       android:layout_centerHorizontal="true"
       android:text="Maybe" />
+
+  <Button
+      android:id="@+id/button5"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/textView7"
+      android:layout_marginTop="15dp"
+      android:text="From current location"
+      android:textSize="15sp" />
+
+  <Button
+      android:id="@+id/button4"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignBaseline="@+id/button5"
+      android:layout_alignBottom="@+id/button5"
+      android:layout_toRightOf="@+id/button5"
+      android:text="Other location" />
+
+  <TextView
+      android:id="@+id/textView7"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/textView5"
+      android:layout_marginTop="15dp"
+      android:layout_centerHorizontal="true"
+      android:text="How to go there?"
+      android:textSize="20sp" />
 
     </RelativeLayout>
 </ScrollView>
