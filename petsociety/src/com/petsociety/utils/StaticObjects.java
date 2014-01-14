@@ -53,6 +53,7 @@ public class StaticObjects {
 	
 	//LOST OBJECTS (CHOON SENG)
 	static List<Lost> losts;
+	static List<Pet> pets;
 	static Lost selectedLost;
 	
 	
@@ -73,6 +74,12 @@ public class StaticObjects {
 	
 	
 	
+	public static List<Pet> getPets() {
+		return pets;
+	}
+	public static void setPets(List<Pet> pets) {
+		StaticObjects.pets = pets;
+	}
 	public String getToken()
 	{
 		return StaticObjects.token;

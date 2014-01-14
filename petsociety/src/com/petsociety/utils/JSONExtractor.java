@@ -544,4 +544,69 @@ public class JSONExtractor {
 	            instream.close();
 	        }
 		}
+
+		public void ExtractPetRequest(HttpResponse data) throws IllegalStateException, IOException, JSONException
+		{
+			// TODO Auto-generated method stub
+			HttpEntity entity = data.getEntity();
+	        
+	        if (entity != null) {
+	            InputStream instream = entity.getContent();
+	            String result= convertStreamToString(instream);
+	            
+	            JSONObject json = null;
+	            json = new JSONObject(result);
+		
+	            //check status if all green to extract
+	            StaticObjects.setResponseStatus((Integer) json.get(TAG_STATUS));
+				StaticObjects.setResponseMessage(json.getString(TAG_MESSAGE));
+				
+				//JSONArray errors=json.getJSONArray(TAG_ERRORS);
+				
+				ArrayList<Pet>pet= new ArrayList<Pet>();
+				if(StaticObjects.getResponseStatus()==0)
+				{
+					
+					JSONArray RawData= json.getJSONArray(TAG_DATA);
+					Log.i("LOST ",RawData.toString() );
+					
+					for(int i=0;i<RawData.length();i++)
+					{
+						
+						JSONObject c=RawData.getJSONObject(i); Log.i("c ",c.toString() );
+						
+						
+						Pet p= new Pet();
+						//JSONObject c2=(JSONObject) c.get(TAG_PETs);
+						JSONObject c2=(JSONObject) c.get("PET");
+						
+						p.setPetID(c2.getInt(TAG_PET_PETID));
+						p.setName(c2.getString(TAG_PET_NAME));
+						p.setBreed(c2.getString(TAG_PET_BREED));
+						p.setSex(c2.getString(TAG_PET_SEX).charAt(0));
+						p.setType(c2.getString(TAG_PET_TYPE));
+						p.setBiography(c2.getString(TAG_PET_BIOGRAPHY));
+						p.setAge(c2.getString(TAG_PET_AGE));
+						p.setUserID(c2.getInt(TAG_PET_USERID));
+						//p.setGalleryID(c2.getInt(TAG_PET_GALLERYID));
+						p.setProfileImageURL(c2.getString(TAG_PET_PROFILEIMAGEURL));
+						String petDateLastCreated = c2.getString(TAG_PET_DATETIMECREATED);
+						//p.setDateTimeCreated(petDateLastCreated);		
+						
+						pet.add(p); 
+						
+						//Log.i("pet "+i,c.toString() );
+					} 
+					
+					StaticObjects.setPets(pet);
+
+				}
+				else
+				{
+					Log.i("ERROR", "status==1");
+					Log.i("Message",StaticObjects.getResponseMessage());
+				}
+	            instream.close();
+	        }
+		}
 }

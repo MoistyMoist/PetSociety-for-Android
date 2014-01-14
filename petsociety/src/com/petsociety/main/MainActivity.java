@@ -123,17 +123,15 @@ public class MainActivity extends MainBaseActivity
 	
 	public void getLostList(){
 		
-		if(StaticObjects.getLosts()==null||StaticObjects.getLosts().size()==0)
-		{
 			progress = ProgressDialog.show(this, "Setting up map","please wait...", true);
 			RetrieveAllLostRequest retrieveAllLostRequest = new RetrieveAllLostRequest();
 			 //UploadImageRequest upload= new UploadImageRequest();
 			 new BackgroundTask().execute( retrieveAllLostRequest,null);
-		}
-		else
-		{
-			//lost has be retrieved
-		}
+			 
+			 RetrieveAllPetRequest retrieveAllPetRequest = new RetrieveAllPetRequest();
+			 //UploadImageRequest upload= new UploadImageRequest();
+			 new BackgroundTask().execute( retrieveAllPetRequest,null);
+
 	}
 	
 	private class BackgroundTask extends AsyncTask<Runnable, Integer, Long> {
@@ -282,7 +280,7 @@ public class MainActivity extends MainBaseActivity
     	MarkerOptions mOption = new MarkerOptions()
 			.position(new LatLng(lat, lng))
 			.title("Lost Pet")
-			.snippet("Last Seen: Today 9:48am"); 
+			.snippet("Reward: "+list.get(i).getReward()); 
     	mLostPet.add(mMap.addMarker(mOption));
     	}
     }
