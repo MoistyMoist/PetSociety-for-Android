@@ -1,9 +1,6 @@
 package com.petsociety.main.lost;
 
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 import com.actionbarsherlock.view.MenuItem;
 import com.example.petsociety.R;
@@ -13,8 +10,10 @@ import com.petsociety.models.Lost;
 import com.petsociety.models.Pet;
 import com.petsociety.utils.StaticObjects;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -33,8 +32,10 @@ import android.widget.Toast;
 public class LostActivity extends MainBaseActivity {
 
 	ListView lv_lost;
-	StaticObjects staticObjects;
 	LostListAdapter adapter;
+	StaticObjects staticObjects;
+	ProgressDialog progress;
+	Context context = this;
 	
 	public LostActivity() {
 		super(R.string.lost_pet);
@@ -47,13 +48,7 @@ public class LostActivity extends MainBaseActivity {
 		setContentView(R.layout.activity_main_lost);
 		
 		lv_lost = (ListView) findViewById(R.id.lv_lost_pets);
-		/*
-		LostListAdapter adapter = new LostListAdapter(this);
-		for (int i=0; i<4; i++){
-			adapter.add(new LostItem("Snowy"+i, i+1, "Ang Mo Kio Ave 8", "17/08/2013 At 5.30pm"));
-		} 
-		lv_lost.setAdapter(adapter);;
-		*/
+		
 		lv_lost.setOnItemClickListener(new OnItemClickListener(){
 
 			@Override
@@ -65,47 +60,45 @@ public class LostActivity extends MainBaseActivity {
 				startActivity(intent);
 			}});
 		
-		if(StaticObjects.getMapLost()==null||StaticObjects.getMapLost().size()==0)
-        {
-            new Thread(new Runnable() {
-                  @Override
-                  public void run()
-                  {
-                	  ExecutorService executor = Executors.newFixedThreadPool(1);
-                	  RetrieveAllLostRequest retrieveAllProductRequest = new RetrieveAllLostRequest();
-                	  executor.execute(retrieveAllProductRequest);
-                	  executor.shutdown();
-                	  try {
-                		  executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-                		  Log.i(" RESPONSE :","ENDED REQUEST");                   
-                	  } catch (InterruptedException e) {}
-
-                	  runOnUiThread(new Runnable() {
-                      @Override
-                      public void run()
-                      {
-                    	  staticObjects= new StaticObjects();
-                    	  if(StaticObjects.getMapLost().size()==0||StaticObjects.getMapLost()==null)
-                    	  {
-                                Log.i("LOST", "NO LOST");
-                    	  }
-                    	  else
-                    	  {
-                    		  	List<Lost> lostList = StaticObjects.getMapLost();
-                    		  	fillLostAdapter(lostList);    
-                    	  }
-                      }
-                    });
-                  }
-                }).start();
-        }
-        else
-        {
-        	List<Lost> lostList = StaticObjects.getMapLost();
-        	fillLostAdapter(lostList);    
-        } 
+  	  	RetrieveAllLostRequest retrieveAllProductRequest = new RetrieveAllLostRequest();
+		new GetLostList().execute( retrieveAllProductRequest,null);
 		
 	}
+	
+private class GetLostList extends AsyncTask<Runnable, Integer, Long> {
+	    
+		@Override
+		protected void onPostExecute(Long result) {
+			
+			super.onPostExecute(result);
+			if(progress!=null)
+				progress.dismiss();
+	        staticObjects= new StaticObjects();
+			if(StaticObjects.getLosts()==null||StaticObjects.getLosts().size()==0){}
+			else{
+				List<Lost> lostList = StaticObjects.getMapLost();
+				fillLostAdapter(lostList);
+			}			
+		}
+
+		@Override
+		protected void onPreExecute() {
+			//Toast.makeText(context, "Refreshing..", Toast.LENGTH_SHORT).show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Long doInBackground(Runnable... task) {
+			
+			for(int i=0; i<task.length;i++)
+			{
+				if(task[i]!=null)
+					task[i].run();
+				if (isCancelled()) break;
+			}
+			return null;
+		}
+	 }
 	
 	@Override
 	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
