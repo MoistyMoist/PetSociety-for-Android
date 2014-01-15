@@ -9,6 +9,7 @@ import com.petsociety.account.LoginActivity;
 import com.petsociety.main.analysis.AnalysisActivity;
 import com.petsociety.main.lost.LostActivity;
 import com.petsociety.main.nearby.NearbyActivity;
+import com.petsociety.main.profile.EventList;
 import com.petsociety.main.profile.ProfileActivity;
 import com.petsociety.utils.StaticObjects;
 
@@ -88,7 +89,7 @@ public class LeftListFragment extends ListFragment {
 			break;
 
 		case 4: //Events
-			intent.setClass(getActivity(), EventActivity.class);
+			intent.setClass(getActivity(), EventList.class);
 			startActivity(intent);
 			break;
 
