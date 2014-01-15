@@ -101,6 +101,10 @@
             android:label="@string/title_activity_event" >
         </activity>
         <activity
+            android:name="com.example.petsociety.EventList"
+            android:label="@string/title_activity_event" >
+        </activity>
+        <activity
             android:name="com.petsociety.main.analysis.AnalysisDetailActivity"
             android:label="@string/title_activity_analysis_detail" >
         </activity>
