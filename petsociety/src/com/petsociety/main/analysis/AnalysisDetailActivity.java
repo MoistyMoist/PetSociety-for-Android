@@ -1,8 +1,6 @@
 package com.petsociety.main.analysis;
 
 import com.actionbarsherlock.view.MenuItem;
-import com.androidnatic.maps.HeatMapOverlay;
-import com.androidnatic.maps.SimpleMapView;
 import com.example.petsociety.R;
 
 import com.google.android.gms.common.ConnectionResult;
