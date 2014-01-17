@@ -1,43 +1,44 @@
-
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
  	android:layout_height="fill_parent"
+ 	android:weightSum="1"
  	android:orientation="vertical"
     tools:context=".AnalysisActivity" >
- 
-    <LinearLayout
-        android:id="@+id/layout1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1.0" >
 
-       <!-- <Spinner 
-            android:id="@+id/analysisType"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/grey_button"/>-->
-	   <Button
-	        android:id="@+id/filterBtn"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:onClick="nextPage"
-	        android:text="Options"
-	        android:layout_weight="1" />
-    </LinearLayout>
+ 	<LinearLayout
+     	android:id="@+id/analysis_map"
+     	android:layout_width="fill_parent"
+     	android:layout_height="150dip"
+     	android:orientation="vertical" />
 
-      <LinearLayout
-        android:id="@+id/analysis_map"
-        android:layout_below="@+id/layout1"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"/>
 	<com.petsociety.main.analysis.HeatView
 	    android:id="@+id/heatmap"
 	    android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/layout1"/>
-  
+        android:layout_height="150dip"/>
+
+	<Button
+	    android:id="@+id/filterBtn"
+	    android:layout_below="@+id/heatmap"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:onClick="nextPage"
+	    android:text="Options" />
+	<Button
+	    android:id="@+id/clearBtn"
+	    android:layout_below="@+id/heatmap"
+	    android:layout_toRightOf="@+id/filterBtn"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:onClick="ClearHeatMap"
+	    android:text="ClearMap"/>	
+	<LinearLayout 
+	    android:id="@+id/chart" 
+	    android:orientation="horizontal"
+        android:layout_width="fill_parent" 
+        android:layout_height="0dip" 
+        android:layout_weight="1"/>
+
+   
+ 
 </RelativeLayout>

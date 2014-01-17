@@ -2,53 +2,72 @@ package com.petsociety.main.analysis;
 
 
 import java.util.ArrayList;
-import com.example.petsociety.R;
-import com.google.android.gms.location.LocationClient;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.petsociety.httprequests.RetrieveAllEventRequest;
-import com.petsociety.httprequests.RetrieveAllLocationRequest;
-import com.petsociety.httprequests.RetrieveAllLostRequest;
-import com.petsociety.httprequests.RetrieveAllStrayRequest;
-import com.petsociety.httprequests.RetrieveCurrentEventRequest;
-import com.petsociety.httprequests.RetrieveEventByDateRequest;
-import com.petsociety.httprequests.RetrieveLocationByTypeRequest;
-import com.petsociety.httprequests.RetrieveLostByTypeRequest;
-import com.petsociety.httprequests.RetrieveReviewByLocationRequest;
-import com.petsociety.httprequests.RetrieveStrayByTypeRequest;
-import com.petsociety.main.MainBaseActivity;
-import com.petsociety.utils.StaticObjects;
+import java.util.Random;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
-import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
+import org.achartengine.chart.PointStyle;
+import org.achartengine.model.CategorySeries;
+import org.achartengine.model.SeriesSelection;
+import org.achartengine.model.XYMultipleSeriesDataset;
+import org.achartengine.model.XYSeries;
+import org.achartengine.renderer.DefaultRenderer;
+import org.achartengine.renderer.SimpleSeriesRenderer;
+import org.achartengine.renderer.XYMultipleSeriesRenderer;
+import org.achartengine.renderer.XYSeriesRenderer;
+import org.achartengine.tools.PanListener;
+import org.achartengine.tools.ZoomEvent;
+import org.achartengine.tools.ZoomListener;
 
-import android.location.Location;
-import android.os.AsyncTask;
-import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.graphics.Color;
 import android.graphics.Point;
+import android.location.Location;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.example.petsociety.R;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
+import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
+import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.petsociety.httprequests.RetrieveAllEventRequest;
+import com.petsociety.httprequests.RetrieveAllLocationRequest;
+import com.petsociety.httprequests.RetrieveAllLostRequest;
+import com.petsociety.httprequests.RetrieveAllStrayRequest;
+import com.petsociety.httprequests.RetrieveCurrentEventRequest;
+import com.petsociety.httprequests.RetrieveLocationByTypeRequest;
+import com.petsociety.httprequests.RetrieveLostByTypeRequest;
+import com.petsociety.httprequests.RetrieveStrayByTypeRequest;
+import com.petsociety.main.MainBaseActivity;
+import com.petsociety.utils.StaticObjects;
 
 @SuppressLint({ "NewApi", "CutPasteId" })
 public class AnalysisActivity extends MainBaseActivity 
@@ -82,7 +101,30 @@ OnMyLocationButtonClickListener{
 	private boolean strayCanvasShown;
 	private boolean lostCanvasShown;
 	private boolean eventCanvasShown;
+	
+	private static int[] COLORS = new int[] { Color.GREEN, Color.BLUE, Color.MAGENTA, Color.CYAN };
+	/** The main series that will include all the data. */
+	private CategorySeries mSeries = new CategorySeries("");
+	/** The main renderer for the main dataset. */
 
+	/** The main dataset that includes all the series that go into a chart. */
+	  private XYMultipleSeriesDataset mDataset = new XYMultipleSeriesDataset();
+	  /** The main renderer that includes all the renderers customizing a chart. */
+	  private XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
+	  /** The most recently added series. */
+	  private XYSeries mCurrentSeries;
+	  /** The most recently created renderer, customizing the current series. */
+	  private XYSeriesRenderer mCurrentRenderer;
+	  /** Button for creating a new series of data. */
+	  private Button mNewSeries;
+	  /** Button for adding entered data to the current series. */
+	  private Button mAdd;
+	  /** Edit text field for entering the X value of the data to be added. */
+	  private EditText mX;
+	  /** Edit text field for entering the Y value of the data to be added. */
+	  private EditText mY;
+	  /** The chart view that displays the data. */
+	  private GraphicalView mChartView;
 	
 	public AnalysisActivity() {
 		super(R.string.title_activity_analysis);
@@ -112,8 +154,109 @@ OnMyLocationButtonClickListener{
 		RetrieveAllLostRequest lostRequest= new RetrieveAllLostRequest();
 		
 		//new BackgroundTask().execute(locationRequest,lostRequest,eventRequest,locationRequest,strayRequest);
+		//mChartView=(GraphicalView)findViewById(R.id.chart);
 		
+		mRenderer.setApplyBackgroundColor(true);
+	    mRenderer.setBackgroundColor(Color.argb(100, 50, 50, 50));
+	    mRenderer.setAxisTitleTextSize(16);
+	    mRenderer.setChartTitleTextSize(20);
+	    mRenderer.setLabelsTextSize(15);
+	    mRenderer.setLegendTextSize(15);
+	    mRenderer.setMargins(new int[] { 20, 30, 15, 0 });
+	    mRenderer.setZoomButtonsVisible(true);
+	    mRenderer.setPointSize(5);
+	    
+	    
+	    
+	    String seriesTitle = "Series " + (mDataset.getSeriesCount() + 1);
+        // create a new series of data
+        XYSeries series = new XYSeries(seriesTitle);
+        mDataset.addSeries(series);
+        mCurrentSeries = series;
+        // create a new renderer for the new series
+        XYSeriesRenderer renderer = new XYSeriesRenderer();
+        mRenderer.addSeriesRenderer(renderer);
+        // set some renderer properties
+        renderer.setPointStyle(PointStyle.CIRCLE);
+        renderer.setFillPoints(true);
+        renderer.setDisplayChartValues(true);
+        renderer.setDisplayChartValuesDistance(10);
+        mCurrentRenderer = renderer;
 
+
+        mCurrentSeries.add(1, 2);
+        mCurrentSeries.add(2, 3);
+        mCurrentSeries.add(3, 0.5);
+        mCurrentSeries.add(4, -1);
+        mCurrentSeries.add(5, 2.5);
+        mCurrentSeries.add(6, 3.5);
+        mCurrentSeries.add(7, 2.85);
+        mCurrentSeries.add(8, 3.25);
+        mCurrentSeries.add(9, 4.25);
+        mCurrentSeries.add(10, 3.75);
+        mRenderer.setRange(new double[] { 0.5, 10.5, -1.5, 4.75 });
+        mChartView.repaint();
+        
+        if (mChartView == null) {
+            LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
+            // mChartView = ChartFactory.getLineChartView(this, mDataset, mRenderer);
+            // mChartView = ChartFactory.getBarChartView(this, mDataset, mRenderer,
+            // Type.DEFAULT);
+            mChartView = ChartFactory.getPieChartView(this, mSeries, mRenderer);
+
+            // enable the chart click events
+            mRenderer.setClickEnabled(true);
+            mRenderer.setSelectableBuffer(100);
+            mChartView.setOnClickListener(new View.OnClickListener() {
+              public void onClick(View v) {
+                // handle the click event on the chart
+                SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
+                if (seriesSelection == null) {
+                  Toast.makeText(context, "No chart element was clicked",
+                      Toast.LENGTH_SHORT).show();
+                } else {
+                  // display information of the clicked point
+                  double[] xy = mChartView.toRealPoint(0);
+                  Toast.makeText(
+                		  context,
+                      "Chart element in series index " + seriesSelection.getSeriesIndex()
+                          + " data point index " + seriesSelection.getPointIndex() + " was clicked"
+                          + " closest point value X=" + seriesSelection.getXValue() + ", Y="
+                          + seriesSelection.getValue() + " clicked point value X=" + (float) xy[0]
+                          + ", Y=" + (float) xy[1], Toast.LENGTH_SHORT).show();
+                }
+              }
+            });
+            // an example of handling the zoom events on the chart
+            mChartView.addZoomListener(new ZoomListener() {
+              public void zoomApplied(ZoomEvent e) {
+                String type = "out";
+                if (e.isZoomIn()) {
+                  type = "in";
+                }
+                Log.i("Zoom", "Zoom " + type + " rate " + e.getZoomRate());
+              }
+
+              public void zoomReset() {
+                Log.i("Zoom", "Reset");
+              }
+            }, true, true);
+            // an example of handling the pan events on the chart
+            mChartView.addPanListener(new PanListener() {
+              public void panApplied() {
+                Log.i("Pan", "New X range=[" + mRenderer.getXAxisMin() + ", " + mRenderer.getXAxisMax()
+                    + "], Y range=[" + mRenderer.getYAxisMax() + ", " + mRenderer.getYAxisMax() + "]");
+              }
+            });
+            layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,
+                LayoutParams.FILL_PARENT));
+            boolean enabled = mDataset.getSeriesCount() > 0;
+           
+          } else {
+            mChartView.repaint();
+          }
+        
+		
 		mMap.setOnCameraChangeListener(new OnCameraChangeListener(){
 			@Override
 			public void onCameraChange(CameraPosition arg0) {
@@ -136,6 +279,45 @@ OnMyLocationButtonClickListener{
 				}
 			}});
 	}
+	
+	 private XYMultipleSeriesDataset getDemoDataset() {
+		    XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+		    final int nr = 10;
+		    Random r = new Random();
+		    for (int i = 0; i < 2; i++) {
+		      XYSeries series = new XYSeries("Demo series " + (i + 1));
+		      for (int k = 0; k < nr; k++) {
+		        series.add(k, 20 + r.nextInt() % 100);
+		      }
+		      dataset.addSeries(series);
+		    }
+		    return dataset;
+		  }
+	 private XYMultipleSeriesRenderer getDemoRenderer() {
+		    XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
+		    renderer.setAxisTitleTextSize(16);
+		    renderer.setChartTitleTextSize(20);
+		    renderer.setLabelsTextSize(15);
+		    renderer.setLegendTextSize(15);
+		    renderer.setPointSize(5f);
+		    renderer.setMargins(new int[] {20, 30, 15, 0});
+		    XYSeriesRenderer r = new XYSeriesRenderer();
+		    r.setColor(Color.BLUE);
+		    r.setPointStyle(PointStyle.SQUARE);
+		    r.setFillBelowLine(true);
+		    r.setFillBelowLineColor(Color.WHITE);
+		    r.setFillPoints(true);
+		    renderer.addSeriesRenderer(r);
+		    r = new XYSeriesRenderer();
+		    r.setPointStyle(PointStyle.CIRCLE);
+		    r.setColor(Color.GREEN);
+		    r.setFillPoints(true);
+		    renderer.addSeriesRenderer(r);
+		    renderer.setAxesColor(Color.DKGRAY);
+		    renderer.setLabelsColor(Color.LTGRAY);
+		    return renderer;
+		  }
+
 	
 	private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
