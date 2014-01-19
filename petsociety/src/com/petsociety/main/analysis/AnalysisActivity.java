@@ -6,9 +6,11 @@ import java.util.Random;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
+import org.achartengine.chart.BarChart.Type;
 import org.achartengine.chart.PointStyle;
 import org.achartengine.model.CategorySeries;
 import org.achartengine.model.SeriesSelection;
+import org.achartengine.model.TimeSeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.DefaultRenderer;
@@ -104,7 +106,7 @@ OnMyLocationButtonClickListener{
 	
 	private static int[] COLORS = new int[] { Color.GREEN, Color.BLUE, Color.MAGENTA, Color.CYAN };
 	/** The main series that will include all the data. */
-	private CategorySeries mSeries = new CategorySeries("");
+	private CategorySeries mSeries = new CategorySeries("fuck");
 	/** The main renderer for the main dataset. */
 
 	/** The main dataset that includes all the series that go into a chart. */
@@ -153,60 +155,33 @@ OnMyLocationButtonClickListener{
 		RetrieveAllStrayRequest strayRequest= new RetrieveAllStrayRequest();
 		RetrieveAllLostRequest lostRequest= new RetrieveAllLostRequest();
 		
-		//new BackgroundTask().execute(locationRequest,lostRequest,eventRequest,locationRequest,strayRequest);
-		//mChartView=(GraphicalView)findViewById(R.id.chart);
-		
-		mRenderer.setApplyBackgroundColor(true);
-	    mRenderer.setBackgroundColor(Color.argb(100, 50, 50, 50));
-	    mRenderer.setAxisTitleTextSize(16);
-	    mRenderer.setChartTitleTextSize(20);
-	    mRenderer.setLabelsTextSize(15);
-	    mRenderer.setLegendTextSize(15);
-	    mRenderer.setMargins(new int[] { 20, 30, 15, 0 });
-	    mRenderer.setZoomButtonsVisible(true);
-	    mRenderer.setPointSize(5);
+		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+		   
+	    int x[]={1,2,3,4,5};
+	    int y[]={0,2,4,0,9};
 	    
+	    TimeSeries series= new TimeSeries("Line");
+	    for(int i=0;i<x.length;i++)
+	    {
+	    	series.add(x[i], y[i]);
+	    }
+	    dataset.addSeries(series);
 	    
-	    
-	    String seriesTitle = "Series " + (mDataset.getSeriesCount() + 1);
-        // create a new series of data
-        XYSeries series = new XYSeries(seriesTitle);
-        mDataset.addSeries(series);
-        mCurrentSeries = series;
-        // create a new renderer for the new series
-        XYSeriesRenderer renderer = new XYSeriesRenderer();
-        mRenderer.addSeriesRenderer(renderer);
-        // set some renderer properties
-        renderer.setPointStyle(PointStyle.CIRCLE);
-        renderer.setFillPoints(true);
-        renderer.setDisplayChartValues(true);
-        renderer.setDisplayChartValuesDistance(10);
-        mCurrentRenderer = renderer;
-
-
-        mCurrentSeries.add(1, 2);
-        mCurrentSeries.add(2, 3);
-        mCurrentSeries.add(3, 0.5);
-        mCurrentSeries.add(4, -1);
-        mCurrentSeries.add(5, 2.5);
-        mCurrentSeries.add(6, 3.5);
-        mCurrentSeries.add(7, 2.85);
-        mCurrentSeries.add(8, 3.25);
-        mCurrentSeries.add(9, 4.25);
-        mCurrentSeries.add(10, 3.75);
-        mRenderer.setRange(new double[] { 0.5, 10.5, -1.5, 4.75 });
-        mChartView.repaint();
+		XYMultipleSeriesRenderer renderer= new XYMultipleSeriesRenderer();
+		XYSeriesRenderer red= new XYSeriesRenderer();
+		renderer.addSeriesRenderer(red);
         
+		
+		
         if (mChartView == null) {
             LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
-            // mChartView = ChartFactory.getLineChartView(this, mDataset, mRenderer);
-            // mChartView = ChartFactory.getBarChartView(this, mDataset, mRenderer,
-            // Type.DEFAULT);
-            mChartView = ChartFactory.getPieChartView(this, mSeries, mRenderer);
+             //mChartView = ChartFactory.getLineChartView(this, getDemoDataset(), getDemoRenderer());
+            mChartView = ChartFactory.getBarChartView(this, dataset, renderer,Type.DEFAULT);
+            //mChartView = ChartFactory.getPieChartView(this, mSeries, getDemoRenderer());
 
             // enable the chart click events
-            mRenderer.setClickEnabled(true);
-            mRenderer.setSelectableBuffer(100);
+           // mRenderer.setClickEnabled(true);
+           // mRenderer.setSelectableBuffer(100);
             mChartView.setOnClickListener(new View.OnClickListener() {
               public void onClick(View v) {
                 // handle the click event on the chart
@@ -282,7 +257,7 @@ OnMyLocationButtonClickListener{
 	
 	 private XYMultipleSeriesDataset getDemoDataset() {
 		    XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-		    final int nr = 10;
+		    final int nr = 2;
 		    Random r = new Random();
 		    for (int i = 0; i < 2; i++) {
 		      XYSeries series = new XYSeries("Demo series " + (i + 1));
