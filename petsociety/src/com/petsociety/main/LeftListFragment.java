@@ -178,16 +178,16 @@ public class LeftListFragment extends ListFragment {
 			title.setTextColor(Color.BLUE);
 			
 			if (getItem(position).title==true) {
-				convertView.setBackgroundColor(Color.parseColor("#0099CC")); 
+				convertView.setBackgroundColor(Color.parseColor("#4DB788")); 
 				title.setText(title.getText().toString().toUpperCase());
 				title.setTextColor(Color.WHITE);
 				//Typeface myTypeface = Typeface.createFromAsset(getActivity().getAssets(), "text/LuckiestGuy.ttf");
 				title.setTypeface(null, Typeface.BOLD);
 			}
 			else{
-				//convertView.setBackgroundColor(Color.WHITE); 
-				convertView.setBackgroundColor(Color.parseColor("#33B5E5"));
-				title.setTextColor(Color.BLACK);
+				convertView.setBackgroundColor(Color.parseColor("#80C8B5"));
+				//title.setText(title.getText().toString().toUpperCase());
+				title.setTextColor(Color.parseColor("#333333"));
 				title.setTypeface(null, Typeface.NORMAL);
 			}
 
