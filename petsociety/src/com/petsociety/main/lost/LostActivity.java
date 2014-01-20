@@ -1,5 +1,6 @@
 package com.petsociety.main.lost;
 
+import java.util.Date;
 import java.util.List;
 
 import com.actionbarsherlock.view.MenuItem;
@@ -41,7 +42,7 @@ public class LostActivity extends MainBaseActivity {
 	List<Pet> petList;
 	
 	public LostActivity() {
-		super(R.string.lost_pet);
+		super(R.string.title_activity_lost);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -117,40 +118,19 @@ private class GetLostList extends AsyncTask<Runnable, Integer, Long> {
     	adapter = new LostListAdapter(getBaseContext());
         for (int i=0; i<lostList.size(); i++){
         	
-        	String lostPetName = "";
-        	int lostPetAge = 0;
+        	//String lostPetName = "";
     		for (int p=0; p<petList.size(); p++){
     			if (lostList.get(i).getPetID()==petList.get(p).getPetID()){
-    				lostPetName = petList.get(p).getName();
-    				lostPetAge = Integer.parseInt(petList.get(p).getAge());
+    				//lostPetName = petList.get(p).getName();
+    				lostList.get(i).setPet(petList.get(p));
     			}
     		}
-        	
-                //Lost lostItem = lostList.get(i);
-                //String lostPetName = lostItem.getPet().getName();
-                //int lostPetAge = Integer.parseInt(lostItem.getPet().getAge());
-                String lostPetLocation = lostList.get(i).getAddress();
-                //String lostPetDate = lostItem.getDateTimeSeen().toString();
-                adapter.add(new LostItem(lostPetName, lostPetAge, lostPetLocation, "99/99/99"));
-                //adapter.add(new LostItem(lostPetName, lostPetAge, lostPetLocation, lostPetDate));
-            }  
+            adapter.add(lostList.get(i));
+        }  
         lv_lost.setAdapter(adapter);
 	}
-	
-	private class LostItem {
-		public String name;
-		public int age;
-		public String location;
-		public String date;
-		public LostItem(String name, int age, String location, String date) {
-			this.name = name;
-			this.age = age;
-			this.location = location;
-			this.date = date;
-		}
-	}
 
-	public class LostListAdapter extends ArrayAdapter<LostItem> {
+	public class LostListAdapter extends ArrayAdapter<Lost> {
 
 		public LostListAdapter(Context context) {
 			super(context, 0);
@@ -161,13 +141,14 @@ private class GetLostList extends AsyncTask<Runnable, Integer, Long> {
 				convertView = LayoutInflater.from(getContext()).inflate(R.layout.custom_lost_row, null);
 			}
 			TextView name = (TextView) convertView.findViewById(R.id.row_lost_name);
-			name.setText(getItem(position).name);
-			TextView age = (TextView) convertView.findViewById(R.id.row_lost_age);
-			age.setText(Integer.toString(getItem(position).age));	
+			name.setText(getItem(position).getPet().getName());
+			TextView tv_days = (TextView) convertView.findViewById(R.id.row_lost_days);
+			Date today = new Date();
+			long MILLISECS_PER_DAY = 24 * 60 * 60 * 1000;
+			long days = (today.getTime() - getItem(position).getDateTimeSeen().getTime())/MILLISECS_PER_DAY; 
+			tv_days.setText(Long.toString(days));	
 			TextView location = (TextView) convertView.findViewById(R.id.row_lost_location);
-			location.setText(getItem(position).location);
-			TextView date = (TextView) convertView.findViewById(R.id.row_lost_date);
-			date.setText(getItem(position).date);
+			location.setText("Last Seen At " + getItem(position).getAddress());
 
 			return convertView;
 		}

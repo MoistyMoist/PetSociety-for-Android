@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.sql.Date;
+//import java.sql.Date;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -465,29 +468,16 @@ public class JSONExtractor {
 					String dateLastCreated = c.getString(TAG_LOST_DATETIMECREATED);
 					//l.setDateTimeCreated();
 					
+					Date d = new Date();
+					try {
+						 d = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(dateLastSeen.replace("T", " "));
+					} catch (ParseException e) {
+						 d = new Date();
+					} finally {
+						l.setDateTimeSeen(d);
+					}
 					
-					Pet p= new Pet();
-					//JSONObject c2=(JSONObject) c.get(TAG_PETs);
-					//JSONObject c2=(JSONObject) c.get("PET");
-					//Log.i("pet "+i,c2.toString() );
-					
-//					p.setPetID(c2.getInt(TAG_PET_PETID));
-//					p.setName(c2.getString(TAG_PET_NAME));
-//					p.setBreed(c2.getString(TAG_PET_BREED));
-//					p.setSex(c2.getString(TAG_PET_SEX).charAt(0));
-//					p.setType(c2.getString(TAG_PET_TYPE));
-//					p.setBiography(c2.getString(TAG_PET_BIOGRAPHY));
-//					p.setAge(c2.getString(TAG_PET_AGE));
-//					p.setUserID(c2.getInt(TAG_PET_USERID));
-//					//p.setGalleryID(c2.getInt(TAG_PET_GALLERYID));
-//					p.setProfileImageURL(c2.getString(TAG_PET_PROFILEIMAGEURL));
-//					String petDateLastCreated = c2.getString(TAG_PET_DATETIMECREATED);
-//					//p.setDateTimeCreated(petDateLastCreated);		
-					
-					l.setPet(p); 
 					lost.add(l); 
-					
-					//Log.i("pet "+i,c.toString() );
 				} 
 				
 				StaticObjects.setLosts(lost);
