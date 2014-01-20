@@ -512,37 +512,27 @@ OnMyLocationButtonClickListener{
 				public void onClick(DialogInterface dialog, int which) {
 					if(which==0)
 					{
-//						RetrieveAllEventRequest eventRequest= new RetrieveAllEventRequest();
-//						RetrieveAllLocationRequest locationRequest= new RetrieveAllLocationRequest();
-//						RetrieveAllStrayRequest strayRequest= new RetrieveAllStrayRequest();
-//						RetrieveAllLostRequest lostRequest= new RetrieveAllLostRequest();
-//						
-//						new BackgroundTask().execute(locationRequest,lostRequest,eventRequest,locationRequest,strayRequest);
-						ClearHeatMap();
-					}
-					if(which==1)
-					{
 						LocationDialogFragment frag= new LocationDialogFragment();
 						frag.show(getFragmentManager(), null);
 					}
-					if(which==2)
+					if(which==1)
 					{
 						//stray
 						StrayDialogFragment frag= new StrayDialogFragment();
 						frag.show(getFragmentManager(), null);
 					}
-					if(which==3)
+					if(which==2)
 					{
 						//lost
-							StaticObjects.setAnalysisEvent(null);
-			          	   StaticObjects.setAnalysisStray(null);
-			          	   StaticObjects.setAndlysisLost(null);
-			          	   StaticObjects.setAnslysisLocation(null);
+						StaticObjects.setAnalysisEvent(null);
+			          	StaticObjects.setAnalysisStray(null);
+			          	StaticObjects.setAndlysisLost(null);
+			          	StaticObjects.setAnslysisLocation(null);
 			          	   
-			          	   RetrieveLostByTypeRequest request= new RetrieveLostByTypeRequest("Dog");
-			              	new BackgroundTask().execute(request,request);
+			          	RetrieveLostByTypeRequest request= new RetrieveLostByTypeRequest("Dog");
+			            new BackgroundTask().execute(request,request);
 					}
-					if(which==4)
+					if(which==3)
 					{
 						//event
 						EventDialogFragment frag= new EventDialogFragment();
@@ -550,7 +540,7 @@ OnMyLocationButtonClickListener{
 					}
 					
 				}});
-	    return builder.create();
+		    return builder.create();
 		}
 	}
 

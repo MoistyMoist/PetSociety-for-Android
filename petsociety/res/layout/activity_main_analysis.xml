@@ -20,7 +20,7 @@
 	<Button
 	    android:id="@+id/filterBtn"
 	    android:layout_below="@+id/heatmap"
-	    android:layout_width="wrap_content"
+	    android:layout_width="150dip"
 	    android:layout_height="wrap_content"
 	    android:onClick="nextPage"
 	    android:text="Options" />
