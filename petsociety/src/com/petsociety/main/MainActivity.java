@@ -111,9 +111,6 @@ public class MainActivity extends MainBaseActivity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case android.R.id.home:
-			toggle();
-			return true;
 			
 		case R.id.main_right:
 			getSlidingMenu().showSecondaryMenu(true);
