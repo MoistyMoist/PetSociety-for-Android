@@ -149,88 +149,14 @@ OnMyLocationButtonClickListener{
 		setUpMapIfNeeded();
 		
 		
-		//retrieve all the points (location, strays, lost, events
 		RetrieveAllEventRequest eventRequest= new RetrieveAllEventRequest();
 		RetrieveAllLocationRequest locationRequest= new RetrieveAllLocationRequest();
 		RetrieveAllStrayRequest strayRequest= new RetrieveAllStrayRequest();
 		RetrieveAllLostRequest lostRequest= new RetrieveAllLostRequest();
-		
-		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-		   
-	    int x[]={1,2,3,4,5};
-	    int y[]={0,2,4,0,9};
-	    
-	    TimeSeries series= new TimeSeries("Line");
-	    for(int i=0;i<x.length;i++)
-	    {
-	    	series.add(x[i], y[i]);
-	    }
-	    dataset.addSeries(series);
-	    
-		XYMultipleSeriesRenderer renderer= new XYMultipleSeriesRenderer();
-		XYSeriesRenderer red= new XYSeriesRenderer();
-		renderer.addSeriesRenderer(red);
-        
+	
+		//retrieve lost data first as default
 		
 		
-        if (mChartView == null) {
-            LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
-             //mChartView = ChartFactory.getLineChartView(this, getDemoDataset(), getDemoRenderer());
-            mChartView = ChartFactory.getBarChartView(this, dataset, renderer,Type.DEFAULT);
-            //mChartView = ChartFactory.getPieChartView(this, mSeries, getDemoRenderer());
-
-            // enable the chart click events
-           // mRenderer.setClickEnabled(true);
-           // mRenderer.setSelectableBuffer(100);
-            mChartView.setOnClickListener(new View.OnClickListener() {
-              public void onClick(View v) {
-                // handle the click event on the chart
-                SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
-                if (seriesSelection == null) {
-                  Toast.makeText(context, "No chart element was clicked",
-                      Toast.LENGTH_SHORT).show();
-                } else {
-                  // display information of the clicked point
-                  double[] xy = mChartView.toRealPoint(0);
-                  Toast.makeText(
-                		  context,
-                      "Chart element in series index " + seriesSelection.getSeriesIndex()
-                          + " data point index " + seriesSelection.getPointIndex() + " was clicked"
-                          + " closest point value X=" + seriesSelection.getXValue() + ", Y="
-                          + seriesSelection.getValue() + " clicked point value X=" + (float) xy[0]
-                          + ", Y=" + (float) xy[1], Toast.LENGTH_SHORT).show();
-                }
-              }
-            });
-            // an example of handling the zoom events on the chart
-            mChartView.addZoomListener(new ZoomListener() {
-              public void zoomApplied(ZoomEvent e) {
-                String type = "out";
-                if (e.isZoomIn()) {
-                  type = "in";
-                }
-                Log.i("Zoom", "Zoom " + type + " rate " + e.getZoomRate());
-              }
-
-              public void zoomReset() {
-                Log.i("Zoom", "Reset");
-              }
-            }, true, true);
-            // an example of handling the pan events on the chart
-            mChartView.addPanListener(new PanListener() {
-              public void panApplied() {
-                Log.i("Pan", "New X range=[" + mRenderer.getXAxisMin() + ", " + mRenderer.getXAxisMax()
-                    + "], Y range=[" + mRenderer.getYAxisMax() + ", " + mRenderer.getYAxisMax() + "]");
-              }
-            });
-            layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,
-                LayoutParams.FILL_PARENT));
-            boolean enabled = mDataset.getSeriesCount() > 0;
-           
-          } else {
-            mChartView.repaint();
-          }
-        
 		
 		mMap.setOnCameraChangeListener(new OnCameraChangeListener(){
 			@Override
@@ -255,7 +181,7 @@ OnMyLocationButtonClickListener{
 			}});
 	}
 	
-	 private XYMultipleSeriesDataset getDemoDataset() {
+	private XYMultipleSeriesDataset getDemoDataset() {
 		    XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 		    final int nr = 2;
 		    Random r = new Random();
@@ -268,7 +194,7 @@ OnMyLocationButtonClickListener{
 		    }
 		    return dataset;
 		  }
-	 private XYMultipleSeriesRenderer getDemoRenderer() {
+	private XYMultipleSeriesRenderer getDemoRenderer() {
 		    XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
 		    renderer.setAxisTitleTextSize(16);
 		    renderer.setChartTitleTextSize(20);
@@ -347,18 +273,8 @@ OnMyLocationButtonClickListener{
 	
 	public void nextPage(View view)
 	{
-		//LocationDialogFragment frag= new LocationDialogFragment();
-		//frag.show(getFragmentManager(), null);
 		AnalysisList option= new AnalysisList();
 		option.show(getFragmentManager(), null);
-		
-		
-		//RetrieveReviewByLocationRequest retrieveReview = new RetrieveReviewByLocationRequest(1); 
-		//new BackgroundTask().execute(retrieveReview);
-//		
-//		Intent intent= new Intent(this,TestanaylsisActivity.class);
-//		intent.setClass(getApplication(), TestanaylsisActivity.class);
-//		startActivity(intent);
 	}
 	
 	private void DrawLostHeatMaps()
@@ -501,6 +417,7 @@ OnMyLocationButtonClickListener{
 			if(StaticObjects.getAndlysisLost()!=null)
 			{
 				DrawLostHeatMaps();
+				DrawLostChart();
 			}
 			if(StaticObjects.getAnslysisLocation()!=null)
 			{
@@ -820,5 +737,79 @@ OnMyLocationButtonClickListener{
 	        // Create the AlertDialog object and return it
 	        return builder.create();
 		}
+	}
+
+	private void DrawLostChart()
+	{
+		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+		   
+	    int x[]={1,2,3,4,5};
+	    int y[]={0,0,0,0,0};
+	    
+	    TimeSeries series= new TimeSeries("Line");
+	    for(int i=0;i<x.length;i++)
+	    {
+	    	series.add(x[i], y[i]);
+	    }
+	    dataset.addSeries(series);
+	    
+		XYMultipleSeriesRenderer renderer= new XYMultipleSeriesRenderer();
+		XYSeriesRenderer red= new XYSeriesRenderer();
+		red.setColor(Color.BLUE);
+		red.setPointStyle(PointStyle.SQUARE);
+		red.setFillPoints(true);
+		renderer.addSeriesRenderer(red);
+        
+		
+		
+        if (mChartView == null) {
+            LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
+             //mChartView = ChartFactory.getLineChartView(this, getDemoDataset(), getDemoRenderer());
+            mChartView = ChartFactory.getBarChartView(this, dataset, renderer,Type.DEFAULT);
+            //mChartView = ChartFactory.getPieChartView(this, mSeries, getDemoRenderer());
+
+            // enable the chart click events
+           // mRenderer.setSelectableBuffer(100);
+        
+            // an example of handling the zoom events on the chart
+            mChartView.addZoomListener(new ZoomListener() {
+              public void zoomApplied(ZoomEvent e) {
+                String type = "out";
+                if (e.isZoomIn()) {
+                  type = "in";
+                }
+                Log.i("Zoom", "Zoom " + type + " rate " + e.getZoomRate());
+              }
+
+              public void zoomReset() {
+                Log.i("Zoom", "Reset");
+              }
+            }, true, true);
+            // an example of handling the pan events on the chart
+            mChartView.addPanListener(new PanListener() {
+              public void panApplied() {
+                Log.i("Pan", "New X range=[" + mRenderer.getXAxisMin() + ", " + mRenderer.getXAxisMax()
+                    + "], Y range=[" + mRenderer.getYAxisMax() + ", " + mRenderer.getYAxisMax() + "]");
+              }
+            });
+            layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,
+                LayoutParams.FILL_PARENT));
+            boolean enabled = mDataset.getSeriesCount() > 0;
+           
+          } else {
+            mChartView.repaint();
+          }
+	}
+	private void DrawStrayChart()
+	{
+		
+	}
+	private void DrawEventChart()
+	{
+		
+	}
+	private void DrawLocationChart()
+	{
+		
 	}
 }
