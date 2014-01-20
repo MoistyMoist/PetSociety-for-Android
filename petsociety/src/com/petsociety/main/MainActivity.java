@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import com.petsociety.httprequests.*;
 import com.petsociety.main.lost.LostActivity;
+import com.petsociety.models.Event;
 import com.petsociety.models.Lost;
 import com.petsociety.models.Pet;
 import com.petsociety.utils.StaticObjects;
@@ -65,10 +66,14 @@ public class MainActivity extends MainBaseActivity
 	public GoogleMap mMap;
 	Button buttonMap;
     private LocationClient mLocationClient;
+    ArrayList<Marker>mEvent = new ArrayList<Marker>();
+    ArrayList<Marker>mLocation = new ArrayList<Marker>();
     ArrayList<Marker>mLostPet = new ArrayList<Marker>();
     ArrayList<Marker>mFound = new ArrayList<Marker>();
     List<Lost> lostList;
     List<Pet> petList;
+    List<Event> eventList;
+    List<com.petsociety.models.Location> locationList;
 	StaticObjects staticObjects;
 	ProgressDialog progress;
 	Context context = this;
@@ -103,7 +108,7 @@ public class MainActivity extends MainBaseActivity
         setContentView(R.layout.basic_map);
   
         
-        getLostList();       
+        getAllList();       
         
 	}
 
@@ -122,7 +127,7 @@ public class MainActivity extends MainBaseActivity
 			return true;
 			
 		case R.id.main_refresh:
-			getLostList();  
+			getAllList();  
 			return true;
 			
 		case R.id.main_camera:
@@ -159,18 +164,22 @@ public class MainActivity extends MainBaseActivity
         }
     }
 	
-	public void getLostList(){
+	public void getAllList(){
 		
-			progress = ProgressDialog.show(this, "Setting up map","please wait...", true);
-			
-			RetrieveAllPetRequest retrieveAllPetRequest = new RetrieveAllPetRequest();
-			new PetListBackgroundTask().execute( retrieveAllPetRequest,null);
-			
-			RetrieveAllLostRequest retrieveAllLostRequest = new RetrieveAllLostRequest();
-			//UploadImageRequest upload= new UploadImageRequest();
-			new LostListBackgroundTask().execute( retrieveAllLostRequest,null);
-			 
-
+		progress = ProgressDialog.show(this, "Setting up map","please wait...", true);
+		
+		RetrieveAllPetRequest retrieveAllPetRequest = new RetrieveAllPetRequest();
+		new PetListBackgroundTask().execute( retrieveAllPetRequest,null);
+		
+		RetrieveAllLostRequest retrieveAllLostRequest = new RetrieveAllLostRequest();
+		//UploadImageRequest upload= new UploadImageRequest();
+		new LostListBackgroundTask().execute( retrieveAllLostRequest,null);
+		
+		RetrieveAllEventRequest retrieveAllEventRequest = new RetrieveAllEventRequest();
+		new EventListBackgroundTask().execute( retrieveAllEventRequest,null);
+		 
+		RetrieveAllLocationRequest retrieveAllLocationRequest = new RetrieveAllLocationRequest();
+		new LocationListBackgroundTask().execute( retrieveAllLocationRequest,null);
 
 	}
 	
@@ -209,30 +218,23 @@ public class MainActivity extends MainBaseActivity
 		}
 	 }
 	
-private class PetListBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
+	private class PetListBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 	    
 		@Override
 		protected void onPostExecute(Long result) {
-			
 			super.onPostExecute(result);
 			if(progress!=null)
 				progress.dismiss();
 	        staticObjects= new StaticObjects();
 	        petList = StaticObjects.getPets();
-		
 		}
 
 		@Override
-		protected void onPreExecute() {
-			//Toast.makeText(context, "Refreshing..", Toast.LENGTH_SHORT).show();
-			super.onPreExecute();
-		}
+		protected void onPreExecute() {super.onPreExecute();}
 
 		@Override
 		protected Long doInBackground(Runnable... task) {
-			
-			for(int i=0; i<task.length;i++)
-			{
+			for(int i=0; i<task.length;i++){
 				if(task[i]!=null)
 					task[i].run();
 				if (isCancelled()) break;
@@ -241,6 +243,63 @@ private class PetListBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 		}
 	 }
 
+	private class EventListBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
+	    
+		@Override
+		protected void onPostExecute(Long result) {
+			super.onPostExecute(result);
+			if(progress!=null)
+				progress.dismiss();
+	        staticObjects= new StaticObjects();
+	        eventList = StaticObjects.getEvents();
+			if(StaticObjects.getEvents()==null||StaticObjects.getEvents().size()==0){}
+			else{
+				addEventMarker();
+			}	
+		}
+
+		@Override
+		protected void onPreExecute() {super.onPreExecute();}
+
+		@Override
+		protected Long doInBackground(Runnable... task) {
+			for(int i=0; i<task.length;i++){
+				if(task[i]!=null)
+					task[i].run();
+				if (isCancelled()) break;
+			}
+			return null;
+		}
+	 }
+	
+	private class LocationListBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
+	    
+		@Override
+		protected void onPostExecute(Long result) {
+			super.onPostExecute(result);
+			if(progress!=null)
+				progress.dismiss();
+	        staticObjects= new StaticObjects();
+	        locationList = StaticObjects.getLocations();
+			if(StaticObjects.getLocations()==null||StaticObjects.getLocations().size()==0){}
+			else{
+				addLocationMarker();
+			}	
+		}
+
+		@Override
+		protected void onPreExecute() {super.onPreExecute();}
+
+		@Override
+		protected Long doInBackground(Runnable... task) {
+			for(int i=0; i<task.length;i++){
+				if(task[i]!=null)
+					task[i].run();
+				if (isCancelled()) break;
+			}
+			return null;
+		}
+	 }
 
     
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -294,24 +353,18 @@ private class PetListBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
             SpannableString titleText = new SpannableString(title);
             titleText.setSpan(new ForegroundColorSpan(Color.RED), 0, titleText.length(), 0);
             titleUi.setText(titleText);
-            
-            if (title.equals("Found")) {
-                // Spannable string allows us to edit the formatting of the text.
-                titleText = new SpannableString(title);
-                titleText.setSpan(new ForegroundColorSpan(Color.GREEN), 0, titleText.length(), 0);
-                titleUi.setText(titleText);
-            } 
-
+                
             String snippet = marker.getSnippet();
             TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
+            SpannableString snippetText = new SpannableString(snippet);
+            snippetUi.setText(snippetText);
+            /*
             if (snippet != null && snippet.length() > 12) {
-                SpannableString snippetText = new SpannableString(snippet);
                 //snippetText.setSpan(new ForegroundColorSpan(Color.MAGENTA), 0, 10, 0);
-                snippetText.setSpan(new ForegroundColorSpan(Color.BLUE), 11, snippet.length(), 0);
-                snippetUi.setText(snippetText);
+                //snippetText.setSpan(new ForegroundColorSpan(Color.BLUE), 11, snippet.length(), 0);  
             } else {
-                snippetUi.setText("");
-            }
+                //snippetUi.setText("");
+            } */
         }
 		
     }
@@ -338,6 +391,12 @@ private class PetListBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 		else if (pinSelect.equals("stray")){
 			//toggleFound();
 		}
+		else if (pinSelect.equals("event")){
+			toggleEvent();
+		}
+		else if (pinSelect.equals("location")){
+			toggleLocation();
+		}
 		
 	}
     
@@ -360,6 +419,36 @@ private class PetListBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 			.title("[Lost Pet] "+lostPetName)
 			.snippet("Reward: "+lostList.get(i).getReward()); 
     	mLostPet.add(mMap.addMarker(mOption));
+    	}
+    }
+    
+    public void addEventMarker(){
+    	
+    	for (int i=0; i<eventList.size(); i++){
+
+    	double lat = eventList.get(i).getX();
+    	double lng = eventList.get(i).getY();
+    	MarkerOptions mOption = new MarkerOptions()
+			.position(new LatLng(lat, lng))
+			.title(eventList.get(i).getName())
+			.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+			.snippet("About: "+eventList.get(i).getDescription()); 
+    	mEvent.add(mMap.addMarker(mOption));
+    	}
+    }
+    
+    public void addLocationMarker(){
+    	
+    	for (int i=0; i<locationList.size(); i++){
+
+    	double lat = locationList.get(i).getX();
+    	double lng = locationList.get(i).getY();
+    	MarkerOptions mOption = new MarkerOptions()
+			.position(new LatLng(lat, lng))
+			.title(locationList.get(i).getTitle())
+			.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+			.snippet("About: "+locationList.get(i).getDescription()); 
+    	mLocation.add(mMap.addMarker(mOption));
     	}
     }
     
@@ -386,7 +475,27 @@ private class PetListBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 		}
     }
     
-    public void toggleFound(){
+    public void toggleEvent(){
+    	boolean setVisible = true;
+    	if (mEvent.get(0).isVisible()==true){
+    		setVisible = false;
+    	}
+		for (int i=0; i<mEvent.size(); i++){
+			mEvent.get(i).setVisible(setVisible);
+		}
+    }
+    
+    public void toggleLocation(){
+    	boolean setVisible = true;
+    	if (mLocation.get(0).isVisible()==true){
+    		setVisible = false;
+    	}
+		for (int i=0; i<mLocation.size(); i++){
+			mLocation.get(i).setVisible(setVisible);
+		}
+    }
+    
+    public void toggleStray(){
     	boolean setVisible = true;
     	if (mFound.get(0).isVisible()==true){
     		setVisible = false;

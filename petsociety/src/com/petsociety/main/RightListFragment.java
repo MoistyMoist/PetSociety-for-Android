@@ -54,6 +54,14 @@ public class RightListFragment extends ListFragment {
             intent.putExtra("pin", "stray");
             getActivity().startActivity(intent);
 			break;
+		case 3: //Event			
+	        intent.putExtra("pin", "event");
+	        getActivity().startActivity(intent);
+			break;
+		case 4: //Location			
+		    intent.putExtra("pin", "location");
+		    getActivity().startActivity(intent);
+			break;
 		}
 		ImageView icon = (ImageView) v.findViewById(R.id.row_icon);
 		if (icon.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.ic_check).getConstantState()))
