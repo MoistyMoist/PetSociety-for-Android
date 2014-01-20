@@ -40,6 +40,13 @@
         <item name="4">Very New</item>
         <item name="5">Unwrap</item>
     </string-array>
+    
+    
+	<string-array name="main_type_array">
+        <item>Map</item>
+        <item>Lost</item>
+        <item>Stray</item>
+</string-array>
 
     <!-- Shahrikin -->
 

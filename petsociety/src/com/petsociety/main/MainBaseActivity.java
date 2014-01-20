@@ -8,6 +8,7 @@ import android.app.SearchManager;
 import android.app.SearchableInfo;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.widget.SearchView;
@@ -34,7 +36,8 @@ public class MainBaseActivity extends SlidingFragmentActivity {
 
 	private int mTitleRes;
 	protected ListFragment l_Frag;
-
+	ActionBarSherlock mSherlock = ActionBarSherlock.wrap(this);
+	
 	public MainBaseActivity(int titleRes) {
 		mTitleRes = titleRes;
 	}
@@ -76,6 +79,9 @@ public class MainBaseActivity extends SlidingFragmentActivity {
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
+		mSherlock.setUiOptions(ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW);
+        mSherlock.setContentView(R.layout.menu_frame);
+        //((TextView)findViewById(R.id.text)).setText("hello testing");
 	}
 
 	@Override
@@ -107,4 +113,5 @@ public class MainBaseActivity extends SlidingFragmentActivity {
 		getSupportMenuInflater().inflate(R.menu.main_base, menu);
 		return true;
 	}
+	
 }

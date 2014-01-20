@@ -24,12 +24,16 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.ActionBarSherlock;
+import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.example.petsociety.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
@@ -48,6 +52,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.actionbarsherlock.ActionBarSherlock.OnCreateOptionsMenuListener;
 
 public class MainActivity extends MainBaseActivity 
 	implements 
@@ -96,13 +101,13 @@ public class MainActivity extends MainBaseActivity
 		sm.setShadowDrawable(R.drawable.shadow);
 		
         setContentView(R.layout.basic_map);
+  
         
-        getLostList();
+        getLostList();       
         
-      
-
 	}
 
+	
 	private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
