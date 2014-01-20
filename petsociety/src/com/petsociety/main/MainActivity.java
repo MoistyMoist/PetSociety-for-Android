@@ -3,23 +3,27 @@ package com.petsociety.main;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import com.petsociety.httprequests.*;
+import com.petsociety.main.lost.LostActivity;
 import com.petsociety.models.Lost;
 import com.petsociety.models.Pet;
 import com.petsociety.utils.StaticObjects;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
@@ -30,9 +34,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.ActionBarSherlock;
-import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
-import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.petsociety.R;
 import com.google.android.gms.common.ConnectionResult;
@@ -52,7 +53,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.actionbarsherlock.ActionBarSherlock.OnCreateOptionsMenuListener;
 
 public class MainActivity extends MainBaseActivity 
 	implements 
@@ -108,6 +108,39 @@ public class MainActivity extends MainBaseActivity
 	}
 
 	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			toggle();
+			return true;
+			
+		case R.id.main_right:
+			getSlidingMenu().showSecondaryMenu(true);
+			return true;
+		
+		case R.id.main_list:
+			MapListDialog option= new MapListDialog();
+			option.show(getFragmentManager(), null);
+			return true;
+			
+		case R.id.main_refresh:
+			getLostList();  
+			return true;
+			
+		case R.id.main_camera:
+		    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+		    //fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
+		    //intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
+
+		    //startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+		    startActivity(intent);
+		    return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
 	private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
@@ -439,4 +472,29 @@ private class PetListBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 		Toast.makeText(this, "Opening profile...", Toast.LENGTH_SHORT).show();
 	}
 
+	@SuppressLint("ValidFragment")
+	private class MapListDialog extends DialogFragment {
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		public Dialog onCreateDialog(Bundle savedInstanceState){
+			
+			String[] mapList = {"Lost","Stray","Events","Locations"};
+			ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(context,android.R.layout.simple_spinner_dropdown_item,mapList);
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		    builder.setTitle("List Category");builder.setAdapter(spinnerArrayAdapter, new OnClickListener(){
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Intent intent = new Intent();
+					intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+					intent.setClass(getActivity(), LostActivity.class);
+					if(which==0){intent.putExtra("list", "lost");}
+					if(which==1){intent.putExtra("list", "stray");}
+					if(which==2){intent.putExtra("list", "event");}
+					if(which==3){intent.putExtra("list", "location");}
+					startActivity(intent);
+				}});
+		    return builder.create();
+		}
+	}
+	
 }

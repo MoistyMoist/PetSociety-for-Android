@@ -86,24 +86,6 @@ public class MainBaseActivity extends SlidingFragmentActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			toggle();
-			return true;
-			
-		case R.id.main_right:
-			getSlidingMenu().showSecondaryMenu(true);
-			return true;
-		
-		case R.id.main_camera:
-		    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-		    //fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
-		    //intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
-
-		    //startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-		    startActivity(intent);
-		}
 		return super.onOptionsItemSelected(item);
 	}
 
