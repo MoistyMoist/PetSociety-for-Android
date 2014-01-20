@@ -46,12 +46,27 @@ public class LoginActivity extends Activity {
 		SharedPreferences settings = getSharedPreferences(PREFS_LOGIN, 0);
 	    String username = settings.getString("username", "");
 	    et_username.setText(username);
-		
+	    String password = settings.getString("password", "");
+	    et_pass.setText(password);
+	    if (et_pass.getText().toString().isEmpty() || et_username.getText().toString().isEmpty()){}
+	    else{
+	    	b_login.setEnabled(false);
+	    	b_reg.setEnabled(false);
+	    	LoginRequest retrieveUserRequest = new LoginRequest(et_username.getText().toString(),et_pass.getText().toString());
+			new GetUserLogin().execute( retrieveUserRequest,null);
+	    }
+	    
 		b_login.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				b_login.setEnabled(false);
+
+				  SharedPreferences settings = getSharedPreferences(PREFS_LOGIN, 0);
+				  SharedPreferences.Editor editor = settings.edit();
+				  editor.putString("username", et_username.getText().toString());
+				  editor.putString("password", et_pass.getText().toString());
+				  editor.commit();
 		        LoginRequest retrieveUserRequest = new LoginRequest(et_username.getText().toString(),et_pass.getText().toString());
 				new GetUserLogin().execute( retrieveUserRequest,null);
 			}		
@@ -74,15 +89,6 @@ public class LoginActivity extends Activity {
     @Override
     protected void onStop(){
        super.onStop();
-
-      // We need an Editor object to make preference changes.
-      // All objects are from android.context.Context
-      SharedPreferences settings = getSharedPreferences(PREFS_LOGIN, 0);
-      SharedPreferences.Editor editor = settings.edit();
-      editor.putString("username", et_username.getText().toString());
-
-      // Commit the edits!
-      editor.commit();
     }
 	
 	public void checkingUser(){
@@ -125,14 +131,15 @@ public class LoginActivity extends Activity {
 
         @Override
         protected String doInBackground(String... params) {
-                for(int i=0;i<2;i++) {
+            /*    
+        	for(int i=0;i<2;i++) {
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
-                }
+                }*/
                 return "Okay";
         }        
 

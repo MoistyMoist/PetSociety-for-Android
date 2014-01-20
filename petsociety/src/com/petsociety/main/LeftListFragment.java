@@ -15,6 +15,7 @@ import com.petsociety.utils.StaticObjects;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -34,6 +35,8 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 public class LeftListFragment extends ListFragment {
+	
+	public static final String PREFS_LOGIN = "LOGIN";
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		
@@ -119,6 +122,11 @@ public class LeftListFragment extends ListFragment {
 			startActivity(intent);
 			break;
 		case 13: //Logout
+			SharedPreferences settings = getActivity().getSharedPreferences(PREFS_LOGIN, 0);
+			SharedPreferences.Editor editor = settings.edit();
+			editor.putString("password", "");
+			editor.commit();
+			
 			StaticObjects.setStaticEmpty();
 			Intent logIntent = new Intent();
 			logIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
