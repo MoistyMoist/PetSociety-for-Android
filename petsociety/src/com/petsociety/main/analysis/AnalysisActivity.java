@@ -2,23 +2,18 @@ package com.petsociety.main.analysis;
 
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.BarChart.Type;
 import org.achartengine.chart.PointStyle;
 import org.achartengine.model.CategorySeries;
-import org.achartengine.model.MultipleCategorySeries;
-import org.achartengine.model.SeriesSelection;
 import org.achartengine.model.TimeSeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
-import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.DefaultRenderer;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
-import org.achartengine.tools.PanListener;
 import org.achartengine.tools.ZoomEvent;
 import org.achartengine.tools.ZoomListener;
 
@@ -28,7 +23,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -42,7 +36,6 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -104,34 +97,11 @@ OnMyLocationButtonClickListener{
 	private boolean strayCanvasShown;
 	private boolean lostCanvasShown;
 	private boolean eventCanvasShown;
-	
-	private static int[] COLORS = new int[] { Color.GREEN, Color.BLUE, Color.MAGENTA, Color.CYAN };
-	/** The main series that will include all the data. */
-	private CategorySeries mSeries = new CategorySeries("fuck");
-	/** The main renderer for the main dataset. */
 
-	/** The main dataset that includes all the series that go into a chart. */
-	  private XYMultipleSeriesDataset mDataset = new XYMultipleSeriesDataset();
-	  /** The main renderer that includes all the renderers customizing a chart. */
-	  private XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
-	  /** The most recently added series. */
-	  private XYSeries mCurrentSeries;
-	  /** The most recently created renderer, customizing the current series. */
-	  private XYSeriesRenderer mCurrentRenderer;
-	  /** Button for creating a new series of data. */
-	  private Button mNewSeries;
-	  /** Button for adding entered data to the current series. */
-	  private Button mAdd;
-	  /** Edit text field for entering the X value of the data to be added. */
-	  private EditText mX;
-	  /** Edit text field for entering the Y value of the data to be added. */
-	  private EditText mY;
-	  /** The chart view that displays the data. */
-	  private GraphicalView mChartView;
+	private GraphicalView mChartView;
 	
 	public AnalysisActivity() {
 		super(R.string.title_activity_analysis);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -149,10 +119,6 @@ OnMyLocationButtonClickListener{
 		viewGroup.addView(View.inflate(this, R.layout.basic_map, null));
 		setUpMapIfNeeded();
 		
-		
-		RetrieveAllEventRequest eventRequest= new RetrieveAllEventRequest();
-		RetrieveAllLocationRequest locationRequest= new RetrieveAllLocationRequest();
-		RetrieveAllStrayRequest strayRequest= new RetrieveAllStrayRequest();
 		RetrieveAllLostRequest lostRequest= new RetrieveAllLostRequest();
 	
 		//retrieve lost data first as default
@@ -181,44 +147,7 @@ OnMyLocationButtonClickListener{
 				}
 			}});
 	}
-	
-	private XYMultipleSeriesDataset getDemoDataset() {
-		    XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-		    final int nr = 2;
-		    Random r = new Random();
-		    for (int i = 0; i < 2; i++) {
-		      XYSeries series = new XYSeries("Demo series " + (i + 1));
-		      for (int k = 0; k < nr; k++) {
-		        series.add(k, 20 + r.nextInt() % 100);
-		      }
-		      dataset.addSeries(series);
-		    }
-		    return dataset;
-		  }
-	private XYMultipleSeriesRenderer getDemoRenderer() {
-		    XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
-		    renderer.setAxisTitleTextSize(16);
-		    renderer.setChartTitleTextSize(20);
-		    renderer.setLabelsTextSize(15);
-		    renderer.setLegendTextSize(15);
-		    renderer.setPointSize(5f);
-		    renderer.setMargins(new int[] {20, 30, 15, 0});
-		    XYSeriesRenderer r = new XYSeriesRenderer();
-		    r.setColor(Color.BLUE);
-		    r.setPointStyle(PointStyle.SQUARE);
-		    r.setFillBelowLine(true);
-		    r.setFillBelowLineColor(Color.WHITE);
-		    r.setFillPoints(true);
-		    renderer.addSeriesRenderer(r);
-		    r = new XYSeriesRenderer();
-		    r.setPointStyle(PointStyle.CIRCLE);
-		    r.setColor(Color.GREEN);
-		    r.setFillPoints(true);
-		    renderer.addSeriesRenderer(r);
-		    renderer.setAxesColor(Color.DKGRAY);
-		    renderer.setLabelsColor(Color.LTGRAY);
-		    return renderer;
-		  }
+
 
 	
 	private void setUpMapIfNeeded() {
@@ -410,6 +339,7 @@ OnMyLocationButtonClickListener{
 			if(StaticObjects.getAnalysisEvent()!=null)
 			{
 				DrawEventHeatMaps();
+				DrawEventChart();
 			}
 			if(StaticObjects.getAnalysisStray()!=null)
 			{
@@ -424,6 +354,7 @@ OnMyLocationButtonClickListener{
 			if(StaticObjects.getAnslysisLocation()!=null)
 			{
 				DrawLocationHeatMaps();
+				DrawLocationChart();
 			}
 		}
 
@@ -733,40 +664,28 @@ OnMyLocationButtonClickListener{
 
 	private void DrawLostChart()
 	{
-		
-		MultipleCategorySeries data= new MultipleCategorySeries("Lost");
-		 double x[]={20,20,20,20,20};
-		 String title[]={"dsa","dsa","dsa","dsa","dsa",};
-		 double y[]={0,0,0,0,0};
-		data.add(title, y);
-	   
-	    
-//	    TimeSeries series= new TimeSeries("Line");
-//	    for(int i=0;i<x.length;i++)
-//	    {
-//	    	series.add(x[i], y[i]);
-//	    }
-//	    dataset.addSeries(series);
-	    
-		XYMultipleSeriesRenderer renderer= new XYMultipleSeriesRenderer();
-		XYSeriesRenderer red= new XYSeriesRenderer();
-		renderer.addSeriesRenderer(red);
-        
-		
-		
-        if (mChartView == null) {
-            LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
-             //mChartView = ChartFactory.getLineChartView(this, getDemoDataset(), getDemoRenderer());
-            //mChartView = ChartFactory.getBarChartView(this, dataset, renderer,Type.DEFAULT);
-            mChartView=ChartFactory.getDoughnutChartView(context, data, renderer);
-           // mChartView = ChartFactory.getPieChartView(this, mSeries, getDemoRenderer());
+		//count the no of found and not found pets
+		int foundPets=20;
+		int notFoundPets=10;
 
-           
-            layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
-           
-          } else {
-            mChartView.repaint();
-          }
+		CategorySeries dataset= new CategorySeries("Lost Pets");
+		
+		dataset.add("Found Pets",foundPets);
+		dataset.add("Lost Pets", notFoundPets);
+
+		int colors[]={Color.BLACK, Color.RED};
+		DefaultRenderer renderer= new DefaultRenderer();
+		for(int color:colors)
+		{
+			SimpleSeriesRenderer r= new SimpleSeriesRenderer();
+			r.setColor(color);
+			renderer.addSeriesRenderer(r);
+		}
+		LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
+        mChartView = ChartFactory.getPieChartView(this, dataset, renderer);
+
+        layout.removeAllViews();
+        layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
 	}
 	private void DrawStrayChart()
 	{
@@ -791,7 +710,7 @@ OnMyLocationButtonClickListener{
         
 		
 		
-        if (mChartView == null) {
+       // if (mChartView == null) {
             LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
              //mChartView = ChartFactory.getLineChartView(this, getDemoDataset(), getDemoRenderer());
             mChartView = ChartFactory.getBarChartView(this, dataset, renderer,Type.DEFAULT);
@@ -815,18 +734,9 @@ OnMyLocationButtonClickListener{
                 Log.i("Zoom", "Reset");
               }
             }, true, true);
-            // an example of handling the pan events on the chart
-            mChartView.addPanListener(new PanListener() {
-              public void panApplied() {
-                Log.i("Pan", "New X range=[" + mRenderer.getXAxisMin() + ", " + mRenderer.getXAxisMax()
-                    + "], Y range=[" + mRenderer.getYAxisMax() + ", " + mRenderer.getYAxisMax() + "]");
-              }
-            });
+            
+            layout.removeAllViews();
             layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
-           
-          } else {
-            mChartView.repaint();
-          }
 	}
 	private void DrawEventChart()
 	{
