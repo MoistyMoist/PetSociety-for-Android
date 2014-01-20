@@ -15,16 +15,18 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class RightListFragment extends ListFragment {
-
+	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.list, null);
 	}
@@ -32,15 +34,11 @@ public class RightListFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		SampleAdapter adapter = new SampleAdapter(getActivity());
-		//for (int i = 0; i < 20; i++) {
-		//	adapter.add(new SampleItem("Sample List"+i, android.R.drawable.ic_menu_search));
-		//}
-		adapter.add(new SampleItem("Pins", R.drawable.ic_map_pin)); //int 0 for title, custom set	
-		adapter.add(new SampleItem("Lost Pets", android.R.drawable.ic_menu_search));
-		adapter.add(new SampleItem("Found", android.R.drawable.ic_menu_search));
-		adapter.add(new SampleItem("Friends", android.R.drawable.ic_menu_search));
-		adapter.add(new SampleItem("Events", android.R.drawable.ic_menu_my_calendar));
-		adapter.add(new SampleItem("Places", android.R.drawable.ic_menu_mapmode));
+		adapter.add(new SampleItem("Pins Filter", R.drawable.ic_map_pin)); 
+		adapter.add(new SampleItem("Lost Pets", R.drawable.ic_check));
+		adapter.add(new SampleItem("Stray Animals", R.drawable.ic_check));
+		adapter.add(new SampleItem("Events", R.drawable.ic_check));
+		adapter.add(new SampleItem("Places", R.drawable.ic_check));
 		setListAdapter(adapter);
 	}
 	
@@ -53,13 +51,15 @@ public class RightListFragment extends ListFragment {
             getActivity().startActivity(intent);
 			break;
 		case 2: //Found			
-            intent.putExtra("pin", "found");
+            intent.putExtra("pin", "stray");
             getActivity().startActivity(intent);
 			break;
 		}
-		((SlidingFragmentActivity) getActivity()).getSlidingMenu().toggle();
+		ImageView icon = (ImageView) v.findViewById(R.id.row_icon);
+		if (icon.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.ic_check).getConstantState()))
+		{icon.setImageResource(android.R.color.transparent);}
+		else {icon.setImageResource(R.drawable.ic_check);}
 	};
-
 
 	public class SampleItem {
 		public String tag;

@@ -335,8 +335,8 @@ private class PetListBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 		if (pinSelect.equals("lostpet")){
 			toggleLostPet();
 		}
-		else if (pinSelect.equals("found")){
-			toggleFound();
+		else if (pinSelect.equals("stray")){
+			//toggleFound();
 		}
 		
 	}
