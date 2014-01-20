@@ -9,6 +9,7 @@ import org.achartengine.GraphicalView;
 import org.achartengine.chart.BarChart.Type;
 import org.achartengine.chart.PointStyle;
 import org.achartengine.model.CategorySeries;
+import org.achartengine.model.MultipleCategorySeries;
 import org.achartengine.model.SeriesSelection;
 import org.achartengine.model.TimeSeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
@@ -413,6 +414,7 @@ OnMyLocationButtonClickListener{
 			if(StaticObjects.getAnalysisStray()!=null)
 			{
 				DrawStrayHeatMaps();
+				DrawStrayChart();
 			}
 			if(StaticObjects.getAndlysisLost()!=null)
 			{
@@ -731,10 +733,47 @@ OnMyLocationButtonClickListener{
 
 	private void DrawLostChart()
 	{
+		
+		MultipleCategorySeries data= new MultipleCategorySeries("Lost");
+		 double x[]={20,20,20,20,20};
+		 String title[]={"dsa","dsa","dsa","dsa","dsa",};
+		 double y[]={0,0,0,0,0};
+		data.add(title, y);
+	   
+	    
+//	    TimeSeries series= new TimeSeries("Line");
+//	    for(int i=0;i<x.length;i++)
+//	    {
+//	    	series.add(x[i], y[i]);
+//	    }
+//	    dataset.addSeries(series);
+	    
+		XYMultipleSeriesRenderer renderer= new XYMultipleSeriesRenderer();
+		XYSeriesRenderer red= new XYSeriesRenderer();
+		renderer.addSeriesRenderer(red);
+        
+		
+		
+        if (mChartView == null) {
+            LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
+             //mChartView = ChartFactory.getLineChartView(this, getDemoDataset(), getDemoRenderer());
+            //mChartView = ChartFactory.getBarChartView(this, dataset, renderer,Type.DEFAULT);
+            mChartView=ChartFactory.getDoughnutChartView(context, data, renderer);
+           // mChartView = ChartFactory.getPieChartView(this, mSeries, getDemoRenderer());
+
+           
+            layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
+           
+          } else {
+            mChartView.repaint();
+          }
+	}
+	private void DrawStrayChart()
+	{
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 		   
 	    int x[]={1,2,3,4,5};
-	    int y[]={0,0,0,0,0};
+	    int y[]={1,6,0,8,0};
 	    
 	    TimeSeries series= new TimeSeries("Line");
 	    for(int i=0;i<x.length;i++)
@@ -756,7 +795,8 @@ OnMyLocationButtonClickListener{
             LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
              //mChartView = ChartFactory.getLineChartView(this, getDemoDataset(), getDemoRenderer());
             mChartView = ChartFactory.getBarChartView(this, dataset, renderer,Type.DEFAULT);
-            //mChartView = ChartFactory.getPieChartView(this, mSeries, getDemoRenderer());
+            //mChartView=ChartFactory.getDoughnutChartView(context, dataset, renderer);
+           // mChartView = ChartFactory.getPieChartView(this, mSeries, getDemoRenderer());
 
             // enable the chart click events
            // mRenderer.setSelectableBuffer(100);
@@ -782,17 +822,11 @@ OnMyLocationButtonClickListener{
                     + "], Y range=[" + mRenderer.getYAxisMax() + ", " + mRenderer.getYAxisMax() + "]");
               }
             });
-            layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,
-                LayoutParams.FILL_PARENT));
-            boolean enabled = mDataset.getSeriesCount() > 0;
+            layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
            
           } else {
             mChartView.repaint();
           }
-	}
-	private void DrawStrayChart()
-	{
-		
 	}
 	private void DrawEventChart()
 	{
