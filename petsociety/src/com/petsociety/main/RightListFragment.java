@@ -35,7 +35,7 @@ public class RightListFragment extends ListFragment {
 		//for (int i = 0; i < 20; i++) {
 		//	adapter.add(new SampleItem("Sample List"+i, android.R.drawable.ic_menu_search));
 		//}
-		adapter.add(new SampleItem("Pins", R.drawable.ic_right_menu_title)); //int 0 for title, custom set	
+		adapter.add(new SampleItem("Pins", R.drawable.ic_map_pin)); //int 0 for title, custom set	
 		adapter.add(new SampleItem("Lost Pets", android.R.drawable.ic_menu_search));
 		adapter.add(new SampleItem("Found", android.R.drawable.ic_menu_search));
 		adapter.add(new SampleItem("Friends", android.R.drawable.ic_menu_search));
@@ -85,7 +85,7 @@ public class RightListFragment extends ListFragment {
 			TextView title = (TextView) convertView.findViewById(R.id.row_title);
 			title.setText(getItem(position).tag);
 			
-			if (getItem(position).iconRes == R.drawable.ic_right_menu_title) {
+			if (getItem(position).iconRes == R.drawable.ic_map_pin) {
 				convertView.setBackgroundColor(Color.GRAY);  
 				title.setTextColor(Color.WHITE);
 				title.setTypeface(null, Typeface.BOLD);

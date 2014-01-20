@@ -49,23 +49,25 @@ public class LeftListFragment extends ListFragment {
 		
 		SampleAdapter adapter = new SampleAdapter(getActivity());
 		//0-1
-		adapter.add(new SampleItem("Search", android.R.drawable.ic_menu_search));
-		adapter.add(new SampleItem("PetSG Home",android.R.drawable.ic_menu_search));
+		adapter.add(new SampleItem("Search", R.drawable.ic_left_search));
+		adapter.add(new SampleItem("PetSG Home",R.drawable.ic_left_home));
 		//2-4
-		adapter.add(new SampleItem("Account", R.drawable.ic_main_account,true)); //title
-		adapter.add(new SampleItem("Profile", android.R.drawable.ic_menu_myplaces));
-		adapter.add(new SampleItem("Events", android.R.drawable.ic_menu_my_calendar));
-		//5-9
-		adapter.add(new SampleItem("Find Animals", R.drawable.ic_main_find_animals,true)); //title
-		adapter.add(new SampleItem("Lost Pets", android.R.drawable.ic_menu_search));
-		adapter.add(new SampleItem("Strays Pets", android.R.drawable.ic_menu_search));
-		adapter.add(new SampleItem("Analysis", android.R.drawable.ic_menu_mapmode));
-		adapter.add(new SampleItem("Nearby", android.R.drawable.ic_menu_directions));
-		//10-13
-		adapter.add(new SampleItem("Settings", R.drawable.ic_main_settings,true)); //title
-		adapter.add(new SampleItem("Account", android.R.drawable.ic_menu_preferences));
-		adapter.add(new SampleItem("Application", android.R.drawable.ic_menu_preferences));
-		adapter.add(new SampleItem("Log Out", android.R.drawable.ic_menu_preferences));
+		adapter.add(new SampleItem("Account", R.drawable.ic_left_title,true)); //title
+		adapter.add(new SampleItem("Profile", R.drawable.ic_left_profile));
+		adapter.add(new SampleItem("Events", R.drawable.ic_left_event));
+		//5-7
+		adapter.add(new SampleItem("Utility Services", R.drawable.ic_left_title,true)); //title
+		adapter.add(new SampleItem("Nearby Locations", R.drawable.ic_left_nearby));
+		adapter.add(new SampleItem("Analysis", R.drawable.ic_left_analysis));
+		//8-10
+		adapter.add(new SampleItem("SEARCH", R.drawable.ic_left_title,true)); //title
+		adapter.add(new SampleItem("Lost Pets", R.drawable.ic_left_stray));
+		adapter.add(new SampleItem("Strays Pets", R.drawable.ic_left_stray));
+		//11-14
+		adapter.add(new SampleItem("Settings", R.drawable.ic_left_title,true)); //title
+		adapter.add(new SampleItem("Account", R.drawable.ic_left_acc));
+		adapter.add(new SampleItem("Application", R.drawable.ic_left_setting));
+		adapter.add(new SampleItem("Log Out", R.drawable.ic_left_logout));
 		
 		setListAdapter(adapter);
 		
@@ -96,32 +98,35 @@ public class LeftListFragment extends ListFragment {
 			startActivity(intent);
 			break;
 
-		case 6: //Lost and Found
-			intent.setClass(getActivity(), LostActivity.class);
+		case 6: //Nearby
+			intent.setClass(getActivity(), NearbyActivity.class);
 			startActivity(intent);
 			break;
 
-		//case7 Stray
-		case 8: //Analysis
+		case 7: //Analysis
 			intent.setClass(getActivity(), AnalysisActivity.class);
 			startActivity(intent);
 			break;
 			
-		case 9: //Nearby
-			intent.setClass(getActivity(), NearbyActivity.class);
+		case 9: //Lost
+			intent.setClass(getActivity(), LostActivity.class);
 			startActivity(intent);
 			break;
 			
-		case 11: //Account Settings
+		case 10: //Stray
+			break;
+			
+		case 12: //Settings
 			intent.setClass(getActivity(), AccSettingActivity.class);
 			startActivity(intent);
 			break;
 			
-		case 12: //Settings
+		case 13: //Settings
 			intent.setClass(getActivity(), SettingActivity.class);
 			startActivity(intent);
 			break;
-		case 13: //Logout
+			
+		case 14: //Logout
 			SharedPreferences settings = getActivity().getSharedPreferences(PREFS_LOGIN, 0);
 			SharedPreferences.Editor editor = settings.edit();
 			editor.putString("password", "");
@@ -173,14 +178,16 @@ public class LeftListFragment extends ListFragment {
 			title.setTextColor(Color.BLUE);
 			
 			if (getItem(position).title==true) {
-				convertView.setBackgroundColor(Color.GRAY);  
+				convertView.setBackgroundColor(Color.parseColor("#0099CC")); 
+				title.setText(title.getText().toString().toUpperCase());
 				title.setTextColor(Color.WHITE);
 				//Typeface myTypeface = Typeface.createFromAsset(getActivity().getAssets(), "text/LuckiestGuy.ttf");
 				title.setTypeface(null, Typeface.BOLD);
 			}
 			else{
-				//convertView.setBackgroundColor(Color.TRANSPARENT); 
-				convertView.setBackgroundColor(Color.WHITE); 
+				//convertView.setBackgroundColor(Color.WHITE); 
+				convertView.setBackgroundColor(Color.parseColor("#33B5E5"));
+				title.setTextColor(Color.BLACK);
 				title.setTypeface(null, Typeface.NORMAL);
 			}
 
