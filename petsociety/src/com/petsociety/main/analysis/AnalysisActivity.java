@@ -120,9 +120,9 @@ OnMyLocationButtonClickListener{
 		setUpMapIfNeeded();
 		
 		RetrieveAllLostRequest lostRequest= new RetrieveAllLostRequest();
-	
-		//retrieve lost data first as default
 		
+		//retrieve lost data first as default
+		 new BackgroundTask().execute(lostRequest);
 		
 		
 		mMap.setOnCameraChangeListener(new OnCameraChangeListener(){
@@ -665,9 +665,25 @@ OnMyLocationButtonClickListener{
 	private void DrawLostChart()
 	{
 		//count the no of found and not found pets
-		int foundPets=20;
-		int notFoundPets=10;
+		
+		
+		
+		int foundPets=0;
+		int notFoundPets=0;
 
+		for(int i=0;i<StaticObjects.getAndlysisLost().size();i++)
+		{
+			if(StaticObjects.getAndlysisLost().get(i).getFound()==0)
+			{
+				foundPets=foundPets++;
+			}
+			else
+			{
+				notFoundPets=notFoundPets++;
+			}
+		}
+		
+		
 		CategorySeries dataset= new CategorySeries("Lost Pets");
 		
 		dataset.add("Found Pets",foundPets);
