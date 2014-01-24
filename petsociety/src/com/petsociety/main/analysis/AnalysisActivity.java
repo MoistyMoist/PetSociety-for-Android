@@ -707,13 +707,26 @@ OnMyLocationButtonClickListener{
 	{
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 		   
-	    int x[]={1,2,3,4,5};
-	    int y[]={1,6,0,8,0};
+	    int top[]={1,2,3,4,5,6,7};
+	    int y[]={0,0,0,0,0,0,0};
+	    
+	    for(int x=0;x<StaticObjects.getPET_LIST().length;x++)
+	    {
+	    	for(int i=0;i<StaticObjects.getAnalysisStray().size();i++)
+	    	{
+	    		if(StaticObjects.getAnalysisStray().get(i).getType().equalsIgnoreCase(StaticObjects.getPET_LIST()[x]))
+	    		{
+	    			y[x]=y[x]++;
+	    		}
+	    	}
+	    }
 	    
 	    TimeSeries series= new TimeSeries("Line");
-	    for(int i=0;i<x.length;i++)
+	    for(int i=0;i<top.length;i++)
 	    {
-	    	series.add(x[i], y[i]);
+	    	String annotiation= StaticObjects.getPET_LIST()[i];
+	    	//series.add(x[i], y[i]);
+	    	series.addAnnotation(annotiation, top[i], y[i]);
 	    }
 	    dataset.addSeries(series);
 	    
