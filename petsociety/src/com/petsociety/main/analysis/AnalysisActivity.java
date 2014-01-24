@@ -122,7 +122,7 @@ OnMyLocationButtonClickListener{
 		RetrieveAllLostRequest lostRequest= new RetrieveAllLostRequest();
 		
 		//retrieve lost data first as default
-		 new BackgroundTask().execute(lostRequest);
+		 new BackgroundTask().execute(lostRequest,lostRequest);
 		
 		
 		mMap.setOnCameraChangeListener(new OnCameraChangeListener(){
@@ -664,22 +664,20 @@ OnMyLocationButtonClickListener{
 
 	private void DrawLostChart()
 	{
-		//count the no of found and not found pets
-		
-		
-		
 		int foundPets=0;
 		int notFoundPets=0;
 
 		for(int i=0;i<StaticObjects.getAndlysisLost().size();i++)
 		{
-			if(StaticObjects.getAndlysisLost().get(i).getFound()==0)
+			String found=StaticObjects.getAndlysisLost().get(i).getFound()+"";
+			
+			if(found.equals("0"))
 			{
-				foundPets=foundPets++;
+				foundPets=foundPets+1;
 			}
 			else
 			{
-				notFoundPets=notFoundPets++;
+				notFoundPets=notFoundPets+1;
 			}
 		}
 		
@@ -716,7 +714,8 @@ OnMyLocationButtonClickListener{
 	    	{
 	    		if(StaticObjects.getAnalysisStray().get(i).getType().equalsIgnoreCase(StaticObjects.getPET_LIST()[x]))
 	    		{
-	    			y[x]=y[x]++;
+	    			y[x]=y[x]+1;
+	    			Log.i("for loop", "fdsa");
 	    		}
 	    	}
 	    }
@@ -725,8 +724,8 @@ OnMyLocationButtonClickListener{
 	    for(int i=0;i<top.length;i++)
 	    {
 	    	String annotiation= StaticObjects.getPET_LIST()[i];
-	    	//series.add(x[i], y[i]);
-	    	series.addAnnotation(annotiation, top[i], y[i]);
+	    	series.add(top[i], y[i]);
+	    	//series.addAnnotation(annotiation, top[i], y[i]);
 	    }
 	    dataset.addSeries(series);
 	    
