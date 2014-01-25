@@ -71,7 +71,7 @@ public class MainActivity extends MainBaseActivity
     ArrayList<Marker>mLostPet = new ArrayList<Marker>();
     ArrayList<Marker>mFound = new ArrayList<Marker>();
     List<Lost> lostList;
-    List<Pet> petList;
+    List<Pet> petList; 
     List<Event> eventList;
     List<com.petsociety.models.Location> locationList;
 	StaticObjects staticObjects;
