@@ -7,6 +7,11 @@ import java.util.Locale;
 import com.example.petsociety.R;
 import com.example.petsociety.R.layout;
 import com.example.petsociety.R.string;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.petsociety.main.MainBaseActivity;
 import com.petsociety.main.profile.EventList.EventListAdapter;
 import com.petsociety.models.Event;
@@ -23,6 +28,7 @@ import android.widget.Toast;
 
 public class EventActivity extends MainBaseActivity {
 
+    private GoogleMap mMap;
 	TextView name, desc, time, location;
 	Event oneEvent = null;
 
@@ -56,7 +62,33 @@ public class EventActivity extends MainBaseActivity {
 	    desc.setText(oneEvent.getDescription());
 	   // time.setText(oneEvent.getDateTimeCreated().toString());
 		getMyLocationAddress();
+		setUpMapIfNeeded();
+
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
+		getSupportMenuInflater().inflate(R.menu.event, menu);
+		return true;
+	}
+	
+	private void setUpMapIfNeeded() {
+        // Do a null check to confirm that we have not already instantiated the map.
+        if (mMap == null) {
+            // Try to obtain the map from the SupportMapFragment.
+            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.event_map))
+                    .getMap();
+            // Check if we were successful in obtaining the map.
+            if (mMap != null) {
+                //setUpMap();
+                //mMap.setMyLocationEnabled(true);
+                //mMap.setOnMyLocationButtonClickListener(this);
+                LatLng singapore = new LatLng(1.37, 103.84);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 11));
+                mMap.addMarker(new MarkerOptions().position(new LatLng(oneEvent.getX(), oneEvent.getY())));
+            }
+        }
+    }
 	
 	public void getMyLocationAddress() {
         

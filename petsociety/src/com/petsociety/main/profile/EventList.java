@@ -57,6 +57,12 @@ public class EventList extends MainBaseActivity {
 			}});
 	}
 	
+	@Override
+	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
+		getSupportMenuInflater().inflate(R.menu.event, menu);
+		return true;
+	}
+	
 private class GetEventList extends AsyncTask<Runnable, Integer, Long> {
 	    
 		@Override
