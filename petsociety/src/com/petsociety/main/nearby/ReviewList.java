@@ -7,6 +7,7 @@ import com.petsociety.httprequests.RetrieveReviewByLocationRequest;
 import com.petsociety.main.MainBaseActivity;
 import com.petsociety.models.Event;
 import com.petsociety.models.Location;
+import com.petsociety.models.Review;
 import com.petsociety.utils.StaticObjects;
 
 import android.os.AsyncTask;
@@ -76,7 +77,8 @@ private class GetReviewList extends AsyncTask<Runnable, Integer, Long> {
 			if(progress!=null)
 			progress.dismiss();
 	        staticObjects= new StaticObjects();
-			fillReviewList();
+			//fillReviewList();
+	        fillSingleReview();
 			Log.i("String", "DONE");
 		}
 
@@ -93,15 +95,21 @@ private class GetReviewList extends AsyncTask<Runnable, Integer, Long> {
 		}
 	 }
 
+private void fillSingleReview(){
+	adapter = new NearbyListAdapter(context);
+	adapter.add(StaticObjects.getSelectReview());
+    lv_events.setAdapter(adapter);
+}  
+
 	private void fillReviewList(){
 		adapter = new NearbyListAdapter(context);
 		for (int i=0; i<StaticObjects.getLocations().size(); i++){
-            adapter.add(StaticObjects.getLocations().get(i));
+            //adapter.add(StaticObjects.getLocations().get(i));
 		}
 	    lv_events.setAdapter(adapter);
     }  
 	
-	public class NearbyListAdapter extends ArrayAdapter<Location> {
+	public class NearbyListAdapter extends ArrayAdapter<Review> {
 
 		public NearbyListAdapter(Context context) {
 			super(context, 0);

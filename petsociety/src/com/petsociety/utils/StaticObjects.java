@@ -50,6 +50,8 @@ public class StaticObjects {
 	static Location selectedLocation;
 	static List<Stray> strays;
 	static Stray selectedStray;
+	static List<Review> reviews;
+	static Review selectReview;
 	
 	//LOST OBJECTS (CHOON SENG)
 	static List<Lost> losts;
@@ -74,6 +76,18 @@ public class StaticObjects {
 	
 	
 	
+	public static List<Review> getReviews() {
+		return reviews;
+	}
+	public static void setReviews(List<Review> reviews) {
+		StaticObjects.reviews = reviews;
+	}
+	public static Review getSelectReview() {
+		return selectReview;
+	}
+	public static void setSelectReview(Review selectReview) {
+		StaticObjects.selectReview = selectReview;
+	}
 	public static List<Pet> getPets() {
 		return pets;
 	}

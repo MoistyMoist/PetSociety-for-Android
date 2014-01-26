@@ -522,40 +522,39 @@ public class JSONExtractor {
 			
 			//JSONArray errors=json.getJSONArray(TAG_ERRORS);
 			
-			ArrayList<Review>review= new ArrayList<Review>();
+			//ArrayList<Review>review= new ArrayList<Review>();
 			if(StaticObjects.getResponseStatus()==0)
 			{
 				
 				JSONArray RawData= json.getJSONArray(TAG_DATA);
 				Log.i("Review ",RawData.toString() );
 				
-				for(int i=0;i<RawData.length();i++)
-				{
+				//for(int i=0;i<RawData.length();i++){
 					
-					JSONObject c2=RawData.getJSONObject(i); Log.i("c ",c2.toString() );
+					JSONObject c2=RawData.getJSONObject(0); Log.i("c ",c2.toString() );
 					
 					
 					Review r= new Review();
 					
-					/*
-					r.setReviewID(c2.getInt(TAG_PET_PETID));
-					r.setsetName(c2.getString(TAG_PET_NAME)); 
-					r.setBreed(c2.getString(TAG_PET_BREED));
-					r.setSex(c2.getString(TAG_PET_SEX).charAt(0));
-					r.setType(c2.getString(TAG_PET_TYPE));
-					r.setBiography(c2.getString(TAG_PET_BIOGRAPHY));
-					r.setAge(c2.getString(TAG_PET_AGE));
-					r.setUserID(c2.getInt(TAG_PET_USERID));
-					//p.setGalleryID(c2.getInt(TAG_PET_GALLERYID));
-					r.setProfileImageURL(c2.getString(TAG_PET_PROFILEIMAGEURL));
-					String petDateLastCreated = c2.getString(TAG_PET_DATETIMECREATED);
-					//p.setDateTimeCreated(petDateLastCreated);		
-					*/
-					review.add(r); 
+					
+					r.setReviewID(c2.getInt("ReviewID"));
+					r.setDescription(c2.getString("Description"));
+					r.setLocationID(c2.getInt("LocationID"));
+					r.setReviewID(c2.getInt("ReviewID"));
+					r.setDislikes(c2.getString("Dislikes"));
+					r.setUserID(c2.getInt("UserID"));
+					r.setLikes(c2.getString("Likes"));
+					r.setTitle(c2.getString("Title"));
+					//r.setDislikes(c2.getInt("Dislikes"));
+					
+					
+					
+					//review.add(r); 
 					
 					//Log.i("pet "+i,c.toString() );
-				} 
+				//} 
 				
+					StaticObjects.setSelectReview(r);
 				//StaticObjects.setPets(pet);
 
 			}
