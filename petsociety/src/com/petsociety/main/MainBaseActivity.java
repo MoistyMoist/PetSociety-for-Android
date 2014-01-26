@@ -97,7 +97,7 @@ public class MainBaseActivity extends SlidingFragmentActivity {
 	@SuppressLint("NewApi")
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.main_base, menu);
+		//getSupportMenuInflater().inflate(R.menu.main_base, menu);
 		return true;
 	}
 	

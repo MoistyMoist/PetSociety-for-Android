@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.example.petsociety.R;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationRequest;
@@ -22,6 +25,7 @@ import com.petsociety.httprequests.RetrieveAllLocationRequest;
 import com.petsociety.httprequests.RetrieveAllLostRequest;
 import com.petsociety.httprequests.RetrieveLocationByTypeRequest;
 import com.petsociety.main.MainBaseActivity;
+
 import com.petsociety.utils.StaticObjects;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
@@ -29,11 +33,13 @@ import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailed
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.actionbarsherlock.view.MenuItem;
 
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -159,10 +165,7 @@ public class NearbyActivity extends MainBaseActivity implements
 								
 								startActivity(intent);  
 
-								// to retrieve object in second Activity
-								
-								
-							//startActivity(intent);
+							
 								
 							}});
 
@@ -352,12 +355,7 @@ public class NearbyActivity extends MainBaseActivity implements
 		// TODO Auto-geneateOptionsMenu(menu);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getSupportMenuInflater().inflate(R.menu.nearby, menu);
-		return true;
-	}
+
 
 	public void toggleShopMarkers() {
 		boolean setVisible = true;
@@ -419,4 +417,10 @@ public class NearbyActivity extends MainBaseActivity implements
 		vetMarkers.add(mMap.addMarker(mOption));
 	}
 
+
+	
+	
+	
+
+	
 }

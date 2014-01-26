@@ -1,6 +1,7 @@
 package com.petsociety.main.nearby;
 
 import android.app.ActivityGroup;
+import android.app.TabActivity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +21,7 @@ import android.widget.Toast;
 import com.example.petsociety.R;
 import com.petsociety.utils.StaticObjects;
 
-public class NearbyDetailsActivity extends ActivityGroup  {
+public class NearbyDetailsActivity extends TabActivity  {
 
 	
 	ImageButton call, email;
@@ -30,7 +31,8 @@ public class NearbyDetailsActivity extends ActivityGroup  {
 	ArrayAdapter<CharSequence> adapter;
 	StaticObjects staticObjects;
 	Context myContext;
-
+	TabHost tabHost;
+	TabSpec tab2,tab3,tab4;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +43,12 @@ public class NearbyDetailsActivity extends ActivityGroup  {
 		call = (ImageButton) findViewById(R.id.nearbyDetailsCall);
 
 		
-		TabHost tabHost = (TabHost) findViewById(android.R.id.tabhost);
-		
-		
-         
-
+		tabHost = (TabHost) findViewById(android.R.id.tabhost);
          
 //	TabSpec tab1 = tabHost.newTabSpec("Tab 0");
-		TabSpec tab2 = tabHost.newTabSpec("First Tab");
-		TabSpec tab3 = tabHost.newTabSpec("Second Tab");
-		TabSpec tab4 = tabHost.newTabSpec("Third tab");
+		 tab2 = tabHost.newTabSpec("First Tab");
+		 tab3 = tabHost.newTabSpec("Second Tab");
+		 tab4 = tabHost.newTabSpec("Third tab");
 
 //		tab1.setIndicator("Map");
 //		tab1.setContent(new Intent(this, ShopInfoActivity.class));
@@ -73,7 +71,7 @@ public class NearbyDetailsActivity extends ActivityGroup  {
 		call = (ImageButton) findViewById(R.id.nearbyDetailsCall);
 		email = (ImageButton) findViewById(R.id.nearbyDetailsMail);
 
-		registerForContextMenu(email);
+		//registerForContextMenu(email);
 		
 	
 

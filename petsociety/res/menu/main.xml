@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+	<item 
+        android:id="@+id/main_camera" 
+        android:icon="@drawable/ic_main_camera" 
+        android:showAsAction="always" 
+        android:title="Report" 
+        android:visible="true"></item>
+	
+	<item
+        android:id="@+id/main_list"
+        android:icon="@drawable/ic_left_stray" 
+        android:showAsAction="always"
+        android:title="List" />
+	
+	<item
+        android:id="@+id/main_refresh"
+        android:icon="@drawable/ic_main_refresh" 
+        android:showAsAction="always"
+        android:title="Refresh" />
+	
+	<item
+        android:id="@+id/main_right"
+        android:icon="@drawable/ic_pin" 
+        android:showAsAction="always"
+        android:title="Filter" />
+
+</menu>
