@@ -1,8 +1,11 @@
 package com.petsociety.main.lost;
 
 import com.example.petsociety.R;
+import com.petsociety.main.MainActivity;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,9 +18,11 @@ import android.widget.Toast;
 public class ReportLostPetActivity extends Activity {
 	
 	Spinner spin_type;
-	Button report_lost;
+	Button report_lost, b_lost_location;
 	ArrayAdapter<CharSequence> adapter;
 	String[] spinItems = {"Dog","Cat","Bird"};
+	Context context = this;
+	Intent intent = null;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -29,13 +34,23 @@ public class ReportLostPetActivity extends Activity {
 		spin_type.setAdapter(adapter);
 		
 		report_lost = (Button) findViewById(R.id.b_lost_report);
+		b_lost_location = (Button) findViewById(R.id.b_lost_location);
+		
+		b_lost_location.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				intent.setClass(context, ReportLostPetLocation.class);
+				//intent.putExtra("pin", "home");
+				startActivity(intent);
+			}
+		});
+		
 		report_lost.setOnClickListener(new OnClickListener(){
-
 			@Override
 			public void onClick(View arg0) {
 				Toast.makeText(getApplicationContext(), "Reported", Toast.LENGTH_SHORT).show();			
 			}
-			
 		});
 		
 		
