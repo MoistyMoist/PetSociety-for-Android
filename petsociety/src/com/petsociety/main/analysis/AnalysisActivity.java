@@ -37,6 +37,8 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.petsociety.R;
@@ -63,6 +65,7 @@ import com.petsociety.httprequests.RetrieveLocationByTypeRequest;
 import com.petsociety.httprequests.RetrieveLostByTypeRequest;
 import com.petsociety.httprequests.RetrieveStrayByTypeRequest;
 import com.petsociety.main.MainBaseActivity;
+import com.petsociety.main.lost.LostActivity.LostListAdapter;
 import com.petsociety.utils.StaticObjects;
 
 @SuppressLint({ "NewApi", "CutPasteId" })
@@ -90,6 +93,8 @@ OnMyLocationButtonClickListener{
 	ArrayList<Integer> selectedLostType;
 	ArrayList<Integer> selectedStrayType;
 	ArrayAdapter<CharSequence> analysisTypeAdapter;
+	
+	ListView listView;
 	
 	private HeatView overlay;
 	
@@ -122,6 +127,7 @@ OnMyLocationButtonClickListener{
 		RetrieveAllLostRequest lostRequest= new RetrieveAllLostRequest();
 		
 		//retrieve lost data first as default
+		//StaticObjects.getAnslysisLocation()=new List<Location>();
 		 new BackgroundTask().execute(lostRequest,lostRequest);
 		
 		
@@ -698,8 +704,7 @@ OnMyLocationButtonClickListener{
 		renderer.setLegendTextSize(40);
 		renderer.setFitLegend(true);
 		renderer.setScale(0.8f);
-		//renderer.setBackgroundColor(Color.LTGRAY);
-		renderer.setApplyBackgroundColor(true);
+
 		for(int color:colors)
 		{
 			SimpleSeriesRenderer r= new SimpleSeriesRenderer();
@@ -731,23 +736,20 @@ OnMyLocationButtonClickListener{
 	    	}
 	    }
 	    
-	    TimeSeries series= new TimeSeries("Line");
-	    for(int i=0;i<top.length;i++)
-	    {
-	    	String annotiation= StaticObjects.getPET_LIST()[i];
-	    	series.add(top[i], y[i]);
-	    	//series.addAnnotation(annotiation, top[i], y[i]);
-	    }
-	    dataset.addSeries(series);
+	    TimeSeries Dog= new TimeSeries("Dogs");
+	   
+	    	Dog.add(0, y[0]);
+	    	Dog.add(0, 0);
+	    dataset.addSeries(Dog);
 	    
-	    series= new TimeSeries("Line2");
-	    for(int i=0;i<top.length;i++)
-	    {
-	    	String annotiation= StaticObjects.getPET_LIST()[i];
-	    	series.add(top[i], y[i]);
-	    	//series.addAnnotation(annotiation, top[i], y[i]);
-	    }
-	    dataset.addSeries(series);
+	    TimeSeries Cat= new TimeSeries("Cats");
+	   
+	    	Cat.add(1, y[1]);
+	    	Cat.add(1, 0);
+	    dataset.addSeries(Cat);
+	    
+	    
+	    
 	    
 		XYMultipleSeriesRenderer renderer= new XYMultipleSeriesRenderer();
 		XYSeriesRenderer red= new XYSeriesRenderer();
@@ -755,7 +757,9 @@ OnMyLocationButtonClickListener{
 		red.setPointStyle(PointStyle.SQUARE);
 		red.setFillPoints(true);
 		renderer.addSeriesRenderer(red);
-        
+		XYSeriesRenderer blue= new XYSeriesRenderer();
+		blue.setColor(Color.RED);
+		renderer.addSeriesRenderer(blue);
 		
 		
        // if (mChartView == null) {
@@ -765,35 +769,27 @@ OnMyLocationButtonClickListener{
             //mChartView=ChartFactory.getDoughnutChartView(context, dataset, renderer);
            // mChartView = ChartFactory.getPieChartView(this, mSeries, getDemoRenderer());
 
-            // enable the chart click events
-           // mRenderer.setSelectableBuffer(100);
-        
-            // an example of handling the zoom events on the chart
-            mChartView.addZoomListener(new ZoomListener() {
-              public void zoomApplied(ZoomEvent e) {
-                String type = "out";
-                if (e.isZoomIn()) {
-                  type = "in";
-                }
-                Log.i("Zoom", "Zoom " + type + " rate " + e.getZoomRate());
-              }
-
-              public void zoomReset() {
-                Log.i("Zoom", "Reset");
-              }
-            }, true, true);
-            
             layout.removeAllViews();
             layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
 	}
 	
 	private void DrawEventChart()
 	{
-		mChartView.setVisibility(1);
+		
 	}
 	
 	private void DrawLocationChart()
 	{
-		
+//		listView=(ListView)findViewById(R.id.list);
+//		mChartView.setVisibility(1);
+//		listView.setVisibility(0);
+//		ArrayList<com.petsociety.models.Location> list= new ArrayList<com.petsociety.models.Location>();
+//		
+//        for (int i=0; i<StaticObjects.getAnslysisLocation().size(); i++){
+//        	if(StaticObjects.getAnslysisLocation().get(i).getType().equalsIgnoreCase("Accidents"))
+//        		list.add(StaticObjects.getAnslysisLocation().get(i));
+//        }  
+//        CustomAccidentListAdapter adapter = new CustomAccidentListAdapter(getBaseContext(),list);
+//        listView.setAdapter(adapter);
 	}
 }
