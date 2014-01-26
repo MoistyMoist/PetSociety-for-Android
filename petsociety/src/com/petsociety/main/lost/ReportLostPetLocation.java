@@ -1,5 +1,7 @@
 package com.petsociety.main.lost;
 
+import java.util.ArrayList;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
@@ -7,6 +9,8 @@ import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.os.Bundle;
 
@@ -28,6 +32,8 @@ public class ReportLostPetLocation extends SherlockFragmentActivity
         implements OnMapClickListener {
 
     private GoogleMap mMap;
+    ArrayList<Marker>mLostPet = new ArrayList<Marker>();
+    LatLng lostMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,7 @@ public class ReportLostPetLocation extends SherlockFragmentActivity
 		// TODO Auto-generated method stub
 		//return super.onOptionsItemSelected(item);
 		Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_SHORT).show();
+		addLostPetMarker();
 		return true;
 	}
 
@@ -87,6 +94,16 @@ public class ReportLostPetLocation extends SherlockFragmentActivity
     @Override
     public void onMapClick(LatLng point) {
         //mTapTextView.setText("tapped, point=" + point);
-    	Toast.makeText(getApplicationContext(), "tapped, point=" + point, Toast.LENGTH_SHORT).show();
+    	//Toast.makeText(getApplicationContext(), "tapped, point=" + point, Toast.LENGTH_SHORT).show();
+    	lostMarker = point;
+    }
+    
+public void addLostPetMarker(){
+    	
+	mLostPet = new ArrayList<Marker>();
+	//Toast.makeText(getApplicationContext(), "L:"+lat+","+lng, Toast.LENGTH_SHORT).show();
+	MarkerOptions mOption = new MarkerOptions().position(lostMarker);
+	mLostPet.add(mMap.addMarker(mOption));
+    	
     }
 }
