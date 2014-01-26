@@ -20,28 +20,32 @@
 	<Button
 	    android:id="@+id/filterBtn"
 	    android:layout_below="@+id/heatmap"
-	    android:layout_width="150dip"
+	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:onClick="nextPage"
 	    android:text="Options" />
-	<Button
+	<!-- <Button
 	    android:id="@+id/clearBtn"
 	    android:layout_below="@+id/heatmap"
 	    android:layout_toRightOf="@+id/filterBtn"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:onClick="ClearHeatMap"
-	    android:text="ClearMap"/>	
+	    android:text="ClearMap"/>	 -->
 	<LinearLayout 
 	    android:id="@+id/chart" 
-	     android:layout_below="@+id/clearBtn"
+	    android:layout_marginLeft="15dip"
+	    android:layout_marginRight="15dip"
+	    android:layout_marginTop="15dip"
+	    android:layout_marginBottom="15dip"
+	    android:layout_below="@+id/filterBtn"
 	    android:orientation="horizontal"
         android:layout_width="fill_parent" 
         android:layout_height="fill_parent"/>
 	<ListView
 	    android:id="@+id/list"
 	    android:visibility="invisible"
-	    android:layout_below="@+id/clearBtn"
+	    android:layout_below="@+id/filterBtn"
 	    android:orientation="horizontal"
         android:layout_width="fill_parent" 
         android:layout_height="fill_parent"/>
