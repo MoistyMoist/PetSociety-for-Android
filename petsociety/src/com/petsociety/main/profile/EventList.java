@@ -2,7 +2,6 @@ package com.petsociety.main.profile;
 
 import java.util.List;
 
-import com.actionbarsherlock.view.Menu;
 import com.example.petsociety.R;
 import com.petsociety.httprequests.RetrieveAllEventRequest;
 import com.petsociety.main.MainBaseActivity;
@@ -30,8 +29,6 @@ public class EventList extends MainBaseActivity {
 	StaticObjects staticObjects;
 	ProgressDialog progress;
 	Context context = this;
-
-	List<Event> eventList;
 
 	public EventList(){
 		super(R.string.title_activity_event);
@@ -90,8 +87,8 @@ private class GetEventList extends AsyncTask<Runnable, Integer, Long> {
 
 	private void fillEventList(){
 		adapter = new EventListAdapter(context);
-		for (int i=0; i<eventList.size(); i++){
-            adapter.add(eventList.get(i));
+		for (int i=0; i<StaticObjects.getEvents().size(); i++){
+            adapter.add(StaticObjects.getEvents().get(i));
 		}
 	    lv_events.setAdapter(adapter);
     }  
@@ -115,13 +112,6 @@ private class GetEventList extends AsyncTask<Runnable, Integer, Long> {
 			return convertView;
 		}
 
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.event_list, (android.view.Menu) menu);
-		return true;
 	}
 
 }
