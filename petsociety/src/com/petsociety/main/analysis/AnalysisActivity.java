@@ -302,7 +302,7 @@ OnMyLocationButtonClickListener{
 		}
 	}
 
-	private void ClearHeatMap()
+	private void ClearHeatMap(View view)
 	{
 		StaticObjects.setAnalysisEvent(null);
    	   StaticObjects.setAnalysisStray(null);
@@ -314,17 +314,17 @@ OnMyLocationButtonClickListener{
 		eventCanvasShown=false;
 		overlay.clearMap();
 
-		float[][] points = new float[1][2];
-		LatLng latLng = new LatLng(0,0);
-		com.google.android.gms.maps.Projection projection = mMap.getProjection();
+//		float[][] points = new float[1][2];
+//		LatLng latLng = new LatLng(0,0);
+//		com.google.android.gms.maps.Projection projection = mMap.getProjection();
 
 
-		Point p1 = new Point();
-		p1=projection.toScreenLocation(latLng);
-	
-		points[0][0]=p1.x;
-		points[0][1]=p1.y;
-		overlay.addPoint(points);
+//		Point p1 = new Point();
+//		p1=projection.toScreenLocation(latLng);
+//	
+//		points[0][0]=p1.x;
+//		points[0][1]=p1.y;
+//		overlay.addPoint(points);
 			
 		
 	}
@@ -680,15 +680,26 @@ OnMyLocationButtonClickListener{
 				notFoundPets=notFoundPets+1;
 			}
 		}
-		
+		foundPets=foundPets/3;
+		notFoundPets= notFoundPets/3;
 		
 		CategorySeries dataset= new CategorySeries("Lost Pets");
 		
-		dataset.add("Found Pets",foundPets);
-		dataset.add("Lost Pets", notFoundPets);
+		dataset.add("Missing",foundPets);
+		dataset.add("Found", notFoundPets);
 
-		int colors[]={Color.BLACK, Color.RED};
+		int colors[]={Color.RED, Color.BLUE};
 		DefaultRenderer renderer= new DefaultRenderer();
+		renderer.setChartTitleTextSize(50);
+		renderer.setChartTitle("Lost Statictistic");
+		renderer.setDisplayValues(true);
+		renderer.setExternalZoomEnabled(false);
+		renderer.setLabelsTextSize(18);
+		renderer.setLegendTextSize(40);
+		renderer.setFitLegend(true);
+		renderer.setScale(0.8f);
+		//renderer.setBackgroundColor(Color.LTGRAY);
+		renderer.setApplyBackgroundColor(true);
 		for(int color:colors)
 		{
 			SimpleSeriesRenderer r= new SimpleSeriesRenderer();
@@ -701,6 +712,7 @@ OnMyLocationButtonClickListener{
         layout.removeAllViews();
         layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
 	}
+	
 	private void DrawStrayChart()
 	{
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
@@ -715,12 +727,20 @@ OnMyLocationButtonClickListener{
 	    		if(StaticObjects.getAnalysisStray().get(i).getType().equalsIgnoreCase(StaticObjects.getPET_LIST()[x]))
 	    		{
 	    			y[x]=y[x]+1;
-	    			Log.i("for loop", "fdsa");
 	    		}
 	    	}
 	    }
 	    
 	    TimeSeries series= new TimeSeries("Line");
+	    for(int i=0;i<top.length;i++)
+	    {
+	    	String annotiation= StaticObjects.getPET_LIST()[i];
+	    	series.add(top[i], y[i]);
+	    	//series.addAnnotation(annotiation, top[i], y[i]);
+	    }
+	    dataset.addSeries(series);
+	    
+	    series= new TimeSeries("Line2");
 	    for(int i=0;i<top.length;i++)
 	    {
 	    	String annotiation= StaticObjects.getPET_LIST()[i];
@@ -766,10 +786,12 @@ OnMyLocationButtonClickListener{
             layout.removeAllViews();
             layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
 	}
+	
 	private void DrawEventChart()
 	{
-		
+		mChartView.setVisibility(1);
 	}
+	
 	private void DrawLocationChart()
 	{
 		
