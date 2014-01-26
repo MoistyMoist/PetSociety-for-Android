@@ -2,26 +2,19 @@ package com.petsociety.main.profile;
 
 import java.util.List;
 
+import com.actionbarsherlock.view.Menu;
 import com.example.petsociety.R;
-import com.example.petsociety.R.layout;
-import com.example.petsociety.R.menu;
 import com.petsociety.httprequests.RetrieveAllEventRequest;
 import com.petsociety.main.MainBaseActivity;
-import com.petsociety.main.lost.LostProfileActivity;
-import com.petsociety.main.lost.LostActivity.LostListAdapter;
 import com.petsociety.models.Event;
-import com.petsociety.models.Lost;
-import com.petsociety.models.Pet;
 import com.petsociety.utils.StaticObjects;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -30,7 +23,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class EventList extends Activity {
+public class EventList extends MainBaseActivity {
 	
 	ListView lv_events;
 	EventListAdapter adapter;
@@ -40,9 +33,12 @@ public class EventList extends Activity {
 
 	List<Event> eventList;
 
+	public EventList(){
+		super(R.string.title_activity_event);
+	}
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_event_list);
 		
@@ -70,6 +66,7 @@ private class GetEventList extends AsyncTask<Runnable, Integer, Long> {
 			super.onPostExecute(result);
 			if(progress!=null)
 				progress.dismiss();
+	        staticObjects= new StaticObjects();
 			fillEventList();
 		}
 
@@ -123,7 +120,7 @@ private class GetEventList extends AsyncTask<Runnable, Integer, Long> {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.event_list, menu);
+		getMenuInflater().inflate(R.menu.event_list, (android.view.Menu) menu);
 		return true;
 	}
 
