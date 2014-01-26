@@ -72,6 +72,10 @@
             android:name="com.petsociety.main.lost.LostActivity"
             android:label="@string/title_activity_lost" >
         </activity>
+		<activity
+            android:name="com.petsociety.main.lost.ReportLostPetLocation"
+            android:label="@string/title_activity_lost" >
+        </activity>
         <activity
             android:name="com.petsociety.main.analysis.AnalysisActivity"
             android:label="@string/title_activity_analysis" >

@@ -22,7 +22,7 @@ public class ReportLostPetActivity extends Activity {
 	ArrayAdapter<CharSequence> adapter;
 	String[] spinItems = {"Dog","Cat","Bird"};
 	Context context = this;
-	Intent intent = null;
+	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,7 @@ public class ReportLostPetActivity extends Activity {
 		b_lost_location.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
+				Intent intent = new Intent();
 				intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 				intent.setClass(context, ReportLostPetLocation.class);
 				//intent.putExtra("pin", "home");
