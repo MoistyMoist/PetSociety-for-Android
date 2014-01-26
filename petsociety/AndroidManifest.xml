@@ -52,7 +52,8 @@
         <activity
             android:name="com.petsociety.account.LoginActivity"
             android:label="@string/app_name"
-            android:noHistory="true" android:windowSoftInputMode="stateUnchanged">
+            android:noHistory="true"
+            android:windowSoftInputMode="stateUnchanged" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -72,7 +73,7 @@
             android:name="com.petsociety.main.lost.LostActivity"
             android:label="@string/title_activity_lost" >
         </activity>
-		<activity
+        <activity
             android:name="com.petsociety.main.lost.ReportLostPetLocation"
             android:label="@string/title_activity_lost" >
         </activity>
@@ -108,7 +109,7 @@
             android:name="com.petsociety.main.profile.EventList"
             android:label="@string/title_activity_event" >
         </activity>
-		<activity
+        <activity
             android:name="com.petsociety.main.nearby.NearbyList"
             android:label="@string/title_activity_nearby_details" >
         </activity>
@@ -139,6 +140,10 @@
         <activity
             android:name="com.petsociety.main.nearby.ShopMapActivity"
             android:label="@string/title_activity_shop_map" >
+        </activity>
+        <activity
+            android:name="com.petsociety.main.nearby.LocationInfoActivity"
+            android:label="@string/title_activity_location_info" >
         </activity>
     </application>
 

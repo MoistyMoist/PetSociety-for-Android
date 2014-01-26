@@ -50,11 +50,11 @@ public class NearbyList extends MainBaseActivity {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				//int eventID = ((Event)arg0.getItemAtPosition(arg2)).getEventID();
-				//Intent intent = new Intent();
-				//intent.putExtra("event", eventID);
-				//intent.setClass(getBaseContext(), EventActivity.class);
-				//startActivity(intent);
+				int locationID = ((Location)arg0.getItemAtPosition(arg2)).getLocationID();
+				Intent intent = new Intent();
+				intent.putExtra("location", locationID);
+				intent.setClass(getBaseContext(), LocationInfoActivity.class);
+				startActivity(intent);
 			}});
 	}
 	
