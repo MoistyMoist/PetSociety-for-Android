@@ -34,11 +34,11 @@ public class RightListFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		SampleAdapter adapter = new SampleAdapter(getActivity());
-		adapter.add(new SampleItem("Pins Filter", R.drawable.ic_map_pin)); 
-		adapter.add(new SampleItem("Lost Pets", R.drawable.ic_check));
-		adapter.add(new SampleItem("Stray Animals", R.drawable.ic_check));
-		adapter.add(new SampleItem("Events", R.drawable.ic_check));
-		adapter.add(new SampleItem("Places", R.drawable.ic_check));
+		adapter.add(new SampleItem("Pins Filter", R.drawable.ic_map_pin, R.drawable.pin_red)); 
+		adapter.add(new SampleItem("Lost Pets", R.drawable.ic_check, R.drawable.pin_red));
+		adapter.add(new SampleItem("Stray Animals", R.drawable.ic_check, R.drawable.pin_grey));
+		adapter.add(new SampleItem("Events", R.drawable.ic_check, R.drawable.pin_blue));
+		adapter.add(new SampleItem("Places", R.drawable.ic_check, R.drawable.pin_green));
 		setListAdapter(adapter);
 	}
 	
@@ -72,9 +72,11 @@ public class RightListFragment extends ListFragment {
 	public class SampleItem {
 		public String tag;
 		public int iconRes;
-		public SampleItem(String tag, int iconRes) {
+		public int pinIcon;
+		public SampleItem(String tag, int iconRes, int pinIcon) {
 			this.tag = tag; 
 			this.iconRes = iconRes;
+			this.pinIcon = pinIcon;
 		}
 	}
 
@@ -92,11 +94,13 @@ public class RightListFragment extends ListFragment {
 			icon.setImageResource(getItem(position).iconRes);
 			TextView title = (TextView) convertView.findViewById(R.id.row_title);
 			title.setText(getItem(position).tag);
-			
+			ImageView pinIcon = (ImageView) convertView.findViewById(R.id.row_pin_icon);	
+			pinIcon.setImageResource(getItem(position).pinIcon);
 			if (getItem(position).iconRes == R.drawable.ic_map_pin) {
 				convertView.setBackgroundColor(Color.GRAY);  
 				title.setTextColor(Color.WHITE);
 				title.setTypeface(null, Typeface.BOLD);
+				pinIcon.setImageResource(android.R.color.transparent);
 			}
 			else{
 				convertView.setBackgroundColor(Color.WHITE);  
