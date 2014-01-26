@@ -17,13 +17,15 @@
    	    android:layout_width="wrap_content"
    	    android:layout_height="wrap_content"
    	    android:text="Title"
-   	    android:textAppearance="@android:style/TextAppearance.Medium" />
+   	    android:textAppearance="@android:style/TextAppearance.Medium"
+   	    android:textSize="20sp" />
         
 	<TextView
-        android:id="@+id/row_event_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Description" />
+	    android:id="@+id/row_event_description"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="Description"
+	    android:textSize="15sp" />
     
     </LinearLayout>
 
