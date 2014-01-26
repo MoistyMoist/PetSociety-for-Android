@@ -1,7 +1,5 @@
 package com.petsociety.main.profile;
 
-import java.util.List;
-
 import com.example.petsociety.R;
 import com.petsociety.httprequests.RetrieveAllEventRequest;
 import com.petsociety.main.MainBaseActivity;
@@ -13,6 +11,7 @@ import android.os.Bundle;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,8 +40,8 @@ public class EventList extends MainBaseActivity {
 		
 		lv_events = (ListView) findViewById(R.id.lv_all_events);
 
-		RetrieveAllEventRequest createAllEvents = new RetrieveAllEventRequest();
-		GetEventList.execute(createAllEvents);
+		RetrieveAllEventRequest retrieveAllEvents = new RetrieveAllEventRequest();
+		new GetEventList().execute(retrieveAllEvents, null);
 		
 		lv_events.setOnItemClickListener(new OnItemClickListener(){
 
@@ -50,6 +49,7 @@ public class EventList extends MainBaseActivity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();
+				//intent.putExtra("event", arg2)
 				intent.setClass(getBaseContext(), EventActivity.class);
 				startActivity(intent);
 			}});
@@ -58,18 +58,18 @@ public class EventList extends MainBaseActivity {
 private class GetEventList extends AsyncTask<Runnable, Integer, Long> {
 	    
 		@Override
+		protected void onPreExecute() {
+		super.onPreExecute();
+		}
+	
+		@Override
 		protected void onPostExecute(Long result) {
 			
-			super.onPostExecute(result);
 			if(progress!=null)
-				progress.dismiss();
+			progress.dismiss();
 	        staticObjects= new StaticObjects();
 			fillEventList();
-		}
-
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
+			Log.i("String", "DONE");
 		}
 
 		@Override
@@ -88,6 +88,7 @@ private class GetEventList extends AsyncTask<Runnable, Integer, Long> {
 	private void fillEventList(){
 		adapter = new EventListAdapter(context);
 		for (int i=0; i<StaticObjects.getEvents().size(); i++){
+			Log.i("String", StaticObjects.getEvents().get(i).getName());
             adapter.add(StaticObjects.getEvents().get(i));
 		}
 	    lv_events.setAdapter(adapter);
