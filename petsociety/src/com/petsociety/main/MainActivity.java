@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import com.petsociety.httprequests.*;
 import com.petsociety.main.lost.LostActivity;
+import com.petsociety.main.nearby.NearbyList;
 import com.petsociety.models.Event;
 import com.petsociety.models.Lost;
 import com.petsociety.models.Pet;
@@ -590,7 +591,7 @@ public class MainActivity extends MainBaseActivity
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		public Dialog onCreateDialog(Bundle savedInstanceState){
 			
-			String[] mapList = {"Lost","Stray","Events","Locations"};
+			String[] mapList = {"Lost","Stray","Events","Places"};
 			ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(context,android.R.layout.simple_spinner_dropdown_item,mapList);
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		    builder.setTitle("List Category");builder.setAdapter(spinnerArrayAdapter, new OnClickListener(){
@@ -599,12 +600,19 @@ public class MainActivity extends MainBaseActivity
 				public void onClick(DialogInterface dialog, int which) {
 					Intent intent = new Intent();
 					intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-					intent.setClass(getActivity(), LostActivity.class);
-					if(which==0){intent.putExtra("list", "lost");}
+					if(which==0){
+						intent.putExtra("list", "lost");
+						intent.setClass(getActivity(), LostActivity.class);
+						startActivity(intent);
+					}
 					if(which==1){intent.putExtra("list", "stray");}
 					if(which==2){intent.putExtra("list", "event");}
-					if(which==3){intent.putExtra("list", "location");}
-					startActivity(intent);
+					if(which==3){
+						intent.putExtra("list", "location");
+						intent.setClass(getActivity(), NearbyList.class);
+						startActivity(intent);
+					}
+					
 				}});
 		    return builder.create();
 		}
