@@ -3,7 +3,9 @@ package com.petsociety.main.lost;
 import java.util.Calendar;
 
 import com.example.petsociety.R;
+import com.petsociety.httprequests.CreateLostRequest;
 import com.petsociety.main.MainActivity;
+import com.petsociety.utils.StaticObjects;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -12,6 +14,7 @@ import android.app.TimePickerDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -33,7 +36,7 @@ public class ReportLostPetActivity extends FragmentActivity {
 	Spinner spin_type;
 	Button report_lost, b_lost_location;
 	TextView tv_date, tv_time;
-	EditText et_x, et_y;
+	EditText et_x, et_y, et_reward;
 	//ArrayAdapter<CharSequence> adapter;
 	//String[] spinItems = {"Dog","Cat","Bird"};
 	Context context = this;
@@ -54,6 +57,7 @@ public class ReportLostPetActivity extends FragmentActivity {
 		tv_date = (TextView) findViewById(R.id.tv_lost_date);
 		et_x = (EditText) findViewById(R.id.et_lost_x);
 		et_y = (EditText) findViewById(R.id.et_lost_y);	
+		et_reward = (EditText) findViewById(R.id.et_lost_reward);	
 		
 		b_lost_location.setOnClickListener(new OnClickListener(){
 			@Override
@@ -68,13 +72,43 @@ public class ReportLostPetActivity extends FragmentActivity {
 		
 		report_lost.setOnClickListener(new OnClickListener(){
 			@Override
-			public void onClick(View arg0) {
-				Toast.makeText(getApplicationContext(), "Reported", Toast.LENGTH_SHORT).show();			
+			public void onClick(View arg0) {	
+				CreateLostRequest createLostRequest = new CreateLostRequest(tv_date.getText().toString(), "amk", "dog", et_x.getText().toString(),et_y.getText().toString(),et_reward.getText().toString());
+				new LostBackgroundTask().execute(createLostRequest, null);
 			}
 		});
 		
 	}
 	
+private class LostBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
+	    
+		@Override
+		protected void onPostExecute(Long result) {
+			
+			super.onPostExecute(result);
+			Toast.makeText(getApplicationContext(), "Reported", Toast.LENGTH_SHORT).show();
+			finish();
+						
+		}
+
+		@Override
+		protected void onPreExecute() {
+			//Toast.makeText(context, "Refreshing..", Toast.LENGTH_SHORT).show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Long doInBackground(Runnable... task) {
+			
+			for(int i=0; i<task.length;i++)
+			{
+				if(task[i]!=null)
+					task[i].run();
+				if (isCancelled()) break;
+			}
+			return null;
+		}
+	 }
 	
 	
 	@SuppressLint("ValidFragment")
