@@ -66,11 +66,7 @@ public class LocationInfoActivity extends FragmentActivity {
 	}
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setUpMapIfNeeded();
-    }
+  
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
@@ -85,9 +81,8 @@ public class LocationInfoActivity extends FragmentActivity {
             
         }
         private void setUpMap() {
-        	double lat =singleLocation.getX() ;
-    		double lng=singleLocation.getY() ;
-            mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        	
+            mMap.addMarker(new MarkerOptions().position(new LatLng(1.379348, 103.849876)).title("Marker"));
         
           
         }

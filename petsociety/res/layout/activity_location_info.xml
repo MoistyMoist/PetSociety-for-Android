@@ -9,38 +9,44 @@
     tools:context=".LocationInfoActivity" >
 
     <TextView
-        android:id="@+id/singleDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/singleAddress"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world" />
-
-    <TextView
-        android:id="@+id/singleTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/singleDescription"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="21dp"
-        android:text="@string/hello_world" />
-
-    <TextView
         android:id="@+id/singleAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="78dp"
-        android:text="@string/hello_world" />
-      <LinearLayout
-        android:id="@+id/nearbySingle_map"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/layout1"
-        android:orientation="vertical" >
-        </LinearLayout>
-        
-    
+        android:text="@string/hello_world"
+        android:textSize="20dp" />
 
+ <fragment
+     android:id="@+id/nearbySingle_map"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_above="@+id/singleDescription"
+     android:layout_alignParentRight="true"
+     android:layout_below="@+id/singleTitle"
+     android:orientation="vertical"
+     android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+ <TextView
+     android:id="@+id/singleTitle"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_alignParentTop="true"
+     android:layout_centerHorizontal="true"
+     android:layout_marginTop="39dp"
+     android:text="@string/hello_world"
+     android:textColorLink="@color/green"
+     android:textSize="30dp" />
+
+ <TextView
+     android:id="@+id/singleDescription"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_above="@+id/singleAddress"
+     android:layout_alignLeft="@+id/singleAddress"
+     android:layout_marginBottom="64dp"
+     android:text="@string/hello_world"
+     android:textSize="20dp" />
+        
 </RelativeLayout>
