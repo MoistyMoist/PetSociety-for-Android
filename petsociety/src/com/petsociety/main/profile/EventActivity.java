@@ -24,6 +24,7 @@ import android.widget.Toast;
 public class EventActivity extends MainBaseActivity {
 
 	TextView name, desc, time, location;
+	Event oneEvent = null;
 
 	public EventActivity() {
 		super(R.string.app_name);
@@ -37,12 +38,11 @@ public class EventActivity extends MainBaseActivity {
 		Bundle extras = getIntent().getExtras();
 		int eventID = extras.getInt("event");
 		
-		TextView name = (TextView) findViewById(R.id.tv_name);
-		TextView desc = (TextView) findViewById(R.id.tv_description);
-		TextView time = (TextView) findViewById(R.id.tv_time);
-		TextView location = (TextView) findViewById(R.id.tv_location);
+		name = (TextView) findViewById(R.id.tv_name);
+		desc = (TextView) findViewById(R.id.tv_description);
+		time = (TextView) findViewById(R.id.tv_time);
+		location = (TextView) findViewById(R.id.tv_location);
 
-		Event oneEvent = null;
 		
 		for (int i=0; i<StaticObjects.getEvents().size(); i++){
 			if(eventID == StaticObjects.getEvents().get(i).getEventID())
@@ -55,7 +55,7 @@ public class EventActivity extends MainBaseActivity {
 	    name.setText(oneEvent.getName());
 	    desc.setText(oneEvent.getDescription());
 	   // time.setText(oneEvent.getDateTimeCreated().toString());
-		
+		getMyLocationAddress();
 	}
 	
 	public void getMyLocationAddress() {
@@ -64,7 +64,7 @@ public class EventActivity extends MainBaseActivity {
          
         try {
               //Place your latitude and longitude
-              List<Address> addresses = geocoder.getFromLocation(37.423247,-122.085469, 1);
+              List<Address> addresses = geocoder.getFromLocation(oneEvent.getX(), oneEvent.getY(), 1);
               if(addresses != null) {
                
                   Address fetchedAddress = addresses.get(0);
@@ -72,12 +72,14 @@ public class EventActivity extends MainBaseActivity {
                 
                   for(int i=0; i<fetchedAddress.getMaxAddressLineIndex(); i++) {
                         strAddress.append(fetchedAddress.getAddressLine(i)).append("\n");
+                        Log.i("Address", fetchedAddress.getAddressLine(i));
                   }
-                  //myAddress.setText("I am at: " +strAddress.toString());
+                  
+        	    	location.setText(strAddress.toString());
               }
                
               else{
-                  //myAddress.setText("No location found..!");
+            	  location.setText("No location found..!");
               }
           
         } 
