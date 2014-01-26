@@ -8,148 +8,139 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
-    <TextView
-        android:id="@+id/tv_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView3"
-        android:layout_alignBottom="@+id/textView3"
-        android:layout_marginLeft="18dp"
-        android:layout_toRightOf="@+id/textView3"
-        android:text="1-5PM"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView3"
+            android:layout_alignBottom="@+id/textView3"
+            android:layout_marginLeft="18dp"
+            android:layout_toRightOf="@+id/textView3"
+            android:text="1-5PM"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3"
-        android:layout_marginTop="20dp"
-        android:layout_toLeftOf="@+id/tv_time"
-        android:text="Location:"
-        android:textColor="#00AAAA"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView3"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@+id/tv_time"
+            android:text="Location:"
+            android:textColor="#00AAAA"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/tv_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView5"
-        android:layout_alignBottom="@+id/textView5"
-        android:layout_alignLeft="@+id/tv_time"
-        android:text="Bishan Park"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView5"
+            android:layout_alignBottom="@+id/textView5"
+            android:layout_alignLeft="@+id/tv_time"
+            android:text="Bishan Park"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/tv_description"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/event_image"
-        android:layout_centerHorizontal="true"
-        android:text="Bring your pets out to mingle with other pets!"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:text="Bring your pets out to mingle with other pets!"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/event_image"
-        android:layout_below="@+id/tv_description"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="26dp"
-        android:text="Time:"
-        android:textColor="#00AAAA"
-        android:textSize="20sp" />
+        <!-- just put ur items here -->
 
-    <!-- just put ur items here -->
+        <fragment
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            class="com.google.android.gms.maps.SupportMapFragment" />
 
-  <fragment
-      android:id="@+id/map"
-      android:layout_width="match_parent"
-      android:layout_height="200dp"
-      android:layout_alignParentLeft="true"
-      android:layout_alignParentTop="true"
-      class="com.google.android.gms.maps.SupportMapFragment" />
+        <Button
+            android:id="@+id/btn_going"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView5"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/btn_current_location"
+            android:layout_marginTop="20dp"
+            android:text="Going" />
 
-  <ImageView
-      android:id="@+id/event_image"
-      android:layout_width="200dp"
-      android:layout_height="200dp"
-      android:layout_below="@+id/textView2"
-      android:layout_centerHorizontal="true"
-      android:layout_marginTop="14dp"
-      android:src="@drawable/event1" />
+        <Button
+            android:id="@+id/btn_maybe"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="Maybe" />
 
-  <Button
-      android:id="@+id/btn_going"
-      style="?android:attr/buttonStyleSmall"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      android:layout_alignLeft="@+id/textView5"
-      android:layout_marginTop="20dp"
-      android:layout_below="@+id/btn_current_location"
-      android:text="Going" />
+        <Button
+            android:id="@+id/btn_current_location"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView7"
+            android:layout_marginTop="15dp"
+            android:text="Current location"
+            android:textSize="15sp" />
 
-  <Button
-      android:id="@+id/btn_no"
-      style="?android:attr/buttonStyleSmall"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      android:layout_marginTop="30dp"
-      android:layout_toRightOf="@+id/tv_time"
-      android:text="Decline" />
+        <Button
+            android:id="@+id/btn_other_location"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/btn_current_location"
+            android:layout_alignBottom="@+id/btn_current_location"
+            android:layout_toRightOf="@+id/btn_current_location"
+            android:text="Other location" />
 
-  <TextView
-      android:id="@+id/textView2"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignLeft="@+id/textView3"
-      android:layout_below="@+id/map"
-      android:layout_marginTop="24dp"
-      android:text="Pets&apos; Day Out "
-      android:textAppearance="?android:attr/textAppearanceMedium"
-      android:textColor="#00AAAA"
-      android:textSize="26sp"
-      android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/map"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:text="Pets&apos; Day Out "
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#00AAAA"
+            android:textSize="26sp"
+            android:textStyle="bold" />
 
-  <Button
-      android:id="@+id/btn_maybe"
-      style="?android:attr/buttonStyleSmall"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      android:layout_centerHorizontal="true"
-      android:text="Maybe" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_description"
+            android:layout_marginTop="20dp"
+            android:layout_toLeftOf="@+id/btn_maybe"
+            android:text="Time:"
+            android:textColor="#00AAAA"
+            android:textSize="20sp" />
 
-  <Button
-      android:id="@+id/btn_current_location"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/textView7"
-      android:layout_marginTop="15dp"
-      android:text="From current location"
-      android:textSize="15sp" />
+        <Button
+            android:id="@+id/btn_no"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/btn_maybe"
+            android:text="Decline" />
 
-  <Button
-      android:id="@+id/btn_other_location"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignBaseline="@+id/btn_current_location"
-      android:layout_alignBottom="@+id/btn_current_location"
-      android:layout_toRightOf="@+id/btn_current_location"
-      android:text="Other location" />
-
-  <TextView
-      android:id="@+id/textView7"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/textView5"
-      android:layout_marginTop="15dp"
-      android:layout_centerHorizontal="true"
-      android:text="How to go there?"
-      android:textSize="20sp" />
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView5"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="67dp"
+            android:text="Go there from?"
+            android:textSize="20sp" />
 
     </RelativeLayout>
+
 </ScrollView>

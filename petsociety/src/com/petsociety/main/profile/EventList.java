@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 public class EventList extends MainBaseActivity {
 	
@@ -48,8 +49,9 @@ public class EventList extends MainBaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				// TODO Auto-generated method stub
+				int eventID = ((Event)arg0.getItemAtPosition(arg2)).getEventID();
 				Intent intent = new Intent();
-				//intent.putExtra("event", arg2)
+				intent.putExtra("event", eventID);
 				intent.setClass(getBaseContext(), EventActivity.class);
 				startActivity(intent);
 			}});
@@ -88,7 +90,6 @@ private class GetEventList extends AsyncTask<Runnable, Integer, Long> {
 	private void fillEventList(){
 		adapter = new EventListAdapter(context);
 		for (int i=0; i<StaticObjects.getEvents().size(); i++){
-			Log.i("String", StaticObjects.getEvents().get(i).getName());
             adapter.add(StaticObjects.getEvents().get(i));
 		}
 	    lv_events.setAdapter(adapter);
@@ -108,8 +109,6 @@ private class GetEventList extends AsyncTask<Runnable, Integer, Long> {
 			title.setText(getItem(position).getName());
 			TextView desc = (TextView) convertView.findViewById(R.id.row_event_description);
 			desc.setText(getItem(position).getDescription());	
-			TextView date = (TextView) convertView.findViewById(R.id.row_event_date);
-			date.setText(getItem(position).getName());	
 			return convertView;
 		}
 
