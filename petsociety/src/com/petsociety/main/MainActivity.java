@@ -35,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.petsociety.R;
 import com.google.android.gms.common.ConnectionResult;
@@ -110,6 +111,12 @@ public class MainActivity extends MainBaseActivity
         
         getAllList();       
         
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getSupportMenuInflater().inflate(R.menu.main, menu);
+		return true;
 	}
 
 	
