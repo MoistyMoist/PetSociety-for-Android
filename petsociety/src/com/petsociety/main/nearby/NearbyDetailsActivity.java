@@ -65,7 +65,7 @@ public class NearbyDetailsActivity extends ActivityGroup  {
 		tab4.setContent(new Intent(this, ShopPhotosActivity.class));
 
 		/** Add the tabs to the TabHost to display. */
-		//tabHost.addTab(tab1);
+		
 		tabHost.addTab(tab2);
 		tabHost.addTab(tab3);
 		tabHost.addTab(tab4);
@@ -79,14 +79,14 @@ public class NearbyDetailsActivity extends ActivityGroup  {
 
 
 	
-//		Intent intentTitle = getIntent();
-//		Bundle title = intentTitle.getExtras();
-//		tvShopName.setText(title.get("nearbyTitle").toString());
-
+		Intent intentTitle = getIntent();
+		Bundle title = intentTitle.getExtras();
+		tvShopName.setText(title.get("nearbyTitle").toString());
+//
 //		Intent intent = new Intent(NearbyDetailsActivity.this,
 //				ShopInfoActivity.class);
 //
-//		startActivity(intent);
+//	startActivity(intent);
 
 		call.setOnClickListener(new OnClickListener() {
 

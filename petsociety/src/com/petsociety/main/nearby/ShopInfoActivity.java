@@ -1,4 +1,4 @@
-package com.petsociety.main.nearby;
+ package com.petsociety.main.nearby;
 
 import java.util.ArrayList;
 import java.util.Deque;
@@ -49,11 +49,11 @@ public class ShopInfoActivity extends NearbyActivity {
 		
 		tv1 =(TextView)findViewById(R.id.tv); 
 		
-//	
-//		 Intent intentAdd= getIntent();
-//	 	    Bundle title = intentAdd.getExtras();
-//	 	    tv1.setText(title.get("address").toString());
-//	         
+	
+		 Intent intentAdd= getIntent();
+	 	    Bundle title = intentAdd.getExtras();
+	 	    tv1.setText(title.get("address").toString());
+	         
 		tv1.setText("address");
 		
 				
