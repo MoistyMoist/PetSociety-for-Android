@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    
+<item 
+        android:id="@+id/lost_location_done" 
+        android:showAsAction="always"  
+		android:title="Done" 
+        android:visible="true"></item>
+</menu>
