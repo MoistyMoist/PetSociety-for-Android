@@ -3,6 +3,7 @@ package com.petsociety.main.nearby;
 import com.example.petsociety.R;
 import com.petsociety.httprequests.RetrieveAllEventRequest;
 import com.petsociety.httprequests.RetrieveAllLocationRequest;
+import com.petsociety.httprequests.RetrieveReviewByLocationRequest;
 import com.petsociety.main.MainBaseActivity;
 import com.petsociety.models.Event;
 import com.petsociety.models.Location;
@@ -24,7 +25,7 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
-public class NearbyList extends MainBaseActivity {
+public class ReviewList extends MainBaseActivity {
 	
 	ListView lv_events;
 	NearbyListAdapter adapter;
@@ -32,7 +33,7 @@ public class NearbyList extends MainBaseActivity {
 	ProgressDialog progress;
 	Context context = this;
 
-	public NearbyList(){
+	public ReviewList(){
 		super(R.string.title_activity_nearby);
 	}
 	
@@ -41,20 +42,18 @@ public class NearbyList extends MainBaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_event_list);
 		
+		Bundle extras = getIntent().getExtras();
+		int locationID = extras.getInt("locationID");
+		
 		lv_events = (ListView) findViewById(R.id.lv_all_events);
 
-		RetrieveAllLocationRequest retrieveAllPlaces = new RetrieveAllLocationRequest();
-		new GetNearbyList().execute(retrieveAllPlaces, null);
+		RetrieveReviewByLocationRequest retrieveReview = new RetrieveReviewByLocationRequest(locationID);
+		new GetReviewList().execute(retrieveReview, null);
 		
 		lv_events.setOnItemClickListener(new OnItemClickListener(){
-
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				int locationID = ((Location)arg0.getItemAtPosition(arg2)).getLocationID();
-				Intent intent = new Intent();
-				intent.putExtra("locationID", locationID);
-				intent.setClass(getBaseContext(), ReviewList.class);
-				startActivity(intent);
+				//TODO auto gen
 			}});
 	}
 	
@@ -64,7 +63,7 @@ public class NearbyList extends MainBaseActivity {
 		return true;
 	}
 	
-private class GetNearbyList extends AsyncTask<Runnable, Integer, Long> {
+private class GetReviewList extends AsyncTask<Runnable, Integer, Long> {
 	    
 		@Override
 		protected void onPreExecute() {
@@ -77,7 +76,7 @@ private class GetNearbyList extends AsyncTask<Runnable, Integer, Long> {
 			if(progress!=null)
 			progress.dismiss();
 	        staticObjects= new StaticObjects();
-			fillNearbyList();
+			fillReviewList();
 			Log.i("String", "DONE");
 		}
 
@@ -94,7 +93,7 @@ private class GetNearbyList extends AsyncTask<Runnable, Integer, Long> {
 		}
 	 }
 
-	private void fillNearbyList(){
+	private void fillReviewList(){
 		adapter = new NearbyListAdapter(context);
 		for (int i=0; i<StaticObjects.getLocations().size(); i++){
             adapter.add(StaticObjects.getLocations().get(i));

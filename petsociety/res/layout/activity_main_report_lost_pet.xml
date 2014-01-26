@@ -12,39 +12,12 @@
    	 	android:layout_height="wrap_content"
         android:orientation="vertical">
         
-	    <EditText
-	        android:id="@+id/editText_name"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:hint="Name" />
-	
-	    <LinearLayout
-	        android:id="@+id/linearLayout1"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="vertical"
-	        android:paddingBottom="5dp" >
-	
-	        <Spinner
-	            android:id="@+id/spinner_type"
-	            android:layout_width="fill_parent"
-	            android:layout_height="wrap_content" />
-	    </LinearLayout>
-
-    <EditText
-        android:id="@+id/editText_breed"
+	<EditText
+        android:id="@+id/et_lost_reward"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Breed" />
-    
-    </LinearLayout>
-    
-    <LinearLayout 
-        android:id="@+id/linearLayout1"
-		android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout0"
-        android:orientation="horizontal">
+        android:hint="Reward" />
+	
     <EditText
         android:id="@+id/et_lost_age"
         android:layout_width="fill_parent"
@@ -52,20 +25,7 @@
         android:layout_weight="0.5"
         android:hint="Age"
         android:inputType="phone" />
-    
-	<Button
-        android:id="@+id/button_age"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
-        android:text="Select" />
-    </LinearLayout>
-    
-	<LinearLayout 
-		android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout1"
-        android:orientation="vertical">
+
     <EditText
         android:id="@+id/et_lost_x"
         android:layout_width="fill_parent"
@@ -85,6 +45,44 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Select" />
+	
+	<LinearLayout
+	    android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+	<Button 
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content"
+    android:text="Set Time" 
+    android:onClick="showTimePickerDialog" />
+	
+	<TextView 
+	    android:id="@+id/tv_lost_time"
+	    android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Time"/>
+	</LinearLayout>
+	
+	
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+	
+	<Button 
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content"
+    android:text="Set Date" 
+    android:onClick="showDatePickerDialog" />
+	
+		<TextView 
+		    android:id="@+id/tv_lost_date"
+		    android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Date"/>
+	
+	</LinearLayout>
+	
     </LinearLayout>
 	
     <Button

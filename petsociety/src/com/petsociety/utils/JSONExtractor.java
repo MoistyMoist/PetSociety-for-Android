@@ -19,6 +19,7 @@ import com.petsociety.models.Event;
 import com.petsociety.models.Location;
 import com.petsociety.models.Lost;
 import com.petsociety.models.Pet;
+import com.petsociety.models.Review;
 import com.petsociety.models.Stray;
 import com.petsociety.models.User;
 import android.util.Log;
@@ -505,7 +506,66 @@ public class JSONExtractor {
 	//THiS METHOD EXTRACTS THE REVIEW DATA
 	public void ExtractReviewRequest(HttpResponse data) throws IllegalStateException, IOException, JSONException
 	{
-		
+		// TODO Auto-generated method stub
+		HttpEntity entity = data.getEntity();
+        
+        if (entity != null) {
+            InputStream instream = entity.getContent();
+            String result= convertStreamToString(instream);
+            
+            JSONObject json = null;
+            json = new JSONObject(result);
+	
+            //check status if all green to extract
+            StaticObjects.setResponseStatus((Integer) json.get(TAG_STATUS));
+			StaticObjects.setResponseMessage(json.getString(TAG_MESSAGE));
+			
+			//JSONArray errors=json.getJSONArray(TAG_ERRORS);
+			
+			ArrayList<Review>review= new ArrayList<Review>();
+			if(StaticObjects.getResponseStatus()==0)
+			{
+				
+				JSONArray RawData= json.getJSONArray(TAG_DATA);
+				Log.i("Review ",RawData.toString() );
+				
+				for(int i=0;i<RawData.length();i++)
+				{
+					
+					JSONObject c2=RawData.getJSONObject(i); Log.i("c ",c2.toString() );
+					
+					
+					Review r= new Review();
+					
+					/*
+					r.setReviewID(c2.getInt(TAG_PET_PETID));
+					r.setsetName(c2.getString(TAG_PET_NAME)); 
+					r.setBreed(c2.getString(TAG_PET_BREED));
+					r.setSex(c2.getString(TAG_PET_SEX).charAt(0));
+					r.setType(c2.getString(TAG_PET_TYPE));
+					r.setBiography(c2.getString(TAG_PET_BIOGRAPHY));
+					r.setAge(c2.getString(TAG_PET_AGE));
+					r.setUserID(c2.getInt(TAG_PET_USERID));
+					//p.setGalleryID(c2.getInt(TAG_PET_GALLERYID));
+					r.setProfileImageURL(c2.getString(TAG_PET_PROFILEIMAGEURL));
+					String petDateLastCreated = c2.getString(TAG_PET_DATETIMECREATED);
+					//p.setDateTimeCreated(petDateLastCreated);		
+					*/
+					review.add(r); 
+					
+					//Log.i("pet "+i,c.toString() );
+				} 
+				
+				//StaticObjects.setPets(pet);
+
+			}
+			else
+			{
+				Log.i("ERROR", "status==1");
+				Log.i("Message",StaticObjects.getResponseMessage());
+			}
+            instream.close();
+        }
 	}
 	
 	//THIS METHODS EXTRACTS THE IMAGE URL AFTER UPLOADING THE BASE64 DATA
@@ -572,7 +632,7 @@ public class JSONExtractor {
 						//JSONObject c2=(JSONObject) c.get("PET");
 												
 						p.setPetID(c2.getInt(TAG_PET_PETID));
-						p.setName(c2.getString(TAG_PET_NAME)); Log.i("###PETNAME### ",c2.getString(TAG_PET_NAME) );
+						p.setName(c2.getString(TAG_PET_NAME)); 
 						p.setBreed(c2.getString(TAG_PET_BREED));
 						p.setSex(c2.getString(TAG_PET_SEX).charAt(0));
 						p.setType(c2.getString(TAG_PET_TYPE));

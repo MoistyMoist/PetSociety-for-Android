@@ -11,7 +11,9 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.petsociety.main.MainActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -59,7 +61,21 @@ public class ReportLostPetLocation extends SherlockFragmentActivity
 		// TODO Auto-generated method stub
 		//return super.onOptionsItemSelected(item);
 		Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_SHORT).show();
-		addLostPetMarker();
+		//Intent intent = new Intent();
+		//intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		//intent.setClass(getApplication(), ReportLostPetActivity.class);
+		//intent.putExtra("x", lostMarker.latitude);
+		//intent.putExtra("y", lostMarker.longitude);
+		//startActivity(intent);
+		
+		
+		Intent returnIntent = new Intent();
+		returnIntent.putExtra("x",lostMarker.latitude);
+		returnIntent.putExtra("y",lostMarker.longitude);
+		setResult(RESULT_OK,returnIntent);     
+		finish();
+		
+		finish();
 		return true;
 	}
 
@@ -80,15 +96,11 @@ public class ReportLostPetLocation extends SherlockFragmentActivity
             if (mMap != null) {
                 //setUpMap();
                 //mMap.setMyLocationEnabled(true);
-                //mMap.setOnMyLocationButtonClickListener(this);
+                mMap.setOnMapClickListener(this);
                 LatLng singapore = new LatLng(1.37, 103.84);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 11));
             }
         }
-    }
-
-    private void setUpMap() {
-        mMap.setOnMapClickListener(this);
     }
 
     @Override
@@ -96,11 +108,12 @@ public class ReportLostPetLocation extends SherlockFragmentActivity
         //mTapTextView.setText("tapped, point=" + point);
     	//Toast.makeText(getApplicationContext(), "tapped, point=" + point, Toast.LENGTH_SHORT).show();
     	lostMarker = point;
+    	addLostPetMarker();
     }
     
 public void addLostPetMarker(){
     	
-	mLostPet = new ArrayList<Marker>();
+	mLostPet.clear();//= new ArrayList<Marker>();
 	//Toast.makeText(getApplicationContext(), "L:"+lat+","+lng, Toast.LENGTH_SHORT).show();
 	MarkerOptions mOption = new MarkerOptions().position(lostMarker);
 	mLostPet.add(mMap.addMarker(mOption));

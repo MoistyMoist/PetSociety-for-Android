@@ -1,26 +1,41 @@
 package com.petsociety.main.lost;
 
+import java.util.Calendar;
+
 import com.example.petsociety.R;
 import com.petsociety.main.MainActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 
-public class ReportLostPetActivity extends Activity {
+public class ReportLostPetActivity extends FragmentActivity {
 	
 	Spinner spin_type;
 	Button report_lost, b_lost_location;
-	ArrayAdapter<CharSequence> adapter;
-	String[] spinItems = {"Dog","Cat","Bird"};
+	TextView tv_date, tv_time;
+	EditText et_x, et_y;
+	//ArrayAdapter<CharSequence> adapter;
+	//String[] spinItems = {"Dog","Cat","Bird"};
 	Context context = this;
 	
 	
@@ -29,21 +44,25 @@ public class ReportLostPetActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_report_lost_pet);
 		
-		spin_type = (Spinner) findViewById(R.id.spinner_type);
-		adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_dropdown_item, spinItems);
-		spin_type.setAdapter(adapter);
+		//spin_type = (Spinner) findViewById(R.id.spinner_type);
+		//adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_dropdown_item, spinItems);
+		//spin_type.setAdapter(adapter);
 		
 		report_lost = (Button) findViewById(R.id.b_lost_report);
 		b_lost_location = (Button) findViewById(R.id.b_lost_location);
+		tv_time = (TextView) findViewById(R.id.tv_lost_time);
+		tv_date = (TextView) findViewById(R.id.tv_lost_date);
+		et_x = (EditText) findViewById(R.id.et_lost_x);
+		et_y = (EditText) findViewById(R.id.et_lost_y);	
 		
 		b_lost_location.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent();
-				intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				//intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 				intent.setClass(context, ReportLostPetLocation.class);
-				//intent.putExtra("pin", "home");
-				startActivity(intent);
+				//startActivity(intent);
+				startActivityForResult(intent, 1);
 			}
 		});
 		
@@ -54,9 +73,81 @@ public class ReportLostPetActivity extends Activity {
 			}
 		});
 		
-		
 	}
 	
+	
+	
+	@SuppressLint("ValidFragment")
+	public class TimePickerFragment extends DialogFragment
+    implements TimePickerDialog.OnTimeSetListener {
+
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+		// Use the current time as the default values for the picker
+		final Calendar c = Calendar.getInstance();
+		int hour = c.get(Calendar.HOUR_OF_DAY);
+		int minute = c.get(Calendar.MINUTE);
+		
+		// Create a new instance of TimePickerDialog and return it
+		return new TimePickerDialog(getActivity(), this, hour, minute,
+		DateFormat.is24HourFormat(getActivity()));
+		}
+		
+		@Override
+		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+			// TODO Auto-generated method stub
+			Toast.makeText(getActivity(), ""+hourOfDay + ","+minute, Toast.LENGTH_SHORT).show();
+			tv_time.setText(""+hourOfDay+":"+minute+":00");
+		}
+	}
+	
+	public void showTimePickerDialog(View v) {
+	    DialogFragment newFragment = new TimePickerFragment();
+	    newFragment.show(getSupportFragmentManager(), "timePicker");
+	}
+	
+	
+	@SuppressLint("ValidFragment")
+	public class DatePickerFragment extends DialogFragment
+    implements DatePickerDialog.OnDateSetListener {
+
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+		// Use the current date as the default date in the picker
+		final Calendar c = Calendar.getInstance();
+		int year = c.get(Calendar.YEAR);
+		int month = c.get(Calendar.MONTH);
+		int day = c.get(Calendar.DAY_OF_MONTH);
+		
+		// Create a new instance of DatePickerDialog and return it
+		return new DatePickerDialog(getActivity(), this, year, month, day);
+		}
+		
+		@Override
+		public void onDateSet(DatePicker view, int year, int month, int day) {
+			// TODO Auto-generated method stub
+			Toast.makeText(getActivity(), ""+year + ","+month+","+day, Toast.LENGTH_SHORT).show();
+			tv_date.setText(""+day+"/"+(month+1)+"/"+year);
+		}
+	}
+	
+	public void showDatePickerDialog(View v) {
+	    DialogFragment newFragment = new DatePickerFragment();
+	    newFragment.show(getSupportFragmentManager(), "datePicker");
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		
+		Toast.makeText(getApplicationContext(), "passeed", Toast.LENGTH_SHORT).show();
+		
+		double xSelect = data.getDoubleExtra("x", 1.3);
+		double ySelect = data.getDoubleExtra("y", 103.8);
+		
+		et_x.setText(Double.toString(xSelect));
+		et_y.setText(Double.toString(ySelect));
+	}
 	
 
 }
