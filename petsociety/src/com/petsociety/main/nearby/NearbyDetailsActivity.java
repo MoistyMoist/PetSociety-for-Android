@@ -38,6 +38,8 @@ public class NearbyDetailsActivity extends TabActivity  {
 	protected void onCreate(Bundle savedInstanceState) {
 		 super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_nearby_details);
+		
+		
 
 		tvShopName = (TextView) findViewById(R.id.tvShopName);
 		call = (ImageButton) findViewById(R.id.nearbyDetailsCall);
@@ -77,9 +79,9 @@ public class NearbyDetailsActivity extends TabActivity  {
 
 
 	
-//		Intent intentTitle = getIntent();
-//		Bundle title = intentTitle.getExtras();
-//		tvShopName.setText(title.get("nearbyTitle").toString());
+		Intent intentTitle = getIntent();
+		Bundle title = intentTitle.getExtras();
+		tvShopName.setText(title.get("nearbyTitle").toString());
 
 //		Intent intent = new Intent(NearbyDetailsActivity.this,
 //				ShopInfoActivity.class);
