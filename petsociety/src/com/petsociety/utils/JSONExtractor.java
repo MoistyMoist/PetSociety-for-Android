@@ -345,8 +345,8 @@ public class JSONExtractor {
 				}
 
 				StaticObjects staticObjects= new StaticObjects();
-				staticObjects.setAnslysisLocation(locations);
-				staticObjects.setLocations(locations);
+				StaticObjects.setAnslysisLocation(locations);
+				StaticObjects.setLocations(locations);
 				Log.i("LOCATIONdsa ",StaticObjects.getLocations().get(0).getDescription() );
 			}
 			else
