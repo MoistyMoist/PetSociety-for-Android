@@ -3,6 +3,7 @@ package com.petsociety.main.nearby;
 import com.example.petsociety.R;
 import com.example.petsociety.R.layout;
 import com.example.petsociety.R.menu;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -40,7 +41,6 @@ public class LocationInfoActivity extends FragmentActivity {
 		
 		ViewGroup viewGroup = (ViewGroup) findViewById(R.id.nearbySingle_map);
 		viewGroup.addView(View.inflate(this, R.layout.basic_map, null));
-		setUpMapIfNeeded();
 		
 
 		for (int i=0; i<StaticObjects.getLocations().size(); i++){
@@ -55,7 +55,7 @@ public class LocationInfoActivity extends FragmentActivity {
 	    singleDescription.setText(singleLocation.getDescription());
 	    singleAddress.setText(singleLocation.getAddress());
 	    
-				
+	    setUpMapIfNeeded();
 	}
 
 	@Override
@@ -75,16 +75,15 @@ public class LocationInfoActivity extends FragmentActivity {
                     .getMap();
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
-                setUpMap();
+            	//mMap.setMyLocationEnabled(true);
+                //mMap.setOnMyLocationButtonClickListener(this);
+                LatLng singapore = new LatLng(1.37, 103.84);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 11));
+                //mMap.addMarker(new MarkerOptions().position(new LatLng(oneEvent.getX(), oneEvent.getY())));
+                mMap.addMarker(new MarkerOptions().position(new LatLng(singleLocation.getX(), singleLocation.getY())).title("Marker"));
             }
         }
             
         }
-        private void setUpMap() {
-        	
-        	
-            mMap.addMarker(new MarkerOptions().position(new LatLng(1.379348, 103.849876)).title("Marker"));
-        
-          
-        }
+
 }

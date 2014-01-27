@@ -25,6 +25,7 @@ import com.petsociety.httprequests.RetrieveAllLocationRequest;
 import com.petsociety.httprequests.RetrieveAllLostRequest;
 import com.petsociety.httprequests.RetrieveLocationByTypeRequest;
 import com.petsociety.main.MainBaseActivity;
+import com.petsociety.main.lost.ReportLostPetActivity;
 
 import com.petsociety.utils.StaticObjects;
 import com.google.android.gms.common.ConnectionResult;
@@ -120,79 +121,36 @@ public class NearbyActivity extends MainBaseActivity implements
 		textView1 = (TextView) findViewById(R.id.textView1);
 
 		// intent.setClass(getApplication(), NearbyDetailsActivity.class);
-		locateButton.setOnClickListener(new OnClickListener() {
+		
+	
 
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-
-				
-
-				
-				for (int i = 0; i < StaticObjects.getLocations().size(); i++) {
-
-					LatLng LOCATION = new LatLng(staticObjects.getLocations()
-							.get(i).getX(), staticObjects.getLocations().get(i)
-							.getY());
-					final String title =StaticObjects.getLocations().get(i).getTitle().toString();
-					final String desc = StaticObjects.getLocations().get(i).getDescription().toString();
-					final String address = StaticObjects.getLocations().get(i).getAddress().toString();
-					
-					
-					if (staticObjects.getLocations().get(i).getTitle()
-							.equals(textView.getText().toString())) {
-						mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-						CameraUpdate update = CameraUpdateFactory
-								.newLatLngZoom(LOCATION, 16);
-						mMap.getMaxZoomLevel();
-						mMap.animateCamera(update);
-						MarkerOptions mOption = new MarkerOptions()
-								.position(LOCATION)
-								.title(title)
-								.snippet(desc)
-								.icon(BitmapDescriptorFactory
-										.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-						vetMarkers.add(mMap.addMarker(mOption));
-						mMap.setOnMapClickListener(new OnMapClickListener (){
-
-							@Override
-							public void onMapClick(LatLng arg0) {
-								// TODO Auto-generated method stub
-								//textView1.setText("Hello world");
-								
-								
-								com.petsociety.models.Location loc = new com.petsociety.models.Location();
-								loc.setTitle(title);
-								StaticObjects.setSelectedLocation(loc);
-
-								
-								 Intent intent = new Intent(NearbyActivity.this,
-										NearbyDetailsActivity.class);
-										
-							
-								 intent.putExtra("nearbyTitle", title);
-								
-								
-								startActivity(intent);
-							
-								
-							}});
-
-					}
-
-					else {
-						textView1.setText("No input");
-					}
-
-				}
-
-			}
-
-		});
+	
 
 		getAllNearbyListType();
 		System.out.print("******************************");
 
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getSupportMenuInflater().inflate(R.menu.nearby, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.nearby_search:
+			//Intent intent = new Intent();
+			//intent.setClass(getBaseContext(), ReportLostPetActivity.class);
+			//startActivity(intent);
+			//this is the search icon onclick stuffs, try run
+			searchLocation();
+			return true;
+		}
+		
+		return super.onOptionsItemSelected(item);
 	}
 
 	public void getAllNearbyListType() {
@@ -428,7 +386,66 @@ public class NearbyActivity extends MainBaseActivity implements
 
 
 	
-	
+	public void searchLocation(){
+		
+		for (int i = 0; i < StaticObjects.getLocations().size(); i++) {
+
+			LatLng LOCATION = new LatLng(staticObjects.getLocations()
+					.get(i).getX(), staticObjects.getLocations().get(i)
+					.getY());
+			final String title =StaticObjects.getLocations().get(i).getTitle().toString();
+			final String desc = StaticObjects.getLocations().get(i).getDescription().toString();
+			final String address = StaticObjects.getLocations().get(i).getAddress().toString();
+			
+			
+			if (staticObjects.getLocations().get(i).getTitle()
+					.equals(textView.getText().toString())) {
+				mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+				CameraUpdate update = CameraUpdateFactory
+						.newLatLngZoom(LOCATION, 16);
+				mMap.getMaxZoomLevel();
+				mMap.animateCamera(update);
+				MarkerOptions mOption = new MarkerOptions()
+						.position(LOCATION)
+						.title(title)
+						.snippet(desc)
+						.icon(BitmapDescriptorFactory
+								.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+				vetMarkers.add(mMap.addMarker(mOption));
+				mMap.setOnMapClickListener(new OnMapClickListener (){
+
+					@Override
+					public void onMapClick(LatLng arg0) {
+						// TODO Auto-generated method stub
+						//textView1.setText("Hello world");
+						
+						
+						com.petsociety.models.Location loc = new com.petsociety.models.Location();
+						loc.setTitle(title);
+						StaticObjects.setSelectedLocation(loc);
+
+						
+						 Intent intent = new Intent(NearbyActivity.this,
+								NearbyDetailsActivity.class);
+								
+					
+						 intent.putExtra("nearbyTitle", title);
+						
+						
+						startActivity(intent);
+					
+						
+					}});
+
+			}
+
+			else {
+				textView1.setText("No input");
+			}
+
+		}
+
+}
 	
 
 	
