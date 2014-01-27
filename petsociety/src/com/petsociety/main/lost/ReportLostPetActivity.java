@@ -1,6 +1,9 @@
 package com.petsociety.main.lost;
 
+import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
 import com.example.petsociety.R;
 import com.petsociety.httprequests.CreateLostRequest;
@@ -14,11 +17,14 @@ import android.app.TimePickerDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -35,8 +41,8 @@ public class ReportLostPetActivity extends FragmentActivity {
 	
 	Spinner spin_type;
 	Button report_lost, b_lost_location;
-	TextView tv_date, tv_time;
-	EditText et_desc, et_reward;
+	EditText et_date, et_time;
+	EditText et_desc, et_reward, et_address;
 	//ArrayAdapter<CharSequence> adapter;
 	//String[] spinItems = {"Dog","Cat","Bird"};
 	Context context = this;
@@ -53,10 +59,11 @@ public class ReportLostPetActivity extends FragmentActivity {
 		
 		report_lost = (Button) findViewById(R.id.b_lost_report);
 		b_lost_location = (Button) findViewById(R.id.b_lost_location);
-		tv_time = (TextView) findViewById(R.id.tv_lost_time);
-		tv_date = (TextView) findViewById(R.id.tv_lost_date);
+		et_time = (EditText) findViewById(R.id.et_lost_time);
+		et_date = (EditText) findViewById(R.id.et_lost_date);
 		et_reward = (EditText) findViewById(R.id.et_lost_reward);	
-		et_desc = (EditText) findViewById(R.id.et_lost_desc);	
+		et_desc = (EditText) findViewById(R.id.et_lost_desc);
+		et_address = (EditText) findViewById(R.id.et_lost_address);
 		
 		b_lost_location.setOnClickListener(new OnClickListener(){
 			@Override
@@ -72,7 +79,7 @@ public class ReportLostPetActivity extends FragmentActivity {
 		report_lost.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {	
-				CreateLostRequest createLostRequest = new CreateLostRequest(tv_date.getText().toString(), "amk", et_desc.getText().toString(), Double.toString(x),Double.toString(y),et_reward.getText().toString());
+				CreateLostRequest createLostRequest = new CreateLostRequest(et_date.getText().toString()+"T"+et_time.getText().toString(), et_address.getText().toString(), et_desc.getText().toString(), Double.toString(x),Double.toString(y),et_reward.getText().toString());
 				new LostBackgroundTask().execute(createLostRequest, null);
 			}
 		});
@@ -130,7 +137,7 @@ private class LostBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			// TODO Auto-generated method stub
 			Toast.makeText(getActivity(), ""+hourOfDay + ","+minute, Toast.LENGTH_SHORT).show();
-			tv_time.setText(""+hourOfDay+":"+minute+":00");
+			et_time.setText(""+hourOfDay+":"+minute+":00");
 		}
 	}
 	
@@ -160,7 +167,7 @@ private class LostBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 		public void onDateSet(DatePicker view, int year, int month, int day) {
 			// TODO Auto-generated method stub
 			Toast.makeText(getActivity(), ""+year + ","+month+","+day, Toast.LENGTH_SHORT).show();
-			tv_date.setText(""+day+"/"+(month+1)+"/"+year);
+			et_date.setText(""+year+"-"+(month+1)+"-"+day);
 		}
 	}
 	
@@ -175,7 +182,40 @@ private class LostBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 		//Toast.makeText(getApplicationContext(), "passeed", Toast.LENGTH_SHORT).show();
 		x = data.getDoubleExtra("x", 1.3);
 		y = data.getDoubleExtra("y", 103.8);
+		getMyLocationAddress();
 	}
+	
+public void getMyLocationAddress() {
+        
+        Geocoder geocoder= new Geocoder(this, Locale.ENGLISH);
+         
+        try {
+              //Place your latitude and longitude
+              List<Address> addresses = geocoder.getFromLocation(x, y, 1);
+              if(addresses != null) {
+               
+                  Address fetchedAddress = addresses.get(0);
+                  StringBuilder strAddress = new StringBuilder();
+                
+                  for(int i=0; i<fetchedAddress.getMaxAddressLineIndex(); i++) {
+                        strAddress.append(fetchedAddress.getAddressLine(i));
+                        //Log.i("Address", fetchedAddress.getAddressLine(i));
+                  }
+                  
+        	    	et_address.setText(strAddress.toString());
+              }
+               
+              else{
+            	  et_address.setText("No location found");
+              }
+          
+        } 
+        catch (IOException e) {
+                 // TODO Auto-generated catch block
+                 e.printStackTrace();
+                 Toast.makeText(getApplicationContext(),"Could not get address..!", Toast.LENGTH_LONG).show();
+        }
+    }
 	
 
 }

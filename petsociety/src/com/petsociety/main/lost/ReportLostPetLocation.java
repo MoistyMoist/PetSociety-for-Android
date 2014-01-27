@@ -61,20 +61,10 @@ public class ReportLostPetLocation extends SherlockFragmentActivity
 		// TODO Auto-generated method stub
 		//return super.onOptionsItemSelected(item);
 		Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_SHORT).show();
-		//Intent intent = new Intent();
-		//intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-		//intent.setClass(getApplication(), ReportLostPetActivity.class);
-		//intent.putExtra("x", lostMarker.latitude);
-		//intent.putExtra("y", lostMarker.longitude);
-		//startActivity(intent);
-		
-		
 		Intent returnIntent = new Intent();
 		returnIntent.putExtra("x",lostMarker.latitude);
 		returnIntent.putExtra("y",lostMarker.longitude);
 		setResult(RESULT_OK,returnIntent);     
-		finish();
-		
 		finish();
 		return true;
 	}
@@ -113,7 +103,9 @@ public class ReportLostPetLocation extends SherlockFragmentActivity
     
 public void addLostPetMarker(){
     	
-	mLostPet.clear();//= new ArrayList<Marker>();
+	for (int i=0; i<mLostPet.size(); i++){
+		mLostPet.get(i).remove();
+	}
 	//Toast.makeText(getApplicationContext(), "L:"+lat+","+lng, Toast.LENGTH_SHORT).show();
 	MarkerOptions mOption = new MarkerOptions().position(lostMarker);
 	mLostPet.add(mMap.addMarker(mOption));

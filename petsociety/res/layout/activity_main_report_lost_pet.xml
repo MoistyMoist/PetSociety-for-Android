@@ -54,16 +54,21 @@
 	    android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-	<Button 
-    android:layout_width="wrap_content" 
-    android:layout_height="wrap_content"
-    android:text="Set Time" 
-    android:onClick="showTimePickerDialog" />
+        
+	<EditText 
+		android:id="@+id/et_lost_date"
+		android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:enabled="false"
+        android:text="Date"/>
 	
-	<TextView 
-	    android:id="@+id/tv_lost_time"
+	<EditText 
+	    android:id="@+id/et_lost_time"
 	    android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:enabled="false"
         android:text="Time"/>
 	</LinearLayout>
 	
@@ -74,16 +79,18 @@
 		android:orientation="horizontal">
 	
 	<Button 
-    android:layout_width="wrap_content" 
+    android:layout_width="fill_parent" 
     android:layout_height="wrap_content"
+    android:layout_weight="0.5"
     android:text="Set Date" 
     android:onClick="showDatePickerDialog" />
 	
-		<TextView 
-		    android:id="@+id/tv_lost_date"
-		    android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Date"/>
+	<Button 
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content"
+    android:layout_weight="0.5"
+    android:text="Set Time" 
+    android:onClick="showTimePickerDialog" />
 	
 	</LinearLayout>
 	

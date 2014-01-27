@@ -17,17 +17,17 @@ import com.petsociety.utils.StaticObjects;
 public class CreateLostRequest implements Runnable{
 
 	private StaticObjects staticObjects;
-	private String date;
+	private String dateTime;
 	private String address;
 	private String desc;
 	private String x;
 	private String y;
 	private String reward;
 	
-	public CreateLostRequest(String date, String address, String desc, String x, String y, String reward)
+	public CreateLostRequest(String dateTime, String address, String desc, String x, String y, String reward)
 	{
 		staticObjects= new StaticObjects();
-		this.date = date;
+		this.dateTime = dateTime;
 		this.address = address;
 		this.desc = desc;
 		this.x = x;
@@ -46,12 +46,12 @@ public class CreateLostRequest implements Runnable{
 
 		httpget = new HttpGet("http://petsociety.cloudapp.net/api/ReportLost?token="+staticObjects.getToken()
 				
-								+"&INdateTimeSeen=" + date
-								+"&INaddress=" + address 
+								+"&INdateTimeSeen=" + dateTime
+								+"&INaddress=" + address.replace(" ", "%20") 
 								+"&INDescription=" + desc
 								+"&INx=" + x
 								+"&INy=" + y
-								+"&INfound=" + "1"
+								+"&INfound=" + "0"
 								+"&INreward=" + reward
 								+"&INpetID=" + "1" 
 								+"&INuserID=" + staticObjects.getCurrentUser().getUserID());
