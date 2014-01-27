@@ -174,6 +174,8 @@ public class MainActivity extends MainBaseActivity
 	
 	public void getAllList(){
 		
+		clearAllMarkers();
+		
 		progress = ProgressDialog.show(this, "Setting up map","please wait...", true);
 		
 		RetrieveAllPetRequest retrieveAllPetRequest = new RetrieveAllPetRequest();
@@ -189,6 +191,12 @@ public class MainActivity extends MainBaseActivity
 		RetrieveAllLocationRequest retrieveAllLocationRequest = new RetrieveAllLocationRequest();
 		new LocationListBackgroundTask().execute( retrieveAllLocationRequest,null);
 
+	}
+	
+	public void clearAllMarkers(){
+		for (int i=0; i<mLostPet.size(); i++){mLostPet.get(i).remove();}
+		for (int i=0; i<mLocation.size(); i++){mLocation.get(i).remove();}
+		for (int i=0; i<mEvent.size(); i++){mEvent.get(i).remove();}
 	}
 	
 	private class LostListBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
