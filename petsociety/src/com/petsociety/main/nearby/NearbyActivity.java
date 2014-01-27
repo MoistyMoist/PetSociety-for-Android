@@ -103,7 +103,7 @@ public class NearbyActivity extends MainBaseActivity implements
 		viewGroup.addView(View.inflate(this, R.layout.basic_map, null));
 		setUpMapIfNeeded();
 
-		locateButton = (Button) findViewById(R.id.locateButton);
+	
 		// etNearbySearchLocation = (EditText)
 		// findViewById(R.id.etNearbySearchLocation);
 		intent = new Intent();
@@ -146,7 +146,13 @@ public class NearbyActivity extends MainBaseActivity implements
 			//intent.setClass(getBaseContext(), ReportLostPetActivity.class);
 			//startActivity(intent);
 			//this is the search icon onclick stuffs, try run
+		if(textView.getText().toString().equals("")){
+			textView.setVisibility(View.VISIBLE);
+			return false;
+		}
+		else{	
 			searchLocation();
+		}
 			return true;
 		}
 		
@@ -440,7 +446,7 @@ public class NearbyActivity extends MainBaseActivity implements
 			}
 
 			else {
-				textView1.setText("No input");
+			
 			}
 
 		}

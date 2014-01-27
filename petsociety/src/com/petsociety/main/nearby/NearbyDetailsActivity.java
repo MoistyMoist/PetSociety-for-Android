@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TabHost;
@@ -33,6 +34,7 @@ public class NearbyDetailsActivity extends TabActivity  {
 	Context myContext;
 	TabHost tabHost;
 	TabSpec tab2,tab3,tab4;
+	Button btnNavigate;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class NearbyDetailsActivity extends TabActivity  {
 
 		tvShopName = (TextView) findViewById(R.id.tvShopName);
 		call = (ImageButton) findViewById(R.id.nearbyDetailsCall);
+		btnNavigate=(Button) findViewById(R.id.btnNavigate);
 
 		
 		tabHost = (TabHost) findViewById(android.R.id.tabhost);
@@ -86,16 +89,8 @@ public class NearbyDetailsActivity extends TabActivity  {
 		
 
 		 
-			//yeap?
-			
 		
-		
-
-//		Intent intent = new Intent(NearbyDetailsActivity.this,
-//				ShopInfoActivity.class);
-//
-//		startActivity(intent);
-
+	
 		call.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -116,6 +111,20 @@ public class NearbyDetailsActivity extends TabActivity  {
 			}
 		});
 
+		
+		btnNavigate.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+				Intent intent = new Intent();
+				intent.setClass(getBaseContext(), NearbyActivity.class);
+				startActivity(intent);			
+				
+			}
+		});
+		
 	}
 
 	
