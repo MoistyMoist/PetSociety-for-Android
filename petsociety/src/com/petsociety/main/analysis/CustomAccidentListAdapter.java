@@ -51,14 +51,14 @@ public class CustomAccidentListAdapter extends ArrayAdapter<Location> {
         
         // 4. Set the text for textView 
 
-		name.setText(accidentList.get(position).getTitle());
+		name.setText(getItem(position).getTitle());
 		
 		Date today = new Date();
 		long MILLISECS_PER_DAY = 24 * 60 * 60 * 1000;
-		long days = (today.getTime() - accidentList.get(position).getDateTImeCreated().getTime())/MILLISECS_PER_DAY; 
-		tv_days.setText(Long.toString(days));	
+		long days = (today.getTime() - getItem(position).getDateTImeCreated().getTime())/MILLISECS_PER_DAY; 
+		//tv_days.setText(Long.toString(days));	
 		
-		location.setText(accidentList.get(position).getDescription());
+		//location.setText(getItem(position).getDescription());
 		
 		return convertView;
         

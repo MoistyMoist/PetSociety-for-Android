@@ -127,7 +127,10 @@ OnMyLocationButtonClickListener{
 		RetrieveAllLostRequest lostRequest= new RetrieveAllLostRequest();
 		
 		//retrieve lost data first as default
-		//StaticObjects.getAnslysisLocation()=new List<Location>();
+		StaticObjects.setAnalysisEvent(null);
+ 	   	StaticObjects.setAnalysisStray(null);
+ 	   //	StaticObjects.setAndlysisLost(null);
+ 	   	StaticObjects.setAnslysisLocation(null);
 		 new BackgroundTask().execute(lostRequest,lostRequest);
 		
 		
@@ -686,8 +689,8 @@ OnMyLocationButtonClickListener{
 				notFoundPets=notFoundPets+1;
 			}
 		}
-		foundPets=foundPets/3;
-		notFoundPets= notFoundPets/3;
+		foundPets=foundPets/2;
+		notFoundPets= notFoundPets/2;
 		
 		CategorySeries dataset= new CategorySeries("Lost Pets");
 		
@@ -735,31 +738,64 @@ OnMyLocationButtonClickListener{
 	    		}
 	    	}
 	    }
+	    for(int i=0;i<StaticObjects.getPET_LIST().length;i++)
+	    {
+	    	if(y[i]>=2)
+	    	{
+	    		y[i]=y[i]/2;
+	    	}
+	    }
 	    
 	    TimeSeries Dog= new TimeSeries("Dogs");
 	   
-	    	Dog.add(0, y[0]);
-	    	Dog.add(0, 0);
+	    //	Dog.add(0, y[0]);
+	    	//Dog.add(0, 0);
+	    //dataset.addSeries(Dog);
+	    
+	    for(int i=0;i<y.length;i++)
+	    {
+	    	Dog.add(y[i], y[i]);
+	    }
 	    dataset.addSeries(Dog);
 	    
+	    
 	    TimeSeries Cat= new TimeSeries("Cats");
-	   
-	    	Cat.add(1, y[1]);
-	    	Cat.add(1, 0);
 	    dataset.addSeries(Cat);
 	    
+	    TimeSeries Bird= new TimeSeries("Bird");
+	    dataset.addSeries(Bird);
 	    
-	    
+	    TimeSeries Fish= new TimeSeries("Fish");
+	    dataset.addSeries(Fish);
+	  
 	    
 		XYMultipleSeriesRenderer renderer= new XYMultipleSeriesRenderer();
+		
+		
+		XYSeriesRenderer blue= new XYSeriesRenderer();
+		blue.setColor(Color.BLUE);
+		blue.setPointStyle(PointStyle.SQUARE);
+		blue.setFillPoints(true);
+		blue.setDisplayChartValuesDistance(100);
+		renderer.addSeriesRenderer(blue);
+		
 		XYSeriesRenderer red= new XYSeriesRenderer();
-		red.setColor(Color.BLUE);
+		red.setColor(Color.RED);
 		red.setPointStyle(PointStyle.SQUARE);
 		red.setFillPoints(true);
 		renderer.addSeriesRenderer(red);
-		XYSeriesRenderer blue= new XYSeriesRenderer();
-		blue.setColor(Color.RED);
-		renderer.addSeriesRenderer(blue);
+		
+		XYSeriesRenderer green= new XYSeriesRenderer();
+		green.setColor(Color.GREEN);
+		green.setPointStyle(PointStyle.SQUARE);
+		green.setFillPoints(true);
+		renderer.addSeriesRenderer(green);
+		
+		XYSeriesRenderer yellow= new XYSeriesRenderer();
+		yellow.setColor(Color.YELLOW);
+		yellow.setPointStyle(PointStyle.SQUARE);
+		yellow.setFillPoints(true);
+		renderer.addSeriesRenderer(yellow);
 		
 		
        // if (mChartView == null) {
@@ -780,16 +816,23 @@ OnMyLocationButtonClickListener{
 	
 	private void DrawLocationChart()
 	{
-//		listView=(ListView)findViewById(R.id.list);
-//		mChartView.setVisibility(1);
-//		listView.setVisibility(0);
-//		ArrayList<com.petsociety.models.Location> list= new ArrayList<com.petsociety.models.Location>();
-//		
-//        for (int i=0; i<StaticObjects.getAnslysisLocation().size(); i++){
-//        	if(StaticObjects.getAnslysisLocation().get(i).getType().equalsIgnoreCase("Accidents"))
-//        		list.add(StaticObjects.getAnslysisLocation().get(i));
-//        }  
-//        CustomAccidentListAdapter adapter = new CustomAccidentListAdapter(getBaseContext(),list);
-//        listView.setAdapter(adapter);
+		
+		listView=(ListView)findViewById(R.id.analysis_list);
+		Log.i("locationcahrt",listView.getVisibility()+"");
+		mChartView.setVisibility(2);
+		listView.setVisibility(1);
+		Log.i("locationcahrt",listView.getVisibility()+"");
+		ArrayList<com.petsociety.models.Location> list= new ArrayList<com.petsociety.models.Location>();
+		
+        for (int i=0; i<StaticObjects.getAnslysisLocation().size(); i++){
+        	if(StaticObjects.getAnslysisLocation().get(i).getType().equalsIgnoreCase("Accidents"))
+        	{
+        		list.add(StaticObjects.getAnslysisLocation().get(i));
+        		Log.i("locationcahrt",StaticObjects.getAnslysisLocation().get(i).getType()+"");
+        	}
+        		
+        }  
+       // CustomAccidentListAdapter adapter = new CustomAccidentListAdapter(getBaseContext(),list);
+       // listView.setAdapter(adapter);
 	}
 }
