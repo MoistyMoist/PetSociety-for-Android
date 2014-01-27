@@ -77,6 +77,8 @@ public class NearbyActivity extends MainBaseActivity implements
 	ProgressDialog progress;
 	Context context = this;
 	ArrayList<String> locationTypeArrayList = new ArrayList<String>();
+	
+	 String address,desc, type;
 
 	public NearbyActivity() {
 		super(R.string.title_activity_nearby);
@@ -134,6 +136,8 @@ public class NearbyActivity extends MainBaseActivity implements
 							.getY());
 					final String title =StaticObjects.getLocations().get(i).getTitle().toString();
 					final String desc = StaticObjects.getLocations().get(i).getDescription().toString();
+					final String address = StaticObjects.getLocations().get(i).getAddress().toString();
+					
 					
 					if (staticObjects.getLocations().get(i).getTitle()
 							.equals(textView.getText().toString())) {
@@ -156,15 +160,16 @@ public class NearbyActivity extends MainBaseActivity implements
 								// TODO Auto-generated method stub
 								textView1.setText("Hello world");
 								
-								final Intent intent = new Intent(NearbyActivity.this,
+								 Intent intent = new Intent(NearbyActivity.this,
 										NearbyDetailsActivity.class);
-
+										
+							
 								 intent.putExtra("nearbyTitle", title);
 								
-							
 								
-								startActivity(intent);  
-
+								startActivity(intent);
+								
+								((com.petsociety.models.Location) StaticObjects.getLocations()).setTitle(title);
 							
 								
 							}});

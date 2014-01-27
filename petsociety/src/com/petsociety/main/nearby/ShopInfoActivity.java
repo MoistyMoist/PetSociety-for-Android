@@ -8,6 +8,7 @@ import com.example.petsociety.R.layout;
 import com.example.petsociety.R.menu;
 import com.petsociety.httprequests.RetrieveAllLocationRequest;
 import com.petsociety.httprequests.RetrieveLocationByTypeRequest;
+import com.petsociety.models.Location;
 import com.petsociety.utils.StaticObjects;
 
 import android.net.Uri;
@@ -33,6 +34,8 @@ public class ShopInfoActivity extends Activity {
 	ProgressDialog progress;
 	Context context = this;
 	ArrayList<String> locationTypeArrayList = new ArrayList<String>();
+	Location singleLocation= null;
+	
 
 	String address;
 	String[] items = { "address", "porn.com", "shahrikins porn site" };
@@ -42,28 +45,33 @@ public class ShopInfoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_shop_info);
 
+	
+	
 		tv1 = (TextView) findViewById(R.id.tv1);
-
-		//
-		// Intent intentAdd= getIntent();
-		// Bundle title = intentAdd.getExtras();
-		// tv1.setText(title.get("address").toString());
-		//
-		tv1.setText("address");
-
-		
-
-		// lvShopDetails = (ListView) findViewById(R.id.lvShopDetails);
-
-		//adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_list_item_1, items);
-		//lvShopDetails.setAdapter(adapter);
-
-		/*
-		 * items = {address.getString("address"),
-		 * "Website : \n\n www.petstore.com \n", desc.getString("desc") ,
-		 * "Ratings :\n \n \n"};
-		 */
-
+		tv1.setText("sa");
+//		
+//		Location title = StaticObjects.getTitle();
+//		tv1.setText(title.toString());
+//		
+//		
+//		Intent intentTitle = getIntent();
+//		Bundle title = intentTitle.getExtras();
+//		
+//		
+//		for (int i=0; i<StaticObjects.getLocations().size(); i++){
+//			if(title.toString().equals(StaticObjects.getLocations().get(i).getTitle()))
+//			{
+//				singleLocation = StaticObjects.getLocations().get(i);
+//			}
+//
+//		}		
+//		
+//	   tv1.setText(singleLocation.getTitle());
+//	   // singleDescription.setText(singleLocation.getDescription());
+//	   // singleAddress.setText(singleLocation.getAddress());
+//	    
+//				
+//		
 	}
 
 }

@@ -53,7 +53,7 @@ public class NearbyList extends MainBaseActivity {
 				int locationID = ((Location)arg0.getItemAtPosition(arg2)).getLocationID();
 				Intent intent = new Intent();
 				intent.putExtra("locationID", locationID);
-				intent.setClass(getBaseContext(), ReviewList.class);
+				intent.setClass(getBaseContext(), LocationInfoActivity.class);
 				startActivity(intent);
 			}});
 	}

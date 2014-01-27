@@ -82,6 +82,14 @@ public class NearbyDetailsActivity extends TabActivity  {
 		Intent intentTitle = getIntent();
 		Bundle title = intentTitle.getExtras();
 		tvShopName.setText(title.get("nearbyTitle").toString());
+	String	pass = tvShopName.getText().toString();
+		
+
+		 
+			//yeap?
+			
+		
+		
 
 //		Intent intent = new Intent(NearbyDetailsActivity.this,
 //				ShopInfoActivity.class);

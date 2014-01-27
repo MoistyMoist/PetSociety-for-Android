@@ -52,6 +52,9 @@ public class StaticObjects {
 	static Stray selectedStray;
 	static List<Review> reviews;
 	static Review selectReview;
+	static Location desc;
+	static Location address;
+	static Location title;
 	
 	//LOST OBJECTS (CHOON SENG)
 	static List<Lost> losts;
@@ -72,7 +75,12 @@ public class StaticObjects {
 	
 	
 	
-	
+	public static Location getTitle() {
+		return title;
+	}
+	public static void setTitle(Location title) {
+		StaticObjects.title = title;
+	}
 	
 	
 	
@@ -284,6 +292,28 @@ public class StaticObjects {
 	public static void setANALYSIS_TYPE(String[] aNALYSIS_TYPE) {
 		ANALYSIS_TYPE = aNALYSIS_TYPE;
 	}
+	
+	public static Location getDesc() {
+		return desc;
+	}
+	public static void setDesc(Location desc) {
+		StaticObjects.desc = desc;
+	}
+	public static Location getAddress() {
+		return address;
+	}
+	public static void setAddress(Location address) {
+		StaticObjects.address = address;
+	}
+	public static Location getType() {
+		return type;
+	}
+	public static void setType(Location type) {
+		StaticObjects.type = type;
+	}
+	static Location type;
+	
+	
 	//For logout, set all null
 	public static void setStaticEmpty() {
 		// TODO Auto-generated method stub
