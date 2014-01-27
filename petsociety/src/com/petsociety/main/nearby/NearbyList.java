@@ -52,7 +52,7 @@ public class NearbyList extends MainBaseActivity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				int locationID = ((Location)arg0.getItemAtPosition(arg2)).getLocationID();
 				Intent intent = new Intent();
-				intent.putExtra("locationID", locationID);
+				intent.putExtra("location", locationID);
 				intent.setClass(getBaseContext(), LocationInfoActivity.class);
 				startActivity(intent);
 			}});

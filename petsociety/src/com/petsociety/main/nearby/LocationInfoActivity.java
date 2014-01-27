@@ -51,7 +51,7 @@ public class LocationInfoActivity extends FragmentActivity {
 
 		}		
 		
-	    singleTitle.setText(singleLocation.getTitle());
+	    singleTitle.setText(singleLocation.getTitle()); //here
 	    singleDescription.setText(singleLocation.getDescription());
 	    singleAddress.setText(singleLocation.getAddress());
 	    
@@ -81,6 +81,7 @@ public class LocationInfoActivity extends FragmentActivity {
             
         }
         private void setUpMap() {
+        	
         	
             mMap.addMarker(new MarkerOptions().position(new LatLng(1.379348, 103.849876)).title("Marker"));
         

@@ -48,7 +48,7 @@ public class ShopInfoActivity extends Activity {
 	
 	
 		tv1 = (TextView) findViewById(R.id.tv1);
-		tv1.setText("sa");
+		tv1.setText(StaticObjects.getSelectedLocation().getTitle().toString());
 //		
 //		Location title = StaticObjects.getTitle();
 //		tv1.setText(title.toString());

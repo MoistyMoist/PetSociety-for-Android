@@ -158,7 +158,13 @@ public class NearbyActivity extends MainBaseActivity implements
 							@Override
 							public void onMapClick(LatLng arg0) {
 								// TODO Auto-generated method stub
-								textView1.setText("Hello world");
+								//textView1.setText("Hello world");
+								
+								
+								com.petsociety.models.Location loc = new com.petsociety.models.Location();
+								loc.setTitle(title);
+								StaticObjects.setSelectedLocation(loc);
+
 								
 								 Intent intent = new Intent(NearbyActivity.this,
 										NearbyDetailsActivity.class);
@@ -168,8 +174,6 @@ public class NearbyActivity extends MainBaseActivity implements
 								
 								
 								startActivity(intent);
-								
-								((com.petsociety.models.Location) StaticObjects.getLocations()).setTitle(title);
 							
 								
 							}});
