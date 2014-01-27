@@ -1,50 +1,54 @@
 
-<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".ReportLostPetActivity" >
 
+    <RelativeLayout 
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content">
+    
     <LinearLayout 
         android:id="@+id/linearLayout0"
        	android:layout_width="match_parent"
    	 	android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_lost_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description"
+            android:inputType="textMultiLine" />
         
 	<EditText
         android:id="@+id/et_lost_reward"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Reward" />
+        android:hint="Reward"
+        android:inputType="phone" />
 	
     <EditText
         android:id="@+id/et_lost_age"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5"
         android:hint="Age"
         android:inputType="phone" />
 
     <EditText
-        android:id="@+id/et_lost_x"
+        android:id="@+id/et_lost_address"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="X"
-        android:inputType="phone" />
-    
-	<EditText
-        android:id="@+id/et_lost_y"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="Y"
-        android:inputType="phone" />
+        android:hint="Address"
+        android:enabled="false" />
     
 	<Button
         android:id="@+id/b_lost_location"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Select" />
+        android:text="Location Select" />
 	
 	<LinearLayout
 	    android:layout_width="fill_parent"
@@ -89,7 +93,8 @@
         android:id="@+id/b_lost_report"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/linearLayout0"
         android:text="Report" />
-
+    
 </RelativeLayout>
+</ScrollView>

@@ -36,11 +36,11 @@ public class ReportLostPetActivity extends FragmentActivity {
 	Spinner spin_type;
 	Button report_lost, b_lost_location;
 	TextView tv_date, tv_time;
-	EditText et_x, et_y, et_reward;
+	EditText et_desc, et_reward;
 	//ArrayAdapter<CharSequence> adapter;
 	//String[] spinItems = {"Dog","Cat","Bird"};
 	Context context = this;
-	
+	double x,y;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -55,9 +55,8 @@ public class ReportLostPetActivity extends FragmentActivity {
 		b_lost_location = (Button) findViewById(R.id.b_lost_location);
 		tv_time = (TextView) findViewById(R.id.tv_lost_time);
 		tv_date = (TextView) findViewById(R.id.tv_lost_date);
-		et_x = (EditText) findViewById(R.id.et_lost_x);
-		et_y = (EditText) findViewById(R.id.et_lost_y);	
 		et_reward = (EditText) findViewById(R.id.et_lost_reward);	
+		et_desc = (EditText) findViewById(R.id.et_lost_desc);	
 		
 		b_lost_location.setOnClickListener(new OnClickListener(){
 			@Override
@@ -73,7 +72,7 @@ public class ReportLostPetActivity extends FragmentActivity {
 		report_lost.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {	
-				CreateLostRequest createLostRequest = new CreateLostRequest(tv_date.getText().toString(), "amk", "dog", et_x.getText().toString(),et_y.getText().toString(),et_reward.getText().toString());
+				CreateLostRequest createLostRequest = new CreateLostRequest(tv_date.getText().toString(), "amk", et_desc.getText().toString(), Double.toString(x),Double.toString(y),et_reward.getText().toString());
 				new LostBackgroundTask().execute(createLostRequest, null);
 			}
 		});
@@ -173,14 +172,9 @@ private class LostBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
-		
-		Toast.makeText(getApplicationContext(), "passeed", Toast.LENGTH_SHORT).show();
-		
-		double xSelect = data.getDoubleExtra("x", 1.3);
-		double ySelect = data.getDoubleExtra("y", 103.8);
-		
-		et_x.setText(Double.toString(xSelect));
-		et_y.setText(Double.toString(ySelect));
+		//Toast.makeText(getApplicationContext(), "passeed", Toast.LENGTH_SHORT).show();
+		x = data.getDoubleExtra("x", 1.3);
+		y = data.getDoubleExtra("y", 103.8);
 	}
 	
 
