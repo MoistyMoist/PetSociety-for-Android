@@ -43,7 +43,7 @@ public class LeftListFragment extends ListFragment {
 		adapter.add(new SampleItem("PetSG Home",R.drawable.ic_left_home));
 		adapter.add(new SampleItem("Profile", R.drawable.ic_left_profile));
 		adapter.add(new SampleItem("Events", R.drawable.ic_left_event));
-		adapter.add(new SampleItem("Nearby Locations", R.drawable.ic_left_nearby));
+		adapter.add(new SampleItem("Nearby Places", R.drawable.ic_left_nearby));
 		adapter.add(new SampleItem("Analysis", R.drawable.ic_left_analysis));
 		adapter.add(new SampleItem("Settings", R.drawable.ic_left_setting));
 		adapter.add(new SampleItem("Log Out", R.drawable.ic_left_logout));
@@ -129,19 +129,18 @@ public class LeftListFragment extends ListFragment {
 			if (convertView == null) {
 				convertView = LayoutInflater.from(getContext()).inflate(R.layout.row, null);
 			}
-			ImageView icon = (ImageView) convertView.findViewById(R.id.row_icon);
-			icon.setImageResource(getItem(position).iconRes);
-			TextView title = (TextView) convertView.findViewById(R.id.row_title);
-			title.setText(getItem(position).tag);
-			title.setTextColor(Color.BLUE);
-			
 			
 			//convertView.setBackgroundColor(Color.parseColor("#80C8B5"));
 			convertView.setBackgroundColor(Color.WHITE);
-			//title.setText(title.getText().toString().toUpperCase());
-			title.setTextColor(Color.parseColor("#333333"));
-			title.setTypeface(null, Typeface.NORMAL);
 			
+			ImageView icon = (ImageView) convertView.findViewById(R.id.row_icon);
+			icon.setImageResource(getItem(position).iconRes);
+			TextView title = (TextView) convertView.findViewById(R.id.row_title);
+			title.setText(getItem(position).tag); //title.setText(title.getText().toString().toUpperCase());
+			title.setTextColor(Color.parseColor("#333333"));
+			//title.setTypeface(null, Typeface.NORMAL);
+			title.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/MontserratAlternates-Regular.ttf"));
+			//title.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/HappyMonkey-Regular.ttf")); 
 			return convertView;
 		}
 		
