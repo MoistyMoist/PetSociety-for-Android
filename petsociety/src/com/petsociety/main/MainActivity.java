@@ -582,7 +582,7 @@ public class MainActivity extends MainBaseActivity
 	}
 	
     public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "Stalking...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Moving to your location", Toast.LENGTH_SHORT).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;
