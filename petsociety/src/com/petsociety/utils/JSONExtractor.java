@@ -15,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.petsociety.models.Address;
 import com.petsociety.models.Event;
 import com.petsociety.models.Location;
 import com.petsociety.models.Lost;
@@ -662,6 +663,43 @@ public class JSONExtractor {
 
 		public void ExtractOneMapSearchRequest(HttpResponse data)throws IllegalStateException, IOException, JSONException
 		{
-			
+			HttpEntity entity = data.getEntity();
+	        
+	        if (entity != null) {
+	            InputStream instream = entity.getContent();
+	            String result= convertStreamToString(instream);
+	            
+	            JSONObject json = null;
+	            json = new JSONObject(result);
+	            Log.i("Search result",result);
+	        
+	            
+	            
+	            
+	            
+	            JSONArray RawData= json.getJSONArray("SearchResults");
+				
+				ArrayList<Address> addresses= new ArrayList<Address>();
+				for(int i=1;i<RawData.length();i++)
+				{
+					
+					JSONObject c2=RawData.getJSONObject(i); 
+					
+					
+					Address p= new Address();
+					p.setAddress(c2.getString("SEARCHVAL"));
+					p.setX(c2.getDouble("X"));
+					p.setY(c2.getDouble("Y"));
+					Log.i("c ",p.getAddress().toString() );
+					addresses.add(p); 
+					
+					//Log.i("pet "+i,c.toString() );
+				} 
+	            
+				StaticObjects.setAddress_results(addresses);
+	            instream.close();
+	        }
+	        
+            
 		}
 }

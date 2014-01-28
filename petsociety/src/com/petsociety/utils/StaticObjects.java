@@ -31,6 +31,7 @@ public class StaticObjects {
 	static List<User> mapUser;
 	
 	//ANALYSIS OBJECTS (KAI QUAN)
+	static List<Address> address_results;
 	static List<Event> analysisEvent;
 	static List<Location> anslysisLocation;
 	static List<Stray> analysisStray;
@@ -73,7 +74,12 @@ public class StaticObjects {
 	
 	
 	
-	
+	public static void setAddress_results(List<Address> address_results) {
+		StaticObjects.address_results= address_results;
+	}
+	public static List<Address> getAddress_results() {
+		return address_results;
+	}
 	
 	public static Location getTitle() {
 		return title;

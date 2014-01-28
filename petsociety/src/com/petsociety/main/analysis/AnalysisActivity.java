@@ -167,33 +167,7 @@ OnMyLocationButtonClickListener{
 	
 	public void chartBtn(View view)
 	{
-		Dialog  webViewDialog = new Dialog(this);  
-	        //Remove the dialog's title  
-	        webViewDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);  
-	        //Inflate the contents of this dialog with the Views defined at 'webviewdialog.xml'  
-	        webViewDialog.setContentView(R.layout.custom_analysis_webview);  
-	        //With this line, the dialog can be dismissed by pressing the back key  
-	        webViewDialog.setCancelable(true);  
 		
-	        WebView webView = (WebView) webViewDialog.findViewById(R.id.webView);  
-	        //Scroll bars should not be hidden  
-	        webView.setScrollbarFadingEnabled(false);  
-	        //Disable the horizontal scroll bar  
-	        webView.setHorizontalScrollBarEnabled(false);  
-	        //Enable JavaScript  
-	        webView.getSettings().setJavaScriptEnabled(true);  
-	        //Set the user agent  
-	        webView.getSettings().setUserAgentString("AndroidWebView");  
-	        //Clear the cache  
-	        webView.clearCache(true);  
-	        //Make the webview load the specified URL  
-	        webView.loadUrl("Http://www.google.com.sg");  
-	        
-	        
-	        
-	        webViewDialog.show();
-		//LostChartPopup option= new LostChartPopup();
-		//option.show(getFragmentManager(), null);
 	}
 
 	
@@ -709,35 +683,33 @@ OnMyLocationButtonClickListener{
 		}
 	}
 	
-	@SuppressLint("ValidFragment")
-	private class LostChartPopup extends DialogFragment
+
+	private void loadLostWebView() 
 	{
-		public Dialog onCreateDialog(Bundle savedInstanceState) {
-			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-			 WebView webview=(WebView)findViewById(R.id.webView);
-			 //webview.getSettings().setJavaScriptEnabled(true);
-		     //webview.loadUrl("http://www.google.com");
-	        // Get the layout inflater
-	        LayoutInflater inflater = getActivity().getLayoutInflater();
+		AlertDialog.Builder alert = new AlertDialog.Builder(this); 
+		alert.setTitle("Interesting Facts");
 
-	        // Inflate and set the layout for the dialog
-	        // Pass null as the parent view because its going in the dialog layout
-	        builder.setView(inflater.inflate(R.layout.custom_analysis_webview, null));
+		WebView wv = new WebView(this);
+		
+		wv.loadUrl("http://petsociety.azurewebsites.net/lostchart.aspx");
+		wv.getSettings().setJavaScriptEnabled(true);
+		wv.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+		wv.setWebViewClient(new WebViewClient() {
+		    @Override
+		    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+		        view.loadUrl(url);
 
-	       
-	        // Set title of dialog
-	        builder.setMessage("InterestingFacts")
-	                // Set Ok button
-	                .setPositiveButton("Ok",
-	                        new DialogInterface.OnClickListener() {
-	                            public void onClick(DialogInterface dialog, int id) {
-	                                // User ok the dialog
-	                            }
-	                        });
-
-	        // Create the AlertDialog object and return it
-	        return builder.create();
-		}
+		        return true;
+		    }
+		});
+		alert.setView(wv);
+		alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+		    @Override
+		    public void onClick(DialogInterface dialog, int id) {
+		        dialog.dismiss();
+		    }
+		});
+		alert.show();
 	}
 	
 	//private class StrayChartPopup
@@ -880,6 +852,7 @@ OnMyLocationButtonClickListener{
       //      layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
 	}
 	
+
 	private void DrawEventChart()
 	{
 		
