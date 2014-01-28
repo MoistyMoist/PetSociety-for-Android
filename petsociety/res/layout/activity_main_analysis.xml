@@ -5,26 +5,34 @@
  	android:weightSum="1"
  	android:orientation="vertical"
     tools:context=".AnalysisActivity" >
-
+	<Button
+	    android:id="@+id/filterBtn"
+	    android:layout_width="50dp"
+	    android:layout_height="wrap_content"
+	    android:onClick="nextPage"
+	    android:text="Options" />
+	<Button
+	    android:id="@+id/chartBtn"
+	    android:layout_width="50dp"
+	    android:layout_toRightOf="@+id/filterBtn"
+	    android:layout_height="wrap_content"
+	    android:onClick="chartBtn"
+	    android:text="Q" />
  	<LinearLayout
      	android:id="@+id/analysis_map"
      	android:layout_width="fill_parent"
-     	android:layout_height="150dip"
+     	android:layout_below="@+id/filterBtn"
+     	android:layout_height="fill_parent"
      	android:orientation="vertical" />
 
 	<com.petsociety.main.analysis.HeatView
 	    android:id="@+id/heatmap"
+	    android:layout_below="@+id/filterBtn"
 	    android:layout_width="fill_parent"
-        android:layout_height="150dip"/>
+        android:layout_height="fill_parent"/>
 
-	<Button
-	    android:id="@+id/filterBtn"
-	    android:layout_below="@+id/heatmap"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:onClick="nextPage"
-	    android:text="Options" />
-	<LinearLayout 
+	
+	<!-- <LinearLayout 
 	    android:id="@+id/chart" 
 	    android:layout_marginLeft="15dip"
 	    android:layout_marginRight="15dip"
@@ -33,14 +41,14 @@
 	    android:layout_below="@+id/filterBtn"
 	    android:orientation="horizontal"
         android:layout_width="fill_parent" 
-        android:layout_height="fill_parent"/>
-	<ListView
+        android:layout_height="fill_parent"/> -->
+	<!--<ListView
 	    android:id="@+id/analysis_list"
 	    android:visibility="invisible"
 	    android:layout_below="@+id/filterBtn"
 	    android:orientation="horizontal"
         android:layout_width="fill_parent" 
-        android:layout_height="fill_parent"/>
+        android:layout_height="0dp"/>-->
 
    
  

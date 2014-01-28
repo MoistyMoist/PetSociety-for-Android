@@ -34,6 +34,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -131,7 +134,7 @@ OnMyLocationButtonClickListener{
  	   	StaticObjects.setAnalysisStray(null);
  	   //	StaticObjects.setAndlysisLost(null);
  	   	StaticObjects.setAnslysisLocation(null);
-		 new BackgroundTask().execute(lostRequest,lostRequest);
+		// new BackgroundTask().execute(lostRequest,lostRequest);
 		
 		
 		mMap.setOnCameraChangeListener(new OnCameraChangeListener(){
@@ -155,8 +158,17 @@ OnMyLocationButtonClickListener{
 					DrawEventHeatMaps();
 				}
 			}});
+	
+		
+		
+	
 	}
-
+	
+	public void chartBtn(View view)
+	{
+		LostChartPopup option= new LostChartPopup();
+		option.show(getFragmentManager(), null);
+	}
 
 	
 	private void setUpMapIfNeeded() {
@@ -348,22 +360,22 @@ OnMyLocationButtonClickListener{
 			if(StaticObjects.getAnalysisEvent()!=null)
 			{
 				DrawEventHeatMaps();
-				DrawEventChart();
+				//DrawEventChart();
 			}
 			if(StaticObjects.getAnalysisStray()!=null)
 			{
 				DrawStrayHeatMaps();
-				DrawStrayChart();
+				//DrawStrayChart();
 			}
 			if(StaticObjects.getAndlysisLost()!=null)
 			{
 				DrawLostHeatMaps();
-				DrawLostChart();
+				//DrawLostChart();
 			}
 			if(StaticObjects.getAnslysisLocation()!=null)
 			{
 				DrawLocationHeatMaps();
-				DrawLocationChart();
+				//DrawLocationChart();
 			}
 		}
 
@@ -670,6 +682,69 @@ OnMyLocationButtonClickListener{
 	        return builder.create();
 		}
 	}
+	
+	@SuppressLint("ValidFragment")
+	private class LostChartPopup extends DialogFragment
+	{
+		 public LostChartPopup newInstance() {
+			    return new LostChartPopup();
+			    }
+			    
+			    WebView wv=null;
+			    
+			    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			            Bundle savedInstanceState){
+			    View v=inflater.inflate(R.layout.custom_analysis_webview, container,false);
+			    wv=(WebView)v.findViewById(R.id.webView);
+			    initWebView(wv);
+			    
+			    wv.setWebChromeClient(new WebChromeClient()
+			    {
+			            @Override
+			            public void onProgressChanged(WebView view, int newProgress) {
+			                // super.onProgressChanged(view, newProgress);
+			                getActivity().setProgress(newProgress*1000);
+			            }
+			    });
+			    return v;
+			    }
+			    
+			    public void onActivityCreated(Bundle savedInstanceState) {
+			    super.onActivityCreated(savedInstanceState);
+			    wv.loadUrl("http://google.com");
+			    }
+			    
+			    private void initWebView(WebView wv)
+			    {
+			    wv.getSettings().setJavaScriptEnabled(true);
+			    wv.clearCache(true);  
+			    wv.setScrollBarStyle(0);
+			    wv.setWebViewClient(new MyWebViewClient());
+			    }
+			    
+			    
+			    private class MyWebViewClient extends WebViewClient
+			    {
+			        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+			            // super.onReceivedError(view, errorCode, description, failingUrl);
+			            Log.e("MyWebViewClient", failingUrl);
+			        };
+			        @Override
+			        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+			            Log.d("MyWebViewClient",url);
+			            return super.shouldOverrideUrlLoading(view, url);
+			        }
+			    }
+			    
+			    public void onDismiss (DialogInterface dialog)
+			    {
+			    wv.stopLoading();    
+			    Log.e("MyDialogFragment", "onDismiss");
+			    //super.onDismiss(dialog);
+			    }
+	}
+	
+	//private class StrayChartPopup
 
 	private void DrawLostChart()
 	{
@@ -714,11 +789,11 @@ OnMyLocationButtonClickListener{
 			r.setColor(color);
 			renderer.addSeriesRenderer(r);
 		}
-		LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
-        mChartView = ChartFactory.getPieChartView(this, dataset, renderer);
+	//	LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
+    //    mChartView = ChartFactory.getPieChartView(this, dataset, renderer);
 
-        layout.removeAllViews();
-        layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
+     //   layout.removeAllViews();
+     //   layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
 	}
 	
 	private void DrawStrayChart()
@@ -799,14 +874,14 @@ OnMyLocationButtonClickListener{
 		
 		
        // if (mChartView == null) {
-            LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
+    //        LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
              //mChartView = ChartFactory.getLineChartView(this, getDemoDataset(), getDemoRenderer());
-            mChartView = ChartFactory.getBarChartView(this, dataset, renderer,Type.DEFAULT);
+    //        mChartView = ChartFactory.getBarChartView(this, dataset, renderer,Type.DEFAULT);
             //mChartView=ChartFactory.getDoughnutChartView(context, dataset, renderer);
            // mChartView = ChartFactory.getPieChartView(this, mSeries, getDemoRenderer());
 
-            layout.removeAllViews();
-            layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
+     //       layout.removeAllViews();
+      //      layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
 	}
 	
 	private void DrawEventChart()
@@ -817,21 +892,21 @@ OnMyLocationButtonClickListener{
 	private void DrawLocationChart()
 	{
 		
-		listView=(ListView)findViewById(R.id.analysis_list);
-		Log.i("locationcahrt",listView.getVisibility()+"");
-		mChartView.setVisibility(2);
-		listView.setVisibility(1);
-		Log.i("locationcahrt",listView.getVisibility()+"");
-		ArrayList<com.petsociety.models.Location> list= new ArrayList<com.petsociety.models.Location>();
-		
-        for (int i=0; i<StaticObjects.getAnslysisLocation().size(); i++){
-        	if(StaticObjects.getAnslysisLocation().get(i).getType().equalsIgnoreCase("Accidents"))
-        	{
-        		list.add(StaticObjects.getAnslysisLocation().get(i));
-        		Log.i("locationcahrt",StaticObjects.getAnslysisLocation().get(i).getType()+"");
-        	}
-        		
-        }  
+//		listView=(ListView)findViewById(R.id.analysis_list);
+//		Log.i("locationcahrt",listView.getVisibility()+"");
+//		mChartView.setVisibility(2);
+//		listView.setVisibility(1);
+//		Log.i("locationcahrt",listView.getVisibility()+"");
+//		ArrayList<com.petsociety.models.Location> list= new ArrayList<com.petsociety.models.Location>();
+//		
+//        for (int i=0; i<StaticObjects.getAnslysisLocation().size(); i++){
+//        	if(StaticObjects.getAnslysisLocation().get(i).getType().equalsIgnoreCase("Accidents"))
+//        	{
+//        		list.add(StaticObjects.getAnslysisLocation().get(i));
+//        		Log.i("locationcahrt",StaticObjects.getAnslysisLocation().get(i).getType()+"");
+//        	}
+//        		
+//        }  
        // CustomAccidentListAdapter adapter = new CustomAccidentListAdapter(getBaseContext(),list);
        // listView.setAdapter(adapter);
 	}
