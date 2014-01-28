@@ -113,7 +113,7 @@
             android:name="com.petsociety.main.nearby.NearbyList"
             android:label="@string/title_activity_nearby_details" >
         </activity>
-		<activity
+        <activity
             android:name="com.petsociety.main.nearby.ReviewList"
             android:label="@string/title_activity_nearby_details" >
         </activity>
@@ -148,6 +148,10 @@
         <activity
             android:name="com.petsociety.main.nearby.LocationInfoActivity"
             android:label="@string/title_activity_location_info" >
+        </activity>
+        <activity
+            android:name="com.petsociety.main.Activity_search_address"
+            android:label="@string/title_activity_activity_search_address" >
         </activity>
     </application>
 
