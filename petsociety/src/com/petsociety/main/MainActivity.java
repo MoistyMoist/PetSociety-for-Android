@@ -310,7 +310,7 @@ public class MainActivity extends MainBaseActivity
 	        eventList = StaticObjects.getEvents();
 			if(StaticObjects.getEvents()==null||StaticObjects.getEvents().size()==0){}
 			else{
-				addEventMarker();
+				//addEventMarker();
 			}	
 		}
 
@@ -339,7 +339,7 @@ public class MainActivity extends MainBaseActivity
 	        locationList = StaticObjects.getLocations();
 			if(StaticObjects.getLocations()==null||StaticObjects.getLocations().size()==0){}
 			else{
-				addLocationMarker();
+				//addLocationMarker();
 			}	
 		}
 
@@ -455,74 +455,8 @@ public class MainActivity extends MainBaseActivity
 		}
 		
 	}
-    
-    public void addLostPetMarker(){
-    	
-    	for (int i=0; i<lostList.size(); i++){
-    	
-    		String lostPetName = "";
-    		for (int p=0; p<petList.size(); p++){
-    			if (lostList.get(i).getPetID()==petList.get(p).getPetID()){
-    				lostPetName = petList.get(p).getName();
-    			}
-    		}
-    		
-    	double lat = lostList.get(i).getX();
-    	double lng = lostList.get(i).getY();
-    	//Toast.makeText(getApplicationContext(), "L:"+lat+","+lng, Toast.LENGTH_SHORT).show();
-    	MarkerOptions mOption = new MarkerOptions()
-			.position(new LatLng(lat, lng))
-			.title("[Lost Pet] "+lostPetName)
-			.snippet("Reward: "+lostList.get(i).getReward()); 
-    	mLostPet.add(mMap.addMarker(mOption));
-    	}
-    }
-    
-    public void addEventMarker(){
-    	
-    	for (int i=0; i<eventList.size(); i++){
-
-    	double lat = eventList.get(i).getX();
-    	double lng = eventList.get(i).getY();
-    	MarkerOptions mOption = new MarkerOptions()
-			.position(new LatLng(lat, lng))
-			.title(eventList.get(i).getName())
-			.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-			.snippet("About: "+eventList.get(i).getDescription()); 
-    	mEvent.add(mMap.addMarker(mOption));
-    	}
-    }
-    
-    public void addLocationMarker(){
-    	
-    	for (int i=0; i<locationList.size(); i++){
-
-    	double lat = locationList.get(i).getX();
-    	double lng = locationList.get(i).getY();
-    	MarkerOptions mOption = new MarkerOptions()
-			.position(new LatLng(lat, lng))
-			.title(locationList.get(i).getTitle())
-			.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-			.snippet("About: "+locationList.get(i).getDescription()); 
-    	mLocation.add(mMap.addMarker(mOption));
-    	}
-    }
-    
-    public void addFoundMarker(){
-    	double[] pos = randomMarkerPos();
-    	double lat = pos[0];
-    	double lng = pos[1];
-		//Toast.makeText(getApplicationContext(), "L:"+lat+","+lng, Toast.LENGTH_SHORT).show();
-    	MarkerOptions mOption = new MarkerOptions()
-			.position(new LatLng(lat, lng))
-			.title("Found")
-			.snippet("Last Seen: Today 9:48am")
-			.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-    	mFound.add(mMap.addMarker(mOption));
-    }
-    
+        
     boolean lostVisible = true;
-    
     public void toggleLostPet(){
     	if(lostVisible){
     		lostVisible = false;
@@ -698,10 +632,13 @@ public class MainActivity extends MainBaseActivity
             super(getApplicationContext(), getMap(), mClusterManager);
 
             View multiProfile = getLayoutInflater().inflate(R.layout.multi_profile, null);
+            multiProfile.setBackgroundColor(Color.RED);
             mClusterIconGenerator.setContentView(multiProfile);
             mClusterImageView = (ImageView) multiProfile.findViewById(R.id.image);
-
+            mClusterImageView.setBackgroundColor(Color.WHITE);
+            
             mImageView = new ImageView(getApplicationContext());
+            mImageView.setBackgroundColor(Color.RED);
             mDimension = (int) getResources().getDimension(R.dimen.custom_profile_image);
             mImageView.setLayoutParams(new ViewGroup.LayoutParams(mDimension, mDimension));
             int padding = (int) getResources().getDimension(R.dimen.custom_profile_padding);
@@ -752,7 +689,7 @@ public class MainActivity extends MainBaseActivity
     public boolean onClusterClick(Cluster<Lost> cluster) {
         // Show a toast with some info when the cluster is clicked.
         //String firstName = cluster.getItems().iterator().next().name;
-        //Toast.makeText(this, cluster.getSize() + " (including " + firstName + ")", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, cluster.getSize() + " Lost Pets in this area", Toast.LENGTH_SHORT).show();
         return true;
     }
 
