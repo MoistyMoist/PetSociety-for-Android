@@ -77,7 +77,21 @@ public class MainActivity extends MainBaseActivity
 	ClusterManager.OnClusterClickListener<Lost>,
 	ClusterManager.OnClusterInfoWindowClickListener<Lost>,
 	ClusterManager.OnClusterItemClickListener<Lost>, 
-	ClusterManager.OnClusterItemInfoWindowClickListener<Lost> {
+	ClusterManager.OnClusterItemInfoWindowClickListener<Lost>
+
+	/*
+ClusterManager.OnClusterClickListener<Event>,
+ClusterManager.OnClusterInfoWindowClickListener<Event>,
+ClusterManager.OnClusterItemClickListener<Event>, 
+ClusterManager.OnClusterItemInfoWindowClickListener<Event>
+*/
+
+
+
+
+
+
+{
 
 	public GoogleMap mMap;
 	Button buttonMap;
@@ -93,7 +107,9 @@ public class MainActivity extends MainBaseActivity
 	StaticObjects staticObjects;
 	ProgressDialog progress;
 	Context context = this;
+	
 	private ClusterManager<Lost> mLostClusterManager;
+    private ClusterManager<Event> mEventClusterManager;
     
     private static final LocationRequest REQUEST = LocationRequest.create()
             .setInterval(5000)         // 5 seconds
@@ -213,20 +229,6 @@ public class MainActivity extends MainBaseActivity
 		for (int i=0; i<mEvent.size(); i++){mEvent.get(i).remove();}
 	}
 	
-	public void invokeCluster(){
-		mLostClusterManager = new ClusterManager<Lost>(this, getMap());
-        getMap().setOnCameraChangeListener(mLostClusterManager); 
-
-        try {
-        	 //InputStream inputStream = getResources().openRawResource(R.raw.radar_search);
-             //List<MyItem> items = new MyItemReader().read(inputStream);
-        	mLostClusterManager.addItems(lostList);
-        	mLostClusterManager.cluster();
-        } catch (Exception e) {
-            Toast.makeText(this, "Problem reading list of markers.", Toast.LENGTH_LONG).show();
-        }
-	}
-	
 	private class LostListBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 	    
 		@Override
@@ -252,7 +254,7 @@ public class MainActivity extends MainBaseActivity
 				addLostPetMarker();
 			}*/		
 			
-	        invokeLostCluster(); //invokeCluster(); 
+	        invokeLostCluster();
 		}
 
 		@Override
@@ -448,10 +450,10 @@ public class MainActivity extends MainBaseActivity
 			//toggleFound();
 		}
 		else if (pinSelect.equals("event")){
-			toggleEvent();
+			//toggleEvent();
 		}
 		else if (pinSelect.equals("location")){
-			toggleLocation();
+			//toggleLocation();
 		}
 		
 	}
@@ -460,13 +462,13 @@ public class MainActivity extends MainBaseActivity
     public void toggleLostPet(){
     	if(lostVisible){
     		lostVisible = false;
-    		mLostClusterManager.clearItems();
+    		//show cluster
     	}
     	else {
     		lostVisible = true;
-    		mLostClusterManager.addItems(lostList);
+    		//show cluster
     	}
-    	mLostClusterManager.cluster();
+    	//re force cluster
     }
     
     public void toggleEvent(){
@@ -498,20 +500,7 @@ public class MainActivity extends MainBaseActivity
 			mFound.get(i).setVisible(setVisible);
 		}
     }
-    
-	public double[] randomMarkerPos(){
-    	double[] pos = new double[2];
-    	Random generator = new Random(); 
-    	double d_lat = generator.nextInt(9) + 1; // 1~9
-    	double d_lng = generator.nextInt(9) + 1; // 1~9
-    	double lat = 1.30 + d_lat/100;
-    	double lng = 103.80 + d_lng/100;
-    	pos[0] = lat;
-    	pos[1] = lng;
-    	return pos;
-    }
 
-	@SuppressLint("NewApi")
 	@Override
     public void onPause() {
         super.onPause();
@@ -610,17 +599,85 @@ public class MainActivity extends MainBaseActivity
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-    private ClusterManager<Lost> mClusterManager;
+	/*
+    private class EventRenderer extends DefaultClusterRenderer<Event> {
+        private final IconGenerator mIconGenerator = new IconGenerator(getApplicationContext());
+        private final IconGenerator mClusterIconGenerator = new IconGenerator(getApplicationContext());
+        private final ImageView mImageView;
+        private final ImageView mClusterImageView;
+        private final int mDimension;
 
+        public EventRenderer() {
+            super(getApplicationContext(), getMap(), mEventClusterManager);
+
+            View multiProfile = getLayoutInflater().inflate(R.layout.multi_profile, null);
+            multiProfile.setBackgroundColor(Color.RED);
+            mClusterIconGenerator.setContentView(multiProfile);
+            mClusterImageView = (ImageView) multiProfile.findViewById(R.id.image);
+            mClusterImageView.setBackgroundColor(Color.WHITE);
+            
+            mImageView = new ImageView(getApplicationContext());
+            mImageView.setBackgroundColor(Color.RED);
+            mDimension = (int) getResources().getDimension(R.dimen.custom_profile_image);
+            mImageView.setLayoutParams(new ViewGroup.LayoutParams(mDimension, mDimension));
+            int padding = (int) getResources().getDimension(R.dimen.custom_profile_padding);
+            mImageView.setPadding(padding, padding, padding, padding);
+            mIconGenerator.setContentView(mImageView);
+        }
+	
+
+        @Override
+        protected void onBeforeClusterItemRendered(Event event, MarkerOptions markerOptions) {
+            // Draw a single person.
+            // Set the info window to show their name.
+            mImageView.setImageResource(R.drawable.badge_lostdog); //lost.profilePhoto
+            Bitmap icon = mIconGenerator.makeIcon();
+            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon)).title(event.getName());
+        }
+
+        @Override
+        protected void onBeforeClusterRendered(Cluster<Event> cluster, MarkerOptions markerOptions) {
+            // Draw multiple people.
+            // Note: this method runs on the UI thread. Don't spend too much time in here (like in this example).
+            List<Drawable> profilePhotos = new ArrayList<Drawable>(Math.min(4, cluster.getSize()));
+            int width = mDimension;
+            int height = mDimension;
+
+            for (Event e : cluster.getItems()) {
+                // Draw 4 at most.
+                if (profilePhotos.size() == 4) break;
+                Drawable drawable = getResources().getDrawable(R.drawable.badge_lostdog);//l.profilePhoto
+                drawable.setBounds(0, 0, width, height);
+                profilePhotos.add(drawable);
+            }
+            MultiDrawable multiDrawable = new MultiDrawable(profilePhotos);
+            multiDrawable.setBounds(0, 0, width, height);
+
+            mClusterImageView.setImageDrawable(multiDrawable);
+            Bitmap icon = mClusterIconGenerator.makeIcon(String.valueOf(cluster.getSize()));
+            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon));
+        }
+
+        @Override
+        protected boolean shouldRenderAsCluster(Cluster cluster) {
+            // Always render clusters.
+            return cluster.getSize() > 1;
+        }
+    }
+
+    public boolean onClusterItemClick(Event item) {
+        // Does nothing, but you could go into the user's profile page, for example.
+        return false;
+    }
+
+    public void onClusterItemInfoWindowClick(Event item) {
+        // Does nothing, but you could go into the user's profile page, for example.
+    }
+	
+	*/
+	
+	
+	
     private class LostRenderer extends DefaultClusterRenderer<Lost> {
         private final IconGenerator mIconGenerator = new IconGenerator(getApplicationContext());
         private final IconGenerator mClusterIconGenerator = new IconGenerator(getApplicationContext());
@@ -629,7 +686,7 @@ public class MainActivity extends MainBaseActivity
         private final int mDimension;
 
         public LostRenderer() {
-            super(getApplicationContext(), getMap(), mClusterManager);
+            super(getApplicationContext(), getMap(), mLostClusterManager);
 
             View multiProfile = getLayoutInflater().inflate(R.layout.multi_profile, null);
             multiProfile.setBackgroundColor(Color.RED);
@@ -683,28 +740,25 @@ public class MainActivity extends MainBaseActivity
             // Always render clusters.
             return cluster.getSize() > 1;
         }
+
     }
 
-    @Override
     public boolean onClusterClick(Cluster<Lost> cluster) {
         // Show a toast with some info when the cluster is clicked.
         //String firstName = cluster.getItems().iterator().next().name;
-        Toast.makeText(this, cluster.getSize() + " Lost Pets in this area", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), cluster.getSize() + " Lost Pets in this area", Toast.LENGTH_SHORT).show();
         return true;
     }
 
-    @Override
     public void onClusterInfoWindowClick(Cluster<Lost> cluster) {
         // Does nothing, but you could go to a list of the users.
     }
-
-    @Override
+    
     public boolean onClusterItemClick(Lost item) {
         // Does nothing, but you could go into the user's profile page, for example.
         return false;
     }
 
-    @Override
     public void onClusterItemInfoWindowClick(Lost item) {
         // Does nothing, but you could go into the user's profile page, for example.
     }
@@ -712,21 +766,21 @@ public class MainActivity extends MainBaseActivity
     protected void invokeLostCluster() {
         //getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.503186, -0.126446), 9.5f));
     	
-    	if (mClusterManager == null){
-    		mClusterManager = new ClusterManager<Lost>(this, getMap());
+    	if (mLostClusterManager == null){
+    		mLostClusterManager = new ClusterManager<Lost>(this, getMap());
     	}
-        mClusterManager.setRenderer(new LostRenderer());
-        getMap().setOnCameraChangeListener(mClusterManager);
-        getMap().setOnMarkerClickListener(mClusterManager);
-        getMap().setOnInfoWindowClickListener(mClusterManager);
-        mClusterManager.setOnClusterClickListener(this);
-        mClusterManager.setOnClusterInfoWindowClickListener(this);
-        mClusterManager.setOnClusterItemClickListener(this);
-        mClusterManager.setOnClusterItemInfoWindowClickListener(this);
+    	mLostClusterManager.setRenderer(new LostRenderer());
+        getMap().setOnCameraChangeListener(mLostClusterManager);
+        getMap().setOnMarkerClickListener(mLostClusterManager);
+        getMap().setOnInfoWindowClickListener(mLostClusterManager);
+        mLostClusterManager.setOnClusterClickListener(this);
+        mLostClusterManager.setOnClusterInfoWindowClickListener(this);
+        mLostClusterManager.setOnClusterItemClickListener(this);
+        mLostClusterManager.setOnClusterItemInfoWindowClickListener(this);
 
-        mClusterManager.clearItems();
-        mClusterManager.addItems(lostList);
-        mClusterManager.cluster();
+        mLostClusterManager.clearItems();
+        mLostClusterManager.addItems(lostList);
+        mLostClusterManager.cluster();
     }
 
 }

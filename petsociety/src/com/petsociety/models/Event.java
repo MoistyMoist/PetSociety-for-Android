@@ -3,7 +3,10 @@ package com.petsociety.models;
 import java.sql.Date;
 import java.util.List;
 
-public class Event {
+import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.clustering.ClusterItem;
+
+public class Event implements ClusterItem {
 
 	private int eventID;
 	private String name;
@@ -18,6 +21,8 @@ public class Event {
 	private int galleryID;
 	private int userID;
 
+	private LatLng mPosition;
+	
 	private User user;
 	private List<Attendee> attendees;
 	private Gallery gallery;
@@ -112,6 +117,12 @@ public class Event {
 	}
 	public void setGallery(Gallery gallery) {
 		this.gallery = gallery;
+	}
+	@Override
+	public LatLng getPosition() {
+		// TODO Auto-generated method stub
+		mPosition = new LatLng(x,y);
+		return mPosition;
 	}
 
 	
