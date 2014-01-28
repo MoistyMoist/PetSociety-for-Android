@@ -659,4 +659,9 @@ public class JSONExtractor {
 	            instream.close();
 	        }
 		}
+
+		public void ExtractOneMapSearchRequest(HttpResponse data)throws IllegalStateException, IOException, JSONException
+		{
+			
+		}
 }
