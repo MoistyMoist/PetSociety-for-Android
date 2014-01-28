@@ -59,6 +59,8 @@ public class LeftListFragment extends ListFragment {
 		intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		switch (position) {
 		case 0: //Search
+			intent.setClass(getActivity(), Activity_search_address.class);
+			startActivity(intent);
 			break;
 			
 		case 1: //Home
