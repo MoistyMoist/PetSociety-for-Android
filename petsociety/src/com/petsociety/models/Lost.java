@@ -2,7 +2,10 @@ package com.petsociety.models;
 
 import java.util.Date;
 
-public class Lost {
+import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.clustering.ClusterItem;
+
+public class Lost implements ClusterItem {
 
 	private int lostID;
 	private Date dateTimeSeen;
@@ -16,6 +19,7 @@ public class Lost {
 	private int petID;
 	private int userID;
 	
+	private LatLng mPosition;
 	
 	private Pet pet;
 	private User user;
@@ -99,6 +103,12 @@ public class Lost {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	@Override
+	public LatLng getPosition() {
+		// TODO Auto-generated method stub
+		mPosition = new LatLng(x,y);
+		return mPosition;
 	}
 	
 	
