@@ -96,10 +96,6 @@ ClusterManager.OnClusterItemInfoWindowClickListener<Event>
 	public GoogleMap mMap;
 	Button buttonMap;
     private LocationClient mLocationClient;
-    ArrayList<Marker>mEvent = new ArrayList<Marker>();
-    ArrayList<Marker>mLocation = new ArrayList<Marker>();
-    ArrayList<Marker>mLostPet = new ArrayList<Marker>();
-    ArrayList<Marker>mFound = new ArrayList<Marker>();
     List<Lost> lostList;
     List<Pet> petList; 
     List<Event> eventList;
@@ -204,8 +200,6 @@ ClusterManager.OnClusterItemInfoWindowClickListener<Event>
 	
 	public void getAllList(){
 		
-		clearAllMarkers();
-		
 		progress = ProgressDialog.show(this, "Setting up map","please wait...", true);
 		
 		RetrieveAllPetRequest retrieveAllPetRequest = new RetrieveAllPetRequest();
@@ -221,12 +215,6 @@ ClusterManager.OnClusterItemInfoWindowClickListener<Event>
 		RetrieveAllLocationRequest retrieveAllLocationRequest = new RetrieveAllLocationRequest();
 		new LocationListBackgroundTask().execute( retrieveAllLocationRequest,null);	
 
-	}
-	
-	public void clearAllMarkers(){
-		for (int i=0; i<mLostPet.size(); i++){mLostPet.get(i).remove();}
-		for (int i=0; i<mLocation.size(); i++){mLocation.get(i).remove();}
-		for (int i=0; i<mEvent.size(); i++){mEvent.get(i).remove();}
 	}
 	
 	private class LostListBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
@@ -473,32 +461,14 @@ ClusterManager.OnClusterItemInfoWindowClickListener<Event>
     
     public void toggleEvent(){
     	boolean setVisible = true;
-    	if (mEvent.get(0).isVisible()==true){
-    		setVisible = false;
-    	}
-		for (int i=0; i<mEvent.size(); i++){
-			mEvent.get(i).setVisible(setVisible);
-		}
     }
     
     public void toggleLocation(){
     	boolean setVisible = true;
-    	if (mLocation.get(0).isVisible()==true){
-    		setVisible = false;
-    	}
-		for (int i=0; i<mLocation.size(); i++){
-			mLocation.get(i).setVisible(setVisible);
-		}
     }
     
     public void toggleStray(){
     	boolean setVisible = true;
-    	if (mFound.get(0).isVisible()==true){
-    		setVisible = false;
-    	}
-		for (int i=0; i<mFound.size(); i++){
-			mFound.get(i).setVisible(setVisible);
-		}
     }
 
 	@Override
