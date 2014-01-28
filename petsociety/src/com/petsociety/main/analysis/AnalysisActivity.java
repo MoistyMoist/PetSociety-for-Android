@@ -34,6 +34,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -71,7 +72,7 @@ import com.petsociety.main.MainBaseActivity;
 import com.petsociety.main.lost.LostActivity.LostListAdapter;
 import com.petsociety.utils.StaticObjects;
 
-@SuppressLint({ "NewApi", "CutPasteId" })
+@SuppressLint({ "NewApi", "CutPasteId", "SetJavaScriptEnabled" })
 public class AnalysisActivity extends MainBaseActivity 
 implements 
 ConnectionCallbacks,
@@ -166,8 +167,33 @@ OnMyLocationButtonClickListener{
 	
 	public void chartBtn(View view)
 	{
-		LostChartPopup option= new LostChartPopup();
-		option.show(getFragmentManager(), null);
+		Dialog  webViewDialog = new Dialog(this);  
+	        //Remove the dialog's title  
+	        webViewDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);  
+	        //Inflate the contents of this dialog with the Views defined at 'webviewdialog.xml'  
+	        webViewDialog.setContentView(R.layout.custom_analysis_webview);  
+	        //With this line, the dialog can be dismissed by pressing the back key  
+	        webViewDialog.setCancelable(true);  
+		
+	        WebView webView = (WebView) webViewDialog.findViewById(R.id.webView);  
+	        //Scroll bars should not be hidden  
+	        webView.setScrollbarFadingEnabled(false);  
+	        //Disable the horizontal scroll bar  
+	        webView.setHorizontalScrollBarEnabled(false);  
+	        //Enable JavaScript  
+	        webView.getSettings().setJavaScriptEnabled(true);  
+	        //Set the user agent  
+	        webView.getSettings().setUserAgentString("AndroidWebView");  
+	        //Clear the cache  
+	        webView.clearCache(true);  
+	        //Make the webview load the specified URL  
+	        webView.loadUrl("Http://www.google.com.sg");  
+	        
+	        
+	        
+	        webViewDialog.show();
+		//LostChartPopup option= new LostChartPopup();
+		//option.show(getFragmentManager(), null);
 	}
 
 	
@@ -686,62 +712,32 @@ OnMyLocationButtonClickListener{
 	@SuppressLint("ValidFragment")
 	private class LostChartPopup extends DialogFragment
 	{
-		 public LostChartPopup newInstance() {
-			    return new LostChartPopup();
-			    }
-			    
-			    WebView wv=null;
-			    
-			    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			            Bundle savedInstanceState){
-			    View v=inflater.inflate(R.layout.custom_analysis_webview, container,false);
-			    wv=(WebView)v.findViewById(R.id.webView);
-			    initWebView(wv);
-			    
-			    wv.setWebChromeClient(new WebChromeClient()
-			    {
-			            @Override
-			            public void onProgressChanged(WebView view, int newProgress) {
-			                // super.onProgressChanged(view, newProgress);
-			                getActivity().setProgress(newProgress*1000);
-			            }
-			    });
-			    return v;
-			    }
-			    
-			    public void onActivityCreated(Bundle savedInstanceState) {
-			    super.onActivityCreated(savedInstanceState);
-			    wv.loadUrl("http://google.com");
-			    }
-			    
-			    private void initWebView(WebView wv)
-			    {
-			    wv.getSettings().setJavaScriptEnabled(true);
-			    wv.clearCache(true);  
-			    wv.setScrollBarStyle(0);
-			    wv.setWebViewClient(new MyWebViewClient());
-			    }
-			    
-			    
-			    private class MyWebViewClient extends WebViewClient
-			    {
-			        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-			            // super.onReceivedError(view, errorCode, description, failingUrl);
-			            Log.e("MyWebViewClient", failingUrl);
-			        };
-			        @Override
-			        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-			            Log.d("MyWebViewClient",url);
-			            return super.shouldOverrideUrlLoading(view, url);
-			        }
-			    }
-			    
-			    public void onDismiss (DialogInterface dialog)
-			    {
-			    wv.stopLoading();    
-			    Log.e("MyDialogFragment", "onDismiss");
-			    //super.onDismiss(dialog);
-			    }
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			 WebView webview=(WebView)findViewById(R.id.webView);
+			 //webview.getSettings().setJavaScriptEnabled(true);
+		     //webview.loadUrl("http://www.google.com");
+	        // Get the layout inflater
+	        LayoutInflater inflater = getActivity().getLayoutInflater();
+
+	        // Inflate and set the layout for the dialog
+	        // Pass null as the parent view because its going in the dialog layout
+	        builder.setView(inflater.inflate(R.layout.custom_analysis_webview, null));
+
+	       
+	        // Set title of dialog
+	        builder.setMessage("InterestingFacts")
+	                // Set Ok button
+	                .setPositiveButton("Ok",
+	                        new DialogInterface.OnClickListener() {
+	                            public void onClick(DialogInterface dialog, int id) {
+	                                // User ok the dialog
+	                            }
+	                        });
+
+	        // Create the AlertDialog object and return it
+	        return builder.create();
+		}
 	}
 	
 	//private class StrayChartPopup
