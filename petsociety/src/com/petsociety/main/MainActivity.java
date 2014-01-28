@@ -711,8 +711,10 @@ public class MainActivity extends MainBaseActivity
 
     protected void invokeLostCluster() {
         //getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.503186, -0.126446), 9.5f));
-
-        mClusterManager = new ClusterManager<Lost>(this, getMap());
+    	
+    	if (mClusterManager == null){
+    		mClusterManager = new ClusterManager<Lost>(this, getMap());
+    	}
         mClusterManager.setRenderer(new LostRenderer());
         getMap().setOnCameraChangeListener(mClusterManager);
         getMap().setOnMarkerClickListener(mClusterManager);
@@ -722,7 +724,7 @@ public class MainActivity extends MainBaseActivity
         mClusterManager.setOnClusterItemClickListener(this);
         mClusterManager.setOnClusterItemInfoWindowClickListener(this);
 
-        //addItems();
+        mClusterManager.clearItems();
         mClusterManager.addItems(lostList);
         mClusterManager.cluster();
     }
