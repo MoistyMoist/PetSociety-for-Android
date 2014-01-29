@@ -41,7 +41,7 @@ public class MapPin implements ClusterItem{
 	public LatLng getPosition() {
 		if(lost != null){return lost.getPosition();}
 		if(event != null){return event.getPosition();}
-		//if(location != null){return location.getPosition();}
+		if(location != null){return location.getPosition();}
 		return null;
 	}
 	

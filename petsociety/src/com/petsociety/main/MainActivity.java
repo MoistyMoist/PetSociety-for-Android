@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
+
 import com.petsociety.httprequests.*;
 import com.petsociety.main.lost.LostActivity;
 import com.petsociety.main.nearby.NearbyList;
@@ -86,11 +88,11 @@ public class MainActivity extends MainBaseActivity
 	public GoogleMap mMap;
 	Button buttonMap;
     private LocationClient mLocationClient;
-    List<Lost> lostList;
-    List<Pet> petList; 
-    List<Event> eventList;
-    List<com.petsociety.models.Location> locationList; 
-    List<MapPin> mapPinList = new ArrayList<MapPin>();
+    List<Lost> lostList = new ArrayList<Lost>();
+    List<Pet> petList = new ArrayList<Pet>(); 
+    List<Event> eventList = new ArrayList<Event>();
+    List<com.petsociety.models.Location> locationList = new ArrayList<com.petsociety.models.Location>(); 
+    List<MapPin> mapPinList;
 	ProgressDialog progress;
 	Context context = this;
 	
@@ -154,8 +156,11 @@ public class MainActivity extends MainBaseActivity
 			return true;
 			
 		case R.id.main_camera:
+			//Intent intent = new Intent();
+			//intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+			//intent.setClass(getApplicationContext(), OldMainActivity.class);
 		    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
+			
 		    //fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
 		    //intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 
@@ -188,9 +193,7 @@ public class MainActivity extends MainBaseActivity
 	
 	public void getAllList(){
 		
-		for (int i=0; i<mapPinList.size(); i++){
-			mapPinList.remove(i);
-		}
+		clearAllMarkers();
 
 		progress = ProgressDialog.show(this, "Setting up map","please wait...", true);
 		
@@ -209,12 +212,21 @@ public class MainActivity extends MainBaseActivity
 
 	}
 	
+	public void clearAllMarkers(){
+		mapPinList = new ArrayList<MapPin>();
+		for (int i=0; i<lostList.size(); i++){
+			lostList.remove(i);
+		}
+		for (int i=0; i<eventList.size(); i++){
+			eventList.remove(i);
+		}
+	}
+	
 	private class LostListBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 	    
 		@Override
 		protected void onPostExecute(Long result) {
-			
-			super.onPostExecute(result);
+			//super.onPostExecute(result);
 			if(progress!=null)
 				progress.dismiss();
 	        lostList = StaticObjects.getLosts();
@@ -229,7 +241,7 @@ public class MainActivity extends MainBaseActivity
 	    		pin.setLost(lostList.get(i));
 	    		pin.setType("lost");
 	    		mapPinList.add(pin);
-	    	}	    	
+	    	}	    
 		}
 
 		@Override
@@ -279,7 +291,7 @@ public class MainActivity extends MainBaseActivity
 	    
 		@Override
 		protected void onPostExecute(Long result) {
-			super.onPostExecute(result);
+			//super.onPostExecute(result);
 			if(progress!=null)
 				progress.dismiss();
 	        eventList = StaticObjects.getEvents();
@@ -290,7 +302,7 @@ public class MainActivity extends MainBaseActivity
 	    		pin.setType("event");
 	    		mapPinList.add(pin);
 	    	}
-	        invokeLostCluster();
+	        //Toast.makeText(getApplicationContext(), ""+lostList.size()+"+"+eventList.size()+"="+mapPinList.size(), Toast.LENGTH_SHORT).show();
 		}
 
 		@Override
@@ -311,14 +323,17 @@ public class MainActivity extends MainBaseActivity
 	    
 		@Override
 		protected void onPostExecute(Long result) {
-			super.onPostExecute(result);
+			//super.onPostExecute(result);
 			if(progress!=null)
 				progress.dismiss();
 	        locationList = StaticObjects.getLocations();
-			if(StaticObjects.getLocations()==null||StaticObjects.getLocations().size()==0){}
-			else{
-				//addLocationMarker();
-			}	
+	        for (int i=0; i<locationList.size(); i++){
+	    		MapPin pin = new MapPin();
+	    		pin.setLocation(locationList.get(i));
+	    		pin.setType("location");
+	    		mapPinList.add(pin);
+	        }
+	        invokeCluster();
 		}
 
 		@Override
@@ -337,72 +352,6 @@ public class MainActivity extends MainBaseActivity
 
     
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-	
-    /** Demonstrates customizing the info window and/or its contents. */
-    class CustomInfoWindowAdapter implements InfoWindowAdapter {
-
-        // These a both viewgroups containing an ImageView with id "badge" and two TextViews with id "title" and "snippet".
-        //private final View mWindow;
-        private final View mContents;
-
-        CustomInfoWindowAdapter() {
-            //mWindow = getLayoutInflater().inflate(R.layout.custom_info_window, null);
-            mContents = getLayoutInflater().inflate(R.layout.custom_info_contents, null);
-        }
-
-        @Override
-        public View getInfoContents(Marker marker) {
-            render(marker, mContents);
-            return mContents;
-        }
-        
-		@Override
-		public View getInfoWindow(Marker arg0) {
-			return null;
-            //render(marker, mWindow);
-            //return mWindow;
-		}
-
-        private void render(Marker marker, View view) {
-            int badge = R.drawable.badge_lostdog;
-            /*
-            if (marker.equals(mBrisbane)) {
-                badge = R.drawable.badge_qld;
-            } else if (marker.equals(mAdelaide)) {
-                badge = R.drawable.badge_sa;
-            } else if (marker.equals(mSydney)) {
-                badge = R.drawable.badge_nsw;
-            } else if (marker.equals(mMelbourne)) {
-                badge = R.drawable.badge_victoria;
-            } else if (marker.equals(mPerth)) {
-                badge = R.drawable.badge_wa;
-            } */
-            
-            ((ImageView) view.findViewById(R.id.badge)).setImageResource(badge);
-
-            String title = marker.getTitle();
-            TextView titleUi = ((TextView) view.findViewById(R.id.title));
-           
-            SpannableString titleText = new SpannableString(title);
-            titleText.setSpan(new ForegroundColorSpan(Color.RED), 0, titleText.length(), 0);
-            titleUi.setText(titleText);
-                
-            String snippet = marker.getSnippet();
-            TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
-            SpannableString snippetText = new SpannableString(snippet);
-            snippetUi.setText(snippetText);
-            /*
-            if (snippet != null && snippet.length() > 12) {
-                //snippetText.setSpan(new ForegroundColorSpan(Color.MAGENTA), 0, 10, 0);
-                //snippetText.setSpan(new ForegroundColorSpan(Color.BLUE), 11, snippet.length(), 0);  
-            } else {
-                //snippetUi.setText("");
-            } */
-        }
-		
-    }
-	
 
     @Override
     protected void onResume() {
@@ -557,84 +506,6 @@ public class MainActivity extends MainBaseActivity
 	}
 	
 	
-	/*
-    private class EventRenderer extends DefaultClusterRenderer<Event> {
-        private final IconGenerator mIconGenerator = new IconGenerator(getApplicationContext());
-        private final IconGenerator mClusterIconGenerator = new IconGenerator(getApplicationContext());
-        private final ImageView mImageView;
-        private final ImageView mClusterImageView;
-        private final int mDimension;
-
-        public EventRenderer() {
-            super(getApplicationContext(), getMap(), mEventClusterManager);
-
-            View multiProfile = getLayoutInflater().inflate(R.layout.multi_profile, null);
-            multiProfile.setBackgroundColor(Color.RED);
-            mClusterIconGenerator.setContentView(multiProfile);
-            mClusterImageView = (ImageView) multiProfile.findViewById(R.id.image);
-            mClusterImageView.setBackgroundColor(Color.WHITE);
-            
-            mImageView = new ImageView(getApplicationContext());
-            mImageView.setBackgroundColor(Color.RED);
-            mDimension = (int) getResources().getDimension(R.dimen.custom_profile_image);
-            mImageView.setLayoutParams(new ViewGroup.LayoutParams(mDimension, mDimension));
-            int padding = (int) getResources().getDimension(R.dimen.custom_profile_padding);
-            mImageView.setPadding(padding, padding, padding, padding);
-            mIconGenerator.setContentView(mImageView);
-        }
-	
-
-        @Override
-        protected void onBeforeClusterItemRendered(Event event, MarkerOptions markerOptions) {
-            // Draw a single person.
-            // Set the info window to show their name.
-            mImageView.setImageResource(R.drawable.badge_lostdog); //lost.profilePhoto
-            Bitmap icon = mIconGenerator.makeIcon();
-            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon)).title(event.getName());
-        }
-
-        @Override
-        protected void onBeforeClusterRendered(Cluster<Event> cluster, MarkerOptions markerOptions) {
-            // Draw multiple people.
-            // Note: this method runs on the UI thread. Don't spend too much time in here (like in this example).
-            List<Drawable> profilePhotos = new ArrayList<Drawable>(Math.min(4, cluster.getSize()));
-            int width = mDimension;
-            int height = mDimension;
-
-            for (Event e : cluster.getItems()) {
-                // Draw 4 at most.
-                if (profilePhotos.size() == 4) break;
-                Drawable drawable = getResources().getDrawable(R.drawable.badge_lostdog);//l.profilePhoto
-                drawable.setBounds(0, 0, width, height);
-                profilePhotos.add(drawable);
-            }
-            MultiDrawable multiDrawable = new MultiDrawable(profilePhotos);
-            multiDrawable.setBounds(0, 0, width, height);
-
-            mClusterImageView.setImageDrawable(multiDrawable);
-            Bitmap icon = mClusterIconGenerator.makeIcon(String.valueOf(cluster.getSize()));
-            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon));
-        }
-
-        @Override
-        protected boolean shouldRenderAsCluster(Cluster cluster) {
-            // Always render clusters.
-            return cluster.getSize() > 1;
-        }
-    }
-
-    public boolean onClusterItemClick(Event item) {
-        // Does nothing, but you could go into the user's profile page, for example.
-        return false;
-    }
-
-    public void onClusterItemInfoWindowClick(Event item) {
-        // Does nothing, but you could go into the user's profile page, for example.
-    }
-	
-	*/
-	
-	
 	
     private class MapRenderer extends DefaultClusterRenderer<MapPin> {
         private final IconGenerator mIconGenerator = new IconGenerator(getApplicationContext());
@@ -645,36 +516,45 @@ public class MainActivity extends MainBaseActivity
 
         public MapRenderer() {
             super(getApplicationContext(), getMap(), mClusterManager);
-            
+
             View multiProfile = getLayoutInflater().inflate(R.layout.multi_profile, null);
+            multiProfile.setBackgroundColor(Color.WHITE);
             mClusterIconGenerator.setContentView(multiProfile);
-            //multiProfile.setBackgroundColor(Color.RED);
             mClusterImageView = (ImageView) multiProfile.findViewById(R.id.image);
-            mClusterImageView.setBackgroundColor(Color.WHITE);
-            
+
             mImageView = new ImageView(getApplicationContext());
+            mImageView.setBackgroundColor(Color.YELLOW);
             mDimension = (int) getResources().getDimension(R.dimen.custom_profile_image);
             mImageView.setLayoutParams(new ViewGroup.LayoutParams(mDimension, mDimension));
             int padding = (int) getResources().getDimension(R.dimen.custom_profile_padding);
             mImageView.setPadding(padding, padding, padding, padding);
             mIconGenerator.setContentView(mImageView);
-            
         }
 
-        @Override
+		@Override
         protected void onBeforeClusterItemRendered(MapPin pin, MarkerOptions markerOptions) {
             // Draw a single object and set the info window to show their name.
-            Bitmap icon = mIconGenerator.makeIcon();
-            if(pin.getType().equals("lost")){
-                markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon)).title(pin.getLost().getPet().getName());
-                mImageView.setImageResource(R.drawable.badge_lostdog); 
-                mImageView.setBackgroundColor(Color.RED);
+			String type = pin.getType().toString();
+			String title = "Default";
+            if(type.equalsIgnoreCase("lost")){
+            	mImageView.setImageResource(R.drawable.badge_lostdog);
+            	mImageView.setBackgroundColor(Color.RED);
+            	title = pin.getLost().getPet().getName();
             }
-            if(pin.getType().equals("event")){
-                markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon)).title(pin.getEvent().getName());
-                mImageView.setImageResource(R.drawable.badge_event);
-                mImageView.setBackgroundColor(Color.BLUE);
+            if(type.equalsIgnoreCase("event")){
+            	mImageView.setImageResource(R.drawable.badge_event);
+            	mImageView.setBackgroundColor(Color.BLUE);
+            	title = pin.getEvent().getName();
             }
+            if(type.equalsIgnoreCase("location")){
+            	mImageView.setImageResource(R.drawable.badge_places);
+            	mImageView.setBackgroundColor(Color.GREEN);
+            	title = pin.getLocation().getTitle();
+            }
+			
+			//mImageView.setImageResource(R.drawable.badge_lostdog);
+			Bitmap icon = mIconGenerator.makeIcon();
+			markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon)).title(title);
         }
 
         @Override
@@ -689,13 +569,17 @@ public class MainActivity extends MainBaseActivity
                 // Draw 4 at most.
                 if (profilePhotos.size() == 4) break;
                 Drawable drawable = null;
-                if(p.getType().equals("lost")){
+                String type = p.getType().toString();
+                if(type.equalsIgnoreCase("lost")){
                 	drawable = getResources().getDrawable(R.drawable.badge_lostdog);
                 }
-                if(p.getType().equals("event")){
+                if(type.equalsIgnoreCase("event")){
                 	drawable = getResources().getDrawable(R.drawable.badge_event);
                 }
-                drawable.setBounds(0, 0, width, height);
+                if(type.equalsIgnoreCase("location")){
+                	drawable = getResources().getDrawable(R.drawable.badge_places);
+                }
+            	drawable.setBounds(0, 0, width, height);
                 profilePhotos.add(drawable);
             }
             MultiDrawable multiDrawable = new MultiDrawable(profilePhotos);
@@ -734,15 +618,15 @@ public class MainActivity extends MainBaseActivity
         // Does nothing, but you could go into the user's profile page, for example.
     }
 
-    protected void invokeLostCluster() {
+    protected void invokeCluster() {
         //getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.503186, -0.126446), 9.5f));
     	
-    	if (mClusterManager == null){
+    	if(mClusterManager==null){
     		mClusterManager = new ClusterManager<MapPin>(this, getMap());
     	}
-        mClusterManager.clearItems();
-
-    	mClusterManager.setRenderer(new MapRenderer());
+    	mClusterManager.clearItems();
+        
+        mClusterManager.setRenderer(new MapRenderer());
         getMap().setOnCameraChangeListener(mClusterManager);
         getMap().setOnMarkerClickListener(mClusterManager);
         getMap().setOnInfoWindowClickListener(mClusterManager);
