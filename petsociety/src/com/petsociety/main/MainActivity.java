@@ -601,7 +601,19 @@ public class MainActivity extends MainBaseActivity
     public boolean onClusterClick(Cluster<MapPin> cluster) {
         // Show a toast with some info when the cluster is clicked.
         //String firstName = cluster.getItems().iterator().next().name;
-        Toast.makeText(getApplicationContext(), cluster.getSize() + " Lost Pets in this area", Toast.LENGTH_SHORT).show();
+    	int lost=0, event=0, location=0;
+    	List<MapPin> mp = (List<MapPin>) cluster.getItems();
+    	
+    	for (int i=0; i<cluster.getSize(); i++){
+    		String type = mp.get(i).getType();   		
+    		if (type.equals("lost")){lost++;}
+    		if (type.equals("event")){event++;}
+    		if (type.equals("location")){location++;}
+    	}
+    	String toastString = lost + " Lost Pets, " + event + " Events, " + location + " Places ";
+    	
+    	
+        Toast.makeText(getApplicationContext(), toastString + "in this area", Toast.LENGTH_LONG).show();
         return true;
     }
 
