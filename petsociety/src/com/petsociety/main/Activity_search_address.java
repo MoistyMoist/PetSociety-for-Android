@@ -1,12 +1,11 @@
 package com.petsociety.main;
 
 import com.example.petsociety.R;
+
 import com.example.petsociety.R.layout;
 import com.example.petsociety.R.menu;
 import com.petsociety.httprequests.OneMapSearchRequest;
 import com.petsociety.httprequests.RetrieveAllLostRequest;
-import com.petsociety.main.analysis.AdapterView;
-import com.petsociety.main.analysis.OnItemClickListener;
 import com.petsociety.models.Address;
 import com.petsociety.utils.StaticObjects;
 
