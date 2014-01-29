@@ -79,7 +79,7 @@ public class NearbyActivity extends MainBaseActivity implements
 	Context context = this;
 	ArrayList<String> locationTypeArrayList = new ArrayList<String>();
 	
-	 String address,desc, type;
+	 String address,desc, type; 
 
 	public NearbyActivity() {
 		super(R.string.title_activity_nearby);
