@@ -5,6 +5,9 @@ import com.example.petsociety.R.layout;
 import com.example.petsociety.R.menu;
 import com.petsociety.httprequests.OneMapSearchRequest;
 import com.petsociety.httprequests.RetrieveAllLostRequest;
+import com.petsociety.main.analysis.AdapterView;
+import com.petsociety.main.analysis.OnItemClickListener;
+import com.petsociety.models.Address;
 import com.petsociety.utils.StaticObjects;
 
 import android.os.AsyncTask;
@@ -29,6 +32,17 @@ public class Activity_search_address extends Activity {
 		setContentView(R.layout.activity_search_address);
 		searchResult=(ListView)findViewById(R.id.searchResult);
 		editText=(EditText)findViewById(R.id.searchAddress);
+		
+		searchResult.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener(){
+			@Override
+			public void onItemClick(android.widget.AdapterView<?> arg0,
+					View arg1, int arg2, long arg3) {
+				// TODO Auto-generated method stub
+				// TODO Auto-generated method stub
+				Toast.makeText(getBaseContext(), StaticObjects.getAddress_results().get(arg2).getAddress(), Toast.LENGTH_LONG).show();
+			}
+        	
+        });
 	
 	}
 
@@ -52,7 +66,13 @@ public class Activity_search_address extends Activity {
 		protected void onPostExecute(Long result) {
 			
 			super.onPostExecute(result);
-			
+			String[] static_result = new String[StaticObjects.getAddress_results().size()];
+			for(int i=0;i<StaticObjects.getAddress_results().size();i++)
+			{
+				static_result[i]=StaticObjects.getAddress_results().get(i).getAddress();
+			}
+			 adapter = new ArrayAdapter<CharSequence>(getBaseContext(),android.R.layout.simple_list_item_1,static_result);
+			 searchResult.setAdapter(adapter);
 		}
 
 		@Override

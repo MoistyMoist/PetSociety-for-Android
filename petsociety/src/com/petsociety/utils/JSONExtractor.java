@@ -671,20 +671,14 @@ public class JSONExtractor {
 	            
 	            JSONObject json = null;
 	            json = new JSONObject(result);
-	            Log.i("Search result",result);
-	        
-	            
-	            
-	            
+	            Log.i("Search result",result);	        
 	            
 	            JSONArray RawData= json.getJSONArray("SearchResults");
 				
 				ArrayList<Address> addresses= new ArrayList<Address>();
 				for(int i=1;i<RawData.length();i++)
 				{
-					
 					JSONObject c2=RawData.getJSONObject(i); 
-					
 					
 					Address p= new Address();
 					p.setAddress(c2.getString("SEARCHVAL"));
@@ -692,14 +686,9 @@ public class JSONExtractor {
 					p.setY(c2.getDouble("Y"));
 					Log.i("c ",p.getAddress().toString() );
 					addresses.add(p); 
-					
-					//Log.i("pet "+i,c.toString() );
 				} 
-	            
 				StaticObjects.setAddress_results(addresses);
 	            instream.close();
 	        }
-	        
-            
 		}
 }

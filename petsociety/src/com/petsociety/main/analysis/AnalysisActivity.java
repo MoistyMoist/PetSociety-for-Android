@@ -129,19 +129,15 @@ OnMyLocationButtonClickListener{
 		setUpMapIfNeeded();
 		
 		RetrieveAllLostRequest lostRequest= new RetrieveAllLostRequest();
-		
-		//retrieve lost data first as default
 		StaticObjects.setAnalysisEvent(null);
  	   	StaticObjects.setAnalysisStray(null);
- 	   //	StaticObjects.setAndlysisLost(null);
  	   	StaticObjects.setAnslysisLocation(null);
-		// new BackgroundTask().execute(lostRequest,lostRequest);
+		new BackgroundTask().execute(lostRequest,lostRequest);
 		
 		
 		mMap.setOnCameraChangeListener(new OnCameraChangeListener(){
 			@Override
 			public void onCameraChange(CameraPosition arg0) {
-				// TODO Auto-generated method stub
 				if(locationCanvasShown)
 				{
 					DrawLocationHeatMaps();
@@ -159,17 +155,7 @@ OnMyLocationButtonClickListener{
 					DrawEventHeatMaps();
 				}
 			}});
-	
-		
-		
-	
 	}
-	
-	public void chartBtn(View view)
-	{
-		
-	}
-
 	
 	private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
@@ -323,6 +309,7 @@ OnMyLocationButtonClickListener{
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void ClearHeatMap(View view)
 	{
 		StaticObjects.setAnalysisEvent(null);
@@ -334,20 +321,6 @@ OnMyLocationButtonClickListener{
 		locationCanvasShown=false;
 		eventCanvasShown=false;
 		overlay.clearMap();
-
-//		float[][] points = new float[1][2];
-//		LatLng latLng = new LatLng(0,0);
-//		com.google.android.gms.maps.Projection projection = mMap.getProjection();
-
-
-//		Point p1 = new Point();
-//		p1=projection.toScreenLocation(latLng);
-//	
-//		points[0][0]=p1.x;
-//		points[0][1]=p1.y;
-//		overlay.addPoint(points);
-			
-		
 	}
 	
 	private class BackgroundTask extends AsyncTask<Runnable, Integer, Long> {
@@ -453,11 +426,7 @@ OnMyLocationButtonClickListener{
 	@SuppressLint("ValidFragment")
 	private class AnalysisList extends DialogFragment {
 		@SuppressWarnings({ "rawtypes", "unchecked" })
-		public Dialog onCreateDialog(Bundle savedInstanceState){
-			
-			//String [] data= StaticObjects.getANALYSIS_TYPE();
-			//data[data.length]="Clear Map";
-			
+		public Dialog onCreateDialog(Bundle savedInstanceState){	
 			ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(context,android.R.layout.simple_spinner_dropdown_item,StaticObjects.getANALYSIS_TYPE());
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		    builder.setTitle("Select Option");builder.setAdapter(spinnerArrayAdapter, new OnClickListener(){
@@ -542,7 +511,6 @@ OnMyLocationButtonClickListener{
 	@SuppressLint("ValidFragment")
 	private class LostDialogFragment extends DialogFragment
 	{
-
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			selectedLostType= new ArrayList<Integer>();
@@ -683,8 +651,12 @@ OnMyLocationButtonClickListener{
 		}
 	}
 	
-
-	private void loadLostWebView() 
+	public void chartBtn(View view)
+	{
+		loadStrayWebView();
+	}
+	
+	private void loadLostWebView()
 	{
 		AlertDialog.Builder alert = new AlertDialog.Builder(this); 
 		alert.setTitle("Interesting Facts");
@@ -712,8 +684,34 @@ OnMyLocationButtonClickListener{
 		alert.show();
 	}
 	
-	//private class StrayChartPopup
+	private void loadStrayWebView()
+	{
+		AlertDialog.Builder alert = new AlertDialog.Builder(this); 
+		alert.setTitle("Interesting Facts");
 
+		WebView wv = new WebView(this);
+		
+		wv.loadUrl("http://petsociety.azurewebsites.net/straychart.aspx");
+		wv.getSettings().setJavaScriptEnabled(true);
+		wv.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+		wv.setWebViewClient(new WebViewClient() {
+		    @Override
+		    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+		        view.loadUrl(url);
+
+		        return true;
+		    }
+		});
+		alert.setView(wv);
+		alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+		    @Override
+		    public void onClick(DialogInterface dialog, int id) {
+		        dialog.dismiss();
+		    }
+		});
+		alert.show();
+	}
+	
 	private void DrawLostChart()
 	{
 		int foundPets=0;
@@ -852,7 +850,6 @@ OnMyLocationButtonClickListener{
       //      layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
 	}
 	
-
 	private void DrawEventChart()
 	{
 		
@@ -861,22 +858,6 @@ OnMyLocationButtonClickListener{
 	private void DrawLocationChart()
 	{
 		
-//		listView=(ListView)findViewById(R.id.analysis_list);
-//		Log.i("locationcahrt",listView.getVisibility()+"");
-//		mChartView.setVisibility(2);
-//		listView.setVisibility(1);
-//		Log.i("locationcahrt",listView.getVisibility()+"");
-//		ArrayList<com.petsociety.models.Location> list= new ArrayList<com.petsociety.models.Location>();
-//		
-//        for (int i=0; i<StaticObjects.getAnslysisLocation().size(); i++){
-//        	if(StaticObjects.getAnslysisLocation().get(i).getType().equalsIgnoreCase("Accidents"))
-//        	{
-//        		list.add(StaticObjects.getAnslysisLocation().get(i));
-//        		Log.i("locationcahrt",StaticObjects.getAnslysisLocation().get(i).getType()+"");
-//        	}
-//        		
-//        }  
-       // CustomAccidentListAdapter adapter = new CustomAccidentListAdapter(getBaseContext(),list);
-       // listView.setAdapter(adapter);
+		
 	}
 }

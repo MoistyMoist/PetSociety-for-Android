@@ -31,9 +31,6 @@ import android.util.Log;
 
 public class UploadImageRequest implements Runnable {
 
-	
-	
-	
 	String base64="";	
 	
 	
