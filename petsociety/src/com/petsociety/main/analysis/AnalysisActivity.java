@@ -155,6 +155,8 @@ OnMyLocationButtonClickListener{
 					DrawEventHeatMaps();
 				}
 			}});
+		
+		 
 	}
 	
 	private void setUpMapIfNeeded() {
