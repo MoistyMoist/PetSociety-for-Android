@@ -10,9 +10,10 @@
 
     <TextView
         android:id="@+id/singleAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/textView01"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="78dp"
         android:text="@string/hello_world"
@@ -44,9 +45,28 @@
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
      android:layout_above="@+id/singleAddress"
-     android:layout_alignLeft="@+id/singleAddress"
+	android:layout_toRightOf="@+id/textView1"
      android:layout_marginBottom="64dp"
      android:text="@string/hello_world"
      android:textSize="20dp" />
+
+ <TextView
+     android:id="@+id/textView1"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_alignBaseline="@+id/singleDescription"
+     android:layout_alignBottom="@+id/singleDescription"
+     android:layout_alignParentLeft="true"
+     android:text="Description:"
+     android:textAppearance="?android:attr/textAppearanceSmall" />
+
+ <TextView
+     android:id="@+id/TextView01"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_above="@+id/singleAddress"
+     android:layout_alignLeft="@+id/singleAddress"
+     android:text="Address:"
+     android:textAppearance="?android:attr/textAppearanceSmall" />
         
 </RelativeLayout>

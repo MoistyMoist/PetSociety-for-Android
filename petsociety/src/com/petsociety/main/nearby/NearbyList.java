@@ -97,7 +97,9 @@ private class GetNearbyList extends AsyncTask<Runnable, Integer, Long> {
 	private void fillNearbyList(){
 		adapter = new NearbyListAdapter(context);
 		for (int i=0; i<StaticObjects.getLocations().size(); i++){
-            adapter.add(StaticObjects.getLocations().get(i));
+           
+			if(StaticObjects.getLocations().get(i).getType().equalsIgnoreCase("Pet Store"))
+			adapter.add(StaticObjects.getLocations().get(i));
 		}
 	    lv_events.setAdapter(adapter);
     }  
