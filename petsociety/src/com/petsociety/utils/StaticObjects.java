@@ -42,6 +42,10 @@ public class StaticObjects {
 	static Lost analysisSelectedLost;
 	
 	
+	//Search Function (Kai quan)
+	static Address selectedAddress;
+	static List<Address> directions;
+	
 	//EVENT OBJECTS (EURU)
 	static List<Event> events;
 	static Event selectedEvent;
@@ -87,9 +91,18 @@ public class StaticObjects {
 	public static void setTitle(Location title) {
 		StaticObjects.title = title;
 	}
-	
-	
-	
+	public static Address getSelectedAddress() {
+		return selectedAddress;
+	}
+	public static void setSelectedAddress(Address selectedAddress) {
+		StaticObjects.selectedAddress = selectedAddress;
+	}
+	public static List<Address> getDirections() {
+		return directions;
+	}
+	public static void setDirections(List<Address> directions) {
+		StaticObjects.directions = directions;
+	}
 	public static List<Review> getReviews() {
 		return reviews;
 	}

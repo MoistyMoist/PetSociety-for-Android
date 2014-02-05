@@ -116,6 +116,7 @@ OnMyLocationButtonClickListener{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		context=this;
+		setTitle("Analysis");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_analysis);
 		setSlidingActionBarEnabled(true);

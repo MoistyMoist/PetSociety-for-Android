@@ -12,6 +12,7 @@ import com.petsociety.utils.StaticObjects;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -28,6 +29,7 @@ public class Activity_search_address extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setTitle("Search");
 		setContentView(R.layout.activity_search_address);
 		searchResult=(ListView)findViewById(R.id.searchResult);
 		editText=(EditText)findViewById(R.id.searchAddress);
@@ -36,9 +38,13 @@ public class Activity_search_address extends Activity {
 			@Override
 			public void onItemClick(android.widget.AdapterView<?> arg0,
 					View arg1, int arg2, long arg3) {
-				// TODO Auto-generated method stub
-				// TODO Auto-generated method stub
-				Toast.makeText(getBaseContext(), StaticObjects.getAddress_results().get(arg2).getAddress(), Toast.LENGTH_LONG).show();
+				
+				StaticObjects.setSelectedAddress(StaticObjects.getAddress_results().get(arg2));
+				//Toast.makeText(getBaseContext(), StaticObjects.getAddress_results().get(arg2).getAddress(), Toast.LENGTH_LONG).show();
+				
+				Intent intent = new Intent();
+				intent.setClass(getApplicationContext(), MainActivity.class);
+				startActivity(intent);
 			}
         	
         });
@@ -54,7 +60,7 @@ public class Activity_search_address extends Activity {
 	
 	public void searchAddress(View view)
 	{
-		String query=editText.getText().toString();
+		String query=editText.getText().toString().replaceAll(" ", "%20");
 		OneMapSearchRequest searchRequest= new OneMapSearchRequest(query);
 		 new BackgroundTask().execute(searchRequest,searchRequest);
 	}

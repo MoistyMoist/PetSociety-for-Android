@@ -127,8 +127,25 @@ public class MainActivity extends MainBaseActivity
 		
         setContentView(R.layout.basic_map);
   
-        getAllList();       
-        
+        if(StaticObjects.getSelectedAddress()==null)
+        {
+        	getAllList();       
+        }
+        else
+        {
+        	//set searched adress pin
+        	plotAdressSearchResult();
+        	StaticObjects.setSelectedAddress(null);
+        }
+	}
+	
+	public void plotAdressSearchResult()
+	{
+		Toast.makeText(getBaseContext(), StaticObjects.getSelectedAddress().getAddress(), Toast.LENGTH_LONG).show();
+		//MapPin pin = new MapPin();
+		//pin.setLocation(locationList.get(i));
+		//pin.setType("Address");
+		//mapPinList.add(pin);
 	}
 	
 	@Override

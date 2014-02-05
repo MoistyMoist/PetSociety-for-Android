@@ -22,8 +22,9 @@ public class OneMapSearchRequest implements Runnable{
 	
 	public OneMapSearchRequest(String query)
 	{
-		this.query=query;
+		
 		staticObjects= new StaticObjects();
+		this.query=query;
 	}
 	
 	
