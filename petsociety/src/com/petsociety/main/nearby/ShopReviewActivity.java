@@ -1,111 +1,126 @@
 package com.petsociety.main.nearby;
 
-import java.util.ArrayList;
-
 import com.example.petsociety.R;
-import com.example.petsociety.R.layout;
-import com.example.petsociety.R.menu;
+import com.petsociety.httprequests.RetrieveAllEventRequest;
 import com.petsociety.httprequests.RetrieveAllLocationRequest;
-import com.petsociety.httprequests.RetrieveReviewByLocationRequest;
+import com.petsociety.httprequests.RetrieveAllReviewRequest;
+import com.petsociety.main.MainBaseActivity;
+import com.petsociety.models.Event;
+import com.petsociety.models.Location;
+import com.petsociety.models.Review;
 import com.petsociety.utils.StaticObjects;
-
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.view.Gravity;
-import android.view.Menu;
+import android.content.Intent;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
-public class ShopReviewActivity extends Activity {
+public class ShopReviewActivity extends MainBaseActivity {
 	
-	ArrayAdapter<CharSequence> adapter;
-	ListView myList;
-	Context myContext;
-	EditText et_review;
-	Button btn_review;
+	ListView lv_events;
+	ReviewListAdapter adapter;
+	StaticObjects staticObjects;
 	ProgressDialog progress;
-	ArrayList<String> reviews = new ArrayList<String>();
-	
-	String[] items = {"The Shop Has All that i Want!", "Quite Big", "Not Bad", "The Dog food lack variety but cat food is awesome!"};
-	
+	Context context = this;
 
+	
+	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_shop_review);
 		
-		myContext = this;
-		myList = (ListView) findViewById(R.id.list);
+		lv_events = (ListView) findViewById(R.id.lv_all_events);
+
+		RetrieveAllReviewRequest retrieveAllReviewRequest = new RetrieveAllReviewRequest();
+		new GetReviewList().execute(retrieveAllReviewRequest, null);
 		
-		adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_list_item_1, items);
-		myList.setAdapter(adapter);
-		et_review = (EditText)findViewById(R.id.et_review);
-		btn_review = (Button)findViewById(R.id.btn_review);
-		
-		getAllReviews();
-		
-    }
+		lv_events.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				int locationID = ((Location)arg0.getItemAtPosition(arg2)).getLocationID();
+				Intent intent = new Intent();
+				intent.putExtra("location", locationID);
+				intent.setClass(getBaseContext(), LocationInfoActivity.class);
+				startActivity(intent);
+			}});
+	}
 	
-	public void getAllReviews()
-	{
-		progress = ProgressDialog.show(this, "Collecting Reviews",
-				"please wait...", true);
-		RetrieveReviewByLocationRequest retrieveReviewByLocationRequest = new RetrieveReviewByLocationRequest(2);
-
-		new AllReviewBackgroundTask().execute(
-				retrieveReviewByLocationRequest, null);
-
-	}
-	private class AllReviewBackgroundTask extends
-	AsyncTask<Runnable, Integer, Long> {
-
-@Override
-protected void onPostExecute(Long result) {
-
-	super.onPostExecute(result);
-	if (progress != null)
-		progress.dismiss();
-	for (int i = 0; i < StaticObjects.getLocations().size(); i++) {
-	StaticObjects.getLocations().get(i).getReviews();
-	}
-
-	// textView1.setTag(staticObjects.getLocations().lastIndexOf(getTitle()));
-
-}
-
-@Override
-protected void onPreExecute() {
-	// Toast.makeText(getBaseContext(), "Refreshing..",
-	// Toast.LENGTH_SHORT).show();
-	super.onPreExecute();
-}
-
-@Override
-protected Long doInBackground(Runnable... task) {
-
-	for (int i = 0; i < task.length; i++) {
-		if (task[i] != null)
-			task[i].run();
-		if (isCancelled())
-			break;
-	}
-	return null;
-}
-}
-	
-
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.shop_review, menu);
+	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
+		getSupportMenuInflater().inflate(R.menu.event, menu);
 		return true;
+	}
+	
+private class GetReviewList extends AsyncTask<Runnable, Integer, Long> {
+	    
+		@Override
+		protected void onPreExecute() {
+		super.onPreExecute();
+		}
+	
+		@Override
+		protected void onPostExecute(Long result) {
+			
+			if(progress!=null)
+			progress.dismiss();
+	        staticObjects= new StaticObjects();
+			fillList();
+			Log.i("String", "DONE");
+		}
+
+		@Override
+		protected Long doInBackground(Runnable... task) {
+			
+			for(int i=0; i<task.length;i++)
+			{
+				if(task[i]!=null)
+					task[i].run();
+				if (isCancelled()) break;
+			}
+			return null;
+		}
+	 }
+
+	private void fillList(){
+		adapter = new ReviewListAdapter(context);
+		for (int i=0; i<StaticObjects.getReviews().size(); i++){
+           
+			
+			adapter.add(StaticObjects.getReviews().get(i));
+		}
+	    lv_events.setAdapter(adapter);
+    }  
+	
+	public class ReviewListAdapter extends ArrayAdapter<Review> {
+
+		public ReviewListAdapter(Context context) {
+			super(context, 0);
+		}
+
+		public View getView(int position, View convertView, ViewGroup parent) {
+			if (convertView == null) {
+				convertView = LayoutInflater.from(getContext()).inflate(R.layout.custom_event_row, null);
+			}
+			TextView title = (TextView) convertView.findViewById(R.id.row_event_title);
+			title.setText(getItem(position).getTitle());
+//			TextView desc = (TextView) convertView.findViewById(R.id.row_event_description);
+//			desc.setText(getItem(position).getDescription());	
+			return convertView;
+		}
+
 	}
 
 }
