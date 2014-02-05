@@ -84,5 +84,7 @@
     <string name="title_activity_shop_map">ShopMapActivity</string>
     <string name="title_activity_location_info">LocationInfoActivity</string>
     <string name="title_activity_activity_search_address">Activity_search_address</string>
+    <string name="title_activity_add_location">AddLocationActivity</string>
+    <string name="title_activity_set_add_location">SetAddLocationActivity</string>
 
 </resources>

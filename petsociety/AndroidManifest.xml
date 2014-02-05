@@ -65,7 +65,7 @@
             android:label="@string/title_activity_register"
             android:noHistory="true" >
         </activity>
-		<activity
+        <activity
             android:name="com.petsociety.main.OldMainActivity"
             android:label="@string/app_name"
             android:uiOptions="splitActionBarWhenNarrow" >
@@ -157,6 +157,14 @@
         <activity
             android:name="com.petsociety.main.Activity_search_address"
             android:label="@string/title_activity_activity_search_address" >
+        </activity>
+        <activity
+            android:name="com.petsociety.main.nearby.AddLocationActivity"
+            android:label="@string/title_activity_add_location" >
+        </activity>
+        <activity
+            android:name="com.petsociety.main.nearby.SetAddLocationActivity"
+            android:label="@string/title_activity_set_add_location" >
         </activity>
     </application>
 
