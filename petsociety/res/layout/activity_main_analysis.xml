@@ -7,17 +7,17 @@
     tools:context=".AnalysisActivity" >
 	<Button
 	    android:id="@+id/filterBtn"
-	    android:layout_width="50dp"
+	    android:layout_width="150dp"
 	    android:layout_height="wrap_content"
 	    android:onClick="nextPage"
 	    android:text="Options" />
 	<Button
 	    android:id="@+id/chartBtn"
-	    android:layout_width="50dp"
+	    android:layout_width="100dp"
 	    android:layout_toRightOf="@+id/filterBtn"
 	    android:layout_height="wrap_content"
 	    android:onClick="chartBtn"
-	    android:text="Q" />
+	    android:text="More" />
  	<LinearLayout
      	android:id="@+id/analysis_map"
      	android:layout_width="fill_parent"

@@ -437,8 +437,16 @@ OnMyLocationButtonClickListener{
 				public void onClick(DialogInterface dialog, int which) {
 					if(which==0)
 					{
-						LocationDialogFragment frag= new LocationDialogFragment();
-						frag.show(getFragmentManager(), null);
+						//LocationDialogFragment frag= new LocationDialogFragment();
+						//frag.show(getFragmentManager(), null);
+						StaticObjects.setAnalysisEvent(null);
+	                	StaticObjects.setAnalysisStray(null);
+	                	StaticObjects.setAndlysisLost(null);
+	                	StaticObjects.setAnslysisLocation(null);
+	                	   
+	                	RetrieveLocationByTypeRequest request;
+	                	request= new RetrieveLocationByTypeRequest("Accidents");
+	                    new BackgroundTask().execute(request,request);
 					}
 					if(which==1)
 					{
@@ -655,13 +663,28 @@ OnMyLocationButtonClickListener{
 	
 	public void chartBtn(View view)
 	{
-		loadStrayWebView();
+		if(locationCanvasShown)
+		{
+			loadAccidentWebView();
+		}
+		if(strayCanvasShown)
+		{
+			loadStrayWebView();
+		}
+		if(lostCanvasShown)
+		{
+			loadLostWebView();
+		}
+		if(eventCanvasShown)
+		{
+			loadEventWebView();
+		}
 	}
 	
 	private void loadLostWebView()
 	{
 		AlertDialog.Builder alert = new AlertDialog.Builder(this); 
-		alert.setTitle("Interesting Facts");
+		alert.setTitle("Do You Know?");
 
 		WebView wv = new WebView(this);
 		
@@ -694,6 +717,62 @@ OnMyLocationButtonClickListener{
 		WebView wv = new WebView(this);
 		
 		wv.loadUrl("http://petsociety.azurewebsites.net/straychart.aspx");
+		wv.getSettings().setJavaScriptEnabled(true);
+		wv.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+		wv.setWebViewClient(new WebViewClient() {
+		    @Override
+		    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+		        view.loadUrl(url);
+
+		        return true;
+		    }
+		});
+		alert.setView(wv);
+		alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+		    @Override
+		    public void onClick(DialogInterface dialog, int id) {
+		        dialog.dismiss();
+		    }
+		});
+		alert.show();
+	}
+	
+	private void loadAccidentWebView()
+	{
+		AlertDialog.Builder alert = new AlertDialog.Builder(this); 
+		alert.setTitle("Interesting Staticitics");
+
+		WebView wv = new WebView(this);
+		
+		wv.loadUrl("http://petsociety.azurewebsites.net/locationchart.aspx");
+		wv.getSettings().setJavaScriptEnabled(true);
+		wv.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+		wv.setWebViewClient(new WebViewClient() {
+		    @Override
+		    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+		        view.loadUrl(url);
+
+		        return true;
+		    }
+		});
+		alert.setView(wv);
+		alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+		    @Override
+		    public void onClick(DialogInterface dialog, int id) {
+		        dialog.dismiss();
+		    }
+		});
+		alert.show();
+	}
+
+	private void loadEventWebView()
+	{
+		AlertDialog.Builder alert = new AlertDialog.Builder(this); 
+		alert.setTitle("Interesting Facts");
+
+		WebView wv = new WebView(this);
+		
+		wv.loadUrl("http://petsociety.azurewebsites.net/eventchart.aspx");
 		wv.getSettings().setJavaScriptEnabled(true);
 		wv.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
 		wv.setWebViewClient(new WebViewClient() {
@@ -852,14 +931,4 @@ OnMyLocationButtonClickListener{
       //      layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
 	}
 	
-	private void DrawEventChart()
-	{
-		
-	}
-	
-	private void DrawLocationChart()
-	{
-		
-		
-	}
 }
