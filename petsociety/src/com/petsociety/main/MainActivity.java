@@ -669,9 +669,9 @@ public class MainActivity extends MainBaseActivity
         mClusterManager.addItems(mapPinList);
         mClusterManager.cluster();
         
-        Location location = mMap.getMyLocation();
-        StaticObjects.getCurrentUser().setX(location.getLatitude());
-        StaticObjects.getCurrentUser().setY(location.getLongitude()); 
+        //Location location = mMap.getMyLocation();
+        //StaticObjects.getCurrentUser().setX(location.getLatitude());
+        //StaticObjects.getCurrentUser().setY(location.getLongitude()); 
     }
 
 }
