@@ -354,15 +354,19 @@ public class NearbyActivity extends MainBaseActivity implements
         List<com.petsociety.models.Location> locationList = StaticObjects.getLocations();
     	
         for (int i=0; i<locationList.size(); i++){
-
-        double lat = locationList.get(i).getX();
-        double lng = locationList.get(i).getY();
-        MarkerOptions mOption = new MarkerOptions()
-                    .position(new LatLng(lat, lng))
-                    .title(locationList.get(i).getTitle())
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                    .snippet("About: "+locationList.get(i).getDescription()); 
-        shopMarkers.add(mMap.addMarker(mOption));
+        	if(locationList.get(i).getType().equalsIgnoreCase("accident")){}
+        	else{
+		        double lat = locationList.get(i).getX();
+		        double lng = locationList.get(i).getY();
+		        MarkerOptions mOption = new MarkerOptions()
+		                    .position(new LatLng(lat, lng))
+		                    .title(locationList.get(i).getTitle())
+		                    //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+		                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_petstore))
+		                    .infoWindowAnchor(0.5f, 0.5f)
+		                    .snippet("About: "+locationList.get(i).getDescription()); 
+		        shopMarkers.add(mMap.addMarker(mOption));
+        	}
         }
     }
 
