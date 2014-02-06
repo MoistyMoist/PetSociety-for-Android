@@ -41,7 +41,7 @@ public class ShopReviewActivity extends MainBaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_shop_review);
 		
-		lv_review = (ListView) findViewById(R.id.list);
+		lv_review = (ListView) findViewById(R.id.listReview);
 
 		RetrieveAllReviewRequest retrieveAllReviewRequest = new RetrieveAllReviewRequest();
 		new GetReviewList().execute(retrieveAllReviewRequest, null);
