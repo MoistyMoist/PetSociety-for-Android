@@ -523,14 +523,14 @@ public class JSONExtractor {
 			
 			//JSONArray errors=json.getJSONArray(TAG_ERRORS);
 			
-			//ArrayList<Review>review= new ArrayList<Review>();
+			ArrayList<Review>review= new ArrayList<Review>();
 			if(StaticObjects.getResponseStatus()==0)
 			{
 				
 				JSONArray RawData= json.getJSONArray(TAG_DATA);
 				Log.i("Review ",RawData.toString() );
 				
-				//for(int i=0;i<RawData.length();i++){
+				for(int i=0;i<RawData.length();i++){
 					
 					JSONObject c2=RawData.getJSONObject(0); Log.i("c ",c2.toString() );
 					
@@ -550,12 +550,12 @@ public class JSONExtractor {
 					
 					
 					
-					//review.add(r); 
+					review.add(r); 
 					
 					//Log.i("pet "+i,c.toString() );
-				//} 
+				} 
 				
-					StaticObjects.setSelectReview(r);
+				StaticObjects.setReviews(review);
 				//StaticObjects.setPets(pet);
 
 			}
