@@ -3,6 +3,7 @@ package com.petsociety.main.nearby;
 import com.example.petsociety.R;
 import com.petsociety.httprequests.RetrieveAllEventRequest;
 import com.petsociety.httprequests.RetrieveAllLocationRequest;
+import com.petsociety.httprequests.RetrieveAllReviewRequest;
 import com.petsociety.httprequests.RetrieveReviewByLocationRequest;
 import com.petsociety.main.MainBaseActivity;
 import com.petsociety.models.Event;
@@ -48,8 +49,8 @@ public class ReviewList extends MainBaseActivity {
 		
 		lv_events = (ListView) findViewById(R.id.lv_all_events);
 
-		RetrieveReviewByLocationRequest retrieveReview = new RetrieveReviewByLocationRequest(locationID);
-		new GetReviewList().execute(retrieveReview, null);
+		RetrieveAllReviewRequest retrieveAllReviewRequest = new RetrieveAllReviewRequest();
+		new GetReviewList().execute(retrieveAllReviewRequest, null);
 		
 		lv_events.setOnItemClickListener(new OnItemClickListener(){
 			@Override

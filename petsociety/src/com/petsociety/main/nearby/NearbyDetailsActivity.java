@@ -82,15 +82,16 @@ public class NearbyDetailsActivity extends TabActivity  {
 
 
 	
-		Intent intentTitle = getIntent();
-		Bundle title = intentTitle.getExtras();
-		tvShopName.setText(title.get("nearbyTitle").toString());
+//		Intent intentTitle = getIntent();
+//		Bundle title = intentTitle.getExtras();
+//		tvShopName.setText(title.get("nearbyTitle").toString());
+		tvShopName.setText(StaticObjects.getSelectedLocation().getTitle().toString());
 	String	pass = tvShopName.getText().toString();
 		
 
 		 
 		
-	
+	 
 		call.setOnClickListener(new OnClickListener() {
 
 			@Override

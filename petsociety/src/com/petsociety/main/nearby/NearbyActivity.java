@@ -435,7 +435,7 @@ public class NearbyActivity extends MainBaseActivity implements
 								NearbyDetailsActivity.class);
 								
 					
-						 intent.putExtra("nearbyTitle", title);
+//						 intent.putExtra("nearbyTitle", title);
 						
 						
 						startActivity(intent);
