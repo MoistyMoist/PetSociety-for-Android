@@ -56,6 +56,8 @@ public class ReviewList extends MainBaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				//TODO auto gen
+				
+				
 			}});
 	}
 	
@@ -104,9 +106,16 @@ private void fillSingleReview(){
 
 	private void fillReviewList(){
 		adapter = new NearbyListAdapter(context);
-		for (int i=0; i<StaticObjects.getLocations().size(); i++){
-            //adapter.add(StaticObjects.getLocations().get(i));
+		int id = StaticObjects.getSelectedLocation().getLocationID();
+		for(int i=0; i<StaticObjects.getReviews().size(); i++ )
+		{
+			if(StaticObjects.getReviews().get(i).getLocationID()==id);
+			{
+				
+			}
 		}
+		
+		
 	    lv_events.setAdapter(adapter);
     }  
 	
