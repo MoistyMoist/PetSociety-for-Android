@@ -162,7 +162,7 @@ public class OldMainActivity extends MainBaseActivity
                 //setUpMap();
                     
                     mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
-                    mMap.setOnInfoWindowClickListener(this);
+                    mMap.setOnInfoWindowClickListener(this); 
                     
                 mMap.setMyLocationEnabled(true);
                 mMap.setOnMyLocationButtonClickListener(this);

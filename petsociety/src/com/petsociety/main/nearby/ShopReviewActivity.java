@@ -12,6 +12,7 @@ import com.petsociety.utils.StaticObjects;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -26,7 +27,7 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
-public class ShopReviewActivity extends MainBaseActivity {
+public class ShopReviewActivity extends Activity {
 	
 	ListView lv_review;
 	ReviewListAdapter adapter;
@@ -54,11 +55,6 @@ public class ShopReviewActivity extends MainBaseActivity {
 			}});
 	}
 	
-	@Override
-	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.event, menu);
-		return true;
-	}
 	
 private class GetReviewList extends AsyncTask<Runnable, Integer, Long> {
 	    
