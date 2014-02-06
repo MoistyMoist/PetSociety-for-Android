@@ -9,6 +9,7 @@ import java.util.Set;
 import com.petsociety.httprequests.*;
 import com.petsociety.main.lost.LostActivity;
 import com.petsociety.main.nearby.NearbyList;
+import com.petsociety.models.Address;
 import com.petsociety.models.Event;
 import com.petsociety.models.Lost;
 import com.petsociety.models.Pet;
@@ -204,6 +205,7 @@ public class MainActivity extends MainBaseActivity
                 mMap.setOnMyLocationButtonClickListener(this);
                 LatLng singapore = new LatLng(1.37, 103.84);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 11));
+                
             }
         }
     }
@@ -666,6 +668,10 @@ public class MainActivity extends MainBaseActivity
 
         mClusterManager.addItems(mapPinList);
         mClusterManager.cluster();
+        
+        Location location = mMap.getMyLocation();
+        StaticObjects.getCurrentUser().setX(location.getLatitude());
+        StaticObjects.getCurrentUser().setY(location.getLongitude()); 
     }
 
 }
