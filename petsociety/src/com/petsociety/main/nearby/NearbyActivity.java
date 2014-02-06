@@ -117,11 +117,23 @@ public class NearbyActivity extends MainBaseActivity implements
 		textView = (AutoCompleteTextView) findViewById(R.id.autocomplete_country);
 		// Get the string array
 
-		String[] countries = getResources().getStringArray(
-				R.array.countries_array);
+		
+		ArrayList<String> searchers = new ArrayList<String>();
+		for(int i=0; i<StaticObjects.getLocations().size(); i++)
+		{
+			if(StaticObjects.getLocations().get(i).getType().equals("Accidents"))
+					{
+				
+					}
+			else
+			{
+				searchers.add(StaticObjects.getLocations().get(i).getTitle());
+			}
+		}
+				
 		// Create the adapter and set it to the AutoCompleteTextView
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, countries);
+				android.R.layout.simple_list_item_1, searchers);
 
 		textView.setAdapter(adapter);
 		textView1 = (TextView) findViewById(R.id.textView1);
@@ -407,18 +419,18 @@ public class NearbyActivity extends MainBaseActivity implements
 			
 			if (staticObjects.getLocations().get(i).getTitle()
 					.equals(textView.getText().toString())) {
-				mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+				//mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 				CameraUpdate update = CameraUpdateFactory
 						.newLatLngZoom(LOCATION, 16);
 				mMap.getMaxZoomLevel();
 				mMap.animateCamera(update);
-				MarkerOptions mOption = new MarkerOptions()
-						.position(LOCATION)
-						.title(title)
-						.snippet(desc)
-						.icon(BitmapDescriptorFactory
-								.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-				vetMarkers.add(mMap.addMarker(mOption));
+//				MarkerOptions mOption = new MarkerOptions()
+//						.position(LOCATION)
+//						.title(title)
+//						.snippet(desc)
+//						.icon(BitmapDescriptorFactory
+//								.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+//				vetMarkers.add(mMap.addMarker(mOption));
 				mMap.setOnMapClickListener(new OnMapClickListener (){
 
 					@Override

@@ -28,7 +28,7 @@ import android.widget.Toast;
 
 public class ShopReviewActivity extends MainBaseActivity {
 	
-	ListView lv_events;
+	ListView lv_review;
 	ReviewListAdapter adapter;
 	StaticObjects staticObjects;
 	ProgressDialog progress;
@@ -41,12 +41,12 @@ public class ShopReviewActivity extends MainBaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_shop_review);
 		
-		lv_events = (ListView) findViewById(R.id.lv_all_events);
+		lv_review = (ListView) findViewById(R.id.list);
 
 		RetrieveAllReviewRequest retrieveAllReviewRequest = new RetrieveAllReviewRequest();
 		new GetReviewList().execute(retrieveAllReviewRequest, null);
 		
-		lv_events.setOnItemClickListener(new OnItemClickListener(){
+		lv_review.setOnItemClickListener(new OnItemClickListener(){
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -100,7 +100,7 @@ private class GetReviewList extends AsyncTask<Runnable, Integer, Long> {
 			adapter.add(StaticObjects.getReviews().get(i));
 			}
 		}
-	    lv_events.setAdapter(adapter);
+		lv_review.setAdapter(adapter);
     }  
 	
 	public class ReviewListAdapter extends ArrayAdapter<Review> {
