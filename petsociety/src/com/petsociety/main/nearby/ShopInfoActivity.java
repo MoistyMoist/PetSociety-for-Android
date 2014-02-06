@@ -42,8 +42,7 @@ public class ShopInfoActivity extends Activity {
 	RatingBar ratingBar;
 	
 
-	String address;
-	
+	String address, website, phone;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -62,9 +61,12 @@ public class ShopInfoActivity extends Activity {
 		{
 			if(StaticObjects.getLocations().get(i).getTitle().toString().equals(tv1.toString()))
 			{
-				tv_shopDesc.setText(StaticObjects.getLocations().get(i).getDescription().toString());
 				tv_shopAddress.setText(StaticObjects.getLocations().get(i).getAddress().toString());
-				
+		        String staticDesc = StaticObjects.getLocations().get(i).getDescription().toString();
+		        String[]splitDesc = staticDesc.split(";");
+				tv_shopDesc.setText(splitDesc[0]);
+				tv_shopWebsite.setText(splitDesc[1]);
+		        phone = splitDesc[2];
 			}
 		}
 		
