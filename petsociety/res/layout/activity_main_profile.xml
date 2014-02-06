@@ -5,86 +5,77 @@
     tools:context=".ProfileActivity" >
 
     <RelativeLayout
-       android:layout_width="fill_parent"
-       android:layout_height="wrap_content">
-        
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="60dp"
-        android:src="@drawable/euru" />
+        <TextView
+            android:id="@+id/profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView5"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="Euru Chick"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:text="Euru Chick"
-        android:textSize="17sp" />
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="22dp"
+            android:text="Welcome Back,"
+            android:textSize="22sp" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="7dp"
-        android:text="Age: 19"
-        android:textSize="17sp" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:text="Your Current Location:"
+            android:textSize="22sp" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="7dp"
-        android:text="Current Location:"
-        android:textSize="17sp" />
+        <TextView
+            android:id="@+id/profile_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView3"
+            android:layout_centerHorizontal="true"
+            android:text="Bishan"
+            android:layout_marginTop="5dp"
+            android:textSize="20sp" />
 
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageView1"
-        android:layout_below="@+id/textView3"
-        android:ems="10"
-        android:enabled="false" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_location"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:text="Pets:"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="22sp" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText1"
-        android:layout_marginTop="20dp"
-        android:layout_toLeftOf="@+id/editText1"
-        android:text="Pets"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignLeft="@+id/textView5"
+            android:layout_below="@+id/textView4"
+            android:cropToPadding="true"
+            android:src="@drawable/puppy" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/textView4"
-        android:cropToPadding="true"
-        android:layout_marginLeft="20dp"
-        android:src="@drawable/puppy" />
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/textView5"
+            android:src="@drawable/cat" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_alignParentBottom="true"
-        android:src="@drawable/cat" />
-    
-        </RelativeLayout>
+    </RelativeLayout>
 
 </ScrollView>
