@@ -111,8 +111,8 @@ private class GetReviewList extends AsyncTask<Runnable, Integer, Long> {
 			}
 			TextView title = (TextView) convertView.findViewById(R.id.row_event_title);
 			title.setText(getItem(position).getTitle());
-//			TextView desc = (TextView) convertView.findViewById(R.id.row_event_description);
-//			desc.setText(getItem(position).getDescription());	
+			TextView desc = (TextView) convertView.findViewById(R.id.row_event_description);
+			desc.setText(getItem(position).getDescription());	
 			return convertView;
 		}
 
