@@ -532,7 +532,7 @@ public class JSONExtractor {
 				
 				for(int i=0;i<RawData.length();i++){
 					
-					JSONObject c2=RawData.getJSONObject(0); Log.i("c ",c2.toString() );
+					JSONObject c2=RawData.getJSONObject(i); Log.i("c ",c2.toString() );
 					
 					
 					Review r= new Review();
