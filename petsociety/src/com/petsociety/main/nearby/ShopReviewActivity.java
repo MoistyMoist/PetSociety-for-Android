@@ -50,11 +50,7 @@ public class ShopReviewActivity extends MainBaseActivity {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				int locationID = ((Location)arg0.getItemAtPosition(arg2)).getLocationID();
-				Intent intent = new Intent();
-				intent.putExtra("location", locationID);
-				intent.setClass(getBaseContext(), LocationInfoActivity.class);
-				startActivity(intent);
+				
 			}});
 	}
 	
@@ -96,10 +92,13 @@ private class GetReviewList extends AsyncTask<Runnable, Integer, Long> {
 
 	private void fillList(){
 		adapter = new ReviewListAdapter(context);
+		
+		int id = StaticObjects.getSelectedLocation().getLocationID();
 		for (int i=0; i<StaticObjects.getReviews().size(); i++){
            
-			
+			if(StaticObjects.getReviews().get(i).getLocationID()==id){
 			adapter.add(StaticObjects.getReviews().get(i));
+			}
 		}
 	    lv_events.setAdapter(adapter);
     }  
