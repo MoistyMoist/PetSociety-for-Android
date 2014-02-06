@@ -35,8 +35,8 @@ public class ProfileActivity extends Activity {
 		location = (TextView) findViewById(R.id.profile_location);
 
 	    name.setText(StaticObjects.getCurrentUser().getName());
-	    double x = (StaticObjects.getSelectedAddress().getX());
-	    double y = (StaticObjects.getSelectedAddress().getY());
+	    double x = (StaticObjects.getCurrentUser().getX());
+	    double y = (StaticObjects.getCurrentUser().getY());
 	    getMyLocationAddress(x, y);
 
 
