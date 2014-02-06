@@ -1,6 +1,7 @@
 package com.petsociety.main.nearby;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -284,10 +285,8 @@ public class NearbyActivity extends MainBaseActivity implements
 				mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore,
 						12.0f));
 
-				for (int i = 0; i < 3; i++) {
-					addShopMarkers();
-					addVetMarkers();
-				}
+				addShopMarkers();
+				//addVetMarkers();
 			}
 		}
 	}
@@ -350,39 +349,26 @@ public class NearbyActivity extends MainBaseActivity implements
 		}
 	}
 
-	public double[] randomMarkerPos() {
-		double[] pos = new double[2];
-		Random generator = new Random();
-		double d_lat = generator.nextInt(9) + 1; // 1~9
-		double d_lng = generator.nextInt(9) + 1; // 1~9
-		double lat = 1.30 + d_lat / 100;
-		double lng = 103.80 + d_lng / 100;
-		pos[0] = lat;
-		pos[1] = lng;
-		return pos;
-	}
+    public void addShopMarkers(){
+        
+        List<com.petsociety.models.Location> locationList = StaticObjects.getLocations();
+    	
+        for (int i=0; i<locationList.size(); i++){
 
-	public void addShopMarkers() {
-		double[] pos = randomMarkerPos();
-		double lat = pos[0];
-		double lng = pos[1];
-		// Toast.makeText(getApplicationContext(), "L:"+lat+","+lng,
-		// Toast.LENGTH_SHORT).show();
-		MarkerOptions mOption = new MarkerOptions()
-				.position(new LatLng(lat, lng)).title("Pet Shop")
-				.snippet("Cat & Dog Pet Shop");
-		shopMarkers.add(mMap.addMarker(mOption));
-
-	}
+        double lat = locationList.get(i).getX();
+        double lng = locationList.get(i).getY();
+        MarkerOptions mOption = new MarkerOptions()
+                    .position(new LatLng(lat, lng))
+                    .title(locationList.get(i).getTitle())
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                    .snippet("About: "+locationList.get(i).getDescription()); 
+        shopMarkers.add(mMap.addMarker(mOption));
+        }
+    }
 
 	public void addVetMarkers() {
-		double[] pos = randomMarkerPos();
-		double lat = pos[0];
-		double lng = pos[1];
-		// Toast.makeText(getApplicationContext(), "L:"+lat+","+lng,
-		// Toast.LENGTH_SHORT).show();
 		MarkerOptions mOption = new MarkerOptions()
-				.position(new LatLng(lat, lng))
+				.position(new LatLng(1.3, 103.85))
 				.title("Vet")
 				.snippet("We are a Vet!")
 				.icon(BitmapDescriptorFactory
@@ -435,7 +421,7 @@ public class NearbyActivity extends MainBaseActivity implements
 								NearbyDetailsActivity.class);
 								
 					
-//						 intent.putExtra("nearbyTitle", title);
+						 intent.putExtra("nearbyTitle", title);
 						
 						
 						startActivity(intent);
