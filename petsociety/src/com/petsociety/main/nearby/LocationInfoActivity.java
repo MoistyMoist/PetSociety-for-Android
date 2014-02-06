@@ -51,6 +51,8 @@ public class LocationInfoActivity extends FragmentActivity {
 
 		}		
 		
+		//singleTitle.setText( (singleLocation.getDescription().split(";"))[2] );
+		
 	    singleTitle.setText(singleLocation.getTitle()); //here
 	    singleDescription.setText(singleLocation.getDescription());
 	    singleAddress.setText(singleLocation.getAddress());

@@ -134,7 +134,10 @@ private class GetNearbyList extends AsyncTask<Runnable, Integer, Long> {
 			TextView title = (TextView) convertView.findViewById(R.id.row_event_title);
 			title.setText(getItem(position).getTitle());
 			TextView desc = (TextView) convertView.findViewById(R.id.row_event_description);
-			desc.setText(getItem(position).getDescription());	
+			desc.setText((getItem(position).getDescription().split(";"))[0]);	
+			
+			
+			
 			return convertView;
 		}
 
