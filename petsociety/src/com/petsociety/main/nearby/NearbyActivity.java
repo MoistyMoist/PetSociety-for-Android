@@ -46,7 +46,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
 import android.util.Log;
 import android.view.View;
@@ -360,14 +362,11 @@ public class NearbyActivity extends MainBaseActivity implements
         	double lat = locationList.get(i).getX();
 	        double lng = locationList.get(i).getY();
         	
-        	if(locationList.get(i).getType().equalsIgnoreCase("accident")){}
+        	if(locationList.get(i).getType().equalsIgnoreCase("accidents")){}
         	else if(locationList.get(i).getType().equalsIgnoreCase("vet")){
         		
-        		LevelListDrawable d=(LevelListDrawable) getResources().getDrawable(R.drawable.icon_vet);
-        		d.setLevel(1234);
-        		BitmapDrawable bd=(BitmapDrawable) d.getCurrent();
-        		Bitmap b=bd.getBitmap();
-        		Bitmap bsize=Bitmap.createScaledBitmap(b, b.getWidth()/10,b.getHeight()/10, false);
+        		Bitmap original = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_vet);
+        		Bitmap bsize=Bitmap.createScaledBitmap(original, original.getWidth()/6,original.getHeight()/6, false);
         		
         		MarkerOptions mOption = new MarkerOptions()
 			                .position(new LatLng(lat, lng))
@@ -380,11 +379,8 @@ public class NearbyActivity extends MainBaseActivity implements
         	} 
         	else{
         		
-        		LevelListDrawable d=(LevelListDrawable) getResources().getDrawable(R.drawable.icon_petstore);
-        		d.setLevel(1234);
-        		BitmapDrawable bd=(BitmapDrawable) d.getCurrent();
-        		Bitmap b=bd.getBitmap();
-        		Bitmap bsize=Bitmap.createScaledBitmap(b, b.getWidth()/10,b.getHeight()/10, false);
+        		Bitmap original = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_petstore);
+        		Bitmap bsize=Bitmap.createScaledBitmap(original, original.getWidth()/4,original.getHeight()/4, false);
         		
 		        MarkerOptions mOption = new MarkerOptions()
 		                    .position(new LatLng(lat, lng))
