@@ -45,6 +45,9 @@ import android.provider.MediaStore;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.LevelListDrawable;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -359,21 +362,35 @@ public class NearbyActivity extends MainBaseActivity implements
         	
         	if(locationList.get(i).getType().equalsIgnoreCase("accident")){}
         	else if(locationList.get(i).getType().equalsIgnoreCase("vet")){
+        		
+        		LevelListDrawable d=(LevelListDrawable) getResources().getDrawable(R.drawable.icon_vet);
+        		d.setLevel(1234);
+        		BitmapDrawable bd=(BitmapDrawable) d.getCurrent();
+        		Bitmap b=bd.getBitmap();
+        		Bitmap bsize=Bitmap.createScaledBitmap(b, b.getWidth()/10,b.getHeight()/10, false);
+        		
         		MarkerOptions mOption = new MarkerOptions()
 			                .position(new LatLng(lat, lng))
 			                .title(locationList.get(i).getTitle())
 			                //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-			                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_vet))
+			                .icon(BitmapDescriptorFactory.fromBitmap(bsize))
 			                .infoWindowAnchor(0.5f, 0.5f)
 			                .snippet("About: "+locationList.get(i).getDescription()); 
         		vetMarkers.add(mMap.addMarker(mOption));
         	} 
         	else{
+        		
+        		LevelListDrawable d=(LevelListDrawable) getResources().getDrawable(R.drawable.icon_petstore);
+        		d.setLevel(1234);
+        		BitmapDrawable bd=(BitmapDrawable) d.getCurrent();
+        		Bitmap b=bd.getBitmap();
+        		Bitmap bsize=Bitmap.createScaledBitmap(b, b.getWidth()/10,b.getHeight()/10, false);
+        		
 		        MarkerOptions mOption = new MarkerOptions()
 		                    .position(new LatLng(lat, lng))
 		                    .title(locationList.get(i).getTitle())
 		                    //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-		                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_petstore))
+			                .icon(BitmapDescriptorFactory.fromBitmap(bsize))
 		                    .infoWindowAnchor(0.5f, 0.5f)
 		                    .snippet("About: "+locationList.get(i).getDescription()); 
 		        shopMarkers.add(mMap.addMarker(mOption));
