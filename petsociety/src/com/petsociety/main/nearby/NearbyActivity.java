@@ -14,6 +14,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -62,7 +63,7 @@ import android.widget.Toast;
 
 public class NearbyActivity extends MainBaseActivity implements
 		ConnectionCallbacks, OnConnectionFailedListener, LocationListener,
-		OnMyLocationButtonClickListener {
+		OnMyLocationButtonClickListener, OnInfoWindowClickListener {
 
 	// private final LatLng LOCATION_NYP = new LatLng(1.379348, 103.849876);
 	private GoogleMap mMap;
@@ -298,6 +299,7 @@ public class NearbyActivity extends MainBaseActivity implements
 				// setUpMap();
 				mMap.setMyLocationEnabled(true);
 				mMap.setOnMyLocationButtonClickListener(this);
+				mMap.setOnInfoWindowClickListener(this);
 				LatLng singapore = new LatLng(1.37, 103.84);
 				mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore,
 						12.0f));
@@ -305,11 +307,6 @@ public class NearbyActivity extends MainBaseActivity implements
 				addMarkers();
 			}
 		}
-	}
-
-	private void setUpMap() {
-		mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title(
-				"Marker"));
 	}
 
 	public boolean onMyLocationButtonClick() {
@@ -424,37 +421,6 @@ public class NearbyActivity extends MainBaseActivity implements
 						.newLatLngZoom(LOCATION, 16);
 				mMap.getMaxZoomLevel();
 				mMap.animateCamera(update);
-//				MarkerOptions mOption = new MarkerOptions()
-//						.position(LOCATION)
-//						.title(title)
-//						.snippet(desc)
-//						.icon(BitmapDescriptorFactory
-//								.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-//				vetMarkers.add(mMap.addMarker(mOption));
-				mMap.setOnMapClickListener(new OnMapClickListener (){
-
-					@Override
-					public void onMapClick(LatLng arg0) {
-						// TODO Auto-generated method stub
-						//textView1.setText("Hello world");
-						
-						
-						com.petsociety.models.Location loc = new com.petsociety.models.Location();
-						loc.setTitle(title);
-						StaticObjects.setSelectedLocation(loc);
-
-						
-						 Intent intent = new Intent(NearbyActivity.this,
-								NearbyDetailsActivity.class);
-								
-					
-						 intent.putExtra("nearbyTitle", title);
-						
-						
-						startActivity(intent);
-					
-						
-					}});
 
 			}
 
@@ -465,6 +431,24 @@ public class NearbyActivity extends MainBaseActivity implements
 		}
 
 }
+
+
+	@Override
+	public void onInfoWindowClick(Marker arg0) {
+		
+		//Toast.makeText(getApplicationContext(), "hi", Toast.LENGTH_SHORT).show();
+
+		String title = arg0.getTitle();
+        List<com.petsociety.models.Location> locationList = StaticObjects.getLocations();
+		for(int i=0; i<locationList.size();i++){
+			if(title.equals(locationList.get(i).getTitle())){
+				StaticObjects.setSelectedLocation(locationList.get(i));
+				Intent intent = new Intent(NearbyActivity.this,
+						NearbyDetailsActivity.class);				
+				startActivity(intent);
+			}
+		}
+	}
 	
 
 	
