@@ -290,8 +290,7 @@ public class NearbyActivity extends MainBaseActivity implements
 				mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore,
 						12.0f));
 
-				addShopMarkers();
-				//addVetMarkers();
+				addMarkers();
 			}
 		}
 	}
@@ -354,7 +353,7 @@ public class NearbyActivity extends MainBaseActivity implements
 		}
 	}
 
-    public void addShopMarkers(){
+    public void addMarkers(){
         
         List<com.petsociety.models.Location> locationList = StaticObjects.getLocations();
     	
@@ -380,7 +379,7 @@ public class NearbyActivity extends MainBaseActivity implements
         	else{
         		
         		Bitmap original = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_petstore);
-        		Bitmap bsize=Bitmap.createScaledBitmap(original, original.getWidth()/4,original.getHeight()/4, false);
+        		Bitmap bsize=Bitmap.createScaledBitmap(original, original.getWidth()/8,original.getHeight()/8, false);
         		
 		        MarkerOptions mOption = new MarkerOptions()
 		                    .position(new LatLng(lat, lng))
@@ -393,18 +392,6 @@ public class NearbyActivity extends MainBaseActivity implements
         	}
         }
     }
-
-	public void addVetMarkers() {
-		MarkerOptions mOption = new MarkerOptions()
-				.position(new LatLng(1.3, 103.85))
-				.title("Vet")
-				.snippet("We are a Vet!")
-				.icon(BitmapDescriptorFactory
-						.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-		vetMarkers.add(mMap.addMarker(mOption));
-	}
-
-
 	
 	public void searchLocation(){
 		
