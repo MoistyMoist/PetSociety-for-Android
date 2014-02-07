@@ -35,6 +35,7 @@ import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallback
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
+import com.google.maps.android.SphericalUtil;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.actionbarsherlock.view.MenuItem;
 
@@ -80,7 +81,7 @@ public class NearbyActivity extends MainBaseActivity implements
 	AutoCompleteTextView textView;
 	Button locateButton;
 	Intent intent;
-	TextView textView1;
+	TextView textView1 ,mTextView;
 	StaticObjects staticObjects;
 	ProgressDialog progress;
 	Context context = this;
@@ -116,6 +117,7 @@ public class NearbyActivity extends MainBaseActivity implements
 		intent = new Intent();
 
 		textView = (AutoCompleteTextView) findViewById(R.id.autocomplete_country);
+		mTextView = (TextView) findViewById(R.id.mTextView);
 		// Get the string array
 
 		
@@ -449,6 +451,28 @@ public class NearbyActivity extends MainBaseActivity implements
 			}
 		}
 	}
+	
+	private void showDistance() {
+    	Marker mMarkerA = mMap.addMarker(new MarkerOptions().position(new LatLng(-33.9046, 151.155)).draggable(true));
+    	Marker mMarkerB = mMap.addMarker(new MarkerOptions().position(new LatLng(-33.8291, 151.248)).draggable(true));
+    	double distance = SphericalUtil.computeDistanceBetween(mMarkerA.getPosition(), mMarkerB.getPosition());
+    	mTextView.setText("The markers are " + formatNumber(distance) + " apart.");
+    }
+
+    private String formatNumber(double distance) {
+        String unit = "m";
+        if (distance < 1) {
+            distance *= 1000;
+            unit = "mm";
+        } else if (distance > 1000) {
+            distance /= 1000;
+            unit = "km";
+        }
+
+        return String.format("%4.3f%s", distance, unit);
+    }
+	
+	
 	
 
 	

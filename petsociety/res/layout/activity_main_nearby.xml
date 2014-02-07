@@ -6,11 +6,17 @@
     android:weightSum="1"
     tools:context=".NearbyActivity" >
 
+    
+    
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
+        <TextView android:id="@+id/mTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        
         <AutoCompleteTextView  
     android:id="@+id/autocomplete_country"
     android:layout_width="fill_parent"

@@ -143,26 +143,7 @@ private class GetNearbyList extends AsyncTask<Runnable, Integer, Long> {
 
 	}
 	
-    private void showDistance() {
-    	//Marker mMarkerA = getMap().addMarker(new MarkerOptions().position(new LatLng(-33.9046, 151.155)).draggable(true));
-    	//Marker mMarkerB = getMap().addMarker(new MarkerOptions().position(new LatLng(-33.8291, 151.248)).draggable(true));
-    	//double distance = SphericalUtil.computeDistanceBetween(mMarkerA.getPosition(), mMarkerB.getPosition());
-    	//mTextView.setText("The markers are " + formatNumber(distance) + " apart.");
-    }
-
-    private String formatNumber(double distance) {
-        String unit = "m";
-        if (distance < 1) {
-            distance *= 1000;
-            unit = "mm";
-        } else if (distance > 1000) {
-            distance /= 1000;
-            unit = "km";
-        }
-
-        return String.format("%4.3f%s", distance, unit);
-    }
-	
+    
 	
 
 }
