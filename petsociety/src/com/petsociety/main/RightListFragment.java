@@ -34,14 +34,17 @@ public class RightListFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		SampleAdapter adapter = new SampleAdapter(getActivity());
-		adapter.add(new SampleItem("Pins Filter", R.drawable.ic_map_pin, R.drawable.pin_red)); 
-		adapter.add(new SampleItem("Lost Pets", R.drawable.ic_check, R.drawable.pin_red));
-		adapter.add(new SampleItem("Stray Animals", R.drawable.ic_check, R.drawable.pin_grey));
-		adapter.add(new SampleItem("Events", R.drawable.ic_check, R.drawable.pin_blue));
-		adapter.add(new SampleItem("Places", R.drawable.ic_check, R.drawable.pin_green));
+		adapter.add(new SampleItem("Legend", R.drawable.ic_action_star)); 
+		adapter.add(new SampleItem("Lost Pets", R.drawable.badge_lostdog));
+		adapter.add(new SampleItem("Events", R.drawable.badge_event));
+		adapter.add(new SampleItem("Pet Store", R.drawable.icon_petstore));
+		adapter.add(new SampleItem("Vets", R.drawable.icon_vet));
+		adapter.add(new SampleItem("Accidents", R.drawable.icon_warning));
 		setListAdapter(adapter);
 	}
 	
+	
+	/*
 	public void onListItemClick(ListView lv, View v, int position, long id) {
 		Intent intent = new Intent(getActivity().getBaseContext(), MainActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -67,16 +70,14 @@ public class RightListFragment extends ListFragment {
 		if (icon.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.ic_check).getConstantState()))
 		{icon.setImageResource(android.R.color.transparent);}
 		else {icon.setImageResource(R.drawable.ic_check);}
-	};
+	};*/
 
 	public class SampleItem {
 		public String tag;
 		public int iconRes;
-		public int pinIcon;
-		public SampleItem(String tag, int iconRes, int pinIcon) {
+		public SampleItem(String tag, int iconRes) {
 			this.tag = tag; 
 			this.iconRes = iconRes;
-			this.pinIcon = pinIcon;
 		}
 	}
 
@@ -92,21 +93,37 @@ public class RightListFragment extends ListFragment {
 			}
 			ImageView icon = (ImageView) convertView.findViewById(R.id.row_icon);
 			icon.setImageResource(getItem(position).iconRes);
+			
 			TextView title = (TextView) convertView.findViewById(R.id.row_title);
 			title.setText(getItem(position).tag);
-			ImageView pinIcon = (ImageView) convertView.findViewById(R.id.row_pin_icon);	
-			pinIcon.setImageResource(getItem(position).pinIcon);
-			if (getItem(position).iconRes == R.drawable.ic_map_pin) {
-				convertView.setBackgroundColor(Color.GRAY);  
+			
+			title.setText(getItem(position).tag); //title.setText(title.getText().toString().toUpperCase());
+			title.setTextColor(Color.parseColor("#333333"));
+			title.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/MontserratAlternates-Regular.ttf"));
+			
+			if(position==1){
+				icon.setBackgroundColor(Color.parseColor("#88FF0000")); 
+			} else if(position==2){
+				icon.setBackgroundColor(Color.parseColor("#880000FF")); //icon.setBackgroundColor(Color.BLUE);
+			} else if(position==3){
+				icon.setBackgroundColor(Color.parseColor("#8800FF00")); //icon.setBackgroundColor(Color.GREEN);
+			} else if(position==4){
+				icon.setBackgroundColor(Color.parseColor("#8800FF00")); //icon.setBackgroundColor(Color.GREEN);
+			} else if(position==5){
+				icon.setBackgroundColor(Color.parseColor("#8800FF00")); //icon.setBackgroundColor(Color.GREEN);
+			} 
+			
+			
+			if (position == 0) {
+				convertView.setBackgroundColor(Color.BLACK);  
 				title.setTextColor(Color.WHITE);
-				title.setTypeface(null, Typeface.BOLD);
-				pinIcon.setImageResource(android.R.color.transparent);
+				//title.setTypeface(null, Typeface.BOLD);
 			}
 			else{
 				convertView.setBackgroundColor(Color.WHITE);  
-				title.setTypeface(null, Typeface.NORMAL);
+				//title.setTypeface(null, Typeface.NORMAL);
 			}
-
+			
 			return convertView;
 		}
 
