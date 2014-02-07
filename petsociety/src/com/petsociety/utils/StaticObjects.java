@@ -66,6 +66,8 @@ public class StaticObjects {
 	static List<Pet> pets;
 	static Lost selectedLost;
 	
+	//Google PolyLine (Choon Seng)
+	static String polyline;
 	
 	
 	
@@ -77,7 +79,12 @@ public class StaticObjects {
 	
 	
 	
-	
+	public static String getPolyline() {
+		return polyline;
+	}
+	public static void setPolyline(String polyline) {
+		StaticObjects.polyline = polyline;
+	}
 	public static void setAddress_results(List<Address> address_results) {
 		StaticObjects.address_results= address_results;
 	}

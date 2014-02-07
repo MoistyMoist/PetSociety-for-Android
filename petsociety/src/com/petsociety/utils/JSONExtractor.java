@@ -721,4 +721,27 @@ public class JSONExtractor {
 	            instream.close();
 	        }
 		}
+
+		public void ExtractPolyLineRequest(HttpResponse data)throws IllegalStateException, IOException, JSONException {
+			
+			HttpEntity entity = data.getEntity();
+	        
+	        if (entity != null) {
+	            InputStream instream = entity.getContent();
+	            String result= convertStreamToString(instream);
+	            
+	            JSONObject json = null;
+	            json = new JSONObject(result);
+	            //Log.i("Search result",result);	        
+	            
+	            JSONArray routeArray = json.getJSONArray("routes");
+	            JSONObject routes = routeArray.getJSONObject(0);
+	            JSONObject overviewPolylines = routes.getJSONObject("overview_polyline");
+	            String encodedString = overviewPolylines.getString("points");
+				
+				
+				StaticObjects.setPolyline(encodedString);
+	            instream.close();
+	        }
+		}
 }
