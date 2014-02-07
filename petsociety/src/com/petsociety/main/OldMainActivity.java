@@ -111,8 +111,20 @@ public class OldMainActivity extends MainBaseActivity
   
         
         getAllList();       
+        //plotAdressSearchResult();
         
         }
+        
+    	public void plotAdressSearchResult()
+    	{
+    		Toast.makeText(getBaseContext(), ""+StaticObjects.getSelectedAddress().getX()+","+StaticObjects.getSelectedAddress().getY(), Toast.LENGTH_LONG).show();
+    		
+    		MarkerOptions mOption = new MarkerOptions()
+             .position(new LatLng(1.379531, 103.849928))
+             .title("fuck");
+    		 //mLostPet.add(mMap.addMarker(mOption));
+    		 mMap.addMarker(mOption);
+    	}
         
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {

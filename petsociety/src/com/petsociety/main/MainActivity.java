@@ -142,11 +142,13 @@ public class MainActivity extends MainBaseActivity
 	
 	public void plotAdressSearchResult()
 	{
-		Toast.makeText(getBaseContext(), StaticObjects.getSelectedAddress().getAddress(), Toast.LENGTH_LONG).show();
-		//MapPin pin = new MapPin();
-		//pin.setLocation(locationList.get(i));
-		//pin.setType("Address");
-		//mapPinList.add(pin);
+		//Toast.makeText(getBaseContext(), ""+StaticObjects.getSelectedAddress().getX()+","+StaticObjects.getSelectedAddress().getY(), Toast.LENGTH_LONG).show();
+		
+		MarkerOptions mOption = new MarkerOptions()
+         .position(new LatLng(1.379531, 103.849928))
+         .title(StaticObjects.getSelectedAddress().getAddress());
+		setUpMapIfNeeded();
+		mMap.addMarker(mOption);
 	}
 	
 	@Override
