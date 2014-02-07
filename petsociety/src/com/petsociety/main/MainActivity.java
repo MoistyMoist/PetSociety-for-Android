@@ -559,19 +559,19 @@ public class MainActivity extends MainBaseActivity
 			String title = "Default";
             if(type.equalsIgnoreCase("lost")){
             	mImageView.setImageResource(R.drawable.badge_lostdog);
-            	mImageView.setBackgroundColor(Color.RED);
+            	mImageView.setBackgroundColor(Color.parseColor("#88FF0000"));
             	title = pin.getLost().getPet().getName();
             }
             if(type.equalsIgnoreCase("event")){
             	mImageView.setImageResource(R.drawable.badge_event);
-            	mImageView.setBackgroundColor(Color.BLUE);
+            	mImageView.setBackgroundColor(Color.parseColor("#880000FF"));
             	title = pin.getEvent().getName();
             }
             if(type.equalsIgnoreCase("location")){
             	if(pin.getLocation().getType().equalsIgnoreCase("accidents")){mImageView.setImageResource(R.drawable.icon_warning);}
             	else if(pin.getLocation().getType().equalsIgnoreCase("vet")){mImageView.setImageResource(R.drawable.icon_vet);}
             	else {mImageView.setImageResource(R.drawable.icon_petstore);}
-            	mImageView.setBackgroundColor(Color.GREEN);
+            	mImageView.setBackgroundColor(Color.parseColor("#8800FF00"));
             	title = pin.getLocation().getTitle();
             }
 			
@@ -653,6 +653,24 @@ public class MainActivity extends MainBaseActivity
 
     public void onClusterItemInfoWindowClick(MapPin item) {
         // Does nothing, but you could go into the user's profile page, for example.
+    	String type = item.getType();
+		if(type.equalsIgnoreCase("lost")){
+	     	
+	    }
+	    if(type.equalsIgnoreCase("event")){
+	     	
+	    }
+	    if(type.equalsIgnoreCase("location")){
+	    	if(item.getLocation().getType().equalsIgnoreCase("accidents")){
+	     		Toast.makeText(getApplicationContext(), item.getLocation().getDescription(), Toast.LENGTH_SHORT).show();
+	     	}
+	     	else if(item.getLocation().getType().equalsIgnoreCase("vet")){
+	     		//vet
+	     	}
+	     	else {
+	     		//pet store
+	     	}
+	    }
     }
 
     protected void invokeCluster() {
