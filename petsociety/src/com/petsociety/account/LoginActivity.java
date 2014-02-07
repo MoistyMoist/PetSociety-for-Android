@@ -8,6 +8,7 @@ import com.petsociety.utils.StaticObjects;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -43,11 +44,18 @@ public class LoginActivity extends Activity {
 		et_username = (EditText) findViewById(R.id.et_login_username);
 		et_pass = (EditText) findViewById(R.id.et_login_pass);
 		
+		
+		SharedPreferences app = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        boolean passwordPreference = app.getBoolean("prefUserLogin", false);
+		
 		SharedPreferences settings = getSharedPreferences(PREFS_LOGIN, 0);
 	    String username = settings.getString("username", "");
 	    et_username.setText(username);
-	    String password = settings.getString("password", "");
-	    et_pass.setText(password);
+	    
+	    if(passwordPreference){
+	    	String password = settings.getString("password", "");
+	    	et_pass.setText(password);
+	    }
 	    if (et_pass.getText().toString().isEmpty() || et_username.getText().toString().isEmpty()){}
 	    else{
 	    	b_login.setEnabled(false);
