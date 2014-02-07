@@ -62,16 +62,6 @@
             android:textSize="26sp"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btn_no"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/btn_maybe"
-            android:layout_marginLeft="8dp"
-            android:text="Decline" />
-
         <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
@@ -123,26 +113,6 @@
             android:layout_marginTop="5dp"
             android:text="Bishan Park"
             android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/btn_going"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/btn_maybe"
-            android:layout_below="@+id/btn_current_location"
-            android:layout_marginTop="25dp"
-            android:layout_marginRight="8dp"
-            android:text="Going" />
-
-        <Button
-            android:id="@+id/btn_maybe"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:text="Maybe" />
 
     </RelativeLayout>
 
