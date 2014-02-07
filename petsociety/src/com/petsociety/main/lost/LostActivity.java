@@ -73,7 +73,7 @@ public class LostActivity extends MainBaseActivity {
 		
 	}
 	
-private class GetLostList extends AsyncTask<Runnable, Integer, Long> {
+	private class GetLostList extends AsyncTask<Runnable, Integer, Long> {
 	    
 		@Override
 		protected void onPostExecute(Long result) {

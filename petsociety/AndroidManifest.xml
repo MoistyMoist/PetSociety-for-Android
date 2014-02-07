@@ -111,6 +111,10 @@
             android:label="@string/title_activity_event" >
         </activity>
         <activity
+            android:name="com.petsociety.main.profile.CreateEvent"
+            android:label="@string/title_activity_event" >
+        </activity>
+        <activity
             android:name="com.petsociety.main.profile.EventList"
             android:label="@string/title_activity_event" >
         </activity>

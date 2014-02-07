@@ -1,8 +1,10 @@
 package com.petsociety.main.profile;
 
+import com.actionbarsherlock.view.MenuItem;
 import com.example.petsociety.R;
 import com.petsociety.httprequests.RetrieveAllEventRequest;
 import com.petsociety.main.MainBaseActivity;
+import com.petsociety.main.lost.ReportLostPetActivity;
 import com.petsociety.models.Event;
 import com.petsociety.utils.StaticObjects;
 
@@ -59,8 +61,21 @@ public class EventList extends MainBaseActivity {
 	
 	@Override
 	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.event, menu);
+		getSupportMenuInflater().inflate(R.menu.lost, menu);
 		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.report_lost_pet_add:
+			Intent intent = new Intent();
+			intent.setClass(getBaseContext(), CreateEvent.class);
+			startActivity(intent);
+			return true;
+		}
+		
+		return super.onOptionsItemSelected(item);
 	}
 	
 private class GetEventList extends AsyncTask<Runnable, Integer, Long> {
