@@ -107,6 +107,10 @@
             android:label="@string/title_activity_testanaylsis" >
         </activity>
         <activity
+            android:name="com.petsociety.main.RouteActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name="com.petsociety.main.profile.EventActivity"
             android:label="@string/title_activity_event" >
         </activity>

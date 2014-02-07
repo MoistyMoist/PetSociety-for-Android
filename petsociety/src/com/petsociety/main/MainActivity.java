@@ -176,10 +176,10 @@ public class MainActivity extends MainBaseActivity
 			return true;
 			
 		case R.id.main_camera:
-			//Intent intent = new Intent();
-			//intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-			//intent.setClass(getApplicationContext(), OldMainActivity.class);
-		    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+			Intent intent = new Intent();
+			intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+			intent.setClass(getApplicationContext(), RouteActivity.class);
+		    //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 			
 		    //fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
 		    //intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
