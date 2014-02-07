@@ -59,21 +59,21 @@
 
     <!-- Activites Title Bar -->
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
-    <string name="title_activity_register">RegisterActivity</string>
-    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_register">Register</string>
+    <string name="title_activity_profile">Profile</string>
     <string name="title_activity_lost">Losts Pets</string>
-    <string name="title_activity_analysis">AnalysisActivity</string>
+    <string name="title_activity_analysis">Analysis</string>
     <string name="title_activity_nearby">Nearby Locations</string>
     <string name="title_activity_setting">Application Settings</string>
-    <string name="title_activity_event">EventActivity</string>
-    <string name="title_activity_analysis_detail">AnalysisDetailActivity</string>
+    <string name="title_activity_event">Events</string>
+    <string name="title_activity_analysis_detail">Analysis Information</string>
     <string name="title_activity_report_lost_pet">Report My Lost Pet </string>
-    <string name="title_activity_nearby_details">NearbyDetailsActivity</string>
-    <string name="title_activity_lost_profile">LostProfileActivity</string>
-    <string name="title_activity_testanaylsis">TestanaylsisActivity</string>
-    <string name="title_activity_shop_info">ShopInfoActivity</string>
-    <string name="title_activity_shop_review">ShopReviewActivity</string>
-    <string name="title_activity_shop_photos">ShopPhotosActivity</string>
+    <string name="title_activity_nearby_details">Nearby Details</string>
+    <string name="title_activity_lost_profile">Lost Profile</string>
+    <string name="title_activity_testanaylsis">Test Anaylsis</string>
+    <string name="title_activity_shop_info">Shop Information</string>
+    <string name="title_activity_shop_review">Shop Reviews</string>
+    <string name="title_activity_shop_photos">Shop Photos</string>
 
     <string-array name="countries_array">
         <item>Seng Kang Pet Store</item>
@@ -81,10 +81,10 @@
         <item>Choa Chu Kang pet care</item>
         ...</string-array>
 
-    <string name="title_activity_shop_map">ShopMapActivity</string>
-    <string name="title_activity_location_info">LocationInfoActivity</string>
-    <string name="title_activity_activity_search_address">Activity_search_address</string>
-    <string name="title_activity_add_location">AddLocationActivity</string>
-    <string name="title_activity_set_add_location">SetAddLocationActivity</string>
+    <string name="title_activity_shop_map">Shop Map</string>
+    <string name="title_activity_location_info">Location Information</string>
+    <string name="title_activity_activity_search_address">Search Address</string>
+    <string name="title_activity_add_location">Add Location</string>
+    <string name="title_activity_set_add_location">Set Add Location</string>
 
 </resources>
