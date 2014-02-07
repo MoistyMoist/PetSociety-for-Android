@@ -1,6 +1,7 @@
 package com.petsociety.main.profile;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
@@ -60,8 +61,14 @@ public class EventActivity extends MainBaseActivity {
 		
 	    name.setText(oneEvent.getName());
 	    desc.setText(oneEvent.getDescription());
-	   // time.setText(oneEvent.getDateTimeCreated().toString());
-		getMyLocationAddress();
+	    
+	    //d = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(dateTimeCreated.replace("T", " "));
+	    String startDate = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(oneEvent.getStartDateTime())
+	    		+"\nTo\n"
+	    		+ new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(oneEvent.getEndDateTime());
+	    time.setText(startDate);
+
+	    getMyLocationAddress();
 		setUpMapIfNeeded();
 
 	}

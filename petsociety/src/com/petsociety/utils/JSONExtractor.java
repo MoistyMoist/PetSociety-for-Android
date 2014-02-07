@@ -246,9 +246,32 @@ public class JSONExtractor {
 					e.setDescription(c.getString(TAG_EVENT_DESCRIPTION));
 					e.setX(c.getDouble(TAG_EVENT_X));
 					e.setY(c.getDouble(TAG_EVENT_Y));
-					String date=c.getString(TAG_EVENT_DATETIMECREATED);
+					String dateTimeCreated=c.getString(TAG_EVENT_DATETIMECREATED);
 					//e.setDateTimeCreated(new Date(c.get(TAG_EVENT_DATETIMECREATED)));
-					
+					Date d = new Date();
+					try {
+						 d = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(dateTimeCreated.replace("T", " "));
+					} catch (ParseException pE) {
+						 d = new Date();
+					} finally {
+						e.setDateTimeCreated(d);
+					}
+					String endDateTime=c.getString(TAG_EVENT_ENDDATETIME);
+					try {
+						 d = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(endDateTime.replace("T", " "));
+					} catch (ParseException pE) {
+						 d = new Date();
+					} finally {
+						e.setEndDateTime(d);
+					}
+					String startDateTime=c.getString(TAG_EVENT_STARTDATETIME);
+					try {
+						 d = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(startDateTime.replace("T", " "));
+					} catch (ParseException pE) {
+						 d = new Date();
+					} finally {
+						e.setStartDateTime(d);
+					}
 					
 //					User u= new User();
 //					JSONObject c2=(JSONObject) c.get(TAG_USER);
