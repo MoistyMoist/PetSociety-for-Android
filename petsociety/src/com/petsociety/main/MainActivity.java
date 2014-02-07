@@ -568,7 +568,9 @@ public class MainActivity extends MainBaseActivity
             	title = pin.getEvent().getName();
             }
             if(type.equalsIgnoreCase("location")){
-            	mImageView.setImageResource(R.drawable.badge_places);
+            	if(pin.getLocation().getType().equalsIgnoreCase("accidents")){mImageView.setImageResource(R.drawable.icon_warning);}
+            	else if(pin.getLocation().getType().equalsIgnoreCase("vet")){mImageView.setImageResource(R.drawable.icon_vet);}
+            	else {mImageView.setImageResource(R.drawable.icon_petstore);}
             	mImageView.setBackgroundColor(Color.GREEN);
             	title = pin.getLocation().getTitle();
             }
@@ -598,7 +600,9 @@ public class MainActivity extends MainBaseActivity
                 	drawable = getResources().getDrawable(R.drawable.badge_event);
                 }
                 if(type.equalsIgnoreCase("location")){
-                	drawable = getResources().getDrawable(R.drawable.badge_places);
+                	if(p.getLocation().getType().equalsIgnoreCase("accidents")){drawable = getResources().getDrawable(R.drawable.icon_warning);}
+                	else if(p.getLocation().getType().equalsIgnoreCase("vet")){drawable = getResources().getDrawable(R.drawable.icon_vet);}
+                	else {drawable = getResources().getDrawable(R.drawable.icon_petstore);}
                 }
             	drawable.setBounds(0, 0, width, height);
                 profilePhotos.add(drawable);

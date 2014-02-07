@@ -72,7 +72,7 @@ public class HeatView extends View {
  
 	@SuppressLint("DrawAllocation")
 	public void addPoint(float[][] points) {
-		for(int xx=0;xx<18;xx++)
+		for(int xx=0;xx<9;xx++)
 		{
 			for (int i = 0; i < points.length; i++) {
 				float x = points[i][0];

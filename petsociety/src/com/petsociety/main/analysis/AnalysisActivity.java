@@ -172,7 +172,7 @@ OnMyLocationButtonClickListener{
                 mMap.setMyLocationEnabled(true);
                 mMap.setOnMyLocationButtonClickListener(this);
                 LatLng singapore = new LatLng(1.37, 103.84);
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 11));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 9));
             }
         }
     }
