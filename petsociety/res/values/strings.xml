@@ -64,7 +64,7 @@
     <string name="title_activity_lost">Losts Pets</string>
     <string name="title_activity_analysis">AnalysisActivity</string>
     <string name="title_activity_nearby">Nearby Locations</string>
-    <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_setting">Application Settings</string>
     <string name="title_activity_event">EventActivity</string>
     <string name="title_activity_analysis_detail">AnalysisDetailActivity</string>
     <string name="title_activity_report_lost_pet">Report My Lost Pet </string>

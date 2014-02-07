@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	
+    <PreferenceCategory 
+        android:title="Login"
+        android:key="pref_key_login">
+		<CheckBoxPreference
+			android:title="Remember Password"
+			android:summary="Remember your Login Password"
+			android:key="prefUserLogin"
+			android:defaultValue="true"/>
+	    
+    </PreferenceCategory>
+	
+	<!-- 
 	<PreferenceCategory 
         android:title="Location Access"
         android:key="pref_key_location">
@@ -27,5 +40,6 @@
             android:title="Sync Frequency"
             android:summary="Set the sync frequency" />
     </PreferenceCategory>
-
+	-->
+	
 </PreferenceScreen>
