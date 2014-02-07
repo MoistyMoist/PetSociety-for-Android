@@ -14,27 +14,27 @@ import android.util.Log;
 import com.petsociety.utils.JSONExtractor;
 import com.petsociety.utils.StaticObjects;
 
-public class CreateLostRequest implements Runnable{
+public class CreateEventRequest implements Runnable{
 
 	private StaticObjects staticObjects;
-	private String dateTime;
-	private String address;
+	private String name;
 	private String desc;
+	private String startDateTime;
+	private String endDateTime;
 	private String x;
 	private String y;
-	private String reward;
 	
-	public CreateLostRequest(String dateTime, String address, String desc, String x, String y, String reward)
-	{
-		staticObjects= new StaticObjects();
-		this.dateTime = dateTime;
-		this.address = address;
+	public CreateEventRequest(String name, String desc, String startDateTime,
+			String endDateTime, String x, String y) {
+		super();
+		this.name = name;
 		this.desc = desc;
+		this.startDateTime = startDateTime;
+		this.endDateTime = endDateTime;
 		this.x = x;
 		this.y = y;
-		this.reward = reward;
 	}
-	
+
 	@Override
 	public void run() {
 
@@ -44,16 +44,16 @@ public class CreateLostRequest implements Runnable{
 		//PREPARE REQUEST OBJECT
 		//httpget = new HttpGet("http://petsociety.cloudapp.net/api/RetrieveLost?INtoken="+staticObjects.getToken()); 
 
-		httpget = new HttpGet("http://petsociety.cloudapp.net/api/ReportLost?token="+staticObjects.getToken()
+		httpget = new HttpGet("http://petsociety.cloudapp.net/api/AddEvent?token="+staticObjects.getToken()
 				
-								+"&INdateTimeSeen=" + dateTime
-								+"&INaddress=" + address.replace(" ", "%20") 
-								+"&INDescription=" + desc.replace(" ", "%20") 
+								+"&INname=" + name.replace(" ", "%20") 
+								+"&INdescription=" + desc.replace(" ", "%20") 
+								+"&INstartDateTime=" + startDateTime
+								+"&INendDateTime=" + endDateTime
 								+"&INx=" + x
 								+"&INy=" + y
-								+"&INfound=" + "0"
-								+"&INreward=" + reward
-								+"&INpetID=" + "1" 
+								+"&INstatus=" + "0"
+								+"&INprivacy=" + "0"
 								+"&INuserID=" + staticObjects.getCurrentUser().getUserID());
 		
         Log.i("RETRIEVE ALL LOST :",httpget.getURI().toString());

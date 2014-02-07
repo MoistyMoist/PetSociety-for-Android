@@ -499,7 +499,7 @@ public class MainActivity extends MainBaseActivity
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		public Dialog onCreateDialog(Bundle savedInstanceState){
 			
-			String[] mapList = {"Lost","Stray","Events","Places"};
+			String[] mapList = {"Lost Cases","Nearby Places"};
 			ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(context,android.R.layout.simple_spinner_dropdown_item,mapList);
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		    builder.setTitle("List Category");builder.setAdapter(spinnerArrayAdapter, new OnClickListener(){
@@ -513,9 +513,7 @@ public class MainActivity extends MainBaseActivity
 						intent.setClass(getActivity(), LostActivity.class);
 						startActivity(intent);
 					}
-					if(which==1){intent.putExtra("list", "stray");}
-					if(which==2){intent.putExtra("list", "event");}
-					if(which==3){
+					if(which==1){
 						intent.putExtra("list", "location");
 						intent.setClass(getActivity(), NearbyList.class);
 						startActivity(intent);
