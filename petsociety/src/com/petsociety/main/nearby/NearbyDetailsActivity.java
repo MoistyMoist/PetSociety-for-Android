@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.petsociety.R;
+import com.petsociety.main.RouteActivity;
 import com.petsociety.utils.StaticObjects;
 
 public class NearbyDetailsActivity extends TabActivity  {
@@ -125,8 +126,11 @@ public class NearbyDetailsActivity extends TabActivity  {
 				// TODO Auto-generated method stub
 				
 				Intent intent = new Intent();
-				intent.setClass(getBaseContext(), NearbyActivity.class);
-				startActivity(intent);			
+				intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				intent.putExtra("desX", StaticObjects.getSelectedLocation().getX());
+				intent.putExtra("desY", StaticObjects.getSelectedLocation().getY());
+				intent.setClass(getApplicationContext(), RouteActivity.class);
+				startActivity(intent);
 				
 			}
 		});
