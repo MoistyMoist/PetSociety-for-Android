@@ -26,7 +26,10 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +45,15 @@ public class ShopPhotosActivity extends Activity {
 	    Bitmap bitmap;
 	    ProgressDialog progress;
 	    StaticObjects staticObjects;
+	    
+	    ImageView selectedImage;  
+	     private Integer[] mImageIds = {
+	                R.drawable.puppy,
+	                R.drawable.girl,
+	                R.drawable.pet,
+	                R.drawable.profilepet1
+	               
+	        };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +72,20 @@ public class ShopPhotosActivity extends Activity {
 				startActivityForResult(i, RESULT_LOAD_IMAGE);
 			}
 		});
+		
+		 Gallery gallery = (Gallery) findViewById(R.id.gallery1);
+	        selectedImage=(ImageView)findViewById(R.id.imageView1);
+	        gallery.setSpacing(1);
+	        gallery.setAdapter(new GalleryImageAdapter(this));
+
+	         // clicklistener for Gallery
+	        gallery.setOnItemClickListener(new OnItemClickListener() {
+	            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+	                Toast.makeText(ShopPhotosActivity.this, "Your selected position = " + position, Toast.LENGTH_SHORT).show();
+	                // show the selected Image
+	                selectedImage.setImageResource(mImageIds[position]);
+	            }
+	        });
 		
 		
 		
