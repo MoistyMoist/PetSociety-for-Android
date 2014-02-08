@@ -40,7 +40,7 @@ public class SetAddLocationActivity extends SherlockFragmentActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lost_location);
+        setContentView(R.layout.activity_set_add_location);
 
         ViewGroup viewGroup = (ViewGroup) findViewById(R.id.lost_location_map);
 		viewGroup.addView(View.inflate(this, R.layout.basic_map, null));

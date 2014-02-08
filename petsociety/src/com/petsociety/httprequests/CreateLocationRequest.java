@@ -23,11 +23,11 @@ public class CreateLocationRequest implements Runnable{
 	private String desc;
 	private String address;
 	private String type;
-	private String x;
-	private String y;
-	private String userID;
+	private float x;
+	private float y;
+	private int userID;
 	
-	public CreateLocationRequest(String x, String y, String desc, String title, String address, String type, String userID) {
+	public CreateLocationRequest(float x, float y, String desc, String title, String address, String type, int userID) {
 		super();
 		this.title = title;
 		this.desc = desc;
@@ -49,8 +49,8 @@ public class CreateLocationRequest implements Runnable{
 
 		httpget = new HttpGet("http://petsociety.cloudapp.net/api/AddLocation?token="+staticObjects.getToken()
 	
-								+"&INx=" + x
-								+"&INy=" + y
+								+"&INx=" + 1.264638
+								+"&INy=" + 101.859648
 								+"&INdescription=" + desc.replace(" ", "%20") 
 								+"&INtitle=" + title.replace(" ", "%20") 
 								+"&INaddress=" + address
