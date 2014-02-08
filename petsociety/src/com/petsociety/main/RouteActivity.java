@@ -45,10 +45,12 @@ import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailed
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMapLoadedCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -65,7 +67,7 @@ public class RouteActivity extends MainBaseActivity
         OnConnectionFailedListener,
         LocationListener, 
         OnMyLocationButtonClickListener,
-        OnInfoWindowClickListener{
+        OnMapLoadedCallback{
 
         public GoogleMap mMap;
         Button buttonMap;
@@ -76,6 +78,7 @@ public class RouteActivity extends MainBaseActivity
         ProgressDialog progress;
         Context context = this;
         
+        double srcX, srcY;
         double desX, desY;
     
         private static final LocationRequest REQUEST = LocationRequest.create()
@@ -111,8 +114,7 @@ public class RouteActivity extends MainBaseActivity
 		desY = extras.getDouble("desY");
         
         setUpMapIfNeeded();
-        getRoute();
-        
+
         }
         
         
@@ -135,6 +137,7 @@ public class RouteActivity extends MainBaseActivity
                                         
                 mMap.setMyLocationEnabled(true);
                 mMap.setOnMyLocationButtonClickListener(this);
+                mMap.setOnMapLoadedCallback(this);
                 LatLng singapore = new LatLng(1.37, 103.84);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 11));
             }
@@ -144,26 +147,19 @@ public class RouteActivity extends MainBaseActivity
     public void getRoute(){
 
                 progress = ProgressDialog.show(this, "Finding Route","please wait...", true);      
-                //1.3706862516136,103.890353813767&destination=1.48417650594471,103.753940351307
-                double x1 = 1.3706862516136;
-                double y1 = 103.890353813767;
-                double x2 = 1.48417650594471;
-                double y2 = 103.753940351307;
                 
-                Location location = mMap.getMyLocation();
+                Location location = getMap().getMyLocation();
                 if (location == null){
                 	Toast.makeText(getApplicationContext(), "Unable to get current location", Toast.LENGTH_SHORT).show();
-                	x1 = 1.379531;
-                    y1 = 103.849928;
+                	srcX = 1.379531;
+                    srcY = 103.849928;
                 }
                 else {
-                	x1 = location.getLatitude();
-                    y1 = location.getLongitude(); 
+                	srcX = location.getLatitude();
+                    srcY = location.getLongitude(); 
                 }
-                x2 = desX;
-                y2 = desY;
                 
-                GoogleRouteRequest retrieveAllLostRequest = new GoogleRouteRequest(x1,y1,x2,y2);
+                GoogleRouteRequest retrieveAllLostRequest = new GoogleRouteRequest(srcX,srcY,desX,desY);
                 new RouteBackgroundTask().execute( retrieveAllLostRequest,null);
                
         }
@@ -172,25 +168,22 @@ public class RouteActivity extends MainBaseActivity
         
     private class RouteBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
             
-                @Override
-                protected void onPostExecute(Long result) {
-                        
-                        super.onPostExecute(result);
-                        if(progress!=null)
-                                progress.dismiss();
-                        LINE = StaticObjects.getPolyline();
-                        routeMap();
-                }
-                
-                @Override
-                protected void onPreExecute() {
-                        //Toast.makeText(context, "Refreshing..", Toast.LENGTH_SHORT).show();
-                        super.onPreExecute();
-                }
-
-                @Override
-                protected Long doInBackground(Runnable... task) {
-                        
+	    @Override
+	    protected void onPostExecute(Long result) {  
+	            super.onPostExecute(result);
+	           
+	            if(progress!=null)
+	            	progress.dismiss();
+	            
+	            LINE = StaticObjects.getPolyline();
+	            routeMap();
+	    }
+	    
+	    @Override
+	    protected void onPreExecute() {super.onPreExecute();}
+	
+	    @Override
+	    protected Long doInBackground(Runnable... task) {
                         for(int i=0; i<task.length;i++)
                         {
                                 if(task[i]!=null)
@@ -199,14 +192,13 @@ public class RouteActivity extends MainBaseActivity
                         }
                         return null;
                 }
-         }
-        
+    }
+    
     public void routeMap(){
     	//Toast.makeText(getApplicationContext(), "Line: "+LINE, Toast.LENGTH_SHORT).show();
     	if (LINE != null){
     		List<LatLng> decodedPath = PolyUtil.decode(LINE);
         	getMap().addPolyline(new PolylineOptions().addAll(decodedPath));
-        	//getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-33.8256, 151.2395), 12));
     	}
     }
     
@@ -215,9 +207,7 @@ public class RouteActivity extends MainBaseActivity
     protected GoogleMap getMap() {
         setUpMapIfNeeded();
         return mMap;
-    }
-       
-        
+    }       
 
     @Override
     protected void onResume() {
@@ -269,22 +259,13 @@ public class RouteActivity extends MainBaseActivity
         }
     }
     
-    public void showMyLocation(View view) {
-        if (mLocationClient != null && mLocationClient.isConnected()) {
-            String msg = "Location = " + mLocationClient.getLastLocation();
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
-        }
-    }
-    
     @Override
     public void onLocationChanged(Location location) {
-            // TODO Auto-generated method stub                
+            // TODO Auto-generated method stub  
     }
     
     public void onConnected(Bundle connectionHint) {
-        mLocationClient.requestLocationUpdates(
-                REQUEST,
-                this);  // LocationListener
+        mLocationClient.requestLocationUpdates(REQUEST,this);  // LocationListener
     }
     
     @Override
@@ -300,17 +281,20 @@ public class RouteActivity extends MainBaseActivity
     }
         
     public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "Moving to your location", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Moving to your location", Toast.LENGTH_SHORT).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
+        Location location = getMap().getMyLocation();
+        Toast.makeText(getApplicationContext(), location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_SHORT).show();
         return false;
     }
 
-    @Override
-    public void onInfoWindowClick(Marker arg0) {
-            // TODO Auto-generated method stub
-            Toast.makeText(this, "Opening profile...", Toast.LENGTH_SHORT).show();
-    }
+	@Override
+	public void onMapLoaded() {
+		// TODO Auto-generated method stub
+		getRoute();
+	}
+
 
         
 }
