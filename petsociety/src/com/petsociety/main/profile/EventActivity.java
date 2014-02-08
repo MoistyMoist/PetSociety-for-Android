@@ -14,6 +14,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.petsociety.main.MainBaseActivity;
+import com.petsociety.main.RouteActivity;
 import com.petsociety.main.profile.EventList.EventListAdapter;
 import com.petsociety.models.Event;
 import com.petsociety.utils.StaticObjects;
@@ -22,8 +23,12 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +37,7 @@ public class EventActivity extends MainBaseActivity {
     private GoogleMap mMap;
 	TextView name, desc, time, location;
 	Event oneEvent = null;
+	Button current, other;
 
 	public EventActivity() {
 		super(R.string.app_name);
@@ -49,15 +55,28 @@ public class EventActivity extends MainBaseActivity {
 		desc = (TextView) findViewById(R.id.tv_description);
 		time = (TextView) findViewById(R.id.tv_time);
 		location = (TextView) findViewById(R.id.tv_location);
-
+		current = (Button) findViewById(R.id.btn_current_location);
 		
 		for (int i=0; i<StaticObjects.getEvents().size(); i++){
 			if(eventID == StaticObjects.getEvents().get(i).getEventID())
 			{
 				oneEvent = StaticObjects.getEvents().get(i);
 			}
-
 		}		
+		
+		current.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent();
+				intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				intent.putExtra("desX", oneEvent.getX());
+				intent.putExtra("desY", oneEvent.getY());
+				intent.setClass(getApplicationContext(), RouteActivity.class);
+				startActivity(intent);
+			}
+			
+		});
 		
 	    name.setText(oneEvent.getName());
 	    desc.setText(oneEvent.getDescription());

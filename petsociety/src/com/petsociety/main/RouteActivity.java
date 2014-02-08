@@ -75,13 +75,14 @@ public class RouteActivity extends MainBaseActivity
         StaticObjects staticObjects;
         ProgressDialog progress;
         Context context = this;
+        
+        double desX, desY;
     
-    private static final LocationRequest REQUEST = LocationRequest.create()
+        private static final LocationRequest REQUEST = LocationRequest.create()
             .setInterval(5000)         // 5 seconds
             .setFastestInterval(16)    // 16ms = 60fps
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        
-        
+                
         public RouteActivity() {
                 super(R.string.app_name);
         }
@@ -105,6 +106,10 @@ public class RouteActivity extends MainBaseActivity
                 
         setContentView(R.layout.basic_map);
         
+        Bundle extras = getIntent().getExtras();
+		desX = extras.getDouble("desX");
+		desY = extras.getDouble("desY");
+        
         setUpMapIfNeeded();
         getRoute();
         
@@ -127,10 +132,7 @@ public class RouteActivity extends MainBaseActivity
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
                 //setUpMap();
-                    
-                    mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
-                    mMap.setOnInfoWindowClickListener(this); 
-                    
+                                        
                 mMap.setMyLocationEnabled(true);
                 mMap.setOnMyLocationButtonClickListener(this);
                 LatLng singapore = new LatLng(1.37, 103.84);
@@ -139,7 +141,7 @@ public class RouteActivity extends MainBaseActivity
         }
     }
         
-        public void getRoute(){
+    public void getRoute(){
 
                 progress = ProgressDialog.show(this, "Finding Route","please wait...", true);      
                 //1.3706862516136,103.890353813767&destination=1.48417650594471,103.753940351307
@@ -147,6 +149,20 @@ public class RouteActivity extends MainBaseActivity
                 double y1 = 103.890353813767;
                 double x2 = 1.48417650594471;
                 double y2 = 103.753940351307;
+                
+                Location location = mMap.getMyLocation();
+                if (location == null){
+                	Toast.makeText(getApplicationContext(), "Unable to get current location", Toast.LENGTH_SHORT).show();
+                	x1 = 1.379531;
+                    y1 = 103.849928;
+                }
+                else {
+                	x1 = location.getLatitude();
+                    y1 = location.getLongitude(); 
+                }
+                x2 = desX;
+                y2 = desY;
+                
                 GoogleRouteRequest retrieveAllLostRequest = new GoogleRouteRequest(x1,y1,x2,y2);
                 new RouteBackgroundTask().execute( retrieveAllLostRequest,null);
                
@@ -154,7 +170,7 @@ public class RouteActivity extends MainBaseActivity
         
 
         
-        private class RouteBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
+    private class RouteBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
             
                 @Override
                 protected void onPostExecute(Long result) {
@@ -186,7 +202,7 @@ public class RouteActivity extends MainBaseActivity
          }
         
     public void routeMap(){
-    	Toast.makeText(getApplicationContext(), "Line: "+LINE, Toast.LENGTH_SHORT).show();
+    	//Toast.makeText(getApplicationContext(), "Line: "+LINE, Toast.LENGTH_SHORT).show();
     	if (LINE != null){
     		List<LatLng> decodedPath = PolyUtil.decode(LINE);
         	getMap().addPolyline(new PolylineOptions().addAll(decodedPath));
@@ -200,70 +216,7 @@ public class RouteActivity extends MainBaseActivity
         setUpMapIfNeeded();
         return mMap;
     }
-        
-    /** Demonstrates customizing the info window and/or its contents. */
-    class CustomInfoWindowAdapter implements InfoWindowAdapter {
-
-        // These a both viewgroups containing an ImageView with id "badge" and two TextViews with id "title" and "snippet".
-        //private final View mWindow;
-        private final View mContents;
-
-        CustomInfoWindowAdapter() {
-            //mWindow = getLayoutInflater().inflate(R.layout.custom_info_window, null);
-            mContents = getLayoutInflater().inflate(R.layout.custom_info_contents, null);
-        }
-
-        @Override
-        public View getInfoContents(Marker marker) {
-            render(marker, mContents);
-            return mContents;
-        }
-        
-                @Override
-                public View getInfoWindow(Marker arg0) {
-                        return null;
-            //render(marker, mWindow);
-            //return mWindow;
-                }
-
-        private void render(Marker marker, View view) {
-            int badge = R.drawable.badge_lostdog;
-            /*
-            if (marker.equals(mBrisbane)) {
-                badge = R.drawable.badge_qld;
-            } else if (marker.equals(mAdelaide)) {
-                badge = R.drawable.badge_sa;
-            } else if (marker.equals(mSydney)) {
-                badge = R.drawable.badge_nsw;
-            } else if (marker.equals(mMelbourne)) {
-                badge = R.drawable.badge_victoria;
-            } else if (marker.equals(mPerth)) {
-                badge = R.drawable.badge_wa;
-            } */
-            
-            ((ImageView) view.findViewById(R.id.badge)).setImageResource(badge);
-
-            String title = marker.getTitle();
-            TextView titleUi = ((TextView) view.findViewById(R.id.title));
-           
-            SpannableString titleText = new SpannableString(title);
-            titleText.setSpan(new ForegroundColorSpan(Color.RED), 0, titleText.length(), 0);
-            titleUi.setText(titleText);
-                
-            String snippet = marker.getSnippet();
-            TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
-            SpannableString snippetText = new SpannableString(snippet);
-            snippetUi.setText(snippetText);
-            /*
-            if (snippet != null && snippet.length() > 12) {
-                //snippetText.setSpan(new ForegroundColorSpan(Color.MAGENTA), 0, 10, 0);
-                //snippetText.setSpan(new ForegroundColorSpan(Color.BLUE), 11, snippet.length(), 0);  
-            } else {
-                //snippetUi.setText("");
-            } */
-        }
-                
-    }
+       
         
 
     @Override
@@ -275,7 +228,7 @@ public class RouteActivity extends MainBaseActivity
     }
      
     @Override
-        protected void onNewIntent(Intent intent) {
+    protected void onNewIntent(Intent intent) {
                 // TODO Auto-generated method stub
                 super.onNewIntent(intent);
                 
@@ -323,10 +276,10 @@ public class RouteActivity extends MainBaseActivity
         }
     }
     
-        @Override
-        public void onLocationChanged(Location location) {
-                // TODO Auto-generated method stub                
-        }
+    @Override
+    public void onLocationChanged(Location location) {
+            // TODO Auto-generated method stub                
+    }
     
     public void onConnected(Bundle connectionHint) {
         mLocationClient.requestLocationUpdates(
@@ -334,17 +287,17 @@ public class RouteActivity extends MainBaseActivity
                 this);  // LocationListener
     }
     
-        @Override
-        public void onDisconnected() {
-                // TODO Auto-generated method stub
-                
-        }
-    
-        @Override
-        public void onConnectionFailed(ConnectionResult arg0) {
-                // TODO Auto-generated method stub
-                
-        }
+    @Override
+    public void onDisconnected() {
+            // TODO Auto-generated method stub
+            
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult arg0) {
+            // TODO Auto-generated method stub
+            
+    }
         
     public boolean onMyLocationButtonClick() {
         Toast.makeText(this, "Moving to your location", Toast.LENGTH_SHORT).show();
@@ -353,42 +306,11 @@ public class RouteActivity extends MainBaseActivity
         return false;
     }
 
-        @Override
-        public void onInfoWindowClick(Marker arg0) {
-                // TODO Auto-generated method stub
-                Toast.makeText(this, "Opening profile...", Toast.LENGTH_SHORT).show();
-        }
+    @Override
+    public void onInfoWindowClick(Marker arg0) {
+            // TODO Auto-generated method stub
+            Toast.makeText(this, "Opening profile...", Toast.LENGTH_SHORT).show();
+    }
 
-        @SuppressLint("ValidFragment")
-        private class MapListDialog extends DialogFragment {
-                @SuppressWarnings({ "rawtypes", "unchecked" })
-                public Dialog onCreateDialog(Bundle savedInstanceState){
-                        
-                        String[] mapList = {"Lost","Stray","Events","Places"};
-                        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(context,android.R.layout.simple_spinner_dropdown_item,mapList);
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setTitle("List Category");builder.setAdapter(spinnerArrayAdapter, new OnClickListener(){
-
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                        Intent intent = new Intent();
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                        if(which==0){
-                                                intent.putExtra("list", "lost");
-                                                intent.setClass(getActivity(), LostActivity.class);
-                                                startActivity(intent);
-                                        }
-                                        if(which==1){intent.putExtra("list", "stray");}
-                                        if(which==2){intent.putExtra("list", "event");}
-                                        if(which==3){
-                                                intent.putExtra("list", "location");
-                                                intent.setClass(getActivity(), NearbyList.class);
-                                                startActivity(intent);
-                                        }
-                                        
-                                }});
-                    return builder.create();
-                }
-        }
         
 }
