@@ -22,7 +22,7 @@ import android.widget.TextView;
 public class LocationInfoActivity extends FragmentActivity {
 	
 	Location singleLocation= null;
-	TextView singleTitle, singleDescription, singleAddress;
+	TextView singleTitle, singleDescription, singleAddress,tvContact,tvWebsite;
 	  private GoogleMap mMap;
 	    
 	  
@@ -38,6 +38,10 @@ public class LocationInfoActivity extends FragmentActivity {
 		singleTitle = (TextView) findViewById(R.id.singleTitle);
 		singleDescription = (TextView) findViewById(R.id.singleDescription);
 		singleAddress = (TextView) findViewById(R.id.singleAddress);
+		tvContact=(TextView) findViewById(R.id.tvContact);
+		tvWebsite=(TextView) findViewById(R.id.tvWebsite);
+		
+	
 		
 		ViewGroup viewGroup = (ViewGroup) findViewById(R.id.nearbySingle_map);
 		viewGroup.addView(View.inflate(this, R.layout.basic_map, null));
@@ -51,11 +55,26 @@ public class LocationInfoActivity extends FragmentActivity {
 
 		}		
 		
-		//singleTitle.setText( (singleLocation.getDescription().split(";"))[2] );
+		
+//		singleTitle.setText( (singleLocation.getDescription().split(";"))[2] );
+//		 String staticDesc = StaticObjects.getLocations().get(i).getDescription().toString();
+//	        String[]splitDesc = staticDesc.split(";");
+//			tvContact.setText(splitDesc[2]);
+		
+//		String staticDesc = StaticObjects.getLocations().get(i).getDescription().toString();
+//        String[]splitDesc = staticDesc.split(";");
+//		tv_shopDesc.setText(splitDesc[0]);
 		
 	    singleTitle.setText(singleLocation.getTitle()); //here
-	    singleDescription.setText(singleLocation.getDescription());
+	    
+	    String staticDesc = singleLocation.getDescription().toString();
+	    String[]splitDesc=staticDesc.split(";");
+	     singleDescription.setText(splitDesc[0]);
+	     tvWebsite.setText(splitDesc[1]);
+	     tvContact.setText(splitDesc[2]);
 	    singleAddress.setText(singleLocation.getAddress());
+	    
+	    
 	    
 	    setUpMapIfNeeded();
 	}

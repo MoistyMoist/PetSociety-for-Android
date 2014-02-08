@@ -74,7 +74,7 @@ public class NearbyDetailsActivity extends TabActivity  {
 		tabHost.addTab(tab4);
 		
 		call = (ImageButton) findViewById(R.id.nearbyDetailsCall);
-		email = (ImageButton) findViewById(R.id.nearbyDetailsMail);
+		
 
 		//registerForContextMenu(email);
 		
@@ -96,8 +96,13 @@ public class NearbyDetailsActivity extends TabActivity  {
 
 			@Override
 			public void onClick(View arg0) {
+				
+				 String staticDesc = StaticObjects.getSelectedLocation().getDescription();
+			        String[]splitDesc = staticDesc.split(";");
+					
+			          
 				// TODO Auto-generated method stub
-				int phn_no = 11111111;
+				String phn_no = splitDesc[2];
 				try {
 					Intent my_callIntent = new Intent(Intent.ACTION_CALL);
 					my_callIntent.setData(Uri.parse("tel:" + phn_no));

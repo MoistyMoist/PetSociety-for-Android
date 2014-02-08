@@ -21,7 +21,8 @@
             android:src="@drawable/pet" />
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="150dp"
         android:layout_height="200dp"
         android:layout_alignParentRight="true"
@@ -37,13 +38,6 @@
             android:text="Cats and Dogs Pet Care"
             android:textSize="26sp" />
 
-        <Button
-            android:id="@+id/btnNavigate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-           
-            android:text="Route to Shop" />
-
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
@@ -53,26 +47,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
-
-            <ImageButton
-                android:id="@+id/nearbyDetailsCall"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="24dp"
-                android:src="@drawable/call" />
-
-            <ImageButton
-                android:id="@+id/nearbyDetailsMail"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="22dp"
-                android:layout_toRightOf="@+id/nearbyDetailsCall"
-                android:src="@drawable/mail" />
         </RelativeLayout>
-    </LinearLayout>
+
+        <Button
+            android:id="@+id/btnNavigate"
+            android:layout_width="121dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/tvShopName"
+            android:layout_marginTop="22dp"
+            android:text="Route " />
+
+        <ImageButton
+            android:id="@+id/nearbyDetailsCall"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignBottom="@+id/btnNavigate"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/call" />
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -104,8 +98,6 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
         </TabHost>
-
-        
     </LinearLayout>
 
 </RelativeLayout>

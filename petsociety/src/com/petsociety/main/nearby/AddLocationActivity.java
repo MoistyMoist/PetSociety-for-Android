@@ -21,7 +21,7 @@ GooglePlayServicesClient.ConnectionCallbacks,
 GooglePlayServicesClient.OnConnectionFailedListener {
 
 	
-	EditText etAddTitle,etAddAddress,etAddDescription;
+	EditText etAddTitle,etAddAddress,etAddDescription, etAddWebsite, etAddPhone;
 	Button btnAddLocation,btnGetAddress;
 	 Location mCurrentLocation;
 	
@@ -33,7 +33,8 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 		etAddTitle = (EditText) findViewById(R.id.etAddTitle);
 		etAddAddress = (EditText) findViewById(R.id.etAddAddress);
 		etAddDescription = (EditText) findViewById(R.id.etAddDescription);
-		
+		etAddWebsite = (EditText) findViewById(R.id.etAddWebsite);
+		etAddPhone = (EditText) findViewById(R.id.etAddPhone);
 		
 		btnGetAddress=(Button) findViewById(R.id.btnGetAddress);
 		btnAddLocation=(Button) findViewById(R.id.btnAddLocation);

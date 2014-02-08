@@ -378,13 +378,17 @@ public class NearbyActivity extends MainBaseActivity implements
         		Bitmap original = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_vet);
         		Bitmap bsize=Bitmap.createScaledBitmap(original, original.getWidth()/6,original.getHeight()/6, false);
         		
+        		String staticDesc = StaticObjects.getLocations().get(i).getDescription().toString();
+		        String[]splitDesc = staticDesc.split(";");
+        		
+        		
         		MarkerOptions mOption = new MarkerOptions()
 			                .position(new LatLng(lat, lng))
 			                .title(locationList.get(i).getTitle())
 			                //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
 			                .icon(BitmapDescriptorFactory.fromBitmap(bsize))
 			                .infoWindowAnchor(0.5f, 0.5f)
-			                .snippet("About: "+locationList.get(i).getDescription()); 
+			                .snippet("About: "+splitDesc[0].toString()); 
         		vetMarkers.add(mMap.addMarker(mOption));
         	} 
         	else{
@@ -392,13 +396,16 @@ public class NearbyActivity extends MainBaseActivity implements
         		Bitmap original = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_petstore);
         		Bitmap bsize=Bitmap.createScaledBitmap(original, original.getWidth()/8,original.getHeight()/8, false);
         		
+        		String staticDesc = StaticObjects.getLocations().get(i).getDescription().toString();
+		        String[]splitDesc = staticDesc.split(";");
+        		
 		        MarkerOptions mOption = new MarkerOptions()
 		                    .position(new LatLng(lat, lng))
 		                    .title(locationList.get(i).getTitle())
 		                    //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
 			                .icon(BitmapDescriptorFactory.fromBitmap(bsize))
 		                    .infoWindowAnchor(0.5f, 0.5f)
-		                    .snippet("About: "+locationList.get(i).getDescription()); 
+		                     .snippet("About: "+splitDesc[0].toString()); 
 		        shopMarkers.add(mMap.addMarker(mOption));
         	}
         }
