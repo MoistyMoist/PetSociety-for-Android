@@ -8,29 +8,27 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ShopPhotosActivity" >
 
-    <ListView
-        android:id="@+id/gallery1"
-        android:layout_width="fill_parent"
-        android:layout_height="200dp"
-        android:layout_above="@+id/imageView1"
-        android:layout_alignParentLeft="true" >
-
-    </ListView>
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/puppy" />
-
     <Button
         android:id="@+id/uploadImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView1"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentLeft="true"
         android:text="Upload Image" />
+
+    <ListView
+        android:id="@+id/gallery1"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/uploadImageButton" >
+    </ListView>
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/puppy" />
 
 </RelativeLayout>

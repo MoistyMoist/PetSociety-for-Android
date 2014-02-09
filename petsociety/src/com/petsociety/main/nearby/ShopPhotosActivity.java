@@ -71,7 +71,6 @@ public class ShopPhotosActivity extends Activity {
 		setContentView(R.layout.activity_shop_photos);
 		
 		uploadImageButton=(Button)findViewById(R.id.uploadImageButton);
-		imageView=(ImageView)findViewById(R.id.imageView1);
 		
 		uploadImageButton.setOnClickListener(new OnClickListener() {
 			
@@ -88,7 +87,7 @@ public class ShopPhotosActivity extends Activity {
 		
 		
 		 gallery = (ListView) findViewById(R.id.gallery1);
-	        selectedImage=(ImageView)findViewById(R.id.imageView1);
+	        selectedImage=(ImageView)findViewById(R.id.imageView11);
 	        
 	        
 	        
