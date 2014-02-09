@@ -8,7 +8,10 @@ import java.util.Set;
 
 import com.petsociety.httprequests.*;
 import com.petsociety.main.lost.LostActivity;
+import com.petsociety.main.nearby.NearbyActivity;
+import com.petsociety.main.nearby.NearbyDetailsActivity;
 import com.petsociety.main.nearby.NearbyList;
+import com.petsociety.main.profile.EventActivity;
 import com.petsociety.models.Address;
 import com.petsociety.models.Event;
 import com.petsociety.models.Lost;
@@ -656,17 +659,19 @@ public class MainActivity extends MainBaseActivity
 	     	
 	    }
 	    if(type.equalsIgnoreCase("event")){
-	     	
+			Intent intent = new Intent();
+			intent.putExtra("event", item.getEvent().getEventID());
+			intent.setClass(this, EventActivity.class);
+			startActivity(intent);
 	    }
 	    if(type.equalsIgnoreCase("location")){
 	    	if(item.getLocation().getType().equalsIgnoreCase("accidents")){
 	     		Toast.makeText(getApplicationContext(), item.getLocation().getDescription(), Toast.LENGTH_SHORT).show();
 	     	}
-	     	else if(item.getLocation().getType().equalsIgnoreCase("vet")){
-	     		//vet
-	     	}
 	     	else {
-	     		//pet store
+	     		StaticObjects.setSelectedLocation(item.getLocation());
+				Intent intent = new Intent(this, NearbyDetailsActivity.class);				
+				startActivity(intent);
 	     	}
 	    }
     }
