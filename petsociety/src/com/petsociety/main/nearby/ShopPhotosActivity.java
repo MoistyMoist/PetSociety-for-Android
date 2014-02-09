@@ -118,14 +118,14 @@ public class ShopPhotosActivity extends Activity {
         	    && null != data) {
         	   Uri selectedImage = data.getData();
         	   String[] filePathColumn = { MediaStore.Images.Media.DATA };
-        	   Toast.makeText(getBaseContext(), "hello", Toast.LENGTH_SHORT).show();
+        	   //Toast.makeText(getBaseContext(), "hello", Toast.LENGTH_SHORT).show();
         	   Cursor cursor = getContentResolver().query(selectedImage,
         	     filePathColumn, null, null, null);
         	   cursor.moveToFirst();
 
         	   int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
         	   String picturePath = cursor.getString(columnIndex);
-        	   Toast.makeText(getBaseContext(), picturePath.toString(), Toast.LENGTH_SHORT).show();
+        	   Toast.makeText(getBaseContext(), "Thank you for uploading", Toast.LENGTH_LONG).show();
         	   cursor.close();
 
         	   decodeFile(picturePath);
