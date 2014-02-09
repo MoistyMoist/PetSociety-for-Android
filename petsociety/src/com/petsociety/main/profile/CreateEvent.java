@@ -147,7 +147,7 @@ public class CreateEvent extends FragmentActivity {
 		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			// TODO Auto-generated method stub
-			Toast.makeText(getActivity(), ""+hourOfDay + ","+minute, Toast.LENGTH_SHORT).show();
+			//Toast.makeText(getActivity(), ""+hourOfDay + ","+minute, Toast.LENGTH_SHORT).show();
 			et_start_time.setText(""+hourOfDay+":"+minute+":00");
 		}
 	}
@@ -171,7 +171,7 @@ public class CreateEvent extends FragmentActivity {
 		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			// TODO Auto-generated method stub
-			Toast.makeText(getActivity(), ""+hourOfDay + ","+minute, Toast.LENGTH_SHORT).show();
+			//Toast.makeText(getActivity(), ""+hourOfDay + ","+minute, Toast.LENGTH_SHORT).show();
 			et_end_time.setText(""+hourOfDay+":"+minute+":00");
 		}
 	}
@@ -206,7 +206,7 @@ public class CreateEvent extends FragmentActivity {
 		@Override
 		public void onDateSet(DatePicker view, int year, int month, int day) {
 			// TODO Auto-generated method stub
-			Toast.makeText(getActivity(), ""+year + ","+month+","+day, Toast.LENGTH_SHORT).show();
+			//Toast.makeText(getActivity(), ""+year + ","+month+","+day, Toast.LENGTH_SHORT).show();
 			et_start_date.setText(""+year+"-"+(month+1)+"-"+day);
 		}
 	}
@@ -230,7 +230,7 @@ public class CreateEvent extends FragmentActivity {
 		@Override
 		public void onDateSet(DatePicker view, int year, int month, int day) {
 			// TODO Auto-generated method stub
-			Toast.makeText(getActivity(), ""+year + ","+month+","+day, Toast.LENGTH_SHORT).show();
+			//Toast.makeText(getActivity(), ""+year + ","+month+","+day, Toast.LENGTH_SHORT).show();
 			et_end_date.setText(""+year+"-"+(month+1)+"-"+day);
 		}
 	}

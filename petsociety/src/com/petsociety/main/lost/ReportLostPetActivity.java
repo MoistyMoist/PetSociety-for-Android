@@ -136,7 +136,7 @@ private class LostBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			// TODO Auto-generated method stub
-			Toast.makeText(getActivity(), ""+hourOfDay + ","+minute, Toast.LENGTH_SHORT).show();
+			//Toast.makeText(getActivity(), ""+hourOfDay + ","+minute, Toast.LENGTH_SHORT).show();
 			et_time.setText(""+hourOfDay+":"+minute+":00");
 		}
 	}
@@ -166,7 +166,7 @@ private class LostBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 		@Override
 		public void onDateSet(DatePicker view, int year, int month, int day) {
 			// TODO Auto-generated method stub
-			Toast.makeText(getActivity(), ""+year + ","+month+","+day, Toast.LENGTH_SHORT).show();
+			//Toast.makeText(getActivity(), ""+year + ","+month+","+day, Toast.LENGTH_SHORT).show();
 			et_date.setText(""+year+"-"+(month+1)+"-"+day);
 		}
 	}
