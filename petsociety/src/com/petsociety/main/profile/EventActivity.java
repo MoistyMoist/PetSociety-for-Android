@@ -81,10 +81,9 @@ public class EventActivity extends MainBaseActivity {
 	    name.setText(oneEvent.getName());
 	    desc.setText(oneEvent.getDescription());
 	    
-	    //d = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(dateTimeCreated.replace("T", " "));
-	    String startDate = new SimpleDateFormat("dd MMM yyyy hh:mm").format(oneEvent.getStartDateTime())
+	    String startDate = new SimpleDateFormat("dd MMM yyyy hh:mm a").format(oneEvent.getStartDateTime())
 	    		+"\n                To\n"
-	    		+ new SimpleDateFormat("dd MMM yyyy hh:mm").format(oneEvent.getEndDateTime());
+	    		+ new SimpleDateFormat("dd MMM yyyy hh:mm a").format(oneEvent.getEndDateTime());
 	    time.setText(startDate);
 
 	    getMyLocationAddress();
