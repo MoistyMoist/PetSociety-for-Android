@@ -1,8 +1,10 @@
 package com.petsociety.main;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Set;
 
@@ -33,6 +35,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -527,6 +530,31 @@ public class MainActivity extends MainBaseActivity
 		}
 	}
 	
+	public String getLocationAddress(double x, double y) {
+        Geocoder geocoder= new Geocoder(this, Locale.ENGLISH);
+        try {
+              //Place your latitude and longitude
+              List<android.location.Address> addresses = geocoder.getFromLocation(x, y, 1);
+              if(addresses != null) {
+                  android.location.Address fetchedAddress = addresses.get(0);
+                  StringBuilder strAddress = new StringBuilder();
+                  for(int i=0; i<fetchedAddress.getMaxAddressLineIndex(); i++) {
+                        strAddress.append(fetchedAddress.getAddressLine(i));
+                  } 
+                  return strAddress.toString();
+              }
+              else{
+            	  return("Address");
+              }
+        } 
+        catch (IOException e) {
+                 // TODO Auto-generated catch block
+                 e.printStackTrace();
+                 Toast.makeText(getApplicationContext(),"Could not get address..!", Toast.LENGTH_LONG).show();
+        }
+        
+        return("Address");
+    }
 	
 	
     private class MapRenderer extends DefaultClusterRenderer<MapPin> {
@@ -557,16 +585,21 @@ public class MainActivity extends MainBaseActivity
         protected void onBeforeClusterItemRendered(MapPin pin, MarkerOptions markerOptions) {
             // Draw a single object and set the info window to show their name.
 			String type = pin.getType().toString();
+			double x = 0,y = 0;
 			String title = "Default";
             if(type.equalsIgnoreCase("lost")){
             	mImageView.setImageResource(R.drawable.badge_lostdog);
             	mImageView.setBackgroundColor(Color.parseColor("#88FF0000"));
             	title = pin.getLost().getPet().getName();
+            	x = pin.getLost().getX();
+            	y = pin.getLost().getY();
             }
             if(type.equalsIgnoreCase("event")){
             	mImageView.setImageResource(R.drawable.badge_event);
             	mImageView.setBackgroundColor(Color.parseColor("#880000FF"));
             	title = pin.getEvent().getName();
+            	x = pin.getEvent().getX();
+            	y = pin.getEvent().getY();
             }
             if(type.equalsIgnoreCase("location")){
             	if(pin.getLocation().getType().equalsIgnoreCase("accidents")){mImageView.setImageResource(R.drawable.icon_warning);}
@@ -574,11 +607,13 @@ public class MainActivity extends MainBaseActivity
             	else {mImageView.setImageResource(R.drawable.icon_petstore);}
             	mImageView.setBackgroundColor(Color.parseColor("#8800FF00"));
             	title = pin.getLocation().getTitle();
+            	x = pin.getLocation().getX();
+            	y = pin.getLocation().getY();
             }
 			
 			//mImageView.setImageResource(R.drawable.badge_lostdog);
 			Bitmap icon = mIconGenerator.makeIcon();
-			markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon)).title(title);
+			markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon)).title(title).snippet(getLocationAddress(x,y));
         }
 
         @Override
