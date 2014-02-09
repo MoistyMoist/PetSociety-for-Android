@@ -74,9 +74,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				// TODO Auto-generated method stub
-				
-				
-				
+				type = arg0.getItemAtPosition(arg2).toString();				
 			}
 
 			@Override
@@ -104,9 +102,9 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 			@Override
 			public void onClick(View v) {
 
-				CreateLocationRequest createLocationRequest = new CreateLocationRequest(x, y
-								,etAddDescription.getText().toString(), etAddTitle.getText().toString()
-												,etAddAddress.getText().toString(), type, userID  );
+				CreateLocationRequest createLocationRequest = new CreateLocationRequest(x, y,
+								etAddDescription.getText().toString()+";"+etAddWebsite.getText().toString()+";"+etAddPhone.getText().toString(),
+								etAddTitle.getText().toString(),etAddAddress.getText().toString(), type  );
 				new CreateLocationBackgroundTask().execute(createLocationRequest, null);
 			}});
 		

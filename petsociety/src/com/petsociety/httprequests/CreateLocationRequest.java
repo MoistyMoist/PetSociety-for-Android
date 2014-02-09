@@ -25,17 +25,15 @@ public class CreateLocationRequest implements Runnable{
 	private String type;
 	private double x;
 	private double y;
-	private int userID;
 	
-	public CreateLocationRequest(double x, double y, String desc, String title, String address, String type, int userID) {
-		super();
+	public CreateLocationRequest(double x, double y, String desc, String title, String address, String type) {
+		staticObjects = new StaticObjects();
 		this.title = title;
 		this.desc = desc;
 		this.address = address;
 		this.type = type;
 		this.x = x;
 		this.y = y;
-		this.userID = userID;
 	}
 
 	@Override
@@ -49,12 +47,12 @@ public class CreateLocationRequest implements Runnable{
 
 		httpget = new HttpGet("http://petsociety.cloudapp.net/api/AddLocation?token="+staticObjects.getToken()
 	
-								+"&INx=" + 1.264638
-								+"&INy=" + 101.859648
+								+"&INx=" + x
+								+"&INy=" + y
 								+"&INdescription=" + desc.replace(" ", "%20") 
 								+"&INtitle=" + title.replace(" ", "%20") 
-								+"&INaddress=" + address
-								+"&INtype=" + type
+								+"&INaddress=" + address.replace(" ", "%20") 
+								+"&INtype=" + type.replace(" ", "%20") 
 								+"&INuserID=" + staticObjects.getCurrentUser().getUserID());
 		
         Log.i("Retrieve  All  Location :",httpget.getURI().toString());
