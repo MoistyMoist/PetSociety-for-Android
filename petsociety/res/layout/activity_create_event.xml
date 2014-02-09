@@ -40,6 +40,7 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/et_description"
             android:ems="10"
+            android:enabled="false"
             android:hint="Location" >
 
             <requestFocus />
@@ -82,18 +83,20 @@
 		android:orientation="horizontal">
 	
 	<Button 
+	 android:id="@+id/start_Date"
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content"
     android:layout_weight="0.5"
     android:text="Set Date" 
-    android:onClick="showDatePickerDialog" />
+    android:onClick="showStartDatePickerDialog" />
 	
-	<Button 
+	<Button
+	 android:id="@+id/start_Time"
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content"
     android:layout_weight="0.5"
     android:text="Set Time" 
-    android:onClick="showTimePickerDialog" />
+    android:onClick="showStartTimePickerDialog" />
 	
 	</LinearLayout>
 
@@ -127,19 +130,21 @@
 		android:layout_height="wrap_content"
 		android:orientation="horizontal">
 	
-	<Button 
+	<Button
+	 android:id="@+id/end_Date"
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content"
     android:layout_weight="0.5"
     android:text="Set Date" 
-    android:onClick="showDatePickerDialog" />
+    android:onClick="showEndDatePickerDialog" />
 	
 	<Button 
+	 android:id="@+id/end_Time"
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content"
     android:layout_weight="0.5"
     android:text="Set Time" 
-    android:onClick="showTimePickerDialog" />
+    android:onClick="showEndTimePickerDialog" />
 	
 	</LinearLayout>
 	        
