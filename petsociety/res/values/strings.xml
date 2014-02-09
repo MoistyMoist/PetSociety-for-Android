@@ -62,6 +62,7 @@
     <string name="title_activity_register">Register</string>
     <string name="title_activity_profile">Profile</string>
     <string name="title_activity_lost">Losts Pets</string>
+        <string name="title_activity_location">Select Location</string>
     <string name="title_activity_analysis">Analysis</string>
     <string name="title_activity_nearby">Nearby Locations</string>
     <string name="title_activity_setting">Application Settings</string>

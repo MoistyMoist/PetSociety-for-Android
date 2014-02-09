@@ -83,7 +83,7 @@ public class EventActivity extends MainBaseActivity {
 	    
 	    //d = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(dateTimeCreated.replace("T", " "));
 	    String startDate = new SimpleDateFormat("dd MMM yyyy hh:mm").format(oneEvent.getStartDateTime())
-	    		+"\nTo\n"
+	    		+"\n                To\n"
 	    		+ new SimpleDateFormat("dd MMM yyyy hh:mm").format(oneEvent.getEndDateTime());
 	    time.setText(startDate);
 
@@ -109,9 +109,11 @@ public class EventActivity extends MainBaseActivity {
                 //setUpMap();
                 //mMap.setMyLocationEnabled(true);
                 //mMap.setOnMyLocationButtonClickListener(this);
-                LatLng singapore = new LatLng(1.37, 103.84);
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 11));
+                LatLng singapore = new LatLng(oneEvent.getX(), oneEvent.getY());
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 12));
+                mMap.getUiSettings().setAllGesturesEnabled(false);
                 mMap.addMarker(new MarkerOptions().position(new LatLng(oneEvent.getX(), oneEvent.getY())));
+                mMap.getUiSettings().setZoomControlsEnabled(false);
             }
         }
     }

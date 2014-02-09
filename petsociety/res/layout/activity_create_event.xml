@@ -8,122 +8,153 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:background="#CCCCCC"
-            android:hint="Tap to insert picture"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/textView1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="32dp"
-            android:text="Event title:"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView2"
-            android:layout_below="@+id/textView2"
-            android:layout_marginTop="20dp"
-            android:text="Time start:"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView3"
-            android:layout_below="@+id/textView3"
-            android:layout_marginTop="20dp"
-            android:text="Time end:"
-            android:textSize="20sp" />
-
-        <TimePicker
-            android:id="@+id/timePicker1"
-            android:layout_width="180dp"
-            android:layout_height="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/textView3"
-            android:layout_marginRight="15dp" />
-
-        <TimePicker
-            android:id="@+id/timePicker2"
-            android:layout_width="180dp"
-            android:layout_height="20dp"
-            android:layout_alignLeft="@+id/timePicker1"
-            android:layout_alignTop="@+id/textView4" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView4"
-            android:layout_alignLeft="@+id/textView3"
-            android:layout_marginTop="20dp"
-            android:text="Description:"
-            android:textSize="20sp" />
-
+    <LinearLayout 
+       	android:layout_width="match_parent"
+   	 	android:layout_height="wrap_content"
+        android:orientation="vertical">
+        
+            
         <EditText
             android:id="@+id/et_eventTitle"
-            android:layout_width="180dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/textView3"
-            android:layout_alignLeft="@+id/timePicker1"
-            android:ems="10" >
-            <requestFocus />
-            </EditText>
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:hint="Event Name"
+            android:ems="10" />
 
         <EditText
             android:id="@+id/et_description"
-            android:layout_width="180dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textView5"
-            android:layout_alignBottom="@+id/textView5"
-            android:layout_alignLeft="@+id/timePicker2"
+            android:layout_alignParentLeft="true"
+            android:hint="Description"
+            android:layout_below="@+id/et_eventTitle"
             android:ems="10"
             android:inputType="textMultiLine" />
 
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/textView4"
-            android:layout_below="@+id/et_description"
-            android:layout_marginTop="20dp"
-            android:text="Location:"
-            android:textSize="20sp" />
-
         <EditText
             android:id="@+id/et_location"
-            android:layout_width="180dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textView6"
-            android:layout_alignBottom="@+id/textView6"
-            android:layout_alignLeft="@+id/et_description"
-            android:ems="10" />
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/et_description"
+            android:ems="10"
+            android:hint="Location" >
+
+            <requestFocus />
+        </EditText>
 
         <Button
-            android:id="@+id/b_create"
-            android:layout_width="wrap_content"
+            android:id="@+id/b_select_location"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView6"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="15dp"
-            android:layout_toRightOf="@+id/textView6"
-            android:text="Create" />
+            android:text="Select Location" />
         
-</RelativeLayout>
+        <LinearLayout
+	    android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+	<EditText 
+		android:id="@+id/et_start_date"
+		android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:enabled="false"
+        android:text="Start Date"/>
+	
+	<EditText 
+	    android:id="@+id/et_start_time"
+	    android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:enabled="false"
+        android:text="Start Time"/>
+
+	
+	
+	</LinearLayout>
+
+        <LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+	
+	<Button 
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content"
+    android:layout_weight="0.5"
+    android:text="Set Date" 
+    android:onClick="showDatePickerDialog" />
+	
+	<Button 
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content"
+    android:layout_weight="0.5"
+    android:text="Set Time" 
+    android:onClick="showTimePickerDialog" />
+	
+	</LinearLayout>
+
+        <LinearLayout
+	    android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+	<EditText 
+		android:id="@+id/et_end_date"
+		android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:enabled="false"
+        android:text="End Date"/>
+	
+	<EditText 
+	    android:id="@+id/et_end_time"
+	    android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:enabled="false"
+        android:text="End Time"/>
+
+	
+	
+	</LinearLayout>
+
+        <LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+	
+	<Button 
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content"
+    android:layout_weight="0.5"
+    android:text="Set Date" 
+    android:onClick="showDatePickerDialog" />
+	
+	<Button 
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content"
+    android:layout_weight="0.5"
+    android:text="Set Time" 
+    android:onClick="showTimePickerDialog" />
+	
+	</LinearLayout>
+	        
+        <Button
+            android:id="@+id/b_create_event"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Create Event" />
+        
+</LinearLayout>
+        
+
+       </RelativeLayout>
+    
     
 
 </ScrollView>

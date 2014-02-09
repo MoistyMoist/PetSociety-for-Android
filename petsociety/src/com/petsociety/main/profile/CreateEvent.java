@@ -1,10 +1,15 @@
 package com.petsociety.main.profile;
 
 import com.example.petsociety.R;
+import com.petsociety.httprequests.CreateEventRequest;
+import com.petsociety.httprequests.CreateLostRequest;
+import com.petsociety.main.lost.ReportLostPetLocation;
+import com.petsociety.main.lost.ReportLostPetActivity.LostBackgroundTask;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
@@ -17,31 +22,53 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class CreateEvent extends Activity {
-
-	Button b_create;
+	
+	/*
+	 * 	private String name;
+	private String desc;
+	private String startDateTime;
+	private String endDateTime;
+	private String x;
+	private String y;
+	 */
+	
+	Context context = this;
+	Button b_create_event, b_select_location;
 	EditText et_eventTitle, et_description, et_location;
-	TimePicker timePicker1,timePicker2;
+	EditText et_start_date, et_start_time, et_end_date, et_end_time;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_event);
 		
-		b_create = (Button) findViewById(R.id.b_create);
+		b_create_event = (Button) findViewById(R.id.b_create_event);
+		b_select_location = (Button) findViewById(R.id.b_select_location);
 		et_eventTitle = (EditText) findViewById(R.id.et_eventTitle);
 		et_description = (EditText) findViewById(R.id.et_description);
 		et_location = (EditText) findViewById(R.id.et_location);
-		timePicker1 = (TimePicker) findViewById(R.id.timePicker1);
-		timePicker2 = (TimePicker) findViewById(R.id.timePicker2);
+		et_start_date = (EditText) findViewById(R.id.et_start_date);
+		et_start_time = (EditText) findViewById(R.id.et_start_time);
+		et_end_date = (EditText) findViewById(R.id.et_end_date);
+		et_end_time = (EditText) findViewById(R.id.et_end_time);
+
+		b_select_location.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent();
+				//intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				intent.setClass(context, ReportLostPetLocation.class);
+				startActivityForResult(intent, 1);
+			}
+		});
+
 		
-		
-		b_create.setOnClickListener(new OnClickListener(){
+		b_create_event.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-			}
-			
+				CreateEventRequest createEventRequest = new CreateEventRequest(et_date.getText().toString()+"T"+et_time.getText().toString(), et_address.getText().toString(), et_desc.getText().toString(), Double.toString(x),Double.toString(y),et_reward.getText().toString());
+				new LostBackgroundTask().execute(createEventRequest, null);			}
 		});
 	}
 	
@@ -50,8 +77,7 @@ public class CreateEvent extends Activity {
 		et_eventTitle = (EditText) findViewById(R.id.et_eventTitle);
 		et_description = (EditText) findViewById(R.id.et_description);
 		et_location = (EditText) findViewById(R.id.et_location);
-		timePicker1 = (TimePicker) findViewById(R.id.timePicker1);
-		timePicker2 = (TimePicker) findViewById(R.id.timePicker2);
+
 
 		if (et_eventTitle.getText().toString().isEmpty()
 				|| et_description.getText().toString().isEmpty()
@@ -60,8 +86,8 @@ public class CreateEvent extends Activity {
 		{
 			Toast.makeText(CreateEvent.this, "Please fill in the empty fields",Toast.LENGTH_LONG).show();
 		} else {
-			//CreateEventRequest createEventRequest = new CreateEventRequest(et_eventTitle.getText().toString(), et_description.getText().toString(), et_location.getText().toString());
-            //new CreateEventBackgroundTask().execute( createEventRequest,null);
+			CreateEventRequest createEventRequest = new CreateEventRequest(et_eventTitle.getText().toString(), et_description.getText().toString(), et_location.getText().toString(), null, null, null);
+            new CreateEventBackgroundTask().execute( createEventRequest,null);
 		}
 
 	}

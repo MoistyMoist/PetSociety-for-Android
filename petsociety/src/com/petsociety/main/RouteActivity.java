@@ -65,7 +65,7 @@ public class RouteActivity extends MainBaseActivity
         implements 
         ConnectionCallbacks,
         OnConnectionFailedListener,
-        LocationListener, 
+        LocationListener,
         OnMyLocationButtonClickListener,
         OnMapLoadedCallback{
 
@@ -117,13 +117,13 @@ public class RouteActivity extends MainBaseActivity
 
         }
         
-        
+/*
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {
                 getSupportMenuInflater().inflate(R.menu.lost_location, menu);
                 return true;
         }
-
+*/
 
         private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.

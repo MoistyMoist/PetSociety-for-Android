@@ -16,7 +16,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
             android:text="Euru Chick"
-            android:textSize="20sp" />
+            android:textSize="27sp" />
 
         <TextView
             android:id="@+id/textView5"
@@ -44,9 +44,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView3"
             android:layout_centerHorizontal="true"
-            android:text="Bishan"
             android:layout_marginTop="5dp"
-            android:textSize="20sp" />
+            android:text="Bishan"
+            android:textSize="25sp" />
 
         <TextView
             android:id="@+id/textView4"
