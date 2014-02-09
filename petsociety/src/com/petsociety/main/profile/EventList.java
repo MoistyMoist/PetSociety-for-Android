@@ -44,6 +44,7 @@ public class EventList extends MainBaseActivity {
 		
 		lv_events = (ListView) findViewById(R.id.lv_all_events);
 		tv_title = (TextView) findViewById(R.id.textView123456);
+		tv_title.setText("Events");
 		
 		RetrieveAllEventRequest retrieveAllEvents = new RetrieveAllEventRequest();
 		new GetEventList().execute(retrieveAllEvents, null);
