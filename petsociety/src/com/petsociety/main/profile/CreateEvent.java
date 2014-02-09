@@ -80,6 +80,13 @@ public class CreateEvent extends FragmentActivity {
 			}
 		});
 		
+		b_create_event.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				checkEvent();
+			}
+		});
 	}
 	
 	public void checkEvent() {
