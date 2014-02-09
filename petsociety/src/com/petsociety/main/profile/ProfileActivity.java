@@ -48,7 +48,7 @@ public class ProfileActivity extends Activity {
 		location = (TextView) findViewById(R.id.profile_location);
 		b_add_pet = (Button) findViewById(R.id.b_add_pet);
 		petListView = (ListView) findViewById(R.id.listView999);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
+		ArrayAdapter<Pet> adapter = new ArrayAdapter<Pet>(this,android.R.layout.simple_list_item_1);
 		
 	    name.setText(StaticObjects.getCurrentUser().getName());
 	    double x = (StaticObjects.getCurrentUser().getX());
@@ -56,11 +56,9 @@ public class ProfileActivity extends Activity {
 	    getMyLocationAddress(x, y);
 
 	    for(int i=0; i<StaticObjects.getCurrentUser().getPets().size();i++){
-	    	adapter.add(StaticObjects.getCurrentUser().getPets().get(i).getName());
+	    	adapter.add(StaticObjects.getCurrentUser().getPets().get(i));
 	    }
-	    if(StaticObjects.getCurrentUser().getPets().size() == 0){
-	    	adapter.add("None");
-	    }
+
 	    petListView.setAdapter(adapter);
 	    
 	    petListView.setOnItemClickListener(new OnItemClickListener(){
