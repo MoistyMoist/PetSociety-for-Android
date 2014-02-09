@@ -64,6 +64,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMapLoadedCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -83,6 +84,7 @@ public class MainActivity extends MainBaseActivity
 	LocationListener, 
 	OnMyLocationButtonClickListener,
 	OnInfoWindowClickListener,
+	OnMapLoadedCallback,
 	
 	ClusterManager.OnClusterClickListener<MapPin>,
 	ClusterManager.OnClusterInfoWindowClickListener<MapPin>,
@@ -211,6 +213,7 @@ public class MainActivity extends MainBaseActivity
             	
                 mMap.setMyLocationEnabled(true);
                 mMap.setOnMyLocationButtonClickListener(this);
+                mMap.setOnMapLoadedCallback(this);
                 LatLng singapore = new LatLng(1.37, 103.84);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 11));
                 
@@ -731,9 +734,14 @@ public class MainActivity extends MainBaseActivity
         mClusterManager.addItems(mapPinList);
         mClusterManager.cluster();
         
-        //Location location = mMap.getMyLocation();
-        //StaticObjects.getCurrentUser().setX(location.getLatitude());
-        //StaticObjects.getCurrentUser().setY(location.getLongitude()); 
     }
+
+	@Override
+	public void onMapLoaded() {
+		// TODO Auto-generated method stub
+        Location location = mMap.getMyLocation();
+        StaticObjects.getCurrentUser().setX(location.getLatitude());
+        StaticObjects.getCurrentUser().setY(location.getLongitude()); 
+	}
 
 }
