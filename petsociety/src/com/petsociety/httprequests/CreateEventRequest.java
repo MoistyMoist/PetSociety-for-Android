@@ -41,8 +41,6 @@ public class CreateEventRequest implements Runnable{
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpGet httpget = null;
 		
-		//PREPARE REQUEST OBJECT
-		//httpget = new HttpGet("http://petsociety.cloudapp.net/api/RetrieveLost?INtoken="+staticObjects.getToken()); 
 
 		httpget = new HttpGet("http://petsociety.cloudapp.net/api/AddEvent?token="+staticObjects.getToken()
 				
@@ -56,7 +54,7 @@ public class CreateEventRequest implements Runnable{
 								+"&INprivacy=" + "0"
 								+"&INuserID=" + staticObjects.getCurrentUser().getUserID());
 		
-        Log.i("RETRIEVE ALL LOST :",httpget.getURI().toString());
+        Log.i("CREATE A NEW EVENT :",httpget.getURI().toString());
         
         
         
