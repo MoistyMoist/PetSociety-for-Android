@@ -609,15 +609,7 @@ public class JSONExtractor {
             String url=part1.replace("<ImageModel xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://schemas.datacontract.org/2004/07/BarterTradingWebServices.Model\"><Data>", "");
             
             Log.i("JSON", url);
-            if(StaticObjects.getSelectedLocation().getGallery()!=null)
-            {
-            	Image im= new Image();
-            	im.setImageURL(url.replace(" ", "%2520"));
-            	ArrayList<Image> images = new ArrayList<Image>();
-            	images.add(im);
-            	StaticObjects.getSelectedLocation().getGallery().setImages(images);
-            	
-            }
+            StaticObjects.setTemp(url);
             instream.close();
         }
 	}
@@ -757,4 +749,62 @@ public class JSONExtractor {
 	            instream.close();
 	        }
 		}
+
+		public void ExtractImageRequest(HttpResponse data) throws IllegalStateException, IOException, JSONException {
+			// TODO Auto-generated method stub
+			HttpEntity entity = data.getEntity();
+	        
+	        if (entity != null) {
+	            InputStream instream = entity.getContent();
+	            String result= convertStreamToString(instream);
+	            
+	            JSONObject json = null;
+	            json = new JSONObject(result);
+		
+				Log.i("IMAGE JSON ",json.toString() );
+
+	            
+	            //check status if all green to extract
+	            //StaticObjects.setResponseStatus((Integer) json.get(TAG_STATUS));
+				//StaticObjects.setResponseMessage(json.getString(TAG_MESSAGE));
+				
+				//JSONArray errors=json.getJSONArray(TAG_ERRORS);
+				
+				ArrayList<Image>img= new ArrayList<Image>();
+				if(StaticObjects.getResponseStatus()==0)
+				{
+					
+					JSONArray RawData= json.getJSONArray(TAG_DATA);
+					Log.i("IMAGE ",RawData.toString() );
+					
+					for(int i=0;i<RawData.length();i++)
+					{
+						
+						JSONObject c2=RawData.getJSONObject(i); Log.i("c ",c2.toString() );
+						
+						
+						Image p= new Image();
+						//JSONObject c2=(JSONObject) c.get(TAG_PETs);
+						//JSONObject c2=(JSONObject) c.get("PET");
+												
+						p.setImageURL(c2.getString("ImageURL").replace(" ", "%20"));
+						p.setType(c2.getString("Type"));
+						
+						img.add(p); 
+						
+						//Log.i("pet "+i,c.toString() );
+					} 
+					
+					StaticObjects.setImagesList(img);
+
+				}
+				else
+				{
+					Log.i("ERROR", "status==1");
+					Log.i("Message",StaticObjects.getResponseMessage());
+				}
+	            instream.close();
+	        }
+		}
+
 }

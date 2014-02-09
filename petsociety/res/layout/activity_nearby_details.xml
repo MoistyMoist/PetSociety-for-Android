@@ -10,7 +10,7 @@
         android:id="@+id/topLayoutR"
         android:layout_width="150dp"
         android:layout_height="200dp"
-        android:layout_weight="0.5" >
+        android:layout_weight="0.3" >
 
         <ImageView
             android:id="@+id/imageView1"
@@ -27,7 +27,7 @@
         android:layout_height="200dp"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/topLayoutR"
-        android:layout_weight="0.5"
+        android:layout_weight="0.3"
         android:orientation="vertical" >
 
         <TextView

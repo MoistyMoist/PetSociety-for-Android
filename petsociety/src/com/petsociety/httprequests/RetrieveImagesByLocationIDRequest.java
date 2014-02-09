@@ -14,21 +14,17 @@ import android.util.Log;
 import com.petsociety.utils.JSONExtractor;
 import com.petsociety.utils.StaticObjects;
 
-
-public class UpdateLocationRequest implements Runnable{
+public class RetrieveImagesByLocationIDRequest implements Runnable{
 
 	private StaticObjects staticObjects;
+	private int imgID;
 	
-	int LocationID;
-	String ImageURL;
-	
-	public UpdateLocationRequest( int LocationID, String imageURL)
+	public RetrieveImagesByLocationIDRequest(int imgID)
 	{
-		staticObjects = new StaticObjects();
-		this.LocationID=LocationID;
-		this.ImageURL=imageURL;
-		
+		this.imgID=imgID;
+		staticObjects= new StaticObjects();
 	}
+	
 	@Override
 	public void run() {
 
@@ -36,9 +32,10 @@ public class UpdateLocationRequest implements Runnable{
 		HttpGet httpget = null;
 		
 		//PREPARE REQUEST OBJECT
-		httpget = new HttpGet("http://petsociety.cloudapp.net/api/UpdateLocation?token=token&INlocationID="+LocationID+"&INimageURL="+ImageURL.replace(" ", "%20")); 
+		httpget = new HttpGet("http://petsociety.cloudapp.net/api/RetrieveGallery?token="+staticObjects.getToken()
+				+"&locationID="+imgID); 
 
-        Log.i("RETRIEVE REVIEW :",httpget.getURI().toString());
+        Log.i("RETRIEVE LOST BY ID :",httpget.getURI().toString());
         
         
         
@@ -48,22 +45,19 @@ public class UpdateLocationRequest implements Runnable{
         try {
             response = httpclient.execute(httpget);
             //PRINT OUT THE RESPONSE
-            Log.i("UPLOAD LOCATION RESPONSE :",response.toString());
+            Log.i("RETRIEVE LOST RESPONSE :",response.getStatusLine().toString());
             //PASS THE RESPONSE TO THE EXTRACTOR
-           JSONExtractor paser= new JSONExtractor();
-            paser.ExtractUpdateLocation(response);
+            JSONExtractor paser= new JSONExtractor();
+            paser.ExtractImageRequest(response);
 
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
+        } catch (JSONException e) {
 			e.printStackTrace();
 		}
 	}
 }
+
 

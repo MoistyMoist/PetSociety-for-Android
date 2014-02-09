@@ -64,7 +64,7 @@ public class StaticObjects {
 	static Location address;
 	
 	static Location title;
-	static ArrayList<Images> imagesList;
+	static ArrayList<Image> imagesList;
 	
 	//LOST OBJECTS (CHOON SENG)
 	static List<Lost> losts;
@@ -74,6 +74,7 @@ public class StaticObjects {
 	//Google PolyLine (Choon Seng)
 	static String polyline;
 	
+	static String temp;
 	
 	
 	
@@ -83,7 +84,12 @@ public class StaticObjects {
 	
 	
 	
-	
+	public static String getTemp() {
+		return temp;
+	}
+	public static void setTemp(String temp) {
+		StaticObjects.temp = temp;
+	}
 	public static String getPolyline() {
 		return polyline;
 	}
@@ -343,10 +349,10 @@ public class StaticObjects {
 		StaticObjects.type = type;
 	}
 	
-	public static ArrayList<Images> getImagesList() {
+	public static ArrayList<Image> getImagesList() {
 		return imagesList;
 	}
-	public static void setImagesList(ArrayList<Images> imagesList) {
+	public static void setImagesList(ArrayList<Image> imagesList) {
 		StaticObjects.imagesList = imagesList;
 	}
 	

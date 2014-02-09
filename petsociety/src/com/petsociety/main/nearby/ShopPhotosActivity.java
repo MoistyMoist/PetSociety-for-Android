@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.example.petsociety.R;
 import com.example.petsociety.R.layout;
 import com.example.petsociety.R.menu;
+import com.petsociety.httprequests.RetrieveImagesByLocationIDRequest;
 import com.petsociety.httprequests.UpdateLocationRequest;
 import com.petsociety.httprequests.UploadImageRequest;
 import com.petsociety.models.Image;
@@ -51,6 +52,10 @@ public class ShopPhotosActivity extends Activity {
 	    ProgressDialog progress;
 	    StaticObjects staticObjects;
 	    
+	    ArrayList<String> imageURLs;
+	    ListView gallery;
+	    UploadImageRequest uploadImage;
+	    
 	    ImageView selectedImage;  
 	     private Integer[] mImageIds = {
 	                R.drawable.puppy,
@@ -78,18 +83,20 @@ public class ShopPhotosActivity extends Activity {
 			}
 		});
 		
-		 ListView gallery = (ListView) findViewById(R.id.gallery1);
+		RetrieveImagesByLocationIDRequest request = new RetrieveImagesByLocationIDRequest(StaticObjects.getSelectedLocation().getLocationID());;
+		new BackgroundTask3().execute(request, null);
+		
+		
+		 gallery = (ListView) findViewById(R.id.gallery1);
 	        selectedImage=(ImageView)findViewById(R.id.imageView1);
 	        
 	        
 	        
 	        
-		      ArrayList<String> imageURLs = new ArrayList<String>();
+		      imageURLs = new ArrayList<String>();
 		     
 	        
-	      //  imageURLs.add(StaticObjects.getLocations().get(i).getGallery().getImages().get(x).getImageURL());
    		 
-	       gallery.setAdapter(new GalleryImageAdapter(getBaseContext(),imageURLs));
 
 	         // clicklistener for Gallery
 //	        gallery.setOnItemClickListener(new OnItemClickListener() {
@@ -165,11 +172,9 @@ public class ShopPhotosActivity extends Activity {
 //       Log.i("image data",base64.charAt(base64.length()-1)+"");
 //       Log.i("image data",base64);
        
-       UploadImageRequest uploadImage = new UploadImageRequest(base64);
-       UpdateLocationRequest update= new UpdateLocationRequest(1002,"http://autoheyanimal.com/style/images/cat02.jpg");
-       
-       
-       new BackgroundTask().execute(uploadImage, update);
+       uploadImage = new UploadImageRequest(base64);
+       new BackgroundTask1().execute(uploadImage,null);
+
       
       
 		
@@ -178,38 +183,22 @@ public class ShopPhotosActivity extends Activity {
 	
 	
 	
-private class BackgroundTask extends AsyncTask<Runnable, Integer, Long> {
+private class BackgroundTask1 extends AsyncTask<Runnable, Integer, Long> {
 	    
 		@Override
 		protected void onPreExecute() {
 		super.onPreExecute();
-		
-
-		 
 		}
 	
 		@Override
 		protected void onPostExecute(Long result) {
 			
-			if(progress!=null)
+		if(progress!=null)
 			progress.dismiss();
 	        staticObjects= new StaticObjects();
 	        
-	        
-//	        ArrayList<Location>loc = new ArrayList<Location>();
-//	        loc = StaticObjects.getLocations();
-//	        ArrayList<Image> img = new ArrayList<Image>();
-//	        img = (ArrayList<Image>) StaticObjects.getSelectedLocation().getGallery().getImages();
-//	        Image i = new Image();
-//	        i.setImageURL(StaticObjects.getSelectedLocation().getGallery().getImages().get(0).getImageURL());
-//	    //    Toast.makeText(getBaseContext(), StaticObjects.getImageUrl., duration)
-//	        img.add(i);
-//	        StaticObjects.getSelectedLocation().getGallery().setImages(img);
-//	        loc.add(StaticObjects.getSelectedLocation());
-//	        StaticObjects.setLocations(loc);
-	      
-	        
-			Log.i("String", "DONE");
+	        UpdateLocationRequest update= new UpdateLocationRequest(StaticObjects.getSelectedLocation().getLocationID(),StaticObjects.getTemp());
+	        new BackgroundTask2().execute(uploadImage, update);
 		}
 
 		@Override
@@ -224,6 +213,74 @@ private class BackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 			return null;
 		}
 	 }
+
+private class BackgroundTask2 extends AsyncTask<Runnable, Integer, Long> {
+    
+	@Override
+	protected void onPreExecute() {
+	super.onPreExecute();
+	}
+
+	@Override
+	protected void onPostExecute(Long result) {
+		
+	if(progress!=null)
+		progress.dismiss();
+        staticObjects= new StaticObjects();
+        
+        RetrieveImagesByLocationIDRequest request = new RetrieveImagesByLocationIDRequest(StaticObjects.getSelectedLocation().getLocationID());;
+		new BackgroundTask3().execute(request, null);
+	}
+
+	@Override
+	protected Long doInBackground(Runnable... task) {
+		
+		for(int i=0; i<task.length;i++)
+		{
+			if(task[i]!=null)
+				task[i].run();
+			if (isCancelled()) break;
+		}
+		return null;
+	}
+ }
+
+private class BackgroundTask3 extends AsyncTask<Runnable, Integer, Long> {
+    
+	@Override
+	protected void onPreExecute() {
+	super.onPreExecute();
+}
+
+	@Override
+	protected void onPostExecute(Long result) {
+		
+		if(progress!=null)
+		progress.dismiss();
+        staticObjects= new StaticObjects();
+        
+        for(int i=0; i<StaticObjects.getImagesList().size();i++){
+        	if(StaticObjects.getImagesList().get(i).getType().equals(Integer.toString(StaticObjects.getSelectedLocation().getLocationID())))
+        		{
+        			imageURLs.add(StaticObjects.getImagesList().get(i).getImageURL());
+        		}
+        }
+        gallery.setAdapter(new GalleryImageAdapter(getBaseContext(),imageURLs));
+		Log.i("String", "DONE");
+	}
+
+	@Override
+	protected Long doInBackground(Runnable... task) {
+		
+		for(int i=0; i<task.length;i++)
+		{
+			if(task[i]!=null)
+				task[i].run();
+			if (isCancelled()) break;
+		}
+		return null;
+	}
+ }
 	
 	
 	@Override

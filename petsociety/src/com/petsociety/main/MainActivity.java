@@ -624,7 +624,7 @@ public class MainActivity extends MainBaseActivity
 			
 			//mImageView.setImageResource(R.drawable.badge_lostdog);
 			Bitmap icon = mIconGenerator.makeIcon();
-			markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon)).title(title).snippet(getLocationAddress(x,y));
+			markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon)).title(title);
         }
 
         @Override
@@ -695,6 +695,22 @@ public class MainActivity extends MainBaseActivity
     
     public boolean onClusterItemClick(MapPin item) {
         // Does nothing, but you could go into the user's profile page, for example.
+    	String type = item.getType();
+    	double x=0, y=0;
+    	if (type.equals("lost")){
+    		x=item.getLost().getX();
+    		y=item.getLost().getY();
+    	}
+		if (type.equals("event")){
+			x=item.getEvent().getX();
+    		y=item.getEvent().getY();
+			}
+		if (type.equals("location")){
+			x=item.getLocation().getX();
+    		y=item.getLocation().getY();
+    	}
+    	
+        Toast.makeText(getApplicationContext(), getLocationAddress(x,y) , Toast.LENGTH_LONG).show();
         return false;
     }
 
