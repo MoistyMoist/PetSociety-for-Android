@@ -115,7 +115,7 @@ private class GetNearbyList extends AsyncTask<Runnable, Integer, Long> {
 		adapter = new NearbyListAdapter(context);
 		for (int i=0; i<StaticObjects.getLocations().size(); i++){
            
-			if(StaticObjects.getLocations().get(i).getType().equalsIgnoreCase("Pet Store"))
+			if(StaticObjects.getLocations().get(i).getType().equalsIgnoreCase("Pet Store")|| StaticObjects.getLocations().get(i).getType().equalsIgnoreCase("Vet"))
 			adapter.add(StaticObjects.getLocations().get(i));
 		}
 	    lv_events.setAdapter(adapter);
@@ -129,11 +129,11 @@ private class GetNearbyList extends AsyncTask<Runnable, Integer, Long> {
 
 		public View getView(int position, View convertView, ViewGroup parent) {
 			if (convertView == null) {
-				convertView = LayoutInflater.from(getContext()).inflate(R.layout.custom_event_row, null);
+				convertView = LayoutInflater.from(getContext()).inflate(R.layout.custom_nearbylist_row, null);
 			}
-			TextView title = (TextView) convertView.findViewById(R.id.row_event_title);
+			TextView title = (TextView) convertView.findViewById(R.id.row_nearby_title);
 			title.setText(getItem(position).getTitle());
-			TextView desc = (TextView) convertView.findViewById(R.id.row_event_description);
+			TextView desc = (TextView) convertView.findViewById(R.id.row_nearby_description);
 			desc.setText((getItem(position).getDescription().split(";"))[0]);	
 			
 			
