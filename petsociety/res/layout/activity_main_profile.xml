@@ -48,6 +48,13 @@
             android:text="Bishan"
             android:textSize="25sp" />
 
+        <Button 
+            android:id="@+id/b_add_pet"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Pet"
+            />
+                
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"

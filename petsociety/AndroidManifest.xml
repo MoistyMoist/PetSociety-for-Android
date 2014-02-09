@@ -74,6 +74,10 @@
             android:name="com.petsociety.main.profile.ProfileActivity"
             android:label="@string/title_activity_profile" >
         </activity>
+		<activity
+            android:name="com.petsociety.account.CreatePetActivity"
+            android:label="@string/title_activity_profile" >
+        </activity>
         <activity
             android:name="com.petsociety.main.lost.LostActivity"
             android:label="@string/title_activity_lost" >

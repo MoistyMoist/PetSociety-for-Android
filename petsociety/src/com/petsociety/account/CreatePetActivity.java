@@ -69,6 +69,7 @@ public class CreatePetActivity extends FragmentActivity {
 			@Override
 			public void onClick(View arg0) {
 				CreatePetRequest createPetRequest = new CreatePetRequest(et_name.getText().toString(),et_breed.getText().toString(),et_type.getText().toString(),et_sex.getText().toString(),et_age.getText().toString(),et_bio.getText().toString());
+				new BackgroundTask().execute(createPetRequest, null);
 			}
 		});
 		
