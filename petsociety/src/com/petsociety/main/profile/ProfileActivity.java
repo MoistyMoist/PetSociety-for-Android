@@ -10,7 +10,6 @@ import com.example.petsociety.R.menu;
 import com.petsociety.account.CreatePetActivity;
 import com.petsociety.httprequests.RetrieveAllEventRequest;
 import com.petsociety.main.lost.ReportLostPetLocation;
-import com.petsociety.models.Pet;
 import com.petsociety.utils.StaticObjects;
 
 import android.location.Address;
@@ -48,7 +47,7 @@ public class ProfileActivity extends Activity {
 		location = (TextView) findViewById(R.id.profile_location);
 		b_add_pet = (Button) findViewById(R.id.b_add_pet);
 		petListView = (ListView) findViewById(R.id.listView999);
-		ArrayAdapter<Pet> adapter = new ArrayAdapter<Pet>(this,android.R.layout.simple_list_item_1);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
 		
 	    name.setText(StaticObjects.getCurrentUser().getName());
 	    double x = (StaticObjects.getCurrentUser().getX());
@@ -56,9 +55,11 @@ public class ProfileActivity extends Activity {
 	    getMyLocationAddress(x, y);
 
 	    for(int i=0; i<StaticObjects.getCurrentUser().getPets().size();i++){
-	    	adapter.add(StaticObjects.getCurrentUser().getPets().get(i));
+	    	adapter.add(StaticObjects.getCurrentUser().getPets().get(i).getName());
 	    }
-
+	    if(StaticObjects.getCurrentUser().getPets().size() == 0){
+	    	adapter.add("None");
+	    }
 	    petListView.setAdapter(adapter);
 	    
 	    petListView.setOnItemClickListener(new OnItemClickListener(){
@@ -69,7 +70,15 @@ public class ProfileActivity extends Activity {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();
 				intent.setClass(getBaseContext(), PetProfile.class);
-				int petID = ((Pet)arg0.getItemAtPosition(arg2)).getPetID();
+				
+				int petID = 1;
+				for(int i=0; i<StaticObjects.getPets().size(); i++){
+					if( arg0.getItemAtPosition(arg2).equals(StaticObjects.getPets().get(i).getName()) ){
+						petID = StaticObjects.getPets().get(i).getPetID();
+					}
+				}
+				
+				
 				intent.putExtra("pet", petID);
 				startActivity(intent);
 			}
