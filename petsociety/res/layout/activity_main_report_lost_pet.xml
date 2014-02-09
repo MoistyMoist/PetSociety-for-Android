@@ -29,13 +29,6 @@
         android:layout_height="wrap_content"
         android:hint="Reward"
         android:inputType="phone" />
-	
-    <EditText
-        android:id="@+id/et_lost_age"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="Age"
-        android:inputType="phone" />
 
     <EditText
         android:id="@+id/et_lost_address"
