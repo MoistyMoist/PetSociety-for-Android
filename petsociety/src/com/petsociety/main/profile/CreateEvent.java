@@ -7,8 +7,8 @@ import java.util.Locale;
 
 import com.example.petsociety.R;
 import com.petsociety.httprequests.CreateEventRequest;
+import com.petsociety.httprequests.CreateLostRequest;
 import com.petsociety.main.lost.ReportLostPetLocation;
-
 
 import android.support.v4.app.FragmentActivity;
 import android.text.format.DateFormat;
@@ -38,16 +38,7 @@ import android.widget.Toast;
 
 public class CreateEvent extends FragmentActivity {
 	
-	/*
-	 * 	private String name;
-	private String desc;
-	private String startDateTime;
-	private String endDateTime;
-	private String x;
-	private String y;
-	 */
-	double x;
-	double y;
+	double x, y;
 	Context context = this;
 	Button b_create_event, b_select_location;
 	EditText et_eventTitle, et_description, et_location;
@@ -79,14 +70,10 @@ public class CreateEvent extends FragmentActivity {
 		});
 		
 		b_create_event.setOnClickListener(new OnClickListener(){
-
 			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				CreateEventRequest createEventRequest = new CreateEventRequest(et_eventTitle.getText().toString(), et_description.getText().toString(), et_start_date.getText().toString()+"T"+et_start_time.getText().toString(), et_end_date.getText().toString()+"T"+et_end_time.getText().toString(), Double.toString(x), Double.toString(y));
-				new EventBackgroundTask().execute(createEventRequest, null);
+			public void onClick(View arg0) {	
+				checkEvent();
 			}
-
 		});
 	}
 	

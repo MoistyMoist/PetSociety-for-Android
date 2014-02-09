@@ -24,9 +24,8 @@ public class CreateEventRequest implements Runnable{
 	private String x;
 	private String y;
 	
-	public CreateEventRequest(String name, String desc, String startDateTime,
-			String endDateTime, String x, String y) {
-		super();
+	public CreateEventRequest(String name, String desc, String startDateTime, String endDateTime, String x, String y) {
+		staticObjects = new StaticObjects();
 		this.name = name;
 		this.desc = desc;
 		this.startDateTime = startDateTime;
@@ -41,6 +40,7 @@ public class CreateEventRequest implements Runnable{
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpGet httpget = null;
 		
+		
 		String url = "http://petsociety.cloudapp.net/api/AddEvent?token="+staticObjects.getToken()
 				+"&INname=" + name.replace(" ", "%20") 
 				+"&INdescription=" + desc.replace(" ", "%20") 
@@ -50,13 +50,13 @@ public class CreateEventRequest implements Runnable{
 				+"&INy=" + y
 				+"&INstatus=" + "0"
 				+"&INprivacy=" + "0"
-				+"&INuserID=" + StaticObjects.getCurrentUser().getUserID();
+				+"&INuserID=" + staticObjects.getCurrentUser().getUserID();
 		
-		Log.i("EVENT",url);
+		//Log.i("EVENT",url);
 		
 		httpget = new HttpGet(url);
 
-        //Log.i("CREATE A NEW EVENT :",httpget.getURI().toString());
+        Log.i("CREATE A NEW EVENT :",httpget.getURI().toString());
         
         
         
