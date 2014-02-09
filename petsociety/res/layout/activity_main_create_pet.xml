@@ -1,0 +1,86 @@
+
+<ScrollView xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".ReportLostPetActivity" >
+
+    <RelativeLayout 
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content">
+    
+    <LinearLayout 
+        android:id="@+id/linearLayout0"
+       	android:layout_width="match_parent"
+   	 	android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_pet_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            android:inputType="textMultiLine" />
+        
+	<EditText
+        android:id="@+id/et_pet_breed"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Breed"
+         />
+	
+    <EditText
+        android:id="@+id/et_pet_type"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Type"
+	 />
+
+    <EditText
+        android:id="@+id/et_pet_bio"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Biography"
+	/>
+    
+            <EditText
+        android:id="@+id/et_pet_age"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Age"
+        android:inputType="phone"
+	/>
+    
+        <EditText
+        android:id="@+id/et_pet_sex"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Sex"
+	/>
+	
+	<LinearLayout
+	    android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+	</LinearLayout>
+	
+	
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+	
+	</LinearLayout>
+	
+    </LinearLayout>
+	
+    <Button
+        android:id="@+id/b_pet_create"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout0"
+        android:text="Add Pet" />
+    
+</RelativeLayout>
+</ScrollView>
