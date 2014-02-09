@@ -103,6 +103,7 @@ public class CreateEvent extends FragmentActivity {
 		{
 			Toast.makeText(CreateEvent.this, "Please fill in the empty fields",Toast.LENGTH_LONG).show();
 		} else {
+			
 			CreateEventRequest createEventRequest = new CreateEventRequest(et_eventTitle.getText().toString(), et_description.getText().toString(), et_start_date.getText().toString()+"T"+et_start_time.getText().toString(), et_end_date.getText().toString()+"T"+et_end_time.getText().toString(), Double.toString(x), Double.toString(y));
             new CreateEventBackgroundTask().execute( createEventRequest,null);
 		}

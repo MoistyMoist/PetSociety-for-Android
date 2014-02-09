@@ -33,6 +33,8 @@ public class CreateEventRequest implements Runnable{
 		this.endDateTime = endDateTime;
 		this.x = x;
 		this.y = y;
+        Log.i("Instiationed :",name + "," + desc + "," + startDateTime + "," + endDateTime + "," + x + "," + y);
+
 	}
 
 	@Override
