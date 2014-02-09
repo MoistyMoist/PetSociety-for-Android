@@ -1,6 +1,9 @@
 package com.petsociety.main.lost;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -14,6 +17,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.petsociety.main.MainActivity;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -101,6 +106,40 @@ public class ReportLostPetLocation extends SherlockFragmentActivity
     	addLostPetMarker();
     }
     
+public String getMyLocationAddress(double x, double y) {
+        
+        Geocoder geocoder= new Geocoder(this, Locale.ENGLISH);
+        String returnAddress = "No Location"; 
+        
+        try {
+              //Place your latitude and longitude
+              List<Address> addresses = geocoder.getFromLocation(x, y, 1);
+              if(addresses != null) {
+               
+                  Address fetchedAddress = addresses.get(0);
+                  StringBuilder strAddress = new StringBuilder();
+                
+                  for(int i=0; i<fetchedAddress.getMaxAddressLineIndex(); i++) {
+                        strAddress.append(fetchedAddress.getAddressLine(i));
+                        //Log.i("Address", fetchedAddress.getAddressLine(i));
+                  }
+                  
+        	    	returnAddress = strAddress.toString();
+              }
+               
+              else{
+            	  returnAddress = "No location found";
+              }
+          
+        } 
+        catch (IOException e) {
+                 // TODO Auto-generated catch block
+                 e.printStackTrace();
+                 Toast.makeText(getApplicationContext(),"Could not get address..!", Toast.LENGTH_LONG).show();
+        }
+		return returnAddress;
+    }
+    
 public void addLostPetMarker(){
     	
 	for (int i=0; i<mLostPet.size(); i++){
@@ -110,5 +149,7 @@ public void addLostPetMarker(){
 	MarkerOptions mOption = new MarkerOptions().position(lostMarker);
 	mLostPet.add(mMap.addMarker(mOption));
     	
+	Toast.makeText(getApplicationContext(), getMyLocationAddress(lostMarker.latitude,lostMarker.longitude), Toast.LENGTH_SHORT).show();
+	
     }
 }
