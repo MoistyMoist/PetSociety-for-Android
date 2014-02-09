@@ -33,8 +33,6 @@ public class CreateEventRequest implements Runnable{
 		this.endDateTime = endDateTime;
 		this.x = x;
 		this.y = y;
-        Log.i("Instiationed :",name + "," + desc + "," + startDateTime + "," + endDateTime + "," + x + "," + y);
-
 	}
 
 	@Override
@@ -43,20 +41,22 @@ public class CreateEventRequest implements Runnable{
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpGet httpget = null;
 		
-
-		httpget = new HttpGet("http://petsociety.cloudapp.net/api/AddEvent?token="+staticObjects.getToken()
-				
-								+"&INname=" + name.replace(" ", "%20") 
-								+"&INdescription=" + desc.replace(" ", "%20") 
-								+"&INstartDateTime=" + startDateTime
-								+"&INendDateTime=" + endDateTime
-								+"&INx=" + x
-								+"&INy=" + y
-								+"&INstatus=" + "0"
-								+"&INprivacy=" + "0"
-								+"&INuserID=" + staticObjects.getCurrentUser().getUserID());
+		String url = "http://petsociety.cloudapp.net/api/AddEvent?token="+staticObjects.getToken()
+				+"&INname=" + name.replace(" ", "%20") 
+				+"&INdescription=" + desc.replace(" ", "%20") 
+				+"&INstartDateTime=" + startDateTime
+				+"&INendDateTime=" + endDateTime
+				+"&INx=" + x
+				+"&INy=" + y
+				+"&INstatus=" + "0"
+				+"&INprivacy=" + "0"
+				+"&INuserID=" + StaticObjects.getCurrentUser().getUserID();
 		
-        Log.i("CREATE A NEW EVENT :",httpget.getURI().toString());
+		Log.i("EVENT",url);
+		
+		httpget = new HttpGet(url);
+
+        //Log.i("CREATE A NEW EVENT :",httpget.getURI().toString());
         
         
         

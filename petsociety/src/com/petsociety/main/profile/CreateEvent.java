@@ -7,10 +7,8 @@ import java.util.Locale;
 
 import com.example.petsociety.R;
 import com.petsociety.httprequests.CreateEventRequest;
-import com.petsociety.httprequests.CreateLostRequest;
 import com.petsociety.main.lost.ReportLostPetLocation;
-import com.petsociety.main.lost.ReportLostPetActivity.DatePickerFragment;
-import com.petsociety.main.lost.ReportLostPetActivity.TimePickerFragment;
+
 
 import android.support.v4.app.FragmentActivity;
 import android.text.format.DateFormat;
@@ -83,53 +81,56 @@ public class CreateEvent extends FragmentActivity {
 		b_create_event.setOnClickListener(new OnClickListener(){
 
 			@Override
-			public void onClick(View v) {
-				checkEvent();
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				CreateEventRequest createEventRequest = new CreateEventRequest(et_eventTitle.getText().toString(), et_description.getText().toString(), et_start_date.getText().toString()+"T"+et_start_time.getText().toString(), et_end_date.getText().toString()+"T"+et_end_time.getText().toString(), Double.toString(x), Double.toString(y));
+				new EventBackgroundTask().execute(createEventRequest, null);
 			}
+
 		});
 	}
 	
 	public void checkEvent() {
 
-		et_eventTitle = (EditText) findViewById(R.id.et_eventTitle);
-		et_description = (EditText) findViewById(R.id.et_description);
-		et_location = (EditText) findViewById(R.id.et_location);
-
-
 		if (et_eventTitle.getText().toString().isEmpty()
 				|| et_description.getText().toString().isEmpty()
 				|| et_location.getText().toString().isEmpty())
-
 		{
 			Toast.makeText(CreateEvent.this, "Please fill in the empty fields",Toast.LENGTH_LONG).show();
 		} else {
-			
 			CreateEventRequest createEventRequest = new CreateEventRequest(et_eventTitle.getText().toString(), et_description.getText().toString(), et_start_date.getText().toString()+"T"+et_start_time.getText().toString(), et_end_date.getText().toString()+"T"+et_end_time.getText().toString(), Double.toString(x), Double.toString(y));
-            new CreateEventBackgroundTask().execute( createEventRequest,null);
+			new EventBackgroundTask().execute(createEventRequest, null);
 		}
-
 	}
 	
-	 private class CreateEventBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
-         
-         @Override
-         protected void onPostExecute(Long result) {
-                 super.onPostExecute(result);
-                 //create success
-         }
+	private class EventBackgroundTask extends AsyncTask<Runnable, Integer, Long> {
+	    
+		@Override
+		protected void onPostExecute(Long result) {
+			
+			super.onPostExecute(result);
+			Toast.makeText(getApplicationContext(), "Created", Toast.LENGTH_SHORT).show();
+			finish();
+						
+		}
 
-         @Override
-         protected void onPreExecute() {super.onPreExecute();}
+		@Override
+		protected void onPreExecute() {
+			//Toast.makeText(context, "Refreshing..", Toast.LENGTH_SHORT).show();
+			super.onPreExecute();
+		}
 
-         @Override
-         protected Long doInBackground(Runnable... task) {
-                 for(int i=0; i<task.length;i++){
-                         if(task[i]!=null)
-                                 task[i].run();
-                         if (isCancelled()) break;
-                 }
-                 return null;
-         }
+		@Override
+		protected Long doInBackground(Runnable... task) {
+			
+			for(int i=0; i<task.length;i++)
+			{
+				if(task[i]!=null)
+					task[i].run();
+				if (isCancelled()) break;
+			}
+			return null;
+		}
 	 }
 	
 	@Override
