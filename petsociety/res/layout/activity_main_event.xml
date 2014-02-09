@@ -91,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_current_location"
             android:layout_alignLeft="@+id/tv_description"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="7dp"
             android:layout_alignParentBottom="true"
             android:text="" />
 
@@ -101,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/tv_location"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="56dp"
             android:text="Show me the way!"
             android:textSize="19sp" />
 
