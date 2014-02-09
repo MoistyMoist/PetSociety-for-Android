@@ -1,6 +1,7 @@
 package com.petsociety.main.nearby;
 
 import com.example.petsociety.R;
+import com.petsociety.httprequests.CreateReviewRequest;
 import com.petsociety.httprequests.RetrieveAllEventRequest;
 import com.petsociety.httprequests.RetrieveAllLocationRequest;
 import com.petsociety.httprequests.RetrieveAllReviewRequest;
@@ -19,9 +20,12 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -34,8 +38,9 @@ public class ShopReviewActivity extends Activity {
 	StaticObjects staticObjects;
 	ProgressDialog progress;
 	Context context = this;
-
 	
+	EditText title, desc;
+	Button send;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +48,21 @@ public class ShopReviewActivity extends Activity {
 		setContentView(R.layout.activity_shop_review);
 		
 		lv_review = (ListView) findViewById(R.id.listReview);
+		title =(EditText) findViewById(R.id.et_r_title);
+		desc =(EditText) findViewById(R.id.et_r_desc);
+		send = (Button) findViewById(R.id.btn_review);
+		
+		send.setOnClickListener(new OnClickListener(){
 
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				CreateReviewRequest createReviewRequest = new CreateReviewRequest(title.getText().toString(),desc.getText().toString());
+				new SendReview().execute(createReviewRequest, null);
+			}
+			
+		});
+		
 		RetrieveAllReviewRequest retrieveAllReviewRequest = new RetrieveAllReviewRequest();
 		new GetReviewList().execute(retrieveAllReviewRequest, null);
 		
@@ -54,6 +73,37 @@ public class ShopReviewActivity extends Activity {
 				
 			}});
 	}
+	
+	
+private class SendReview extends AsyncTask<Runnable, Integer, Long> {
+	    
+		@Override
+		protected void onPreExecute() {
+		super.onPreExecute();
+		}
+	
+		@Override
+		protected void onPostExecute(Long result) {
+			
+			if(progress!=null)
+			progress.dismiss();
+	        staticObjects= new StaticObjects();
+	        RetrieveAllReviewRequest retrieveAllReviewRequest = new RetrieveAllReviewRequest();
+			new GetReviewList().execute(retrieveAllReviewRequest, null);
+		}
+
+		@Override
+		protected Long doInBackground(Runnable... task) {
+			
+			for(int i=0; i<task.length;i++)
+			{
+				if(task[i]!=null)
+					task[i].run();
+				if (isCancelled()) break;
+			}
+			return null;
+		}
+	 }
 	
 	
 private class GetReviewList extends AsyncTask<Runnable, Integer, Long> {
