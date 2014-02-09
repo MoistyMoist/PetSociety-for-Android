@@ -301,6 +301,14 @@ public class MainActivity extends MainBaseActivity
 			if(progress!=null)
 				progress.dismiss();
 	        petList = StaticObjects.getPets();
+	        
+	        List<Pet> userPet = new ArrayList<Pet>();
+	        for(int i=0; i<petList.size();i++){
+	        	if(petList.get(i).getUserID()==StaticObjects.getCurrentUser().getUserID()){
+	        		userPet.add(petList.get(i));
+	        	}
+	        }
+	        StaticObjects.getCurrentUser().setPets(userPet);
 		}
 
 		@Override

@@ -23,7 +23,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +34,7 @@ public class ProfileActivity extends Activity {
 		
 	TextView name, location;
 	Button b_add_pet;
+	ListView petListView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +44,22 @@ public class ProfileActivity extends Activity {
 		name = (TextView) findViewById(R.id.profile_name);
 		location = (TextView) findViewById(R.id.profile_location);
 		b_add_pet = (Button) findViewById(R.id.b_add_pet);
+		petListView = (ListView) findViewById(R.id.listView999);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
 		
 	    name.setText(StaticObjects.getCurrentUser().getName());
 	    double x = (StaticObjects.getCurrentUser().getX());
 	    double y = (StaticObjects.getCurrentUser().getY());
 	    getMyLocationAddress(x, y);
 
+	    for(int i=0; i<StaticObjects.getCurrentUser().getPets().size();i++){
+	    	adapter.add(StaticObjects.getCurrentUser().getPets().get(i).getName());
+	    }
+	    if(StaticObjects.getCurrentUser().getPets().size() == 0){
+	    	adapter.add("None");
+	    }
+	    petListView.setAdapter(adapter);
+	    
 	    b_add_pet.setOnClickListener(new OnClickListener(){
 
 			@Override
