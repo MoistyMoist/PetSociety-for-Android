@@ -27,7 +27,7 @@
         android:ems="10"
         android:inputType="textPostalAddress" >
 
-        <requestFocus />
+       
     </EditText>
 
     <EditText
@@ -86,43 +86,63 @@
         android:text="Address of Place"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <EditText
-        android:id="@+id/etAddWebsite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnAddLocation"
-        android:layout_alignLeft="@+id/btnAddLocation"
-        android:layout_alignRight="@+id/btnAddLocation"
-        android:layout_marginBottom="18dp"
-        android:ems="10"
-        android:inputType="textUri" />
-
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/etAddWebsite"
-        android:layout_alignLeft="@+id/etAddWebsite"
-        android:text="Website"
+        android:layout_alignLeft="@+id/etAddDescription"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/etAddDescription"
+        android:text="Contact  of Place:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
         android:id="@+id/etAddPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textView5"
-        android:layout_alignLeft="@+id/textView5"
+        android:layout_alignLeft="@+id/textView4"
         android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView4"
         android:ems="10"
-        android:inputType="phone" />
+        android:inputType="phone" >
+
+        <requestFocus />
+    </EditText>
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/etAddPhone"
         android:layout_alignLeft="@+id/etAddPhone"
-        android:text="Contact  of Place:"
+        android:layout_below="@+id/etAddPhone"
+        android:text="Website"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/etAddWebsite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView5"
+        android:layout_below="@+id/textView5"
+        android:ems="10"
+        android:inputType="textUri" />
+
+    <Spinner
+        android:id="@+id/spType"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnAddLocation"
+        android:layout_alignLeft="@+id/TextView01"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/etAddWebsite" />
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/etAddWebsite"
+        android:layout_alignTop="@+id/spType"
+        android:text="Type"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

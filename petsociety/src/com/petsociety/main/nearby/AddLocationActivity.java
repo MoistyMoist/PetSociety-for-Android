@@ -27,8 +27,12 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 public class AddLocationActivity extends  FragmentActivity implements
@@ -40,6 +44,9 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 	String  type = "Vet" ;
 	double x,y;
 	int userID=StaticObjects.getCurrentUser().getUserID();
+	Spinner spType;
+	ArrayAdapter<CharSequence>adapter;
+	String[] items={"Select Type Here ","Pet Store", "Vet"};
 	
 	Button btnAddLocation,btnGetAddress;
 	 Location mCurrentLocation;
@@ -55,11 +62,28 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 		etAddDescription = (EditText) findViewById(R.id.etAddDescription);
 		etAddWebsite = (EditText) findViewById(R.id.etAddWebsite);
 		etAddPhone = (EditText) findViewById(R.id.etAddPhone);
-		
+		spType=(Spinner)findViewById(R.id.spType);
 		btnGetAddress=(Button) findViewById(R.id.btnGetAddress);
 		btnAddLocation=(Button) findViewById(R.id.btnAddLocation);
+		adapter= new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_dropdown_item, items);
+		spType.setAdapter(adapter);
 		
-		
+		spType.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				// TODO Auto-generated method stub
+				
+				
+				
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				
+			}});
 		
 		btnGetAddress.setOnClickListener(new OnClickListener(){
 
