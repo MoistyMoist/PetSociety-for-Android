@@ -167,7 +167,7 @@ public class ShopPhotosActivity extends Activity {
        bitmap.compress(CompressFormat.JPEG, 1, bos);
        byte[] data = bos.toByteArray();
        base64 = Base64.encodeToString(data, Base64.NO_WRAP);
-       Toast.makeText(getBaseContext(), base64.toString(), Toast.LENGTH_SHORT).show();
+       Toast.makeText(getBaseContext(), "Thank you for uploading", Toast.LENGTH_LONG).show();
 //       Log.i("image data",data.length+"");
 //       Log.i("image data",base64.length()+"");
 //       Log.i("image data",base64.charAt(base64.length()-1)+"");
