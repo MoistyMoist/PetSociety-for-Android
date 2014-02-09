@@ -763,9 +763,9 @@ public class MainActivity extends MainBaseActivity
 	@Override
 	public void onMapLoaded() {
 		// TODO Auto-generated method stub
-        Location location = mMap.getMyLocation();
-        StaticObjects.getCurrentUser().setX(location.getLatitude());
-        StaticObjects.getCurrentUser().setY(location.getLongitude()); 
+        //Location location = mMap.getMyLocation();
+        //StaticObjects.getCurrentUser().setX(location.getLatitude());
+        //StaticObjects.getCurrentUser().setY(location.getLongitude()); 
 	}
 
 }
