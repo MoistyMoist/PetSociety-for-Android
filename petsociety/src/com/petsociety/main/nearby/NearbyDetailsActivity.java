@@ -13,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
@@ -36,6 +37,7 @@ public class NearbyDetailsActivity extends TabActivity  {
 	TabHost tabHost;
 	TabSpec tab2,tab3,tab4;
 	Button btnNavigate;
+	ImageView imageViewNearbyDetails;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class NearbyDetailsActivity extends TabActivity  {
 		tvShopName = (TextView) findViewById(R.id.tvShopName);
 		call = (ImageButton) findViewById(R.id.nearbyDetailsCall);
 		btnNavigate=(Button) findViewById(R.id.btnNavigate);
+		imageViewNearbyDetails=(ImageView)findViewById(R.id.imageViewNearbyDetails);
 
 		
 		tabHost = (TabHost) findViewById(android.R.id.tabhost);
@@ -81,7 +84,8 @@ public class NearbyDetailsActivity extends TabActivity  {
 		
 	
 
-
+		
+		
 	
 //		Intent intentTitle = getIntent();
 //		Bundle title = intentTitle.getExtras();

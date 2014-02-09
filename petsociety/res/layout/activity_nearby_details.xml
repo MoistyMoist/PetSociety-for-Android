@@ -12,7 +12,7 @@
 	    android:layout_height="160dp" >
 	    
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/imageViewNearbyDetails"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_alignParentRight="true"

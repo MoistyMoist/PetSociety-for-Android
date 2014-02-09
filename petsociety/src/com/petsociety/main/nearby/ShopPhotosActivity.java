@@ -70,6 +70,8 @@ public class ShopPhotosActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_shop_photos);
 		
+		imageView = (ImageView) findViewById(R.id.imageView11);
+		
 		uploadImageButton=(Button)findViewById(R.id.uploadImageButton);
 		
 		uploadImageButton.setOnClickListener(new OnClickListener() {
@@ -116,7 +118,7 @@ public class ShopPhotosActivity extends Activity {
         	    && null != data) {
         	   Uri selectedImage = data.getData();
         	   String[] filePathColumn = { MediaStore.Images.Media.DATA };
-
+        	   Toast.makeText(getBaseContext(), "hello", Toast.LENGTH_SHORT).show();
         	   Cursor cursor = getContentResolver().query(selectedImage,
         	     filePathColumn, null, null, null);
         	   cursor.moveToFirst();
@@ -126,7 +128,7 @@ public class ShopPhotosActivity extends Activity {
         	   Toast.makeText(getBaseContext(), picturePath.toString(), Toast.LENGTH_SHORT).show();
         	   cursor.close();
 
-        	 decodeFile(picturePath);
+        	   decodeFile(picturePath);
         	  }
     }
 	
