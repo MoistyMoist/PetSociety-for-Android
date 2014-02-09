@@ -53,35 +53,20 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Add Pet"
+            android:layout_below="@+id/profile_location"
             />
                 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/profile_location"
+            android:layout_below="@+id/b_add_pet"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:text="Pets:"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="22sp" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_alignLeft="@+id/textView5"
-            android:layout_below="@+id/textView4"
-            android:cropToPadding="true"
-            android:src="@drawable/puppy" />
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/textView5"
-            android:src="@drawable/cat" />
 
     </RelativeLayout>
 

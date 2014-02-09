@@ -17,24 +17,21 @@ import com.petsociety.utils.StaticObjects;
 public class CreateUserRequest implements Runnable{
 
 	private StaticObjects staticObjects;
-	private String dateTime;
-	private String address;
-	private String desc;
-	private String x;
-	private String y;
-	private String reward;
+	private String pass;
+	private String name;
+	private String email;
+	private String sex;
 	
-	public CreateUserRequest(String dateTime, String address, String desc, String x, String y, String reward)
-	{
+	public CreateUserRequest(String name, String pass, String email, String sex) {
 		staticObjects= new StaticObjects();
-		this.dateTime = dateTime;
-		this.address = address;
-		this.desc = desc;
-		this.x = x;
-		this.y = y;
-		this.reward = reward;
+		this.pass = pass;
+		this.name = name;
+		this.email = email;
+		this.sex = sex;
 	}
-	
+
+
+
 	@Override
 	public void run() {
 
@@ -42,19 +39,12 @@ public class CreateUserRequest implements Runnable{
 		HttpGet httpget = null;
 		
 		//PREPARE REQUEST OBJECT
-		//httpget = new HttpGet("http://petsociety.cloudapp.net/api/RetrieveLost?INtoken="+staticObjects.getToken()); 
-
-		httpget = new HttpGet("http://petsociety.cloudapp.net/api/ReportLost?token="+staticObjects.getToken()
-				
-								+"&INdateTimeSeen=" + dateTime
-								+"&INaddress=" + address.replace(" ", "%20") 
-								+"&INDescription=" + desc.replace(" ", "%20") 
-								+"&INx=" + x
-								+"&INy=" + y
-								+"&INfound=" + "0"
-								+"&INreward=" + reward
-								+"&INpetID=" + "1" 
-								+"&INuserID=" + staticObjects.getCurrentUser().getUserID());
+		//RegisterUser?token={token}&INname={INname}&INemail={INemail}&INpassword={INpassword}&INsex={INsex}
+		httpget = new HttpGet("http://petsociety.cloudapp.net/api/RegisterUser?token="+staticObjects.getToken()
+								+"&INname=" + name.replace(" ", "%20") 
+								+"&INemail=" + email
+								+"&INpassword=" + pass
+								+"&INsex=" + sex);
 		
         Log.i("RETRIEVE ALL LOST :",httpget.getURI().toString());
         
