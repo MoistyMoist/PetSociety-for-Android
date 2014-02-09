@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Locale;
 
 import com.example.petsociety.R;
-import com.example.petsociety.R.layout;
-import com.example.petsociety.R.string;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -15,17 +13,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.petsociety.main.MainBaseActivity;
 import com.petsociety.main.RouteActivity;
-import com.petsociety.main.profile.EventList.EventListAdapter;
 import com.petsociety.models.Event;
 import com.petsociety.utils.StaticObjects;
 
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
