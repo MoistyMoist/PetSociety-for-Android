@@ -88,5 +88,10 @@
     <string name="title_activity_add_location">Add Location</string>
     <string name="title_activity_set_add_location">Set Add Location</string>
     <string name="title_activity_gallery_image_adapter">GalleryImageAdapter</string>
+    
+	<string name="title_routing">Routing</string>
+	<string name="title_addpet">Add Pet</string>
+		<string name="title_create_event">Create Event</string>
+	
 
 </resources>

@@ -31,7 +31,8 @@ public class EventList extends MainBaseActivity {
 	StaticObjects staticObjects;
 	ProgressDialog progress;
 	Context context = this;
-
+	TextView tv_title;
+	
 	public EventList(){
 		super(R.string.title_activity_event);
 	}
@@ -42,7 +43,8 @@ public class EventList extends MainBaseActivity {
 		setContentView(R.layout.activity_event_list);
 		
 		lv_events = (ListView) findViewById(R.id.lv_all_events);
-
+		tv_title = (TextView) findViewById(R.id.textView123456);
+		
 		RetrieveAllEventRequest retrieveAllEvents = new RetrieveAllEventRequest();
 		new GetEventList().execute(retrieveAllEvents, null);
 		
