@@ -10,10 +10,12 @@ import java.util.Set;
 
 import com.petsociety.httprequests.*;
 import com.petsociety.main.lost.LostActivity;
+import com.petsociety.main.lost.LostProfileActivity;
 import com.petsociety.main.nearby.NearbyActivity;
 import com.petsociety.main.nearby.NearbyDetailsActivity;
 import com.petsociety.main.nearby.NearbyList;
 import com.petsociety.main.profile.EventActivity;
+import com.petsociety.main.profile.PetProfile;
 import com.petsociety.models.Address;
 import com.petsociety.models.Event;
 import com.petsociety.models.Lost;
@@ -718,7 +720,11 @@ public class MainActivity extends MainBaseActivity
         // Does nothing, but you could go into the user's profile page, for example.
     	String type = item.getType();
 		if(type.equalsIgnoreCase("lost")){
-	     	
+			Intent intent = new Intent();
+			intent.setClass(getBaseContext(), PetProfile.class);
+			int petID = item.getLost().getPet().getPetID();
+			intent.putExtra("pet", petID);
+			startActivity(intent);
 	    }
 	    if(type.equalsIgnoreCase("event")){
 			Intent intent = new Intent();

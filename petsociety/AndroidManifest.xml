@@ -83,6 +83,10 @@
             android:label="@string/title_addpet" >
         </activity>
         <activity
+            android:name="com.petsociety.main.profile.PetProfile"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name="com.petsociety.main.lost.LostActivity"
             android:label="@string/title_activity_lost" >
         </activity>

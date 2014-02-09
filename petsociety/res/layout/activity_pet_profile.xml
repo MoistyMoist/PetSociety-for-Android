@@ -5,81 +5,103 @@
     tools:context=".PetProfile" >
 
     <TextView
-        android:id="@+id/tv_pet_name"
+        android:id="@+id/tv_pp_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="76dp"
+		android:textAppearance="@android:style/TextAppearance.Large"
         android:text="Pet Name"
         android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/tv_bio"
+    
+	<TextView
+        android:id="@+id/tv_pp1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_pet_name"
+        android:layout_below="@+id/tv_pp_name"
+        android:layout_centerHorizontal="true"
+        android:text="Your Dear Pet" />
+	
+	<TextView
+        android:id="@+id/tv_pp_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_pp_name"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:text="Bio"
+        android:textAppearance="@android:style/TextAppearance.Large"  
+        android:text="Age"
         android:textSize="20sp" />
-
-    <View
-        android:layout_width="100dp"
-        android:layout_height="2dp"
-        android:layout_below="@+id/tv_pet_name"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="2dp"
-        android:background="#2B497B" />
-
-    <View
-        android:id="@+id/view1"
-        android:layout_width="100dp"
-        android:layout_height="2dp"
-        android:layout_below="@+id/tv_bio"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="2dp"
-        android:background="#2B497B" />
-    
-    
-
-    <TextView
-        android:id="@+id/tv_gender"
+	
+		<TextView
+        android:id="@+id/tv_pp2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_bio"
+        android:layout_below="@+id/tv_pp_age"
+        android:layout_centerHorizontal="true"
+        android:text="Dear Pet Age" />
+		
+	 <TextView
+        android:id="@+id/tv_pp_bio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_pp_age"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
+		android:textAppearance="@android:style/TextAppearance.Large"        
+        android:text="Bio"
+        android:textSize="20sp" />	
+        
+		<TextView
+		    android:id="@+id/tv_pp3"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_below="@+id/tv_pp_bio"
+		    android:layout_centerHorizontal="true"
+		    android:text="Dear Pet Bio" />
+    
+    	
+
+    <TextView
+        android:id="@+id/tv_pp_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_pp_bio"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textAppearance="@android:style/TextAppearance.Large"  
         android:text="Gender"
         android:textSize="20sp" />
     
-    
-    <View
-        android:id="@+id/view2"
-        android:layout_width="100dp"
-        android:layout_height="2dp"
-        android:layout_below="@+id/tv_gender"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="2dp"
-        android:background="#2B497B" />
-    
     <TextView
-        android:id="@+id/tv_type"
+        android:id="@+id/tv_pp4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_gender"
+        android:layout_below="@+id/tv_pp_gender"
+        android:layout_centerHorizontal="true"
+        android:text="Dear Pet Gender" />
+    
+    	
+    <TextView
+        android:id="@+id/tv_pp_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_pp_gender"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
+        android:textAppearance="@android:style/TextAppearance.Large"  
         android:text="Type"
         android:textSize="20sp" />
     
-        <View
-        android:id="@+id/view3"
-        android:layout_width="100dp"
-        android:layout_height="2dp"
-        android:layout_below="@+id/tv_type"
+    <TextView
+        android:id="@+id/tv_pp5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_pp_type"
         android:layout_centerHorizontal="true"
-        android:layout_margin="2dp"
-        android:background="#2B497B" />
-
+        android:text="Dear Pet Type" />
+    
+    
+       
 </RelativeLayout>

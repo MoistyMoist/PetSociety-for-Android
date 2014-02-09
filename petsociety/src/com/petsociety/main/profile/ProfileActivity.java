@@ -10,6 +10,7 @@ import com.example.petsociety.R.menu;
 import com.petsociety.account.CreatePetActivity;
 import com.petsociety.httprequests.RetrieveAllEventRequest;
 import com.petsociety.main.lost.ReportLostPetLocation;
+import com.petsociety.models.Pet;
 import com.petsociety.utils.StaticObjects;
 
 import android.location.Address;
@@ -24,6 +25,8 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -59,6 +62,21 @@ public class ProfileActivity extends Activity {
 	    	adapter.add("None");
 	    }
 	    petListView.setAdapter(adapter);
+	    
+	    petListView.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent();
+				intent.setClass(getBaseContext(), PetProfile.class);
+				int petID = ((Pet)arg0.getItemAtPosition(arg2)).getPetID();
+				intent.putExtra("pet", petID);
+				startActivity(intent);
+			}
+	    	
+	    });
 	    
 	    b_add_pet.setOnClickListener(new OnClickListener(){
 
