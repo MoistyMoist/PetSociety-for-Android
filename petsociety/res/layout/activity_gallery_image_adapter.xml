@@ -8,9 +8,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".GalleryImageAdapter" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+  <com.petsociety.utils.LoaderImageView
+        android:id="@+id/imageView1"
+        android:layout_marginTop="100dp"
+        android:layout_width="250dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="250dp"
+        android:src="@drawable/puppy" />
 
 </RelativeLayout>

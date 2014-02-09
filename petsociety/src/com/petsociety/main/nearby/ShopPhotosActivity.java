@@ -1,11 +1,15 @@
 package com.petsociety.main.nearby;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 
 import com.example.petsociety.R;
 import com.example.petsociety.R.layout;
 import com.example.petsociety.R.menu;
+import com.petsociety.httprequests.UpdateLocationRequest;
 import com.petsociety.httprequests.UploadImageRequest;
+import com.petsociety.models.Image;
+import com.petsociety.models.Location;
 
 import com.petsociety.utils.StaticObjects;
 
@@ -31,6 +35,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,20 +78,28 @@ public class ShopPhotosActivity extends Activity {
 			}
 		});
 		
-		 Gallery gallery = (Gallery) findViewById(R.id.gallery1);
+		 ListView gallery = (ListView) findViewById(R.id.gallery1);
 	        selectedImage=(ImageView)findViewById(R.id.imageView1);
-	        gallery.setSpacing(1);
-	        gallery.setAdapter(new GalleryImageAdapter(this));
+	        
+	        
+	        
+	        
+		      ArrayList<String> imageURLs = new ArrayList<String>();
+		     
+	        
+	      //  imageURLs.add(StaticObjects.getLocations().get(i).getGallery().getImages().get(x).getImageURL());
+   		 
+	       gallery.setAdapter(new GalleryImageAdapter(getBaseContext(),imageURLs));
 
 	         // clicklistener for Gallery
-	        gallery.setOnItemClickListener(new OnItemClickListener() {
-	            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-	                Toast.makeText(ShopPhotosActivity.this, "Your selected position = " + position, Toast.LENGTH_SHORT).show();
-	                // show the selected Image
-	                selectedImage.setImageResource(mImageIds[position]);
-	            }
-	        });
-		
+//	        gallery.setOnItemClickListener(new OnItemClickListener() {
+//	            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+//	                Toast.makeText(ShopPhotosActivity.this, "Your selected position = " + position, Toast.LENGTH_SHORT).show();
+//	                // show the selected Image
+//	                selectedImage.setImageResource(mImageIds[position]);
+//	            }
+//	        });
+//		
 		
 		
 	}
@@ -153,8 +166,11 @@ public class ShopPhotosActivity extends Activity {
 //       Log.i("image data",base64);
        
        UploadImageRequest uploadImage = new UploadImageRequest(base64);
-       new BackgroundTask().execute(uploadImage, null);
-     
+       UpdateLocationRequest update= new UpdateLocationRequest(1002,"http://autoheyanimal.com/style/images/cat02.jpg");
+       
+       
+       new BackgroundTask().execute(uploadImage, update);
+      
       
 		
 	}
@@ -167,6 +183,9 @@ private class BackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 		@Override
 		protected void onPreExecute() {
 		super.onPreExecute();
+		
+
+		 
 		}
 	
 		@Override
@@ -177,7 +196,19 @@ private class BackgroundTask extends AsyncTask<Runnable, Integer, Long> {
 	        staticObjects= new StaticObjects();
 	        
 	        
-			
+//	        ArrayList<Location>loc = new ArrayList<Location>();
+//	        loc = StaticObjects.getLocations();
+//	        ArrayList<Image> img = new ArrayList<Image>();
+//	        img = (ArrayList<Image>) StaticObjects.getSelectedLocation().getGallery().getImages();
+//	        Image i = new Image();
+//	        i.setImageURL(StaticObjects.getSelectedLocation().getGallery().getImages().get(0).getImageURL());
+//	    //    Toast.makeText(getBaseContext(), StaticObjects.getImageUrl., duration)
+//	        img.add(i);
+//	        StaticObjects.getSelectedLocation().getGallery().setImages(img);
+//	        loc.add(StaticObjects.getSelectedLocation());
+//	        StaticObjects.setLocations(loc);
+	      
+	        
 			Log.i("String", "DONE");
 		}
 

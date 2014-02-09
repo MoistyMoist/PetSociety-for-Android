@@ -23,11 +23,11 @@ public class CreateLocationRequest implements Runnable{
 	private String desc;
 	private String address;
 	private String type;
-	private float x;
-	private float y;
+	private double x;
+	private double y;
 	private int userID;
 	
-	public CreateLocationRequest(float x, float y, String desc, String title, String address, String type, int userID) {
+	public CreateLocationRequest(double x, double y, String desc, String title, String address, String type, int userID) {
 		super();
 		this.title = title;
 		this.desc = desc;

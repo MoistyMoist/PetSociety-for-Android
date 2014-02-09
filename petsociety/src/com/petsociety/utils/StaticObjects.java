@@ -1,5 +1,8 @@
 package com.petsociety.utils;
+import java.util.ArrayList;
 import java.util.List;
+
+import android.provider.MediaStore.Images;
 
 import com.petsociety.models.*;;
 
@@ -51,7 +54,7 @@ public class StaticObjects {
 	static Event selectedEvent;
 	
 	//LOCATION OBJECTS (SHAHRIKIN)
-	static List<Location> locations;
+	static ArrayList<Location> locations;
 	static Location selectedLocation;
 	static List<Stray> strays;
 	static Stray selectedStray;
@@ -59,7 +62,9 @@ public class StaticObjects {
 	static Review selectReview;
 	static Location desc;
 	static Location address;
+	
 	static Location title;
+	static ArrayList<Images> imagesList;
 	
 	//LOST OBJECTS (CHOON SENG)
 	static List<Lost> losts;
@@ -264,10 +269,10 @@ public class StaticObjects {
 	public static void setSelectedEvent(Event selectedEvent) {
 		StaticObjects.selectedEvent = selectedEvent;
 	}
-	public static List<Location> getLocations() {
+	public static ArrayList<Location> getLocations() {
 		return locations;
 	}
-	public static void setLocations(List<Location> locations) {
+	public static void setLocations(ArrayList<Location> locations) {
 		StaticObjects.locations = locations;
 	}
 	public static Location getSelectedLocation() {
@@ -337,7 +342,17 @@ public class StaticObjects {
 	public static void setType(Location type) {
 		StaticObjects.type = type;
 	}
+	
+	public static ArrayList<Images> getImagesList() {
+		return imagesList;
+	}
+	public static void setImagesList(ArrayList<Images> imagesList) {
+		StaticObjects.imagesList = imagesList;
+	}
+	
 	static Location type;
+	
+	
 	
 	
 	//For logout, set all null

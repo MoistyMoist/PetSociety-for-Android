@@ -609,19 +609,15 @@ public class JSONExtractor {
             String url=part1.replace("<ImageModel xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://schemas.datacontract.org/2004/07/BarterTradingWebServices.Model\"><Data>", "");
             
             Log.i("JSON", url);
-//            if(StaticObjects.getSelectedLocation().getGallery()!=null)
-//            {
-//            	Image im= new Image();
-//            	im.setImageURL(url.replace(" ", "%2520"));
-//            	List<Image> images = new List<Image>();
-//            	images.add(im);
-//            	StaticObjects.getSelectedLocation().getGallery().setImages(images);
-//            	//StaticObjects.getSelectedLocation().getGallery().(url.replace(" ", "%2520"));
-//            }
-//            if(StaticObjects.getProductToCreate()!=null)
-//            {
-//            	StaticObjects.getProductToCreate().setImageURL(url.replace(" ", "%2520"));
-//            }
+            if(StaticObjects.getSelectedLocation().getGallery()!=null)
+            {
+            	Image im= new Image();
+            	im.setImageURL(url.replace(" ", "%2520"));
+            	ArrayList<Image> images = new ArrayList<Image>();
+            	images.add(im);
+            	StaticObjects.getSelectedLocation().getGallery().setImages(images);
+            	
+            }
             instream.close();
         }
 	}
@@ -721,7 +717,24 @@ public class JSONExtractor {
 	            instream.close();
 	        }
 		}
-
+		
+		public void ExtractUpdateLocation(HttpResponse data)throws IllegalStateException, IOException, JSONException {
+			
+			HttpEntity entity = data.getEntity();
+	        
+	        if (entity != null) {
+	            InputStream instream = entity.getContent();
+	            String result= convertStreamToString(instream);
+	            
+	            JSONObject json = null;
+	            json = new JSONObject(result);
+	            Log.i("Search result",result);	        
+	            
+	           instream.close();
+	        }
+		}
+		
+		
 		public void ExtractPolyLineRequest(HttpResponse data)throws IllegalStateException, IOException, JSONException {
 			
 			HttpEntity entity = data.getEntity();

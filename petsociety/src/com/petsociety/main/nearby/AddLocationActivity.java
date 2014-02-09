@@ -1,5 +1,9 @@
 package com.petsociety.main.nearby;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 import com.example.petsociety.R;
 import com.example.petsociety.R.layout;
 import com.example.petsociety.R.menu;
@@ -11,6 +15,8 @@ import com.petsociety.main.lost.ReportLostPetLocation;
 import com.petsociety.utils.StaticObjects;
 
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -32,7 +38,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 	
 	EditText etAddTitle,etAddAddress,etAddDescription, etAddWebsite, etAddPhone;
 	String  type = "Vet" ;
-	float x, y;
+	double x,y;
 	int userID=StaticObjects.getCurrentUser().getUserID();
 	
 	Button btnAddLocation,btnGetAddress;
@@ -62,7 +68,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();
 				//intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-				intent.setClass(context, SetAddLocationActivity.class);
+				intent.setClass(context, ReportLostPetLocation.class);
 				//startActivity(intent);
 				startActivityForResult(intent, 1);
 				
@@ -136,7 +142,47 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 			return null;
 		}
 	 }
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		//Toast.makeText(getApplicationContext(), "passeed", Toast.LENGTH_SHORT).show();
+		x = data.getDoubleExtra("x", 1.3);
+		y = data.getDoubleExtra("y", 103.8);
+		getMyLocationAddress();
+	}
 	
+	
+public void getMyLocationAddress() {
+        
+        Geocoder geocoder= new Geocoder(this, Locale.ENGLISH);
+         
+        try {
+              //Place your latitude and longitude
+              List<Address> addresses = geocoder.getFromLocation(x, y, 1);
+              if(addresses != null) {
+               
+                  Address fetchedAddress = addresses.get(0);
+                  StringBuilder strAddress = new StringBuilder();
+                
+                  for(int i=0; i<fetchedAddress.getMaxAddressLineIndex(); i++) {
+                        strAddress.append(fetchedAddress.getAddressLine(i));
+                        //Log.i("Address", fetchedAddress.getAddressLine(i));
+                  }
+                  
+                  etAddAddress.setText(strAddress.toString());
+              }
+               
+              else{
+            	  etAddAddress.setText("No location found");
+              }
+          
+        } 
+        catch (IOException e) {
+                 // TODO Auto-generated catch block
+                 e.printStackTrace();
+                 Toast.makeText(getApplicationContext(),"Could not get address..!", Toast.LENGTH_LONG).show();
+        }
+    }
 	
 	
 
