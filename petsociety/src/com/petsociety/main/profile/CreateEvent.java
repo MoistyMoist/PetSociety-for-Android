@@ -2,9 +2,7 @@ package com.petsociety.main.profile;
 
 import com.example.petsociety.R;
 import com.petsociety.httprequests.CreateEventRequest;
-import com.petsociety.httprequests.CreateLostRequest;
 import com.petsociety.main.lost.ReportLostPetLocation;
-import com.petsociety.main.lost.ReportLostPetActivity.LostBackgroundTask;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -58,6 +56,7 @@ public class CreateEvent extends Activity {
 				Intent intent = new Intent();
 				//intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 				intent.setClass(context, ReportLostPetLocation.class);
+				//startActivity(intent);
 				startActivityForResult(intent, 1);
 			}
 		});
@@ -67,8 +66,9 @@ public class CreateEvent extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				CreateEventRequest createEventRequest = new CreateEventRequest(et_date.getText().toString()+"T"+et_time.getText().toString(), et_address.getText().toString(), et_desc.getText().toString(), Double.toString(x),Double.toString(y),et_reward.getText().toString());
-				new LostBackgroundTask().execute(createEventRequest, null);			}
+				// TODO Auto-generated method stub
+			}
+			
 		});
 	}
 	
