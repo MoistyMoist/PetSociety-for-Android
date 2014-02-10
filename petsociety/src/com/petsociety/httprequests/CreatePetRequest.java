@@ -55,11 +55,11 @@ public class CreatePetRequest implements Runnable{
 		
 		
 		httpget = new HttpGet("http://petsociety.cloudapp.net/api/AddPet?INname="+ name
-								+"&INbreed=" + breed
-								+"&INtype=" + type
+								+"&INbreed=" + breed.replace(" ", "%20")
+								+"&INtype=" + type.replace(" ", "%20")
 								+"&INsex=" + sex
 								+"&INage=" + age
-								+"&INbiography=" + bio
+								+"&INbiography=" + bio.replace(" ", "%20")
 								+"&INUserID=" + staticObjects.getCurrentUser().getUserID()
 								+"&INimageID=" + null
 								+"&INpinID=" + null);
