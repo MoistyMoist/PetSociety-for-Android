@@ -89,8 +89,9 @@ public class ReportLostPetActivity extends FragmentActivity {
 			Toast.makeText(getApplicationContext(), "Please add a pet.", Toast.LENGTH_SHORT).show();
 			finish();
 		}
-		
-		pet = petList.get(0);
+		else{
+			pet = petList.get(0);
+		}
 		
 		adapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list);
 		spin_type.setAdapter(adapter);

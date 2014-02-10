@@ -4,6 +4,7 @@ import com.example.petsociety.R;
 import com.example.petsociety.R.layout;
 import com.example.petsociety.R.menu;
 import com.petsociety.httprequests.CreateUserRequest;
+import com.petsociety.httprequests.LoginRequest;
 import com.petsociety.main.MainActivity;
 
 import android.os.AsyncTask;
@@ -21,6 +22,7 @@ public class RegisterActivity extends Activity {
 
 	Button b_reg;
 	EditText name,pass,email,sex;
+	String username, password;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +42,13 @@ public class RegisterActivity extends Activity {
 				// TODO Auto-generated method stub
 				Toast.makeText(getBaseContext(), "Registered", Toast.LENGTH_SHORT).show();
 				
-				CreateUserRequest createUserRequest = new CreateUserRequest(name.getText().toString(),pass.getText().toString(),email.getText().toString(),sex.getText().toString());
+				username = email.getText().toString();
+				password = pass.getText().toString();
+				
+				CreateUserRequest createUserRequest = new CreateUserRequest(name.getText().toString(),password,username,sex.getText().toString());
 				new BackgroundTask().execute(createUserRequest, null);
 				
-				Intent intent = new Intent();
-				intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-				intent.setClass(getBaseContext(), MainActivity.class);
-				startActivity(intent);
+				
 			}
 			
 		});
@@ -59,7 +61,8 @@ public class RegisterActivity extends Activity {
 			
 			super.onPostExecute(result);
 			Toast.makeText(getApplicationContext(), "Added", Toast.LENGTH_SHORT).show();
-			finish();
+			LoginRequest retrieveUserRequest = new LoginRequest(username,password);
+			new GetUserLogin().execute( retrieveUserRequest,null);
 						
 		}
 
@@ -72,6 +75,35 @@ public class RegisterActivity extends Activity {
 		@Override
 		protected Long doInBackground(Runnable... task) {
 			
+			for(int i=0; i<task.length;i++)
+			{
+				if(task[i]!=null)
+					task[i].run();
+				if (isCancelled()) break;
+			}
+			return null;
+		}
+	 }
+	
+private class GetUserLogin extends AsyncTask<Runnable, Integer, Long> {
+	    
+		@Override
+		protected void onPostExecute(Long result) {
+			//super.onPostExecute(result);		
+			finish();
+			Intent intent = new Intent();
+			intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+			intent.setClass(getBaseContext(), MainActivity.class);
+			startActivity(intent);
+		}
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Long doInBackground(Runnable... task) {
 			for(int i=0; i<task.length;i++)
 			{
 				if(task[i]!=null)
