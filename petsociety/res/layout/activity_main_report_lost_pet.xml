@@ -16,6 +16,11 @@
    	 	android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <Spinner
+        android:id="@+id/spLost"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+        
         <EditText
             android:id="@+id/et_lost_desc"
             android:layout_width="match_parent"

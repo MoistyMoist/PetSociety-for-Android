@@ -1,6 +1,7 @@
 package com.petsociety.main.lost;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -8,6 +9,7 @@ import java.util.Locale;
 import com.example.petsociety.R;
 import com.petsociety.httprequests.CreateLostRequest;
 import com.petsociety.main.MainActivity;
+import com.petsociety.models.Pet;
 import com.petsociety.utils.StaticObjects;
 
 import android.annotation.SuppressLint;
@@ -27,6 +29,9 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -43,10 +48,14 @@ public class ReportLostPetActivity extends FragmentActivity {
 	Button report_lost, b_lost_location;
 	EditText et_date, et_time;
 	EditText et_desc, et_reward, et_address;
+	ArrayAdapter<String> adapter;
+
 	//ArrayAdapter<CharSequence> adapter;
 	//String[] spinItems = {"Dog","Cat","Bird"};
 	Context context = this;
 	double x,y;
+	List<Pet> petList;
+	Pet pet;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -64,6 +73,43 @@ public class ReportLostPetActivity extends FragmentActivity {
 		et_reward = (EditText) findViewById(R.id.et_lost_reward);	
 		et_desc = (EditText) findViewById(R.id.et_lost_desc);
 		et_address = (EditText) findViewById(R.id.et_lost_address);
+		spin_type = (Spinner) findViewById(R.id.spLost);
+		
+		ArrayList<String> list = new ArrayList<String>();
+		
+		petList = new ArrayList<Pet>();
+		for(int i=0; i<StaticObjects.getPets().size();i++){
+			if(StaticObjects.getCurrentUser().getUserID()==StaticObjects.getPets().get(i).getUserID()){
+				petList.add(StaticObjects.getPets().get(i));
+				list.add(StaticObjects.getPets().get(i).getName());
+			}
+		}
+		
+		if(petList.size()==0){
+			Toast.makeText(getApplicationContext(), "Please add a pet.", Toast.LENGTH_SHORT).show();
+			finish();
+		}
+		
+		pet = petList.get(0);
+		
+		adapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list);
+		spin_type.setAdapter(adapter);
+		
+		spin_type.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				// TODO Auto-generated method stub
+				pet = petList.get(arg2);
+				//Toast.makeText(getApplicationContext(), ""+arg2, Toast.LENGTH_SHORT).show();
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				
+			}});
 		
 		b_lost_location.setOnClickListener(new OnClickListener(){
 			@Override
@@ -79,7 +125,7 @@ public class ReportLostPetActivity extends FragmentActivity {
 		report_lost.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {	
-				CreateLostRequest createLostRequest = new CreateLostRequest(et_date.getText().toString()+"T"+et_time.getText().toString(), et_address.getText().toString(), et_desc.getText().toString(), Double.toString(x),Double.toString(y),et_reward.getText().toString());
+				CreateLostRequest createLostRequest = new CreateLostRequest(pet.getPetID(), et_date.getText().toString()+"T"+et_time.getText().toString(), et_address.getText().toString(), et_desc.getText().toString(), Double.toString(x),Double.toString(y),et_reward.getText().toString());
 				new LostBackgroundTask().execute(createLostRequest, null);
 			}
 		});

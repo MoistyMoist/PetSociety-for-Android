@@ -23,10 +23,12 @@ public class CreateLostRequest implements Runnable{
 	private String x;
 	private String y;
 	private String reward;
+	private int petID;
 	
-	public CreateLostRequest(String dateTime, String address, String desc, String x, String y, String reward)
+	public CreateLostRequest(int petID, String dateTime, String address, String desc, String x, String y, String reward)
 	{
 		staticObjects= new StaticObjects();
+		this.petID = petID;
 		this.dateTime = dateTime;
 		this.address = address;
 		this.desc = desc;
@@ -53,7 +55,7 @@ public class CreateLostRequest implements Runnable{
 								+"&INy=" + y
 								+"&INfound=" + "0"
 								+"&INreward=" + reward
-								+"&INpetID=" + "1" 
+								+"&INpetID=" + petID
 								+"&INuserID=" + staticObjects.getCurrentUser().getUserID());
 		
         Log.i("RETRIEVE ALL LOST :",httpget.getURI().toString());

@@ -7,6 +7,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.example.petsociety.R;
 import com.petsociety.httprequests.RetrieveAllLostRequest;
 import com.petsociety.main.MainBaseActivity;
+import com.petsociety.main.profile.PetProfile;
 import com.petsociety.models.Event;
 import com.petsociety.models.Lost;
 import com.petsociety.models.Pet;
@@ -61,8 +62,8 @@ public class LostActivity extends MainBaseActivity {
 					long arg3) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();
-				intent.setClass(getBaseContext(), LostProfileActivity.class);
-				int petID = ((Pet)arg0.getItemAtPosition(arg2)).getPetID();
+				intent.setClass(getBaseContext(), PetProfile.class);
+				int petID = ((Lost)arg0.getItemAtPosition(arg2)).getPet().getPetID();
 				intent.putExtra("pet", petID);
 				startActivity(intent);
 			}});
